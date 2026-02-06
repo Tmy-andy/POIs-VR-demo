@@ -1,0 +1,635 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - VR360 Hotel Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-hotel"></i></div>
+                <div class="logo-text">Link Hotel VR</div>
+            </div>
+        </div>
+        <div class="property-selector">
+            <div class="property-label">Current Hotel</div>
+            <div class="property-name">Link Hotel VR360</div>
+        </div>
+        
+        <nav class="nav-menu">
+            <div class="nav-section">
+                <div class="nav-section-title">MANAGEMENT</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="introduction.html" class="nav-item"><i class="fas fa-info-circle"></i> Introduction</a>
+                <a href="rooms.html" class="nav-item"><i class="fas fa-bed"></i> Rooms</a>
+                <a href="dining.html" class="nav-item"><i class="fas fa-utensils"></i> Dining</a>
+                <a href="vouchers.html" class="nav-item"><i class="fas fa-ticket-alt"></i> Offers</a>
+                <a href="facilities.html" class="nav-item"><i class="fas fa-swimming-pool"></i> Facilities</a>
+                <a href="policies.html" class="nav-item"><i class="fas fa-file-contract"></i> Policies</a>
+                <a href="rules.html" class="nav-item"><i class="fas fa-book-open"></i> Rules</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Contact</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">SETTINGS</div>
+                <a href="settings.html" class="nav-item active"><i class="fas fa-cog"></i> Settings</a>
+                <a href="https://hotel-vr-demo.netlify.app/" class="nav-item" target="_blank"><i class="fas fa-eye"></i>
+                    View Website</a>
+                <a href="#" class="nav-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <h1 class="page-title">Settings</h1>
+        </div>
+        <div class="header-right">
+            <div class="user-menu">
+                <div class="user-avatar">AD</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert">
+            <i class="fas fa-check-circle"></i>
+            <span>Settings saved successfully!</span>
+        </div>
+
+        <!-- General Settings -->
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title"><i class="fas fa-cog"></i> General Settings</div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="form-label">Hotel Name (VI)</label>
+                    <input type="text" class="form-input" id="hotelNameVi" value="Link Hotel VR360"
+                        placeholder="Tên khách sạn">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Hotel Name (EN)</label>
+                    <input type="text" class="form-input" id="hotelNameEn" value="Link Hotel VR360"
+                        placeholder="Hotel name">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Slogan/Tagline (VI)</label>
+                    <input type="text" class="form-input" id="sloganVi"
+                        value="Trải nghiệm sang trọng với công nghệ VR360">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Slogan/Tagline (EN)</label>
+                    <input type="text" class="form-input" id="sloganEn" value="Luxury Experience with VR360 Technology">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Default Language</label>
+                        <select class="form-select" id="defaultLang">
+                            <option value="vi">Vietnamese</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Timezone</label>
+                        <select class="form-select" id="timezone">
+                            <option value="Asia/Ho_Chi_Minh" selected>Vietnam (GMT+7)</option>
+                            <option value="Asia/Bangkok">Bangkok (GMT+7)</option>
+                            <option value="Asia/Singapore">Singapore (GMT+8)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Currency</label>
+                        <select class="form-select" id="currency">
+                            <option value="VND" selected>VND - Vietnamese Dong</option>
+                            <option value="USD">USD - US Dollar</option>
+                            <option value="EUR">EUR - Euro</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logo & Branding -->
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title"><i class="fas fa-image"></i> Logo & Branding</div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="form-label">Hotel Logo</label>
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div
+                            style="width: 120px; height: 120px; border: 2px dashed #d1d5db; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: #f9fafb;">
+                            <i class="fas fa-image" style="font-size: 32px; color: #9ca3af;"></i>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary" onclick="document.getElementById('logoInput').click()">
+                                <i class="fas fa-upload"></i> Upload Logo
+                            </button>
+                            <input type="file" id="logoInput" style="display: none;" accept="image/*">
+                            <p class="form-help" style="margin-top: 8px;">
+                                Recommended: PNG with transparent background, size 400x400px
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Favicon</label>
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div
+                            style="width: 64px; height: 64px; border: 2px dashed #d1d5db; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: #f9fafb;">
+                            <i class="fas fa-star" style="font-size: 24px; color: #9ca3af;"></i>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary" onclick="document.getElementById('faviconInput').click()">
+                                <i class="fas fa-upload"></i> Upload Favicon
+                            </button>
+                            <input type="file" id="faviconInput" style="display: none;" accept="image/*">
+                            <p class="form-help" style="margin-top: 8px;">
+                                Recommended: ICO or PNG, size 32x32px
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Primary Color</label>
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <input type="color" id="primaryColor" value="#3b82f6"
+                            style="width: 60px; height: 40px; border-radius: 8px; border: 1px solid #d1d5db; cursor: pointer;">
+                        <input type="text" class="form-input" value="#3b82f6" readonly style="width: 120px;">
+                        <p class="form-help" style="margin: 0;">This color will be used for buttons, links, highlights</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Language Management -->
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title"><i class="fas fa-language"></i> Language Management</div>
+                <button class="btn btn-primary" onclick="addLanguage()">
+                    <i class="fas fa-plus"></i> Add Language
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info" style="margin-bottom: 20px;">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Manage languages for your website. Vietnamese is the default language and cannot be removed.</span>
+                </div>
+
+                <div id="languagesList">
+                    <!-- Default Language - Vietnamese only -->
+                    <div class="language-item" style="display: flex; align-items: center; justify-content: space-between; padding: 16px; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 12px; background: #f8fafc;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-check-circle" style="color: #10b981; font-size: 20px;"></i>
+                            <div>
+                                <div style="font-weight: 600; color: #0f172a;">Vietnamese (VI)</div>
+                                <div style="font-size: 12px; color: #64748b;">Default language - Cannot be removed</div>
+                            </div>
+                        </div>
+                        <span class="badge" style="background: #10b981; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px;">Active</span>
+                    </div>
+
+                    <!-- Additional Languages will be added here (including English) -->
+                    <div id="additionalLanguages"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title"><i class="fas fa-address-card"></i> Contact Information</div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="form-label">Address</label>
+                    <input type="text" class="form-input" id="address" value="123 Trần Phú, Phường 5, TP. Vũng Tàu">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-input" id="phone" value="+84 254 123 4567">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" id="email" value="info@linkhotelvr.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Website</label>
+                        <input type="url" class="form-input" id="website" value="https://linkhotelvr.com">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Social Media</label>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                        <div>
+                            <label style="font-size: 12px; color: #64748b; margin-bottom: 4px; display: block;">
+                                <i class="fab fa-facebook"></i> Facebook
+                            </label>
+                            <input type="url" class="form-input" placeholder="https://facebook.com/yourpage">
+                        </div>
+                        <div>
+                            <label style="font-size: 12px; color: #64748b; margin-bottom: 4px; display: block;">
+                                <i class="fab fa-instagram"></i> Instagram
+                            </label>
+                            <input type="url" class="form-input" placeholder="https://instagram.com/yourpage">
+                        </div>
+                        <div>
+                            <label style="font-size: 12px; color: #64748b; margin-bottom: 4px; display: block;">
+                                <i class="fab fa-youtube"></i> YouTube
+                            </label>
+                            <input type="url" class="form-input" placeholder="https://youtube.com/yourchannel">
+                        </div>
+                        <div>
+                            <label style="font-size: 12px; color: #64748b; margin-bottom: 4px; display: block;">
+                                <i class="fab fa-tripadvisor"></i> TripAdvisor
+                            </label>
+                            <input type="url" class="form-input" placeholder="https://tripadvisor.com/yourhotel">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO Settings -->
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title"><i class="fas fa-search"></i> Settings SEO</div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="form-label">Meta Title (VI)</label>
+                    <input type="text" class="form-input" value="Link Hotel VR360 - Khách sạn 5 sao Vũng Tàu"
+                        maxlength="60">
+                    <p class="form-help">60 characters - Displayed on Google search results</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Meta Description (VI)</label>
+                    <textarea class="form-textarea" rows="2"
+                        maxlength="160">Experience a 5-star hotel with VR360 technology. Explore luxurious Rooms and premium Facilities in the heart of Vung Tau.</textarea>
+                    <p class="form-help">160 characters - Short Description about the hotel</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Keywords (VI)</label>
+                    <input type="text" class="form-input"
+                        value="khách sạn vũng tàu, hotel vr360, khách sạn 5 sao, book hotel">
+                    <p class="form-help">Keywords separated by commas</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display: flex; gap: 12px; margin-top: 24px;">
+            <button class="btn btn-primary" onclick="saveSettings()">
+                <i class="fas fa-save"></i> Save All Settings
+            </button>
+            <button class="btn btn-secondary" onclick="resetSettings()">
+                <i class="fas fa-undo"></i> Restore Defaults
+            </button>
+        </div>
+    </main>
+
+    <!-- Add Language Modal -->
+    <div class="modal" id="languageModal" style="display: none;">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3>Add New Language</h3>
+                <button class="close-btn" onclick="closeLanguageModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Select Language</label>
+                    <select class="form-select" id="newLanguage">
+                        <option value="">-- Choose a language --</option>
+                        <option value="en">English (EN)</option>
+                        <option value="zh">Chinese (中文)</option>
+                        <option value="ja">Japanese (日本語)</option>
+                        <option value="ko">Korean (한국어)</option>
+                        <option value="fr">French (Français)</option>
+                        <option value="de">German (Deutsch)</option>
+                        <option value="es">Spanish (Español)</option>
+                        <option value="ru">Russian (Русский)</option>
+                        <option value="th">Thai (ไทย)</option>
+                        <option value="id">Indonesian (Bahasa)</option>
+                        <option value="ms">Malay (Bahasa Melayu)</option>
+                        <option value="ar">Arabic (العربية)</option>
+                        <option value="it">Italian (Italiano)</option>
+                        <option value="pt">Portuguese (Português)</option>
+                    </select>
+                </div>
+                <div class="alert alert-info" style="margin-top: 16px;">
+                    <i class="fas fa-info-circle"></i>
+                    <span>After adding a language, you'll need to translate all content sections.</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeLanguageModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveLanguage()">
+                    <i class="fas fa-plus"></i> Add Language
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Language Confirmation Modal -->
+    <div class="modal" id="deleteLanguageModal" style="display: none;">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header" style="background: #fef2f2; border-bottom: 2px solid #fecaca;">
+                <h3 style="color: #dc2626; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Delete Language - Warning</span>
+                </h3>
+                <button class="close-btn" onclick="closeDeleteModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="alert" style="background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; margin-bottom: 20px;">
+                    <i class="fas fa-exclamation-circle" style="font-size: 20px;"></i>
+                    <div>
+                        <strong>⚠️ This action cannot be undone!</strong>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <p style="font-size: 16px; font-weight: 600; color: #0f172a; margin-bottom: 12px;">
+                        Are you sure you want to delete <strong id="deleteLangName" style="color: #dc2626;"></strong>?
+                    </p>
+                    <p style="color: #64748b; margin-bottom: 16px;">
+                        This will permanently remove:
+                    </p>
+                </div>
+
+                <div style="background: #f8fafc; border-left: 4px solid #dc2626; padding: 16px; border-radius: 4px;">
+                    <ul style="margin: 0; padding-left: 20px; color: #475569;">
+                        <li style="margin-bottom: 8px;"><strong>❌ All hotel introduction content</strong> in this language</li>
+                        <li style="margin-bottom: 8px;"><strong>❌ All room descriptions and details</strong> in this language</li>
+                        <li style="margin-bottom: 8px;"><strong>❌ All restaurant/dining information</strong> in this language</li>
+                        <li style="margin-bottom: 8px;"><strong>❌ All facilities descriptions</strong> in this language</li>
+                        <li style="margin-bottom: 8px;"><strong>❌ All policies and rules content</strong> in this language</li>
+                        <li style="margin-bottom: 8px;"><strong>❌ All other translated content</strong> in this language</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-info" style="margin-top: 20px; margin-bottom: 0;">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Visitors will no longer be able to view your website in this language.</span>
+                </div>
+            </div>
+            <div class="modal-footer" style="background: #f8fafc;">
+                <button class="btn btn-secondary" onclick="closeDeleteModal()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="btn btn-danger" onclick="confirmDeleteLanguage()" style="display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-trash"></i>
+                    <span>Yes, Delete This Language</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Language Management
+        let additionalLanguages = [];
+        let languageToDelete = null; // Store language to delete
+
+        function addLanguage() {
+            document.getElementById('languageModal').style.display = 'flex';
+        }
+
+        function closeLanguageModal() {
+            document.getElementById('languageModal').style.display = 'none';
+            document.getElementById('newLanguage').value = '';
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteLanguageModal').style.display = 'none';
+            languageToDelete = null;
+        }
+
+        function saveLanguage() {
+            const select = document.getElementById('newLanguage');
+            const langCode = select.value;
+            const langName = select.options[select.selectedIndex].text;
+
+            if (!langCode) {
+                alert('Please select a language');
+                return;
+            }
+
+            // Check if language already exists
+            if (additionalLanguages.find(l => l.code === langCode)) {
+                alert('This language has already been added');
+                return;
+            }
+
+            // Add to array
+            additionalLanguages.push({
+                code: langCode,
+                name: langName,
+                active: true
+            });
+
+            // Render list
+            renderAdditionalLanguages();
+
+            // Save to localStorage
+            localStorage.setItem('additional_languages', JSON.stringify(additionalLanguages));
+
+            // Close modal
+            closeLanguageModal();
+
+            // Show success
+            showSuccessAlert('Language added successfully!');
+        }
+
+        function removeLanguage(langCode) {
+            const lang = additionalLanguages.find(l => l.code === langCode);
+            if (!lang) return;
+            
+            // Store language to delete
+            languageToDelete = langCode;
+            
+            // Show delete confirmation modal
+            document.getElementById('deleteLangName').textContent = lang.name;
+            document.getElementById('deleteLanguageModal').style.display = 'flex';
+        }
+
+        function confirmDeleteLanguage() {
+            if (!languageToDelete) return;
+
+            const lang = additionalLanguages.find(l => l.code === languageToDelete);
+            
+            // Remove language
+            additionalLanguages = additionalLanguages.filter(l => l.code !== languageToDelete);
+            localStorage.setItem('additional_languages', JSON.stringify(additionalLanguages));
+            renderAdditionalLanguages();
+            
+            // Close modal
+            closeDeleteModal();
+            
+            // Show success
+            showSuccessAlert(`Language "${lang.name}" has been removed successfully!`);
+        }
+
+        function toggleLanguage(langCode) {
+            const lang = additionalLanguages.find(l => l.code === langCode);
+            if (lang) {
+                lang.active = !lang.active;
+                localStorage.setItem('additional_languages', JSON.stringify(additionalLanguages));
+                renderAdditionalLanguages();
+            }
+        }
+
+        function renderAdditionalLanguages() {
+            const container = document.getElementById('additionalLanguages');
+            
+            if (additionalLanguages.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #94a3b8;">
+                        <i class="fas fa-language" style="font-size: 48px; margin-bottom: 12px;"></i>
+                        <p>No additional languages added yet.</p>
+                        <p style="font-size: 14px;">Click "Add Language" to support more languages.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = additionalLanguages.map(lang => `
+                <div class="language-item" style="display: flex; align-items: center; justify-content: space-between; padding: 16px; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 12px; background: white;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <i class="fas fa-globe" style="color: #3b82f6; font-size: 20px;"></i>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a;">${lang.name}</div>
+                            <div style="font-size: 12px; color: #64748b;">Language Code: ${lang.code.toUpperCase()}</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span class="badge" style="background: ${lang.active ? '#10b981' : '#94a3b8'}; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px;">
+                            ${lang.active ? 'Active' : 'Inactive'}
+                        </span>
+                        <label class="toggle-switch" style="margin: 0;">
+                            <input type="checkbox" ${lang.active ? 'checked' : ''} onchange="toggleLanguage('${lang.code}')">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <button class="btn btn-danger" onclick="removeLanguage('${lang.code}')" title="Delete this language" style="padding: 8px 16px; display: flex; align-items: center; gap: 6px;">
+                            <i class="fas fa-trash"></i>
+                            <span>Delete</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showSuccessAlert(message) {
+            const alert = document.getElementById('successAlert');
+            alert.querySelector('span').textContent = message;
+            alert.classList.remove('hidden');
+            setTimeout(() => alert.classList.add('hidden'), 3000);
+        }
+
+        function saveSettings() {
+            // Collect all settings
+            const settings = {
+                hotel: {
+                    nameVi: document.getElementById('hotelNameVi').value,
+                    nameEn: document.getElementById('hotelNameEn').value,
+                    sloganVi: document.getElementById('sloganVi').value,
+                    sloganEn: document.getElementById('sloganEn').value,
+                },
+                general: {
+                    defaultLang: document.getElementById('defaultLang').value,
+                    timezone: document.getElementById('timezone').value,
+                    currency: document.getElementById('currency').value,
+                },
+                contact: {
+                    address: document.getElementById('address').value,
+                    phone: document.getElementById('phone').value,
+                    email: document.getElementById('email').value,
+                    website: document.getElementById('website').value,
+                }
+            };
+
+            // Save to localStorage (in production, send to API)
+            localStorage.setItem('hotel_settings', JSON.stringify(settings));
+
+            // Show success
+            const alert = document.getElementById('successAlert');
+            alert.classList.remove('hidden');
+            setTimeout(() => alert.classList.add('hidden'), 3000);
+
+            console.log('Settings saved:', settings);
+        }
+
+        function resetSettings() {
+            if (confirm('Bạn có chắc muốn khôi phục SETTINGS mặc định? Tất cả thay đổi sẽ bị mất.')) {
+                localStorage.removeItem('hotel_settings');
+                location.reload();
+            }
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('logged_in');
+                sessionStorage.removeItem('logged_in');
+                Auth.logout();
+            }
+        }
+
+        // Load saved settings
+        window.addEventListener('DOMContentLoaded', () => {
+            // Load additional languages
+            const savedLangs = localStorage.getItem('additional_languages');
+            if (savedLangs) {
+                additionalLanguages = JSON.parse(savedLangs);
+                renderAdditionalLanguages();
+            } else {
+                renderAdditionalLanguages();
+            }
+
+            // Load other settings
+            const saved = localStorage.getItem('hotel_settings');
+            if (saved) {
+                const settings = JSON.parse(saved);
+                // Populate form with saved values
+                if (settings.hotel) {
+                    document.getElementById('hotelNameVi').value = settings.hotel.nameVi || '';
+                    document.getElementById('hotelNameEn').value = settings.hotel.nameEn || '';
+                    document.getElementById('sloganVi').value = settings.hotel.sloganVi || '';
+                    document.getElementById('sloganEn').value = settings.hotel.sloganEn || '';
+                }
+                // ... load other settings
+            }
+        });
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = '../index.html';
+            }
+        }
+    </script>
+</body>
+
+</html>

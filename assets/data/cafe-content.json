@@ -1,0 +1,425 @@
+{
+  "settings": {
+    "showPrice": true,
+    "currency": "đ",
+    "bookingEnabled": true,
+    "bookingType": "reserve",
+    "bookingLabel": "Đặt bàn"
+  },
+  "home": {
+    "title": "Trang Chủ",
+    "content": "Chào mừng bạn đến với Coffee House - nơi mỗi tách cà phê là một câu chuyện.\n\nChúng tôi tự hào mang đến những hạt cà phê được chọn lọc kỹ càng từ các vùng cao nguyên Việt Nam, rang xay thủ công và pha chế với tất cả đam mê.\n\n☕ Mở cửa: 7:00 - 23:00 hàng ngày\n📍 Nhiều chi nhánh trên toàn quốc"
+  },
+  "about": {
+    "title": "Giới Thiệu",
+    "content": "Coffee House được thành lập năm 2015 với tình yêu dành cho cà phê Việt Nam.\n\n🌱 Nguồn gốc: 100% hạt cà phê Arabica & Robusta từ Đà Lạt, Buôn Ma Thuột\n\n👨‍🍳 Đội ngũ barista được đào tạo chuyên nghiệp\n\n🏆 Giải thưởng: Top 10 quán cafe đẹp nhất Việt Nam 2025\n\n💚 Cam kết: Cà phê sạch, không hóa chất, thân thiện môi trường"
+  },
+  "menu": {
+    "title": "Menu",
+    "type": "list",
+    "items": [
+      {
+        "id": "traditional",
+        "name": "Cà Phê Truyền Thống",
+        "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400&q=80",
+        "shortDesc": "Đậm đà hương vị Việt Nam với phin truyền thống...",
+        "type": "category",
+        "subItems": [
+          {"name": "Cà phê đen đá", "price": "25.000", "desc": "Đậm đà, đắng nhẹ"},
+          {"name": "Cà phê sữa đá", "price": "29.000", "desc": "Béo ngậy sữa đặc"},
+          {"name": "Bạc xỉu", "price": "32.000", "desc": "Nhiều sữa, ít cà phê"},
+          {"name": "Cà phê trứng", "price": "39.000", "desc": "Đặc sản Hà Nội"},
+          {"name": "Cà phê cốt dừa", "price": "35.000", "desc": "Béo thơm cốt dừa"}
+        ]
+      },
+      {
+        "id": "specialty",
+        "name": "Cà Phê Đặc Sản",
+        "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80",
+        "shortDesc": "Specialty coffee từ các vùng đất nổi tiếng...",
+        "type": "category",
+        "subItems": [
+          {"name": "Espresso", "price": "35.000", "desc": "Shot đậm đặc Ý"},
+          {"name": "Americano", "price": "39.000", "desc": "Espresso + nước nóng"},
+          {"name": "Cappuccino", "price": "45.000", "desc": "Espresso + sữa tươi bọt mịn"},
+          {"name": "Latte", "price": "49.000", "desc": "Espresso + sữa tươi"},
+          {"name": "Mocha", "price": "52.000", "desc": "Espresso + chocolate + sữa"},
+          {"name": "Affogato", "price": "55.000", "desc": "Espresso + kem vani"}
+        ]
+      },
+      {
+        "id": "tea",
+        "name": "Trà & Trà Sữa",
+        "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80",
+        "shortDesc": "Trà thượng hạng và trà sữa đậm vị...",
+        "type": "category",
+        "subItems": [
+          {"name": "Trà đào cam sả", "price": "39.000", "desc": "Best seller"},
+          {"name": "Trà vải lychee", "price": "39.000", "desc": "Ngọt thanh mát lạnh"},
+          {"name": "Trà sữa trân châu", "price": "42.000", "desc": "Trân châu đen dẻo"},
+          {"name": "Trà sữa matcha", "price": "45.000", "desc": "Matcha Nhật Bản"},
+          {"name": "Trà ô long sữa", "price": "42.000", "desc": "Ô long thượng hạng"},
+          {"name": "Hồng trà latte", "price": "45.000", "desc": "Hồng trà Ceylon"}
+        ]
+      },
+      {
+        "id": "juice",
+        "name": "Nước Trái Cây & Detox",
+        "image": "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=400&q=80",
+        "shortDesc": "Tươi mát, bổ dưỡng từ trái cây tự nhiên...",
+        "type": "category",
+        "subItems": [
+          {"name": "Cam vắt", "price": "35.000", "desc": "Cam tươi 100%"},
+          {"name": "Dưa hấu", "price": "32.000", "desc": "Mát lạnh giải khát"},
+          {"name": "Ép cần tây táo", "price": "45.000", "desc": "Detox giảm cân"},
+          {"name": "Sinh tố bơ", "price": "42.000", "desc": "Béo ngậy dinh dưỡng"},
+          {"name": "Nước ép rau má", "price": "35.000", "desc": "Thanh nhiệt giải độc"}
+        ]
+      },
+      {
+        "id": "coldbrew",
+        "name": "Đá Xay & Cold Brew",
+        "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&q=80",
+        "shortDesc": "Mát lạnh sảng khoái cho ngày hè...",
+        "type": "category",
+        "subItems": [
+          {"name": "Cold brew original", "price": "45.000", "desc": "Ủ lạnh 24 giờ"},
+          {"name": "Cold brew sữa", "price": "49.000", "desc": "Cold brew + sữa tươi"},
+          {"name": "Freeze trà xanh", "price": "49.000", "desc": "Đá xay trà xanh"},
+          {"name": "Freeze cookies", "price": "52.000", "desc": "Đá xay cookies cream"},
+          {"name": "Freeze chocolate", "price": "49.000", "desc": "Đá xay socola đậm"}
+        ]
+      },
+      {
+        "id": "cake",
+        "name": "Bánh Ngọt",
+        "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80",
+        "shortDesc": "Bánh tươi mỗi ngày, ngọt ngào tinh tế...",
+        "type": "category",
+        "subItems": [
+          {"name": "Tiramisu", "price": "45.000", "desc": "Cổ điển Ý"},
+          {"name": "Cheesecake", "price": "49.000", "desc": "Béo mịn tan chảy"},
+          {"name": "Croissant bơ", "price": "35.000", "desc": "Giòn xốp thơm bơ"},
+          {"name": "Bánh chuối", "price": "29.000", "desc": "Homemade"},
+          {"name": "Brownie", "price": "39.000", "desc": "Socola đậm đặc"}
+        ]
+      },
+      {
+        "id": "snack",
+        "name": "Đồ Ăn Nhẹ",
+        "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80",
+        "shortDesc": "Ăn kèm hoàn hảo cùng đồ uống...",
+        "type": "category",
+        "subItems": [
+          {"name": "Sandwich gà", "price": "45.000", "desc": "Gà xé + rau tươi"},
+          {"name": "Bánh mì pate", "price": "35.000", "desc": "Pate gan + chả lụa"},
+          {"name": "Salad trộn", "price": "49.000", "desc": "Rau xanh + sốt dầu giấm"},
+          {"name": "Khoai tây chiên", "price": "39.000", "desc": "Giòn rụm"},
+          {"name": "Gà viên chiên", "price": "45.000", "desc": "6 viên + sốt"}
+        ]
+      },
+      {
+        "id": "combo",
+        "name": "Combo & Best Seller",
+        "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&q=80",
+        "shortDesc": "Tiết kiệm hơn với combo yêu thích...",
+        "type": "category",
+        "highlight": true,
+        "subItems": [
+          {"name": "Combo sáng", "price": "59.000", "desc": "Cà phê + Croissant", "original": "64.000"},
+          {"name": "Combo trưa", "price": "79.000", "desc": "Sandwich + Nước ép", "original": "85.000"},
+          {"name": "Combo đôi", "price": "89.000", "desc": "2 đồ uống bất kỳ", "original": "98.000"},
+          {"name": "Combo sinh nhật", "price": "199.000", "desc": "4 đồ uống + Bánh", "original": "250.000"}
+        ]
+      },
+      {
+        "id": "seasonal",
+        "name": "Menu Theo Mùa",
+        "image": "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400&q=80",
+        "shortDesc": "Đặc biệt theo mùa, có giới hạn...",
+        "type": "category",
+        "badge": "NEW",
+        "subItems": [
+          {"name": "Latte Tết", "price": "55.000", "desc": "Quế + hồi + gừng"},
+          {"name": "Trà hoa đào", "price": "49.000", "desc": "Limited Spring"},
+          {"name": "Cà phê cam", "price": "52.000", "desc": "Espresso + nước cam"}
+        ]
+      },
+      {
+        "id": "healthy",
+        "name": "Menu Dinh Dưỡng",
+        "image": "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=400&q=80",
+        "shortDesc": "Healthy, Vegan, Keto - Lựa chọn lành mạnh...",
+        "type": "category",
+        "subItems": [
+          {"name": "Cà phê sữa hạnh nhân", "price": "52.000", "desc": "Vegan, không lactose"},
+          {"name": "Matcha sữa yến mạch", "price": "55.000", "desc": "Plant-based"},
+          {"name": "Smoothie bowl", "price": "65.000", "desc": "Acai + granola + trái cây"},
+          {"name": "Latte dừa Keto", "price": "49.000", "desc": "Không đường, MCT oil"}
+        ]
+      },
+      {
+        "id": "takeaway",
+        "name": "Menu Mang Đi",
+        "image": "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400&q=80",
+        "shortDesc": "Đóng gói tiện lợi, giữ nguyên hương vị...",
+        "type": "category",
+        "subItems": [
+          {"name": "Cà phê lon 250ml", "price": "29.000", "desc": "Tiện lợi mang đi"},
+          {"name": "Cold brew chai 500ml", "price": "69.000", "desc": "Bảo quản 7 ngày"},
+          {"name": "Trà đào chai 500ml", "price": "59.000", "desc": "Bảo quản 3 ngày"},
+          {"name": "Gói cà phê bột 250g", "price": "120.000", "desc": "Rang mộc nguyên chất"}
+        ]
+      }
+    ]
+  },
+  "space": {
+    "title": "Không Gian Quán",
+    "type": "list",
+    "items": [
+      {
+        "id": "overview",
+        "name": "Tổng Quan Không Gian",
+        "image": "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&q=80",
+        "shortDesc": "Thiết kế ấm cúng, hiện đại với gam màu trầm...",
+        "fullDesc": "Coffee House được thiết kế với phong cách Industrial kết hợp Scandinavian, tạo nên không gian vừa hiện đại vừa ấm cúng. Gam màu chủ đạo là nâu gỗ, xám bê tông và xanh cây, mang lại cảm giác gần gũi với thiên nhiên ngay giữa lòng thành phố.",
+        "features": ["Diện tích 300m²", "Sức chứa 80 khách", "Wifi tốc độ cao", "Máy lạnh", "Nhạc acoustic nhẹ"]
+      },
+      {
+        "id": "indoor",
+        "name": "Không Gian Trong Nhà",
+        "image": "https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=400&q=80",
+        "shortDesc": "Mát mẻ, yên tĩnh với ánh sáng tự nhiên...",
+        "fullDesc": "Khu vực trong nhà được bố trí khoa học với nhiều loại bàn ghế đa dạng: sofa đôi cho các cặp, bàn dài cho nhóm bạn, và góc riêng tư cho những ai cần không gian yên tĩnh. Cửa kính lớn đón ánh sáng tự nhiên, tạo không gian thoáng đãng.",
+        "features": ["Máy lạnh mát mẻ", "Ổ cắm điện mỗi bàn", "Ánh sáng điều chỉnh", "Ghế êm ái"]
+      },
+      {
+        "id": "outdoor",
+        "name": "Không Gian Ngoài Trời",
+        "image": "https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=400&q=80",
+        "shortDesc": "Hòa mình với thiên nhiên, cây xanh bao quanh...",
+        "fullDesc": "Sân vườn rộng rãi với cây xanh và hoa tươi, là lựa chọn hoàn hảo cho những ai yêu thích không gian mở. Có mái che và quạt mát, đảm bảo thoải mái ngay cả trong những ngày nắng.",
+        "features": ["Sân vườn 100m²", "Cây xanh & hoa", "Mái che & quạt", "Thích hợp chụp ảnh"]
+      },
+      {
+        "id": "workspace",
+        "name": "Không Gian Làm Việc",
+        "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&q=80",
+        "shortDesc": "Yên tĩnh, đầy đủ tiện nghi cho công việc...",
+        "fullDesc": "Khu vực làm việc được thiết kế riêng biệt với bàn ghế công thái học, ổ cắm điện tiện lợi, và wifi tốc độ cao. Không gian yên tĩnh, phù hợp cho freelancer, người làm remote work.",
+        "features": ["Bàn ghế công thái học", "Ổ cắm điện", "Wifi 100Mbps", "Yên tĩnh", "Có thể book cả ngày"]
+      },
+      {
+        "id": "study",
+        "name": "Không Gian Học Tập",
+        "image": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&q=80",
+        "shortDesc": "Góc học tập yên tĩnh cho sinh viên...",
+        "fullDesc": "Dành riêng cho học sinh, sinh viên với bàn rộng để trải sách vở, đèn đọc sách, và không gian yên tĩnh. Ưu đãi đặc biệt cho sinh viên có thẻ.",
+        "features": ["Bàn rộng cho sách vở", "Đèn đọc sách", "Yên tĩnh", "Giảm 10% cho sinh viên"]
+      },
+      {
+        "id": "private",
+        "name": "Phòng Riêng & Họp",
+        "image": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&q=80",
+        "shortDesc": "Phòng kín riêng tư cho họp nhóm, meeting...",
+        "fullDesc": "Phòng họp riêng sức chứa 8-12 người, có màn hình TV, bảng trắng, và thiết bị họp online. Phù hợp cho meeting công ty, họp nhóm, hoặc tiệc nhỏ.",
+        "features": ["Sức chứa 8-12 người", "TV 55 inch", "Bảng trắng", "Thiết bị họp online", "Có thể đặt trước"],
+        "price": "200.000",
+        "unit": "giờ"
+      },
+      {
+        "id": "night",
+        "name": "Không Gian Ban Đêm",
+        "image": "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400&q=80",
+        "shortDesc": "Lung linh ánh đèn, lãng mạn về đêm...",
+        "fullDesc": "Về đêm, quán khoác lên mình diện mạo mới với ánh đèn vàng ấm áp, nến thơm, và nhạc acoustic nhẹ nhàng. Không gian lãng mạn, phù hợp cho date night hoặc thư giãn sau ngày làm việc.",
+        "features": ["Ánh đèn lung linh", "Nến thơm", "Nhạc acoustic", "Lãng mạn", "Mở đến 23:00"]
+      }
+    ]
+  },
+  "branches": {
+    "title": "Chi Nhánh",
+    "type": "list",
+    "items": [
+      {
+        "id": "district1",
+        "name": "Coffee House Quận 1",
+        "image": "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=400&q=80",
+        "shortDesc": "Chi nhánh chính - Trung tâm thành phố",
+        "fullDesc": "Chi nhánh đầu tiên và lớn nhất của Coffee House, tọa lạc ngay trung tâm Quận 1. Không gian 3 tầng với đầy đủ các khu vực phục vụ mọi nhu cầu.",
+        "address": "123 Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP.HCM",
+        "phone": "028 1234 5678",
+        "hours": "7:00 - 23:00",
+        "mapUrl": "https://maps.google.com",
+        "features": ["3 tầng", "Có phòng họp", "Bãi xe máy", "Gần Bitexco"]
+      },
+      {
+        "id": "district3",
+        "name": "Coffee House Quận 3",
+        "image": "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&q=80",
+        "shortDesc": "Khu vực yên tĩnh, nhiều cây xanh",
+        "fullDesc": "Chi nhánh nằm trong khu biệt thự cũ, được cải tạo thành quán cafe phong cách vintage. Sân vườn rộng rãi với nhiều cây xanh.",
+        "address": "45 Võ Văn Tần, Phường 6, Quận 3, TP.HCM",
+        "phone": "028 2345 6789",
+        "hours": "7:00 - 22:30",
+        "mapUrl": "https://maps.google.com",
+        "features": ["Biệt thự cổ", "Sân vườn", "Yên tĩnh", "Có parking"]
+      },
+      {
+        "id": "district7",
+        "name": "Coffee House Quận 7",
+        "image": "https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=400&q=80",
+        "shortDesc": "Phú Mỹ Hưng - Hiện đại, tiện nghi",
+        "fullDesc": "Chi nhánh phục vụ khu vực Phú Mỹ Hưng với thiết kế hiện đại, sang trọng. Có khu vực làm việc riêng và phòng họp.",
+        "address": "89 Nguyễn Đức Cảnh, Phú Mỹ Hưng, Quận 7, TP.HCM",
+        "phone": "028 3456 7890",
+        "hours": "7:00 - 23:00",
+        "mapUrl": "https://maps.google.com",
+        "features": ["Khu đô thị mới", "Có phòng họp", "Bãi xe ô tô", "Gần Crescent Mall"]
+      },
+      {
+        "id": "thuduc",
+        "name": "Coffee House Thủ Đức",
+        "image": "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&q=80",
+        "shortDesc": "Gần các trường đại học, giá sinh viên",
+        "fullDesc": "Chi nhánh phục vụ sinh viên khu vực Thủ Đức với mức giá ưu đãi. Không gian học tập rộng rãi, wifi mạnh, có ưu đãi cho sinh viên.",
+        "address": "56 Đường số 1, Linh Chiểu, TP. Thủ Đức",
+        "phone": "028 4567 8901",
+        "hours": "6:30 - 23:00",
+        "mapUrl": "https://maps.google.com",
+        "features": ["Gần ĐH Nông Lâm", "Giảm 15% cho SV", "Không gian học tập", "Giá bình dân"]
+      }
+    ]
+  },
+  "events": {
+    "title": "Sự Kiện",
+    "type": "list",
+    "items": [
+      {
+        "id": "workshop",
+        "name": "Workshop Cà Phê",
+        "image": "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400&q=80",
+        "shortDesc": "Học pha cà phê từ barista chuyên nghiệp...",
+        "fullDesc": "Tham gia workshop để tìm hiểu về lịch sử cà phê, cách phân biệt hạt, và thực hành pha chế với barista chuyên nghiệp. Phù hợp cho người yêu thích cà phê muốn nâng cao kỹ năng.",
+        "schedule": "Mỗi Chủ Nhật, 9:00 - 11:00",
+        "price": "350.000",
+        "unit": "người",
+        "includes": ["Nguyên liệu", "Dụng cụ", "Giấy chứng nhận", "1 đồ uống"]
+      },
+      {
+        "id": "acoustic",
+        "name": "Acoustic & Live Music",
+        "image": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80",
+        "shortDesc": "Đêm nhạc acoustic ấm áp mỗi cuối tuần...",
+        "fullDesc": "Thưởng thức đêm nhạc acoustic với các nghệ sĩ trẻ tài năng. Không gian ấm cúng, ánh nến lung linh, và những bản ballad nhẹ nhàng.",
+        "schedule": "Thứ 6 & Thứ 7, 20:00 - 22:00",
+        "location": "Chi nhánh Quận 1",
+        "note": "Miễn phí tham gia, khuyến khích đặt bàn trước"
+      },
+      {
+        "id": "exhibition",
+        "name": "Triển Lãm Nghệ Thuật",
+        "image": "https://images.unsplash.com/photo-1531243269054-5ebf6f34081e?w=400&q=80",
+        "shortDesc": "Không gian nghệ thuật đương đại...",
+        "fullDesc": "Coffee House kết hợp với các nghệ sĩ trẻ tổ chức triển lãm tranh, ảnh theo chủ đề. Tháng này: 'Cà phê & Đô thị' - Góc nhìn về cuộc sống đô thị qua lăng kính cà phê.",
+        "duration": "01/02 - 28/02/2026",
+        "location": "Tầng 2 - Chi nhánh Quận 1",
+        "note": "Miễn phí tham quan"
+      },
+      {
+        "id": "seasonal",
+        "name": "Event Theo Mùa",
+        "image": "https://images.unsplash.com/photo-1482517967863-00e15c9b44be?w=400&q=80",
+        "shortDesc": "Valentine, Tết, Giáng sinh và các dịp đặc biệt...",
+        "fullDesc": "Các sự kiện đặc biệt theo mùa: Tiệc Countdown Năm Mới, Valentine Date Night, Tết Trung Thu, Halloween Party... Đăng ký để nhận thông báo sự kiện sắp tới!",
+        "upcoming": "Valentine 14/02 - Date Night với live music",
+        "note": "Ưu tiên thành viên, đặt chỗ trước 3 ngày"
+      },
+      {
+        "id": "calendar",
+        "name": "Lịch Sự Kiện",
+        "image": "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=400&q=80",
+        "shortDesc": "Xem tất cả sự kiện sắp diễn ra...",
+        "fullDesc": "📅 THÁNG 2/2026\n\n• 02/02: Workshop Latte Art\n• 07-08/02: Acoustic Night\n• 14/02: Valentine Date Night 💕\n• 16/02: Workshop Cold Brew\n• 21-22/02: Acoustic Night\n• 28/02: Kết thúc triển lãm 'Cà phê & Đô thị'"
+      }
+    ]
+  },
+  "contact": {
+    "title": "Liên Hệ",
+    "content": "📍 Địa chỉ: 123 Nguyễn Huệ, Quận 1, TP.HCM\n\n📞 Hotline: 1900 1234\n📱 Zalo: 0909 123 456\n📧 Email: hello@coffeehouse.vn\n🌐 Website: www.coffeehouse.vn\n\n🔗 Mạng xã hội:\n• Facebook: /coffeehousevn\n• Instagram: @coffeehouse.vn\n• TikTok: @coffeehouse.vn\n\n📝 Góp ý & Phản hồi:\nGửi email hoặc inbox trực tiếp qua fanpage, chúng tôi sẽ phản hồi trong 24 giờ."
+  },
+  "careers": {
+    "title": "Tuyển Dụng",
+    "type": "list",
+    "items": [
+      {
+        "id": "barista",
+        "name": "Barista",
+        "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
+        "shortDesc": "Pha chế cà phê - Full time / Part time",
+        "fullDesc": "Tìm kiếm các bạn trẻ yêu thích cà phê, năng động và sáng tạo. Được đào tạo bài bản về pha chế, latte art. Làm việc trong môi trường trẻ trung, nhiều cơ hội phát triển.",
+        "requirements": ["18-30 tuổi", "Ngoại hình ưa nhìn", "Giao tiếp tốt", "Chưa cần kinh nghiệm"],
+        "benefits": ["Lương 5-8 triệu", "Đào tạo miễn phí", "Thưởng doanh số", "Đồ uống miễn phí"],
+        "location": "Tất cả chi nhánh"
+      },
+      {
+        "id": "cashier",
+        "name": "Thu Ngân",
+        "image": "https://images.unsplash.com/photo-1556745757-8d76bdb6984b?w=400&q=80",
+        "shortDesc": "Thu ngân / Phục vụ - Full time",
+        "fullDesc": "Vị trí thu ngân kiêm phục vụ, đảm bảo trải nghiệm khách hàng hoàn hảo. Yêu cầu nhanh nhẹn, cẩn thận, và có tinh thần phục vụ.",
+        "requirements": ["18-35 tuổi", "Cẩn thận, trung thực", "Giao tiếp tốt", "Ưu tiên có kinh nghiệm"],
+        "benefits": ["Lương 6-8 triệu", "Đào tạo", "Thưởng tháng", "BHXH đầy đủ"],
+        "location": "Quận 1, Quận 7"
+      },
+      {
+        "id": "manager",
+        "name": "Quản Lý Quán",
+        "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80",
+        "shortDesc": "Store Manager - Full time",
+        "fullDesc": "Quản lý hoạt động chi nhánh, đảm bảo chất lượng dịch vụ và doanh số. Yêu cầu có kinh nghiệm quản lý F&B, kỹ năng leadership tốt.",
+        "requirements": ["25-40 tuổi", "2+ năm kinh nghiệm F&B", "Kỹ năng quản lý", "Tiếng Anh giao tiếp"],
+        "benefits": ["Lương 12-18 triệu", "Thưởng KPI", "Laptop công ty", "BHXH + Bảo hiểm sức khỏe"],
+        "location": "Quận 3"
+      }
+    ]
+  },
+  "promotion": {
+    "title": "Ưu Đãi & Thành Viên",
+    "content": "🎁 CHƯƠNG TRÌNH KHUYẾN MÃI\n\n☕ Happy Hour: Giảm 20% từ 14:00-17:00 (Thứ 2-5)\n🎂 Sinh nhật: Tặng 1 đồ uống miễn phí\n👥 Mua 5 tặng 1 cho thành viên\n📱 Đặt qua app: Giảm thêm 10%\n\n💳 THẺ THÀNH VIÊN\n\n• Silver: Tích 1 điểm / 10.000đ\n• Gold (500 điểm): Tích 1.5 điểm, giảm 5%\n• Platinum (1000 điểm): Tích 2 điểm, giảm 10%\n\n🎁 ĐỔI ĐIỂM\n• 50 điểm = 1 đồ uống size S\n• 100 điểm = 1 đồ uống size M\n• 200 điểm = 1 combo\n\n📲 Tải app để tích điểm và nhận ưu đãi!"
+  },
+  "gallery": {
+    "title": "Thư Viện",
+    "type": "list",
+    "items": [
+      {
+        "id": "album",
+        "name": "Album Ảnh",
+        "image": "https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=400&q=80",
+        "shortDesc": "Bộ sưu tập hình ảnh không gian & đồ uống...",
+        "fullDesc": "Khám phá vẻ đẹp của Coffee House qua bộ sưu tập hình ảnh: Không gian quán, các món đồ uống signature, góc check-in, và những khoảnh khắc đáng nhớ."
+      },
+      {
+        "id": "video",
+        "name": "Video",
+        "image": "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&q=80",
+        "shortDesc": "Video giới thiệu, behind the scenes...",
+        "fullDesc": "Xem các video về quy trình pha chế, workshop, sự kiện, và những câu chuyện đằng sau mỗi tách cà phê."
+      },
+      {
+        "id": "checkin",
+        "name": "Ảnh Check-in Của Khách",
+        "image": "https://images.unsplash.com/photo-1529676468696-f3a47aba7d5d?w=400&q=80",
+        "shortDesc": "Góc check-in yêu thích của khách hàng...",
+        "fullDesc": "Những bức ảnh đẹp nhất từ khách hàng đã ghé thăm Coffee House. Tag @coffeehouse.vn trên Instagram để có cơ hội được feature!"
+      },
+      {
+        "id": "press",
+        "name": "Báo Chí & Truyền Thông",
+        "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400&q=80",
+        "shortDesc": "Bài viết, review từ báo chí...",
+        "fullDesc": "Tổng hợp các bài viết, review từ báo chí và các blogger/reviewer nổi tiếng về Coffee House."
+      }
+    ]
+  }
+}

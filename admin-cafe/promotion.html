@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promotion - Coffee House Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);"><i class="fas fa-coffee"></i></div><div class="logo-text">Coffee House</div></div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">CONTENT</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Home and About</a>
+                <a href="menu.html" class="nav-item"><i class="fas fa-mug-hot"></i> Menu</a>
+                <a href="space.html" class="nav-item"><i class="fas fa-store"></i> Space</a>
+                <a href="branches.html" class="nav-item"><i class="fas fa-map-marker-alt"></i> Branches</a>
+                <a href="events.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Events</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">MORE</div>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Careers</a>
+                <a href="promotion.html" class="nav-item active"><i class="fas fa-tags"></i> Promotion</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Gallery</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Contact</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">SETTINGS</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../cafe.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+            </div>
+        </nav>
+    </div>
+    <header class="header"><div class="header-left"><h1 class="page-title">Khuyen Mai</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar">AD</div></div></div></header>
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title">Trang thai hien thi - Section Khuyen Mai</div>
+                <div class="toggle-container"><span class="toggle-status active" id="sectionStatus">Dang hien thi</span><label class="toggle-switch"><input type="checkbox" id="sectionToggle" checked onchange="toggleSection()"><span class="toggle-slider"></span></label></div>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-image"></i> Anh/VR360 Tong cho Khuyen Mai</div></div>
+            <div class="card-body">
+                <div class="form-group"><label class="form-label">Link anh hoac VR360</label><input type="url" class="form-input" id="promoBannerUrl" placeholder="https://..." value="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200" oninput="previewImage(this.value,'promoBannerPreview')"></div>
+                <div class="image-preview" id="promoBannerPreview"><img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200"></div>
+                <button class="btn btn-primary" onclick="showSuccess('Da luu anh tong!')"><i class="fas fa-save"></i> Luu</button>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-tags"></i> Chuong Trinh Khuyen Mai</div><button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Them Khuyen Mai</button></div>
+            <div class="card-body"><div id="promoList"></div></div>
+        </div>
+    </main>
+
+    <div class="modal" id="promoModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="modalTitle">Them Khuyen Mai</h3><button class="close-btn" onclick="closeModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Ma khuyen mai</label><input type="text" class="form-input" id="promoCode" placeholder="VD: WELCOME20"></div>
+                <div class="form-group"><label class="form-label">Tieu de</label><input type="text" class="form-input" id="promoTitle" placeholder="VD: Giam 20% cho khach moi"></div>
+                <div class="form-group"><label class="form-label">Mo ta chi tiet</label><textarea class="form-textarea" id="promoDesc" rows="3" placeholder="Mo ta chuong trinh khuyen mai..."></textarea></div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Thoi han</label><input type="text" class="form-input" id="promoDate" placeholder="VD: 01/01 - 31/12/2026"></div>
+                    <div class="form-group"><label class="form-label">Trang thai</label>
+                        <select class="form-input" id="promoStatus"><option value="active">Dang ap dung</option><option value="inactive">Ngung ap dung</option></select>
+                    </div>
+                </div>
+                <div class="form-group"><label class="form-label">Link anh (neu co)</label><input type="url" class="form-input" id="promoImage" placeholder="https://..." oninput="previewImage(this.value,'imagePreview')"></div>
+                <div class="image-preview" id="imagePreview"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal()">Huy</button><button class="btn btn-primary" onclick="savePromo()">Luu</button></div>
+        </div>
+    </div>
+
+    <style>
+        .toggle-container{display:flex;align-items:center;gap:12px;}
+        .toggle-status{font-size:14px;color:#dc2626;}
+        .toggle-status.active{color:#059669;}
+        .toggle-switch{position:relative;display:inline-block;width:48px;height:26px;}
+        .toggle-switch input{opacity:0;width:0;height:0;}
+        .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#cbd5e1;border-radius:26px;transition:0.3s;}
+        .toggle-slider:before{position:absolute;content:"";height:20px;width:20px;left:3px;bottom:3px;background:white;border-radius:50%;transition:0.3s;}
+        .toggle-switch input:checked+.toggle-slider{background:#2563eb;}
+        .toggle-switch input:checked+.toggle-slider:before{transform:translateX(22px);}
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:20px;}
+        .card-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .card-title{font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px;}
+        .card-title i{color:#2563eb;}
+        .card-body{padding:20px 24px;}
+        .promo-item{display:flex;gap:16px;padding:16px;background:#f8fafc;border-radius:12px;margin-bottom:12px;border:1px solid #e2e8f0;}
+        .promo-image{width:120px;height:80px;border-radius:8px;overflow:hidden;flex-shrink:0;background:#e2e8f0;display:flex;align-items:center;justify-content:center;}
+        .promo-image img{width:100%;height:100%;object-fit:cover;}
+        .promo-image i{font-size:24px;color:#94a3b8;}
+        .promo-content{flex:1;}
+        .promo-header{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+        .promo-code{font-size:13px;font-weight:700;color:#1d4ed8;background:#dbeafe;padding:4px 10px;border-radius:6px;font-family:monospace;}
+        .promo-title{font-size:15px;font-weight:600;color:#1e293b;}
+        .promo-desc{font-size:13px;color:#64748b;margin-bottom:8px;line-height:1.5;}
+        .promo-meta{display:flex;align-items:center;gap:16px;font-size:12px;color:#64748b;}
+        .promo-meta i{margin-right:4px;}
+        .promo-badge{padding:3px 8px;border-radius:4px;font-size:11px;font-weight:600;}
+        .badge-active{background:#dcfce7;color:#16a34a;}
+        .badge-inactive{background:#fef3c7;color:#d97706;}
+        .promo-actions{display:flex;gap:8px;align-items:flex-start;}
+        .promo-actions button{width:32px;height:32px;border:none;border-radius:6px;cursor:pointer;}
+        .btn-edit{background:#dbeafe;color:#1d4ed8;}
+        .btn-delete{background:#fee2e2;color:#dc2626;}
+        .image-preview{margin:8px 0;border-radius:8px;overflow:hidden;max-height:150px;}
+        .image-preview img{width:100%;max-height:150px;object-fit:cover;}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;}
+        .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#64748b;}
+        .modal-body{padding:24px;}
+        .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid #e2e8f0;}
+        .form-group{margin-bottom:16px;}
+        .form-row{display:flex;gap:16px;}
+        .form-row .form-group{flex:1;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+        .form-input,.form-textarea{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;}
+        .form-input:focus,.form-textarea:focus{outline:none;border-color:#2563eb;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#2563eb;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
+    </style>
+    <script>
+        function toggleSection(){var t=document.getElementById('sectionToggle');var s=document.getElementById('sectionStatus');s.textContent=t.checked?'Dang hien thi':'Da an';s.classList.toggle('active',t.checked);}
+        var promoData=[
+            {id:1,code:'WELCOME20',title:'Giam 20% cho khach moi',desc:'Ap dung cho khach hang lan dau su dung dich vu tai Coffee House. Giam ngay 20% tong hoa don.',date:'01/01 - 31/12/2026',status:'active',image:'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400'},
+            {id:2,code:'FREESHIP',title:'Mien phi giao hang',desc:'Mien phi ship cho don hang tu 100.000d trong ban kinh 5km.',date:'01/02 - 28/02/2026',status:'active',image:''},
+            {id:3,code:'TET2026',title:'Uu dai Tet 2026',desc:'Giam 30% tat ca do uong trong dip Tet Nguyen Dan. Chi ap dung tai quan.',date:'20/01 - 10/02/2026',status:'inactive',image:'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400'}
+        ];
+        var editingId=null;
+
+        function previewImage(url,targetId){
+            var el=document.getElementById(targetId);
+            if(url){el.innerHTML='<img src="'+url+'" onerror="this.parentElement.innerHTML=\'\'">';}else{el.innerHTML='';}
+        }
+
+        function renderPromos(){
+            var html='';
+            promoData.forEach(function(p){
+                var badgeClass=p.status==='active'?'badge-active':'badge-inactive';
+                var badgeText=p.status==='active'?'Dang ap dung':'Ngung ap dung';
+                html+='<div class="promo-item">';
+                html+='<div class="promo-image">';
+                if(p.image){html+='<img src="'+p.image+'">';}else{html+='<i class="fas fa-image"></i>';}
+                html+='</div>';
+                html+='<div class="promo-content">';
+                html+='<div class="promo-header"><span class="promo-code">'+p.code+'</span><span class="promo-title">'+p.title+'</span></div>';
+                html+='<div class="promo-desc">'+p.desc+'</div>';
+                html+='<div class="promo-meta"><span><i class="fas fa-calendar"></i>'+p.date+'</span><span class="promo-badge '+badgeClass+'">'+badgeText+'</span></div>';
+                html+='</div>';
+                html+='<div class="promo-actions">';
+                html+='<button class="btn-edit" onclick="editPromo('+p.id+')"><i class="fas fa-edit"></i></button>';
+                html+='<button class="btn-delete" onclick="deletePromo('+p.id+')"><i class="fas fa-trash"></i></button>';
+                html+='</div></div>';
+            });
+            document.getElementById('promoList').innerHTML=html;
+        }
+
+        function openModal(){
+            editingId=null;
+            document.getElementById('modalTitle').textContent='Them Khuyen Mai';
+            document.getElementById('promoCode').value='';
+            document.getElementById('promoTitle').value='';
+            document.getElementById('promoDesc').value='';
+            document.getElementById('promoDate').value='';
+            document.getElementById('promoStatus').value='active';
+            document.getElementById('promoImage').value='';
+            document.getElementById('imagePreview').innerHTML='';
+            document.getElementById('promoModal').classList.add('show');
+        }
+
+        function editPromo(id){
+            var p=promoData.find(function(x){return x.id===id;});
+            if(p){
+                editingId=id;
+                document.getElementById('modalTitle').textContent='Sua Khuyen Mai';
+                document.getElementById('promoCode').value=p.code;
+                document.getElementById('promoTitle').value=p.title;
+                document.getElementById('promoDesc').value=p.desc;
+                document.getElementById('promoDate').value=p.date;
+                document.getElementById('promoStatus').value=p.status;
+                document.getElementById('promoImage').value=p.image;
+                previewImage(p.image,'imagePreview');
+                document.getElementById('promoModal').classList.add('show');
+            }
+        }
+
+        function closeModal(){document.getElementById('promoModal').classList.remove('show');}
+        function savePromo(){showSuccess(editingId?'Da cap nhat khuyen mai!':'Da them khuyen mai moi!');closeModal();renderPromos();}
+        function deletePromo(id){if(confirm('Xoa khuyen mai nay?')){showSuccess('Da xoa khuyen mai!');renderPromos();}}
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},3000);}
+
+        renderPromos();
+    </script>
+</body>
+</html>

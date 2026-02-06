@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space - Coffee House Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);"><i class="fas fa-coffee"></i></div><div class="logo-text">Coffee House</div></div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">CONTENT</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Home and About</a>
+                <a href="menu.html" class="nav-item"><i class="fas fa-mug-hot"></i> Menu</a>
+                <a href="space.html" class="nav-item active"><i class="fas fa-store"></i> Space</a>
+                <a href="branches.html" class="nav-item"><i class="fas fa-map-marker-alt"></i> Branches</a>
+                <a href="events.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Events</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">MORE</div>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Careers</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-tags"></i> Promotion</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Gallery</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Contact</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">SETTINGS</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../cafe.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+            </div>
+        </nav>
+    </div>
+    <header class="header"><div class="header-left"><h1 class="page-title">Khong Gian</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar">AD</div></div></div></header>
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title">Trang thai hien thi - Section Khong Gian</div>
+                <div class="toggle-container">
+                    <span class="toggle-status active" id="sectionStatus">Dang hien thi</span>
+                    <label class="toggle-switch"><input type="checkbox" id="sectionToggle" checked onchange="toggleSection()"><span class="toggle-slider"></span></label>
+                </div>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-image"></i> Anh/VR360 Tong cho Khong Gian</div></div>
+            <div class="card-body">
+                <div class="form-group"><label class="form-label">Link anh hoac VR360</label><input type="url" class="form-input" id="spaceBannerUrl" placeholder="https://..." value="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1200" oninput="previewImage(this.value,'spaceBannerPreview')"></div>
+                <div class="image-preview" id="spaceBannerPreview"><img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1200"></div>
+                <button class="btn btn-primary" onclick="showSuccess('Da luu anh tong!')"><i class="fas fa-save"></i> Luu</button>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title">Danh sach Khong Gian</div><button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Them Khong Gian</button></div>
+            <div class="card-body"><div id="spaceList"></div></div>
+        </div>
+    </main>
+    <div class="modal" id="spaceModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="modalTitle">Them Khong Gian</h3><button class="close-btn" onclick="closeModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Ten (VI)</label><input type="text" class="form-input" id="spaceNameVi"></div>
+                    <div class="form-group"><label class="form-label">Ten (EN)</label><input type="text" class="form-input" id="spaceNameEn"></div>
+                </div>
+                <div class="form-group"><label class="form-label">Mo ta</label><textarea class="form-textarea" id="spaceDesc" rows="3"></textarea></div>
+                <div class="form-group"><label class="form-label">Dac diem (moi dac diem 1 dong)</label><textarea class="form-textarea" id="spaceFeatures" rows="3" placeholder="VD:&#10;Khong gian rieng tu&#10;View nhin dep&#10;Phu hop lam viec"></textarea></div>
+                <div class="form-group"><label class="form-label">Link hinh anh</label><input type="url" class="form-input" id="spaceImage" placeholder="https://..." oninput="previewImage(this.value,'spacePreview')"></div>
+                <div class="image-preview" id="spacePreview"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal()">Huy</button><button class="btn btn-primary" onclick="saveSpace()">Luu</button></div>
+        </div>
+    </div>
+    <style>
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:20px;}
+        .card-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .card-title{font-size:16px;font-weight:600;}
+        .card-body{padding:20px 24px;}
+        .toggle-container{display:flex;align-items:center;gap:12px;}
+        .toggle-status{font-size:14px;color:#64748b;}
+        .toggle-status.active{color:#059669;}
+        .toggle-switch{position:relative;display:inline-block;width:48px;height:26px;}
+        .toggle-switch input{opacity:0;width:0;height:0;}
+        .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#cbd5e1;border-radius:26px;transition:0.3s;}
+        .toggle-slider:before{position:absolute;content:"";height:20px;width:20px;left:3px;bottom:3px;background:white;border-radius:50%;transition:0.3s;}
+        .toggle-switch input:checked+.toggle-slider{background:#2563eb;}
+        .toggle-switch input:checked+.toggle-slider:before{transform:translateX(22px);}
+        .space-item{display:flex;padding:16px;background:#f8fafc;border-radius:12px;margin-bottom:12px;border:1px solid #e2e8f0;}
+        .space-image{width:200px;height:130px;border-radius:8px;object-fit:cover;margin-right:20px;}
+        .space-info{flex:1;}
+        .space-name{font-size:18px;font-weight:600;color:#1e293b;margin-bottom:6px;}
+        .space-name-en{font-size:14px;color:#64748b;font-weight:normal;}
+        .space-desc{font-size:14px;color:#475569;margin-bottom:10px;}
+        .space-features{display:flex;flex-wrap:wrap;gap:8px;}
+        .feature-tag{background:#dbeafe;color:#1d4ed8;padding:4px 10px;border-radius:6px;font-size:12px;}
+        .space-actions{display:flex;flex-direction:column;gap:8px;justify-content:center;}
+        .space-actions button{width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;}
+        .btn-edit{background:#dbeafe;color:#1d4ed8;}
+        .btn-delete{background:#fee2e2;color:#dc2626;}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:550px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;}
+        .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#64748b;}
+        .modal-body{padding:24px;}
+        .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid #e2e8f0;}
+        .form-group{margin-bottom:16px;}
+        .form-row{display:flex;gap:16px;}
+        .form-row .form-group{flex:1;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+        .form-input,.form-textarea{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;}
+        .form-input:focus,.form-textarea:focus{outline:none;border-color:#2563eb;}
+        .image-preview{margin-top:8px;border-radius:8px;overflow:hidden;max-height:150px;}
+        .image-preview img{width:100%;height:150px;object-fit:cover;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#2563eb;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
+    </style>
+    <script>
+        var spaceData=[
+            {id:1,nameVi:"Khu Trong Nha",nameEn:"Indoor Area",desc:"Khong gian may lanh, yen tinh, phu hop lam viec va doc sach",image:"https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&q=80",features:["May lanh","Wifi toc do cao","O cam sac","Yên tinh"]},
+            {id:2,nameVi:"San Vuon",nameEn:"Garden Area",desc:"Khong gian ngoai troi voi cay xanh va gio mat",image:"https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=400&q=80",features:["Cay xanh","Gio mat","View dep","Cho thu cung"]},
+            {id:3,nameVi:"Tang Lung",nameEn:"Mezzanine",desc:"Tang lung rieng tu, view nhin xuong quan",image:"https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=400&q=80",features:["Rieng tu","View dep","Phu hop hop nhom","Khong gian rong"]}
+        ];
+        var editingId=null;
+        function render(){
+            var html='';
+            spaceData.forEach(function(s){
+                html+='<div class="space-item">';
+                html+='<img src="'+s.image+'" class="space-image">';
+                html+='<div class="space-info">';
+                html+='<div class="space-name">'+s.nameVi+' <span class="space-name-en">('+s.nameEn+')</span></div>';
+                html+='<div class="space-desc">'+s.desc+'</div>';
+                html+='<div class="space-features">'+s.features.map(function(f){return '<span class="feature-tag">'+f+'</span>';}).join('')+'</div>';
+                html+='</div>';
+                html+='<div class="space-actions">';
+                html+='<button class="btn-edit" onclick="openModal('+s.id+')"><i class="fas fa-edit"></i></button>';
+                html+='<button class="btn-delete" onclick="deleteSpace('+s.id+')"><i class="fas fa-trash"></i></button>';
+                html+='</div></div>';
+            });
+            document.getElementById('spaceList').innerHTML=html;
+        }
+        function previewImage(url,targetId){
+            var el=document.getElementById(targetId);
+            if(url){el.innerHTML='<img src="'+url+'" onerror="this.style.display=\'none\'">';}else{el.innerHTML='';}
+        }
+        function openModal(id){
+            editingId=id||null;
+            document.getElementById('modalTitle').textContent=id?'Sua Khong Gian':'Them Khong Gian';
+            if(id){
+                var s=spaceData.find(function(x){return x.id===id;});
+                if(s){
+                    document.getElementById('spaceNameVi').value=s.nameVi;
+                    document.getElementById('spaceNameEn').value=s.nameEn;
+                    document.getElementById('spaceDesc').value=s.desc;
+                    document.getElementById('spaceFeatures').value=s.features.join('\n');
+                    document.getElementById('spaceImage').value=s.image;
+                    previewImage(s.image,'spacePreview');
+                }
+            }else{
+                document.getElementById('spaceNameVi').value='';
+                document.getElementById('spaceNameEn').value='';
+                document.getElementById('spaceDesc').value='';
+                document.getElementById('spaceFeatures').value='';
+                document.getElementById('spaceImage').value='';
+                document.getElementById('spacePreview').innerHTML='';
+            }
+            document.getElementById('spaceModal').classList.add('show');
+        }
+        function closeModal(){document.getElementById('spaceModal').classList.remove('show');}
+        function saveSpace(){showSuccess(editingId?'Da cap nhat!':'Da them khong gian!');closeModal();render();}
+        function deleteSpace(id){if(confirm('Xoa khong gian nay?')){showSuccess('Da xoa!');render();}}
+        function toggleSection(){var t=document.getElementById('sectionToggle');var s=document.getElementById('sectionStatus');s.textContent=t.checked?'Dang hien thi':'Da an';s.classList.toggle('active',t.checked);}
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},3000);}
+        render();
+    </script>
+</body>
+</html>

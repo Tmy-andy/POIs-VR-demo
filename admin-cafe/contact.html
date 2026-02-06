@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Coffee House Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);"><i class="fas fa-coffee"></i></div>
+                <div class="logo-text">Coffee House</div>
+            </div>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-section">
+                <div class="nav-section-title">CONTENT</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Home and About</a>
+                <a href="menu.html" class="nav-item"><i class="fas fa-mug-hot"></i> Menu</a>
+                <a href="space.html" class="nav-item"><i class="fas fa-store"></i> Space</a>
+                <a href="branches.html" class="nav-item"><i class="fas fa-map-marker-alt"></i> Branches</a>
+                <a href="events.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Events</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">MORE</div>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Careers</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-tags"></i> Promotion</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Gallery</a>
+                <a href="contact.html" class="nav-item active"><i class="fas fa-phone"></i> Contact</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">SETTINGS</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../cafe.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+                <a href="../home.html" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+    </div>
+    <header class="header">
+        <div class="header-left"><h1 class="page-title">Lien He</h1></div>
+        <div class="header-right"><div class="user-menu"><div class="user-avatar">AD</div></div></div>
+    </header>
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Da luu!</span></div>
+        <div class="content-grid">
+            <div class="content-card">
+                <div class="card-header"><div class="card-title">Thong Tin Lien He</div></div>
+                <div class="card-body">
+                    <div class="form-group"><label class="form-label"><i class="fas fa-map-marker-alt"></i> Dia chi</label><input type="text" class="form-input" value="123 Nguyen Hue, Q1, TP.HCM"></div>
+                    <div class="form-row">
+                        <div class="form-group"><label class="form-label"><i class="fas fa-phone"></i> Dien thoai</label><input type="tel" class="form-input" value="028 1234 5678"></div>
+                        <div class="form-group"><label class="form-label"><i class="fas fa-headset"></i> Hotline</label><input type="tel" class="form-input" value="1800 1234"></div>
+                    </div>
+                    <div class="form-group"><label class="form-label"><i class="fas fa-envelope"></i> Email</label><input type="email" class="form-input" value="hello@coffeehouse.vn"></div>
+                    <div class="form-group"><label class="form-label"><i class="fas fa-clock"></i> Gio lam viec</label><input type="text" class="form-input" value="07:00 - 22:00, tat ca cac ngay"></div>
+                    <button class="btn btn-primary" onclick="showSuccess('Da luu thong tin!')"><i class="fas fa-save"></i> Luu</button>
+                </div>
+            </div>
+            <div class="content-card">
+                <div class="card-header"><div class="card-title">Mang Xa Hoi</div></div>
+                <div class="card-body">
+                    <div class="social-list">
+                        <div class="social-item"><div class="social-icon" style="background:#1877f2"><i class="fab fa-facebook-f"></i></div><input type="url" class="form-input" value="https://facebook.com/coffeehouse"></div>
+                        <div class="social-item"><div class="social-icon" style="background:linear-gradient(45deg,#f09433,#dc2743)"><i class="fab fa-instagram"></i></div><input type="url" class="form-input" value="https://instagram.com/coffeehouse"></div>
+                        <div class="social-item"><div class="social-icon" style="background:#000"><i class="fab fa-tiktok"></i></div><input type="url" class="form-input" value="https://tiktok.com/@coffeehouse"></div>
+                        <div class="social-item"><div class="social-icon" style="background:#ff0000"><i class="fab fa-youtube"></i></div><input type="url" class="form-input" value="https://youtube.com/coffeehouse"></div>
+                    </div>
+                    <button class="btn btn-primary" style="margin-top:16px" onclick="showSuccess('Da luu!')"><i class="fas fa-save"></i> Luu</button>
+                </div>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title">Tin Nhan Tu Khach (<span id="unreadCount">2</span> chua doc)</div></div>
+            <div class="card-body"><div id="msgList"></div></div>
+        </div>
+    </main>
+    <div class="modal" id="msgModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3>Chi Tiet Tin Nhan</h3><button class="close-btn" onclick="closeModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="msg-info"><strong>Tu:</strong> <span id="mName">-</span></div>
+                <div class="msg-info"><strong>Email:</strong> <span id="mEmail">-</span></div>
+                <div class="msg-info"><strong>SDT:</strong> <span id="mPhone">-</span></div>
+                <div class="msg-box"><p id="mContent">-</p></div>
+                <div class="form-group"><label class="form-label">Tra loi:</label><textarea class="form-textarea" rows="3" placeholder="Nhap tra loi..."></textarea></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-delete" onclick="delMsg()"><i class="fas fa-trash"></i></button><button class="btn btn-primary" onclick="reply()"><i class="fas fa-reply"></i> Gui</button></div>
+        </div>
+    </div>
+    <style>
+        .content-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;}
+        .card-header{padding:20px 24px;border-bottom:1px solid #e2e8f0;}.card-title{font-size:16px;font-weight:600;}
+        .card-body{padding:20px 24px;}
+        .form-group{margin-bottom:16px;flex:1;}.form-row{display:flex;gap:16px;}
+        .form-label{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:#374151;margin-bottom:8px;}
+        .form-label i{color:#2563eb;}
+        .form-input,.form-textarea{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;}
+        .form-input:focus{outline:none;border-color:#2563eb;}
+        .social-list{display:flex;flex-direction:column;gap:12px;}
+        .social-item{display:flex;align-items:center;gap:12px;}
+        .social-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;font-size:16px;}
+        .msg-item{display:flex;padding:16px;background:#f8fafc;border-radius:10px;margin-bottom:12px;border:1px solid #e2e8f0;cursor:pointer;}
+        .msg-item.unread{border-left:4px solid #2563eb;background:#eff6ff;}
+        .msg-avatar{width:44px;height:44px;border-radius:50%;background:#2563eb;color:white;display:flex;align-items:center;justify-content:center;font-weight:600;margin-right:14px;}
+        .msg-content{flex:1;}.msg-name{font-weight:600;color:#1e293b;}.msg-preview{font-size:13px;color:#64748b;margin-top:4px;}
+        .msg-time{font-size:12px;color:#94a3b8;}
+        .msg-info{padding:8px 0;border-bottom:1px solid #f1f5f9;}
+        .msg-box{background:#f8fafc;padding:16px;border-radius:8px;margin:16px 0;}
+        .msg-box p{margin:0;line-height:1.6;}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;}
+        .close-btn{background:none;border:none;font-size:24px;color:#64748b;cursor:pointer;}
+        .modal-body{padding:24px;}.modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:20px 24px;border-top:1px solid #e2e8f0;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#2563eb;color:white;}
+        .btn-delete{background:#fee2e2;color:#dc2626;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}.alert.hidden{display:none;}
+        @media(max-width:768px){.content-grid{grid-template-columns:1fr;}}
+    </style>
+    <script>
+        const msgs=[
+            {id:1,name:"Nguyen Van A",email:"a@gmail.com",phone:"0901234567",content:"Toi muon dat ban cho 6 nguoi toi thu 7, co duoc khong?",time:"2h truoc",read:false},
+            {id:2,name:"Tran Thi B",email:"b@gmail.com",phone:"0912345678",content:"Wifi quan hoi cham, mong cai thien them.",time:"5h truoc",read:true},
+            {id:3,name:"Le Van C",email:"c@gmail.com",phone:"0923456789",content:"Chung toi muon hop tac to chuc su kien tai quan.",time:"1 ngay",read:false}
+        ];
+        let curId=null;
+        function render(){
+            document.getElementById('msgList').innerHTML=msgs.map(m=>'<div class="msg-item '+(m.read?'':'unread')+'" onclick="openMsg('+m.id+')"><div class="msg-avatar">'+m.name.split(' ').pop()[0]+'</div><div class="msg-content"><div class="msg-name">'+m.name+'</div><div class="msg-preview">'+m.content.slice(0,60)+'...</div></div><div class="msg-time">'+m.time+'</div></div>').join('');
+            document.getElementById('unreadCount').textContent=msgs.filter(m=>!m.read).length;
+        }
+        function openMsg(id){curId=id;const m=msgs.find(x=>x.id===id);document.getElementById('mName').textContent=m.name;document.getElementById('mEmail').textContent=m.email;document.getElementById('mPhone').textContent=m.phone;document.getElementById('mContent').textContent=m.content;document.getElementById('msgModal').classList.add('show');m.read=true;render();}
+        function closeModal(){document.getElementById('msgModal').classList.remove('show');}
+        function reply(){showSuccess('Da gui tra loi!');closeModal();}
+        function delMsg(){if(confirm('Xoa?')){showSuccess('Da xoa!');closeModal();}}
+        function showSuccess(msg){const a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(()=>a.classList.add('hidden'),3000);}
+        render();
+    </script>
+</body>
+</html>

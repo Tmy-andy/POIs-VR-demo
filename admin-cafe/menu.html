@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Coffee House Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);"><i class="fas fa-coffee"></i></div>
+                <div class="logo-text">Coffee House</div>
+            </div>
+        </div>
+        <div class="property-selector">
+            <div class="property-label">Current Cafe</div>
+            <div class="property-name">Coffee House Admin</div>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-section">
+                <div class="nav-section-title">CONTENT</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Home and About</a>
+                <a href="menu.html" class="nav-item active"><i class="fas fa-mug-hot"></i> Menu</a>
+                <a href="space.html" class="nav-item"><i class="fas fa-store"></i> Space</a>
+                <a href="branches.html" class="nav-item"><i class="fas fa-map-marker-alt"></i> Branches</a>
+                <a href="events.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Events</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">MORE</div>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Careers</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-tags"></i> Promotion</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Gallery</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Contact</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">SETTINGS</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../cafe.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+                <a href="../home.html" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+    </div>
+    <header class="header">
+        <div class="header-left"><h1 class="page-title">Quan Ly Menu</h1></div>
+        <div class="header-right"><div class="user-menu"><div class="user-avatar">AD</div></div></div>
+    </header>
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Da luu thanh cong!</span></div>
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title">Trang thai hien thi - Section Menu</div>
+                <div class="toggle-container"><span class="toggle-status active" id="sectionStatus">Dang hien thi</span><label class="toggle-switch"><input type="checkbox" id="sectionToggle" checked onchange="toggleSection()"><span class="toggle-slider"></span></label></div>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-image"></i> Anh/VR360 Tong cho Menu</div></div>
+            <div class="card-body">
+                <div class="form-group"><label class="form-label">Link anh hoac VR360</label><input type="url" class="form-input" id="menuBannerUrl" placeholder="https://..." value="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200" oninput="previewImage(this.value,'menuBannerPreview')"></div>
+                <div class="image-preview" id="menuBannerPreview"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200"></div>
+                <button class="btn btn-primary" onclick="showSuccess('Da luu anh tong!')"><i class="fas fa-save"></i> Luu</button>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title">Danh muc Menu</div>
+                <button class="btn btn-primary" onclick="openCategoryModal()"><i class="fas fa-plus"></i> Them Danh Muc</button>
+            </div>
+            <div class="card-body"><div id="categoryList"></div></div>
+        </div>
+    </main>
+    <!-- Category Modal -->
+    <div class="modal" id="categoryModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="categoryModalTitle">Them Danh Muc Moi</h3><button class="close-btn" onclick="closeCategoryModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Ten danh muc (Tieng Viet)</label><input type="text" class="form-input" id="catNameVi" placeholder="VD: Ca Phe"></div>
+                <div class="form-group"><label class="form-label">Ten danh muc (English)</label><input type="text" class="form-input" id="catNameEn" placeholder="VD: Coffee"></div>
+                <div class="form-group"><label class="form-label">Mo ta</label><textarea class="form-textarea" id="catDesc" rows="2" placeholder="Mo ta danh muc..."></textarea></div>
+                <div class="form-group"><label class="form-label">Icon (Font Awesome)</label><input type="text" class="form-input" id="catIcon" placeholder="VD: fa-coffee"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeCategoryModal()">Huy</button><button class="btn btn-primary" onclick="saveCategory()">Luu</button></div>
+        </div>
+    </div>
+    <!-- Item Modal -->
+    <div class="modal" id="itemModal">
+        <div class="modal-content" style="max-width:700px;">
+            <div class="modal-header"><h3 id="itemModalTitle">Them Mon Moi</h3><button class="close-btn" onclick="closeItemModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Ten mon (Tieng Viet)</label><input type="text" class="form-input" id="itemNameVi" placeholder="VD: Ca Phe Den"></div>
+                    <div class="form-group"><label class="form-label">Ten mon (English)</label><input type="text" class="form-input" id="itemNameEn" placeholder="VD: Black Coffee"></div>
+                </div>
+                <div class="form-group"><label class="form-label">Mo ta</label><textarea class="form-textarea" id="itemDesc" rows="2" placeholder="Mo ta mon..."></textarea></div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Gia (VND)</label><input type="number" class="form-input" id="itemPrice" placeholder="VD: 35000"></div>
+                    <div class="form-group"><label class="form-label">Gia khuyen mai</label><input type="number" class="form-input" id="itemSalePrice" placeholder="De trong neu khong giam gia"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Trang thai</label>
+                        <select class="form-input" id="itemStatus"><option value="available">Con hang</option><option value="soldout">Het hang</option><option value="new">Moi</option><option value="hot">Ban chay</option></select>
+                    </div>
+                    <div class="form-group"><label class="form-label">Danh muc</label>
+                        <select class="form-input" id="itemCategory"><option value="coffee">Ca Phe</option><option value="tea">Tra</option><option value="smoothie">Sinh To</option><option value="pastry">Banh Ngot</option></select>
+                    </div>
+                </div>
+                <div class="form-group"><label class="form-label"><i class="fas fa-image"></i> Hinh anh</label>
+                    <div class="image-upload-area" onclick="document.getElementById('itemImage').click()">
+                        <div class="upload-placeholder"><i class="fas fa-cloud-upload-alt"></i><p>Click de tai anh len</p></div>
+                        <input type="file" id="itemImage" accept="image/*" style="display:none">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeItemModal()">Huy</button><button class="btn btn-primary" onclick="saveItem()">Luu</button></div>
+        </div>
+    </div>
+    <style>
+        .toggle-container{display:flex;align-items:center;gap:12px;}
+        .toggle-status{font-size:14px;color:#dc2626;}
+        .toggle-status.active{color:#059669;}
+        .toggle-switch{position:relative;display:inline-block;width:48px;height:26px;}
+        .toggle-switch input{opacity:0;width:0;height:0;}
+        .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#cbd5e1;border-radius:26px;transition:0.3s;}
+        .toggle-slider:before{position:absolute;content:"";height:20px;width:20px;left:3px;bottom:3px;background:white;border-radius:50%;transition:0.3s;}
+        .toggle-switch input:checked+.toggle-slider{background:#2563eb;}
+        .toggle-switch input:checked+.toggle-slider:before{transform:translateX(22px);}
+        .image-preview{margin:12px 0;border-radius:8px;overflow:hidden;max-height:200px;}
+        .image-preview img{width:100%;max-height:200px;object-fit:cover;}
+        .image-upload-area{border:2px dashed #cbd5e1;border-radius:8px;padding:30px;text-align:center;cursor:pointer;transition:0.3s;}
+        .image-upload-area:hover{border-color:#2563eb;background:#f8fafc;}
+        .upload-placeholder{color:#64748b;}
+        .upload-placeholder i{font-size:32px;margin-bottom:8px;color:#94a3b8;}
+        .upload-placeholder p{font-size:13px;margin:0;}
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:20px;overflow:hidden;}
+        .content-card .card-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .content-card .card-title{font-size:16px;font-weight:600;color:#0f172a;}
+        .content-card .card-body{padding:20px 24px;}
+        .category-card{background:#f8fafc;border-radius:12px;padding:20px;margin-bottom:16px;border:1px solid #e2e8f0;}
+        .category-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+        .category-info{display:flex;align-items:center;gap:12px;}
+        .category-icon{width:48px;height:48px;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:white;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+        .category-name{font-size:18px;font-weight:600;color:#1e293b;}
+        .category-count{font-size:13px;color:#64748b;}
+        .category-actions{display:flex;gap:8px;}
+        .category-actions button{padding:8px 14px;border:none;border-radius:8px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:6px;}
+        .btn-add-item{background:#dbeafe;color:#1d4ed8;}
+        .btn-edit-cat{background:#fef3c7;color:#b45309;}
+        .btn-delete-cat{background:#fee2e2;color:#dc2626;}
+        .items-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;}
+        .item-card{background:white;border-radius:10px;border:1px solid #e2e8f0;overflow:hidden;}
+        .item-image{height:120px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+        .item-image img{width:100%;height:100%;object-fit:cover;}
+        .item-body{padding:12px;}
+        .item-name{font-weight:600;color:#1e293b;font-size:14px;margin-bottom:4px;}
+        .item-desc{font-size:12px;color:#64748b;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+        .item-price{display:flex;align-items:center;gap:8px;}
+        .price-current{font-weight:700;color:#059669;font-size:15px;}
+        .price-old{text-decoration:line-through;color:#94a3b8;font-size:12px;}
+        .item-badge{position:absolute;top:8px;right:8px;padding:4px 8px;border-radius:6px;font-size:10px;font-weight:600;}
+        .badge-hot{background:#fef2f2;color:#dc2626;}
+        .badge-new{background:#f0fdf4;color:#16a34a;}
+        .item-actions{display:flex;justify-content:flex-end;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid #f1f5f9;}
+        .item-actions button{width:30px;height:30px;border:none;border-radius:6px;cursor:pointer;font-size:12px;}
+        .modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;color:#0f172a;}
+        .close-btn{background:none;border:none;font-size:24px;color:#64748b;cursor:pointer;}
+        .modal-body{padding:24px;}
+        .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:20px 24px;border-top:1px solid #e2e8f0;}
+        .form-group{margin-bottom:16px;flex:1;}
+        .form-row{display:flex;gap:16px;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:8px;}
+        .form-input,.form-textarea{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;}
+        .form-input:focus,.form-textarea:focus{outline:none;border-color:#2563eb;}
+        .image-upload-area{border:2px dashed #cbd5e1;border-radius:12px;padding:30px;text-align:center;cursor:pointer;}
+        .image-upload-area:hover{border-color:#2563eb;background:#eff6ff;}
+        .upload-placeholder i{font-size:40px;color:#cbd5e1;margin-bottom:8px;}
+        .upload-placeholder p{color:#64748b;margin:0;font-size:14px;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#2563eb;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
+    </style>
+    <script>
+        function toggleSection(){var t=document.getElementById('sectionToggle');var s=document.getElementById('sectionStatus');s.textContent=t.checked?'Dang hien thi':'Da an';s.classList.toggle('active',t.checked);}
+        function previewImage(url,targetId){var el=document.getElementById(targetId);if(url){el.innerHTML='<img src="'+url+'" onerror="this.parentElement.innerHTML=\'\'">';}else{el.innerHTML='';}}
+        const menuData=[
+            {id:"coffee",nameVi:"Ca Phe",nameEn:"Coffee",icon:"fa-mug-hot",items:[{id:1,name:"Ca Phe Sua Da",desc:"Ca phe truyen thong Viet Nam",price:29000,salePrice:null,image:"https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=300&q=80",status:"hot"},{id:2,name:"Bac Xiu",desc:"Ca phe sua dac biet",price:32000,salePrice:28000,image:"https://images.unsplash.com/photo-1485808191679-5f86510681a2?w=300&q=80",status:""}]},
+            {id:"tea",nameVi:"Tra",nameEn:"Tea",icon:"fa-leaf",items:[{id:3,name:"Tra Sen Vang",desc:"Tra hoa sen thom mat",price:45000,salePrice:null,image:"https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=300&q=80",status:"new"},{id:4,name:"Tra Dao Cam Sa",desc:"Tra dao tuoi mat lanh",price:49000,salePrice:null,image:"https://images.unsplash.com/photo-1558857563-b371033873b8?w=300&q=80",status:""}]},
+            {id:"pastry",nameVi:"Banh Ngot",nameEn:"Pastry",icon:"fa-cookie",items:[{id:5,name:"Croissant Bo",desc:"Banh sung bo Phap",price:35000,salePrice:30000,image:"https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=300&q=80",status:""},{id:6,name:"Tiramisu",desc:"Banh kem ca phe Y",price:55000,salePrice:null,image:"https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=300&q=80",status:"hot"}]}
+        ];
+        let editingCatId=null,editingItemId=null,currentCatId=null;
+        function render(){
+            document.getElementById('categoryList').innerHTML=menuData.map(c=>`
+                <div class="category-card">
+                    <div class="category-header">
+                        <div class="category-info"><div class="category-icon"><i class="fas ${c.icon}"></i></div><div><div class="category-name">${c.nameVi} (${c.nameEn})</div><div class="category-count">${c.items.length} mon</div></div></div>
+                        <div class="category-actions"><button class="btn-add-item" onclick="openItemModal('${c.id}')"><i class="fas fa-plus"></i> Them Mon</button><button class="btn-edit-cat" onclick="openCategoryModal('${c.id}')"><i class="fas fa-edit"></i></button><button class="btn-delete-cat" onclick="deleteCategory('${c.id}')"><i class="fas fa-trash"></i></button></div>
+                    </div>
+                    <div class="items-grid">${c.items.map(i=>`
+                        <div class="item-card" style="position:relative;">
+                            ${i.status?`<span class="item-badge badge-${i.status}">${i.status==='hot'?'HOT':'NEW'}</span>`:''}
+                            <div class="item-image"><img src="${i.image}"></div>
+                            <div class="item-body"><div class="item-name">${i.name}</div><div class="item-desc">${i.desc}</div><div class="item-price"><span class="price-current">${i.price.toLocaleString()}đ</span>${i.salePrice?`<span class="price-old">${i.salePrice.toLocaleString()}đ</span>`:''}</div><div class="item-actions"><button class="btn-edit" onclick="openItemModal('${c.id}',${i.id})"><i class="fas fa-edit"></i></button><button class="btn-delete" onclick="deleteItem('${c.id}',${i.id})"><i class="fas fa-trash"></i></button></div></div>
+                        </div>`).join('')}
+                    </div>
+                </div>`).join('');
+        }
+        function openCategoryModal(id){editingCatId=id||null;document.getElementById('categoryModalTitle').textContent=id?'Sua Danh Muc':'Them Danh Muc Moi';if(id){const c=menuData.find(x=>x.id===id);if(c){document.getElementById('catNameVi').value=c.nameVi;document.getElementById('catNameEn').value=c.nameEn;document.getElementById('catIcon').value=c.icon;}}else{document.getElementById('catNameVi').value='';document.getElementById('catNameEn').value='';document.getElementById('catDesc').value='';document.getElementById('catIcon').value='';}document.getElementById('categoryModal').classList.add('show');}
+        function closeCategoryModal(){document.getElementById('categoryModal').classList.remove('show');editingCatId=null;}
+        function saveCategory(){showSuccess(editingCatId?'Da cap nhat danh muc!':'Da them danh muc moi!');closeCategoryModal();}
+        function deleteCategory(id){if(confirm('Xoa danh muc nay va tat ca mon trong do?')){showSuccess('Da xoa danh muc!');}}
+        function openItemModal(catId,itemId){currentCatId=catId;editingItemId=itemId||null;document.getElementById('itemModalTitle').textContent=itemId?'Sua Mon':'Them Mon Moi';if(itemId){const c=menuData.find(x=>x.id===catId);const i=c.items.find(x=>x.id===itemId);if(i){document.getElementById('itemNameVi').value=i.name;document.getElementById('itemDesc').value=i.desc;document.getElementById('itemPrice').value=i.price;document.getElementById('itemSalePrice').value=i.salePrice||'';}}else{document.getElementById('itemNameVi').value='';document.getElementById('itemNameEn').value='';document.getElementById('itemDesc').value='';document.getElementById('itemPrice').value='';document.getElementById('itemSalePrice').value='';}document.getElementById('itemModal').classList.add('show');}
+        function closeItemModal(){document.getElementById('itemModal').classList.remove('show');editingItemId=null;currentCatId=null;}
+        function saveItem(){showSuccess(editingItemId?'Da cap nhat mon!':'Da them mon moi!');closeItemModal();}
+        function deleteItem(catId,itemId){if(confirm('Xoa mon nay?')){showSuccess('Da xoa mon!');}}
+        function showSuccess(msg){const a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(()=>a.classList.add('hidden'),3000);}
+        render();
+    </script>
+</body>
+</html>
