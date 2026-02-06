@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Su Kien & Tiec - Fine Dining Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar" style="background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon" style="background: linear-gradient(135deg, #b8860b, #daa520);"><i class="fas fa-utensils"></i></div><div class="logo-text">Fine Dining</div></div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">CONTENT</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Home & About</a>
+                <a href="menu.html" class="nav-item"><i class="fas fa-book-open"></i> Thuc Don</a>
+                <a href="space.html" class="nav-item"><i class="fas fa-chair"></i> Khong Gian</a>
+                <a href="branches.html" class="nav-item"><i class="fas fa-map-marker-alt"></i> Chi Nhanh</a>
+                <a href="events.html" class="nav-item active"><i class="fas fa-glass-cheers"></i> Su Kien & Tiec</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">MORE</div>
+                <a href="reviews.html" class="nav-item"><i class="fas fa-trophy"></i> Thanh Tuu</a>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Tuyen Dung</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Thu Vien</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Lien He</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">SETTINGS</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a>
+                <a href="../restaurant.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Website</a>
+            </div>
+        </nav>
+    </div>
+    <header class="header"><div class="header-left"><h1 class="page-title">Quan Ly Su Kien & Tiec</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar" style="background:#b8860b;">AD</div></div></div></header>
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title">Trang thai hien thi - Section Su Kien</div>
+                <div class="toggle-container"><span class="toggle-status active" id="sectionStatus">Dang hien thi</span><label class="toggle-switch"><input type="checkbox" id="sectionToggle" checked onchange="toggleSection()"><span class="toggle-slider"></span></label></div>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-image"></i> Anh/VR360 Tong cho Su Kien</div></div>
+            <div class="card-body">
+                <div class="form-group"><label class="form-label">Link anh hoac VR360</label><input type="url" class="form-input" id="eventBannerUrl" placeholder="https://..." value="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1200" oninput="previewImage(this.value,'eventBannerPreview')"></div>
+                <div class="image-preview" id="eventBannerPreview"><img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1200"></div>
+                <button class="btn btn-primary" onclick="showSuccess('Da luu anh tong!')"><i class="fas fa-save"></i> Luu</button>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-concierge-bell"></i> Goi Dich Vu Tiec</div><button class="btn btn-primary" onclick="openPackageModal()"><i class="fas fa-plus"></i> Them Goi</button></div>
+            <div class="card-body"><div id="packageList"></div></div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-calendar-alt"></i> Su Kien Sap Toi</div><button class="btn btn-primary" onclick="openEventModal()"><i class="fas fa-plus"></i> Them Su Kien</button></div>
+            <div class="card-body"><div id="eventList"></div></div>
+        </div>
+    </main>
+    <div class="modal" id="packageModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3>Goi Dich Vu Tiec</h3><button class="close-btn" onclick="closePackageModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Ten goi</label><input type="text" class="form-input" id="packageName" placeholder="VD: Tiec Cuoi Gold"></div>
+                <div class="form-group"><label class="form-label">Mo ta</label><textarea class="form-textarea" id="packageDesc" rows="3"></textarea></div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Gia tu</label><input type="text" class="form-input" id="packagePrice" placeholder="VD: 2,500,000"></div>
+                    <div class="form-group"><label class="form-label">So khach</label><input type="text" class="form-input" id="packageGuest" placeholder="VD: 50-100 khach"></div>
+                </div>
+                <div class="form-group"><label class="form-label">Bao gom (cach nhau boi dau phay)</label><input type="text" class="form-input" id="packageIncludes" placeholder="VD: 5 mon chinh, Trang tri, MC, Am thanh"></div>
+                <div class="form-group"><label class="form-label">Link hinh anh</label><input type="url" class="form-input" id="packageImage" placeholder="https://..." oninput="previewImage(this.value,'packagePreview')"></div>
+                <div class="image-preview" id="packagePreview"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closePackageModal()">Huy</button><button class="btn btn-primary" onclick="savePackage()">Luu</button></div>
+        </div>
+    </div>
+    <div class="modal" id="eventModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3>Su Kien</h3><button class="close-btn" onclick="closeEventModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Ten su kien</label><input type="text" class="form-input" id="eventName" placeholder="VD: Wine Tasting Night"></div>
+                <div class="form-group"><label class="form-label">Mo ta</label><textarea class="form-textarea" id="eventDesc" rows="3"></textarea></div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Ngay</label><input type="date" class="form-input" id="eventDate"></div>
+                    <div class="form-group"><label class="form-label">Gio</label><input type="text" class="form-input" id="eventTime" placeholder="VD: 19:00 - 22:00"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Dia diem</label><input type="text" class="form-input" id="eventLocation" placeholder="VD: Rooftop Bar Q1"></div>
+                    <div class="form-group"><label class="form-label">Gia ve</label><input type="text" class="form-input" id="eventTicket" placeholder="VD: 1,500,000 VND"></div>
+                </div>
+                <div class="form-group"><label class="form-label">Link hinh anh</label><input type="url" class="form-input" id="eventImage" placeholder="https://..." oninput="previewImage(this.value,'eventPreview')"></div>
+                <div class="image-preview" id="eventPreview"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeEventModal()">Huy</button><button class="btn btn-primary" onclick="saveEvent()">Luu</button></div>
+        </div>
+    </div>
+    <style>
+        .toggle-container{display:flex;align-items:center;gap:12px;}
+        .toggle-status{font-size:14px;color:#dc2626;}
+        .toggle-status.active{color:#059669;}
+        .toggle-switch{position:relative;display:inline-block;width:48px;height:26px;}
+        .toggle-switch input{opacity:0;width:0;height:0;}
+        .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#cbd5e1;border-radius:26px;transition:0.3s;}
+        .toggle-slider:before{position:absolute;content:"";height:20px;width:20px;left:3px;bottom:3px;background:white;border-radius:50%;transition:0.3s;}
+        .toggle-switch input:checked+.toggle-slider{background:#b8860b;}
+        .toggle-switch input:checked+.toggle-slider:before{transform:translateX(22px);}
+        .image-preview{margin:12px 0;border-radius:8px;overflow:hidden;max-height:200px;}
+        .image-preview img{width:100%;max-height:200px;object-fit:cover;}
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:20px;}
+        .card-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .card-title{font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px;}
+        .card-title i{color:#b8860b;}
+        .card-body{padding:20px 24px;}
+        .package-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
+        .package-card{background:#f8fafc;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;}
+        .package-image{width:100%;height:160px;object-fit:cover;}
+        .package-content{padding:16px;}
+        .package-name{font-size:17px;font-weight:600;color:#1e293b;margin-bottom:6px;}
+        .package-desc{font-size:13px;color:#64748b;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+        .package-price{font-size:18px;font-weight:700;color:#b8860b;margin-bottom:8px;}
+        .package-guests{font-size:12px;color:#64748b;margin-bottom:10px;}
+        .package-includes{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+        .include-tag{background:#fef3c7;color:#b45309;padding:3px 8px;border-radius:4px;font-size:11px;}
+        .event-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;}
+        .event-card{background:#f8fafc;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;display:flex;}
+        .event-image{width:140px;height:140px;object-fit:cover;flex-shrink:0;}
+        .event-content{padding:14px;flex:1;}
+        .event-date{display:inline-block;background:#b8860b;color:white;padding:4px 10px;border-radius:4px;font-size:11px;margin-bottom:8px;}
+        .event-name{font-size:15px;font-weight:600;color:#1e293b;margin-bottom:6px;}
+        .event-info{font-size:12px;color:#64748b;margin-bottom:4px;display:flex;align-items:center;gap:6px;}
+        .event-info i{color:#b8860b;width:14px;}
+        .item-actions{display:flex;gap:8px;margin-top:12px;}
+        .item-actions button{flex:1;padding:8px;border:none;border-radius:6px;cursor:pointer;font-size:12px;}
+        .btn-edit{background:#dbeafe;color:#1d4ed8;}
+        .btn-delete{background:#fee2e2;color:#dc2626;}
+        .form-group{margin-bottom:16px;}
+        .form-row{display:flex;gap:16px;}
+        .form-row .form-group{flex:1;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+        .form-input,.form-textarea{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;}
+        .form-input:focus,.form-textarea:focus{outline:none;border-color:#b8860b;}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:550px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;}
+        .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#64748b;}
+        .modal-body{padding:24px;}
+        .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid #e2e8f0;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#b8860b;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
+    </style>
+    <script>
+        function toggleSection(){var t=document.getElementById('sectionToggle');var s=document.getElementById('sectionStatus');s.textContent=t.checked?'Dang hien thi':'Da an';s.classList.toggle('active',t.checked);}
+        function previewImage(url,targetId){var el=document.getElementById(targetId);if(url){el.innerHTML='<img src="'+url+'" onerror="this.parentElement.innerHTML=\'\'">';}else{el.innerHTML='';}}
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},3000);}
+        var packageData=[
+            {id:1,name:'Tiec Cuoi Gold',desc:'Goi tiec cuoi cao cap voi thuc don 6 mon Phap-Viet fusion, trang tri hoa tuoi nhap khau.',price:'Tu 3,500,000 VND/khach',guests:'50-120 khach',includes:['6 mon chinh','Welcome drink','Trang tri','MC','Am thanh'],image:'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400'},
+            {id:2,name:'Sinh Nhat VIP',desc:'Tiec sinh nhat rieng tu tai phong VIP voi thuc don tu chon va banh kem cao cap.',price:'Tu 15,000,000 VND/ban',guests:'8-15 khach',includes:['4 mon chinh','Banh kem','Trang tri','Anh chup'],image:'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=400'},
+            {id:3,name:'Hoi Nghi Doanh Nghiep',desc:'Goi hoi nghi kem an trua hoac toi voi khong gian sang trong.',price:'Tu 1,200,000 VND/khach',guests:'20-80 khach',includes:['Tea break','Set lunch','Phong hop','May chieu','Wifi'],image:'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400'}
+        ];
+        var eventData=[
+            {id:1,name:'Wine Tasting Night',desc:'Thuong thuc 12 loai ruou vang cao cap tu Phap va Y.',date:'2024-02-14',time:'19:00 - 22:00',location:'Wine Cellar Q1',ticket:'1,800,000 VND',image:'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=200'},
+            {id:2,name:'Valentine Dinner',desc:'Bua toi lang man danh cho cap doi voi set menu dac biet.',date:'2024-02-14',time:'18:00 - 22:00',location:'Rooftop Q1',ticket:'2,500,000 VND/cap',image:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=200'},
+            {id:3,name:'Cooking Class',desc:'Hoc nau mon Y chinh thong cung bep truong tu Italy.',date:'2024-02-20',time:'14:00 - 17:00',location:'Open Kitchen Q2',ticket:'800,000 VND',image:'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=200'}
+        ];
+        function renderPackages(){
+            var html='<div class="package-grid">';
+            packageData.forEach(function(p){
+                html+='<div class="package-card">';
+                html+='<img class="package-image" src="'+p.image+'">';
+                html+='<div class="package-content">';
+                html+='<div class="package-name">'+p.name+'</div>';
+                html+='<div class="package-desc">'+p.desc+'</div>';
+                html+='<div class="package-price">'+p.price+'</div>';
+                html+='<div class="package-guests"><i class="fas fa-users"></i> '+p.guests+'</div>';
+                html+='<div class="package-includes">'+p.includes.map(function(i){return '<span class="include-tag">'+i+'</span>';}).join('')+'</div>';
+                html+='<div class="item-actions"><button class="btn-edit" onclick="editPackage('+p.id+')"><i class="fas fa-edit"></i> Sua</button><button class="btn-delete" onclick="deletePackage('+p.id+')"><i class="fas fa-trash"></i> Xoa</button></div>';
+                html+='</div></div>';
+            });
+            html+='</div>';
+            document.getElementById('packageList').innerHTML=html;
+        }
+        function renderEvents(){
+            var html='<div class="event-grid">';
+            eventData.forEach(function(e){
+                html+='<div class="event-card">';
+                html+='<img class="event-image" src="'+e.image+'">';
+                html+='<div class="event-content">';
+                html+='<span class="event-date">'+e.date+'</span>';
+                html+='<div class="event-name">'+e.name+'</div>';
+                html+='<div class="event-info"><i class="fas fa-clock"></i> '+e.time+'</div>';
+                html+='<div class="event-info"><i class="fas fa-map-marker-alt"></i> '+e.location+'</div>';
+                html+='<div class="event-info"><i class="fas fa-ticket-alt"></i> '+e.ticket+'</div>';
+                html+='<div class="item-actions"><button class="btn-edit" onclick="editEvent('+e.id+')"><i class="fas fa-edit"></i></button><button class="btn-delete" onclick="deleteEvent('+e.id+')"><i class="fas fa-trash"></i></button></div>';
+                html+='</div></div>';
+            });
+            html+='</div>';
+            document.getElementById('eventList').innerHTML=html;
+        }
+        function openPackageModal(){document.getElementById('packageModal').classList.add('show');}
+        function closePackageModal(){document.getElementById('packageModal').classList.remove('show');}
+        function openEventModal(){document.getElementById('eventModal').classList.add('show');}
+        function closeEventModal(){document.getElementById('eventModal').classList.remove('show');}
+        function savePackage(){showSuccess('Da luu goi tiec!');closePackageModal();renderPackages();}
+        function saveEvent(){showSuccess('Da luu su kien!');closeEventModal();renderEvents();}
+        function editPackage(id){openPackageModal();}
+        function deletePackage(id){if(confirm('Xoa goi nay?')){showSuccess('Da xoa!');renderPackages();}}
+        function editEvent(id){openEventModal();}
+        function deleteEvent(id){if(confirm('Xoa su kien nay?')){showSuccess('Da xoa!');renderEvents();}}
+        renderPackages();
+        renderEvents();
+    </script>
+</body>
+</html>

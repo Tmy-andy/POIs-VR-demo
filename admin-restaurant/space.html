@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khong Gian - Fine Dining Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar" style="background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon" style="background: linear-gradient(135deg, #b8860b, #daa520);"><i class="fas fa-utensils"></i></div><div class="logo-text">Fine Dining</div></div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">CONTENT</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Home & About</a>
+                <a href="menu.html" class="nav-item"><i class="fas fa-book-open"></i> Thuc Don</a>
+                <a href="space.html" class="nav-item active"><i class="fas fa-chair"></i> Khong Gian</a>
+                <a href="branches.html" class="nav-item"><i class="fas fa-map-marker-alt"></i> Chi Nhanh</a>
+                <a href="events.html" class="nav-item"><i class="fas fa-glass-cheers"></i> Su Kien & Tiec</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">MORE</div>
+                <a href="reviews.html" class="nav-item"><i class="fas fa-trophy"></i> Thanh Tuu</a>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Tuyen Dung</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Thu Vien</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Lien He</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">SETTINGS</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a>
+                <a href="../restaurant.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Website</a>
+            </div>
+        </nav>
+    </div>
+    <header class="header"><div class="header-left"><h1 class="page-title">Quan Ly Khong Gian</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar" style="background:#b8860b;">AD</div></div></div></header>
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title">Trang thai hien thi - Section Khong Gian</div>
+                <div class="toggle-container"><span class="toggle-status active" id="sectionStatus">Dang hien thi</span><label class="toggle-switch"><input type="checkbox" id="sectionToggle" checked onchange="toggleSection()"><span class="toggle-slider"></span></label></div>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-image"></i> Anh/VR360 Tong cho Khong Gian</div></div>
+            <div class="card-body">
+                <div class="form-group"><label class="form-label">Link anh hoac VR360</label><input type="url" class="form-input" id="spaceBannerUrl" placeholder="https://..." value="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200" oninput="previewImage(this.value,'spaceBannerPreview')"></div>
+                <div class="image-preview" id="spaceBannerPreview"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200"></div>
+                <button class="btn btn-primary" onclick="showSuccess('Da luu anh tong!')"><i class="fas fa-save"></i> Luu</button>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title">Danh Sach Khong Gian</div><button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Them Khong Gian</button></div>
+            <div class="card-body"><div id="spaceList"></div></div>
+        </div>
+    </main>
+    <div class="modal" id="spaceModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="modalTitle">Them Khong Gian</h3><button class="close-btn" onclick="closeModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Ten khong gian</label><input type="text" class="form-input" id="spaceName" placeholder="VD: Phong VIP"></div>
+                <div class="form-group"><label class="form-label">Mo ta ngan</label><input type="text" class="form-input" id="spaceShortDesc" placeholder="VD: Khong gian rieng tu dang cap"></div>
+                <div class="form-group"><label class="form-label">Mo ta chi tiet</label><textarea class="form-textarea" id="spaceFullDesc" rows="3"></textarea></div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Suc chua</label><input type="text" class="form-input" id="spaceCapacity" placeholder="VD: 8-15 khach"></div>
+                    <div class="form-group"><label class="form-label">Dien tich</label><input type="text" class="form-input" id="spaceArea" placeholder="VD: 50m2"></div>
+                </div>
+                <div class="form-group"><label class="form-label">Tien ich (cach nhau boi dau phay)</label><input type="text" class="form-input" id="spaceAmenities" placeholder="VD: TV, Am thanh, Minibar, Dieu hoa"></div>
+                <div class="form-group"><label class="form-label">Link hinh anh</label><input type="url" class="form-input" id="spaceImage" placeholder="https://..." oninput="previewImage(this.value,'spacePreview')"></div>
+                <div class="image-preview" id="spacePreview"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal()">Huy</button><button class="btn btn-primary" onclick="saveSpace()">Luu</button></div>
+        </div>
+    </div>
+    <style>
+        .toggle-container{display:flex;align-items:center;gap:12px;}
+        .toggle-status{font-size:14px;color:#dc2626;}
+        .toggle-status.active{color:#059669;}
+        .toggle-switch{position:relative;display:inline-block;width:48px;height:26px;}
+        .toggle-switch input{opacity:0;width:0;height:0;}
+        .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#cbd5e1;border-radius:26px;transition:0.3s;}
+        .toggle-slider:before{position:absolute;content:"";height:20px;width:20px;left:3px;bottom:3px;background:white;border-radius:50%;transition:0.3s;}
+        .toggle-switch input:checked+.toggle-slider{background:#b8860b;}
+        .toggle-switch input:checked+.toggle-slider:before{transform:translateX(22px);}
+        .image-preview{margin:12px 0;border-radius:8px;overflow:hidden;max-height:200px;}
+        .image-preview img{width:100%;max-height:200px;object-fit:cover;}
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:20px;}
+        .card-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .card-title{font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px;}
+        .card-title i{color:#b8860b;}
+        .card-body{padding:20px 24px;}
+        .space-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;}
+        .space-card{background:#f8fafc;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;}
+        .space-image{width:100%;height:180px;object-fit:cover;}
+        .space-content{padding:16px;}
+        .space-name{font-size:17px;font-weight:600;color:#1e293b;margin-bottom:6px;}
+        .space-desc{font-size:13px;color:#64748b;margin-bottom:10px;}
+        .space-meta{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:#64748b;margin-bottom:10px;}
+        .space-meta span{display:flex;align-items:center;gap:4px;}
+        .space-meta i{color:#b8860b;}
+        .space-amenities{display:flex;flex-wrap:wrap;gap:6px;}
+        .amenity-tag{background:#fef3c7;color:#b45309;padding:3px 8px;border-radius:4px;font-size:11px;}
+        .space-actions{display:flex;gap:8px;margin-top:12px;}
+        .space-actions button{flex:1;padding:8px;border:none;border-radius:6px;cursor:pointer;font-size:12px;}
+        .btn-edit{background:#dbeafe;color:#1d4ed8;}
+        .btn-delete{background:#fee2e2;color:#dc2626;}
+        .form-group{margin-bottom:16px;}
+        .form-row{display:flex;gap:16px;}
+        .form-row .form-group{flex:1;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+        .form-input,.form-textarea{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;}
+        .form-input:focus,.form-textarea:focus{outline:none;border-color:#b8860b;}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:550px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;}
+        .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#64748b;}
+        .modal-body{padding:24px;}
+        .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid #e2e8f0;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#b8860b;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
+    </style>
+    <script>
+        function toggleSection(){var t=document.getElementById('sectionToggle');var s=document.getElementById('sectionStatus');s.textContent=t.checked?'Dang hien thi':'Da an';s.classList.toggle('active',t.checked);}
+        function previewImage(url,targetId){var el=document.getElementById(targetId);if(url){el.innerHTML='<img src="'+url+'" onerror="this.parentElement.innerHTML=\'\'">';}else{el.innerHTML='';}}
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},3000);}
+        var spaceData=[
+            {id:1,name:'Khu An Trong Nha',shortDesc:'Khong gian chinh sang trong',fullDesc:'Khu vuc an trong nha voi anh sang am ap, ban ghe cao cap nhap khau tu Y.',capacity:'80 khach',area:'200m2',amenities:['Dieu hoa','Wifi','Am thanh'],image:'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400'},
+            {id:2,name:'Phong VIP',shortDesc:'Khong gian rieng tu dang cap',fullDesc:'3 phong VIP duoc trang bi day du tien nghi: TV man hinh lon, he thong am thanh, minibar rieng.',capacity:'8-15 khach/phong',area:'30-50m2/phong',amenities:['TV','Minibar','Karaoke','Dieu hoa'],image:'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=400'},
+            {id:3,name:'San Vuon Ngoai Troi',shortDesc:'Khong gian xanh mat',fullDesc:'San vuon voi cay xanh va dai phun nuoc, ly tuong cho cac buoi tiec ngoai troi, BBQ party.',capacity:'50 khach',area:'150m2',amenities:['BBQ','Den trang tri','Am thanh'],image:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400'},
+            {id:4,name:'Quay Bar & Open Kitchen',shortDesc:'Xem dau bep che bien',fullDesc:'Quay bar voi hon 100 loai ruou va open kitchen cho phep khach thuong thuc nghe thuat nau nuong truc tiep.',capacity:'15 cho quay bar',area:'80m2',amenities:['Bar','Bep mo','Live cooking'],image:'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400'}
+        ];
+        function render(){
+            var html='<div class="space-grid">';
+            spaceData.forEach(function(s){
+                html+='<div class="space-card">';
+                html+='<img class="space-image" src="'+s.image+'">';
+                html+='<div class="space-content">';
+                html+='<div class="space-name">'+s.name+'</div>';
+                html+='<div class="space-desc">'+s.shortDesc+'</div>';
+                html+='<div class="space-meta"><span><i class="fas fa-users"></i> '+s.capacity+'</span><span><i class="fas fa-ruler-combined"></i> '+s.area+'</span></div>';
+                html+='<div class="space-amenities">'+s.amenities.map(function(a){return '<span class="amenity-tag">'+a+'</span>';}).join('')+'</div>';
+                html+='<div class="space-actions"><button class="btn-edit" onclick="editSpace('+s.id+')"><i class="fas fa-edit"></i> Sua</button><button class="btn-delete" onclick="deleteSpace('+s.id+')"><i class="fas fa-trash"></i> Xoa</button></div>';
+                html+='</div></div>';
+            });
+            html+='</div>';
+            document.getElementById('spaceList').innerHTML=html;
+        }
+        function openModal(){document.getElementById('spaceModal').classList.add('show');}
+        function closeModal(){document.getElementById('spaceModal').classList.remove('show');}
+        function saveSpace(){showSuccess('Da luu khong gian!');closeModal();render();}
+        function editSpace(id){openModal();}
+        function deleteSpace(id){if(confirm('Xoa khong gian nay?')){showSuccess('Da xoa!');render();}}
+        render();
+    </script>
+</body>
+</html>

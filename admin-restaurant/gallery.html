@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thu Vien - Fine Dining Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar" style="background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon" style="background: linear-gradient(135deg, #b8860b, #daa520);"><i class="fas fa-utensils"></i></div><div class="logo-text">Fine Dining</div></div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">CONTENT</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Home & About</a>
+                <a href="menu.html" class="nav-item"><i class="fas fa-book-open"></i> Thuc Don</a>
+                <a href="space.html" class="nav-item"><i class="fas fa-chair"></i> Khong Gian</a>
+                <a href="branches.html" class="nav-item"><i class="fas fa-map-marker-alt"></i> Chi Nhanh</a>
+                <a href="events.html" class="nav-item"><i class="fas fa-glass-cheers"></i> Su Kien & Tiec</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">MORE</div>
+                <a href="reviews.html" class="nav-item"><i class="fas fa-trophy"></i> Thanh Tuu</a>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Tuyen Dung</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a>
+                <a href="gallery.html" class="nav-item active"><i class="fas fa-images"></i> Thu Vien</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Lien He</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">SETTINGS</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a>
+                <a href="../restaurant.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Website</a>
+            </div>
+        </nav>
+    </div>
+    <header class="header"><div class="header-left"><h1 class="page-title">Thu Vien Anh & Video</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar" style="background:#b8860b;">AD</div></div></div></header>
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title">Trang thai hien thi - Section Thu Vien</div>
+                <div class="toggle-container"><span class="toggle-status active" id="sectionStatus">Dang hien thi</span><label class="toggle-switch"><input type="checkbox" id="sectionToggle" checked onchange="toggleSection()"><span class="toggle-slider"></span></label></div>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-image"></i> Anh/VR360 Tong cho Thu Vien</div></div>
+            <div class="card-body">
+                <div class="form-group"><label class="form-label">Link anh hoac VR360</label><input type="url" class="form-input" id="galleryBannerUrl" placeholder="https://..." value="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200" oninput="previewImage(this.value,'galleryBannerPreview')"></div>
+                <div class="image-preview" id="galleryBannerPreview"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200"></div>
+                <button class="btn btn-primary" onclick="showSuccess('Da luu anh tong!')"><i class="fas fa-save"></i> Luu</button>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title">Quan Ly Album</div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" onclick="openAlbumModal()"><i class="fas fa-folder-plus"></i> Them Album</button>
+                    <button class="btn btn-primary" onclick="openMediaModal()"><i class="fas fa-plus"></i> Them Media</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="album-tabs" id="albumTabs"></div>
+                <div id="galleryContent"></div>
+            </div>
+        </div>
+    </main>
+    <div class="modal" id="albumModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3>Them Album</h3><button class="close-btn" onclick="closeAlbumModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Ten album</label><input type="text" class="form-input" id="albumName" placeholder="VD: Mon An Dac Sac"></div>
+                <div class="form-group"><label class="form-label">Mo ta</label><input type="text" class="form-input" id="albumDesc" placeholder="VD: Hinh anh cac mon an ngon nhat"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeAlbumModal()">Huy</button><button class="btn btn-primary" onclick="saveAlbum()">Luu</button></div>
+        </div>
+    </div>
+    <div class="modal" id="mediaModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3>Them Media</h3><button class="close-btn" onclick="closeMediaModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Album</label><select class="form-select" id="mediaAlbum">
+                    <option value="food">Mon An</option>
+                    <option value="space">Khong Gian</option>
+                    <option value="events">Su Kien</option>
+                    <option value="team">Doi Ngu</option>
+                </select></div>
+                <div class="form-group"><label class="form-label">Loai</label><select class="form-select" id="mediaType" onchange="toggleVideoField()">
+                    <option value="image">Hinh anh</option>
+                    <option value="video">Video</option>
+                </select></div>
+                <div class="form-group"><label class="form-label">Tieu de</label><input type="text" class="form-input" id="mediaTitle" placeholder="VD: Bo Wagyu A5"></div>
+                <div class="form-group"><label class="form-label">Link media</label><input type="url" class="form-input" id="mediaUrl" placeholder="https://..." oninput="previewImage(this.value,'mediaPreview')"></div>
+                <div class="image-preview" id="mediaPreview"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeMediaModal()">Huy</button><button class="btn btn-primary" onclick="saveMedia()">Luu</button></div>
+        </div>
+    </div>
+    <style>
+        .toggle-container{display:flex;align-items:center;gap:12px;}
+        .toggle-status{font-size:14px;color:#dc2626;}
+        .toggle-status.active{color:#059669;}
+        .toggle-switch{position:relative;display:inline-block;width:48px;height:26px;}
+        .toggle-switch input{opacity:0;width:0;height:0;}
+        .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#cbd5e1;border-radius:26px;transition:0.3s;}
+        .toggle-slider:before{position:absolute;content:"";height:20px;width:20px;left:3px;bottom:3px;background:white;border-radius:50%;transition:0.3s;}
+        .toggle-switch input:checked+.toggle-slider{background:#b8860b;}
+        .toggle-switch input:checked+.toggle-slider:before{transform:translateX(22px);}
+        .image-preview{margin:12px 0;border-radius:8px;overflow:hidden;max-height:200px;}
+        .image-preview img{width:100%;max-height:200px;object-fit:cover;}
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:20px;}
+        .card-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;flex-wrap:wrap;gap:12px;}
+        .card-title{font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px;}
+        .card-title i{color:#b8860b;}
+        .card-body{padding:20px 24px;}
+        .header-actions{display:flex;gap:10px;}
+        .album-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+        .album-tab{padding:10px 20px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:500;background:#f1f5f9;color:#64748b;border:none;transition:0.2s;}
+        .album-tab.active{background:#b8860b;color:white;}
+        .album-tab:hover{background:#e2e8f0;}
+        .album-tab.active:hover{background:#a67c09;}
+        .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
+        .gallery-item{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:1;cursor:pointer;}
+        .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s;}
+        .gallery-item:hover img{transform:scale(1.05);}
+        .gallery-overlay{position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(0,0,0,0.7));opacity:0;transition:0.3s;display:flex;flex-direction:column;justify-content:flex-end;padding:12px;}
+        .gallery-item:hover .gallery-overlay{opacity:1;}
+        .gallery-title{color:white;font-size:13px;font-weight:500;}
+        .gallery-actions{position:absolute;top:8px;right:8px;display:flex;gap:6px;opacity:0;transition:0.3s;}
+        .gallery-item:hover .gallery-actions{opacity:1;}
+        .gallery-actions button{width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;}
+        .btn-del{background:rgba(220,38,38,0.9);color:white;}
+        .btn-view{background:rgba(255,255,255,0.9);color:#1e293b;}
+        .video-badge{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;background:rgba(184,134,11,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:18px;}
+        .form-group{margin-bottom:16px;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+        .form-input,.form-select{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;background:white;}
+        .form-input:focus,.form-select:focus{outline:none;border-color:#b8860b;}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:450px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;}
+        .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#64748b;}
+        .modal-body{padding:24px;}
+        .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid #e2e8f0;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#b8860b;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
+    </style>
+    <script>
+        function toggleSection(){var t=document.getElementById('sectionToggle');var s=document.getElementById('sectionStatus');s.textContent=t.checked?'Dang hien thi':'Da an';s.classList.toggle('active',t.checked);}
+        function previewImage(url,targetId){var el=document.getElementById(targetId);if(url){el.innerHTML='<img src="'+url+'" onerror="this.parentElement.innerHTML=\'\'">';}else{el.innerHTML='';}}
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},3000);}
+        var albums=[
+            {id:'food',name:'Mon An',count:8},
+            {id:'space',name:'Khong Gian',count:6},
+            {id:'events',name:'Su Kien',count:5},
+            {id:'team',name:'Doi Ngu',count:4}
+        ];
+        var galleryData={
+            food:[
+                {id:1,title:'Bo Wagyu A5',type:'image',url:'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400'},
+                {id:2,title:'Tom Hum Alaska',type:'image',url:'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400'},
+                {id:3,title:'Foie Gras',type:'image',url:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400'},
+                {id:4,title:'Trang Mieng',type:'image',url:'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400'},
+                {id:5,title:'Wine Pairing',type:'image',url:'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400'},
+                {id:6,title:'Cooking Process',type:'video',url:'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400'}
+            ],
+            space:[
+                {id:7,title:'Main Dining',type:'image',url:'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400'},
+                {id:8,title:'VIP Room',type:'image',url:'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=400'},
+                {id:9,title:'Bar Area',type:'image',url:'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400'},
+                {id:10,title:'Garden',type:'image',url:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400'}
+            ],
+            events:[
+                {id:11,title:'Wine Tasting',type:'image',url:'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400'},
+                {id:12,title:'Wedding',type:'image',url:'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400'},
+                {id:13,title:'Corporate Event',type:'video',url:'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400'}
+            ],
+            team:[
+                {id:14,title:'Head Chef',type:'image',url:'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400'},
+                {id:15,title:'Team Photo',type:'image',url:'https://images.unsplash.com/photo-1581299894007-aaa50297cf16?w=400'}
+            ]
+        };
+        var currentAlbum='food';
+        function renderTabs(){
+            var html='';
+            albums.forEach(function(a){
+                html+='<button class="album-tab'+(a.id===currentAlbum?' active':'')+'" onclick="switchAlbum(\''+a.id+'\')">'+a.name+' ('+a.count+')</button>';
+            });
+            document.getElementById('albumTabs').innerHTML=html;
+        }
+        function renderGallery(){
+            var items=galleryData[currentAlbum]||[];
+            var html='<div class="gallery-grid">';
+            items.forEach(function(item){
+                html+='<div class="gallery-item">';
+                html+='<img src="'+item.url+'">';
+                if(item.type==='video'){html+='<div class="video-badge"><i class="fas fa-play"></i></div>';}
+                html+='<div class="gallery-overlay"><div class="gallery-title">'+item.title+'</div></div>';
+                html+='<div class="gallery-actions"><button class="btn-view"><i class="fas fa-expand"></i></button><button class="btn-del" onclick="deleteMedia('+item.id+')"><i class="fas fa-trash"></i></button></div>';
+                html+='</div>';
+            });
+            html+='</div>';
+            document.getElementById('galleryContent').innerHTML=html;
+        }
+        function switchAlbum(albumId){currentAlbum=albumId;renderTabs();renderGallery();}
+        function openAlbumModal(){document.getElementById('albumModal').classList.add('show');}
+        function closeAlbumModal(){document.getElementById('albumModal').classList.remove('show');}
+        function openMediaModal(){document.getElementById('mediaModal').classList.add('show');}
+        function closeMediaModal(){document.getElementById('mediaModal').classList.remove('show');}
+        function saveAlbum(){showSuccess('Da tao album!');closeAlbumModal();renderTabs();}
+        function saveMedia(){showSuccess('Da them media!');closeMediaModal();renderGallery();}
+        function deleteMedia(id){if(confirm('Xoa media nay?')){showSuccess('Da xoa!');renderGallery();}}
+        function toggleVideoField(){/* future use */}
+        renderTabs();
+        renderGallery();
+    </script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuyen Dung - Fine Dining Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar" style="background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon" style="background: linear-gradient(135deg, #b8860b, #daa520);"><i class="fas fa-utensils"></i></div><div class="logo-text">Fine Dining</div></div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">CONTENT</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Home & About</a>
+                <a href="menu.html" class="nav-item"><i class="fas fa-book-open"></i> Thuc Don</a>
+                <a href="space.html" class="nav-item"><i class="fas fa-chair"></i> Khong Gian</a>
+                <a href="branches.html" class="nav-item"><i class="fas fa-map-marker-alt"></i> Chi Nhanh</a>
+                <a href="events.html" class="nav-item"><i class="fas fa-glass-cheers"></i> Su Kien & Tiec</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">MORE</div>
+                <a href="reviews.html" class="nav-item"><i class="fas fa-trophy"></i> Thanh Tuu</a>
+                <a href="careers.html" class="nav-item active"><i class="fas fa-briefcase"></i> Tuyen Dung</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Thu Vien</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Lien He</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">SETTINGS</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a>
+                <a href="../restaurant.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Website</a>
+            </div>
+        </nav>
+    </div>
+    <header class="header"><div class="header-left"><h1 class="page-title">Quan Ly Tuyen Dung</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar" style="background:#b8860b;">AD</div></div></div></header>
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title">Trang thai hien thi - Section Tuyen Dung</div>
+                <div class="toggle-container"><span class="toggle-status active" id="sectionStatus">Dang hien thi</span><label class="toggle-switch"><input type="checkbox" id="sectionToggle" checked onchange="toggleSection()"><span class="toggle-slider"></span></label></div>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-image"></i> Anh/VR360 Tong cho Tuyen Dung</div></div>
+            <div class="card-body">
+                <div class="form-group"><label class="form-label">Link anh hoac VR360</label><input type="url" class="form-input" id="careersBannerUrl" placeholder="https://..." value="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200" oninput="previewImage(this.value,'careersBannerPreview')"></div>
+                <div class="image-preview" id="careersBannerPreview"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200"></div>
+                <button class="btn btn-primary" onclick="showSuccess('Da luu anh tong!')"><i class="fas fa-save"></i> Luu</button>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title">Vi Tri Tuyen Dung</div><button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Them Vi Tri</button></div>
+            <div class="card-body"><div id="jobList"></div></div>
+        </div>
+    </main>
+    <div class="modal" id="jobModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="modalTitle">Them Vi Tri</h3><button class="close-btn" onclick="closeModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Ten vi tri</label><input type="text" class="form-input" id="jobTitle" placeholder="VD: Bep Truong"></div>
+                <div class="form-group"><label class="form-label">Bo phan</label><select class="form-select" id="jobDept">
+                    <option value="Bep">Bep</option>
+                    <option value="Phuc vu">Phuc vu</option>
+                    <option value="Bar">Bar</option>
+                    <option value="Quan ly">Quan ly</option>
+                    <option value="Hanh chinh">Hanh chinh</option>
+                </select></div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Muc luong</label><input type="text" class="form-input" id="jobSalary" placeholder="VD: 15-25 trieu"></div>
+                    <div class="form-group"><label class="form-label">Chi nhanh</label><select class="form-select" id="jobBranch">
+                        <option value="Q1">Quan 1</option>
+                        <option value="Q2">Quan 2</option>
+                        <option value="DN">Da Nang</option>
+                        <option value="all">Tat ca</option>
+                    </select></div>
+                </div>
+                <div class="form-group"><label class="form-label">Loai hinh</label><select class="form-select" id="jobType">
+                    <option value="Toan thoi gian">Toan thoi gian</option>
+                    <option value="Ban thoi gian">Ban thoi gian</option>
+                    <option value="Thuc tap">Thuc tap</option>
+                </select></div>
+                <div class="form-group"><label class="form-label">Mo ta cong viec</label><textarea class="form-textarea" id="jobDesc" rows="3"></textarea></div>
+                <div class="form-group"><label class="form-label">Yeu cau (moi dong 1 yeu cau)</label><textarea class="form-textarea" id="jobReq" rows="3" placeholder="Kinh nghiem 2 nam..."></textarea></div>
+                <div class="form-group"><label class="form-label">Quyen loi (moi dong 1 quyen loi)</label><textarea class="form-textarea" id="jobBenefits" rows="3" placeholder="BHXH, BHYT..."></textarea></div>
+                <div class="form-group"><label class="form-label">Link hinh anh</label><input type="url" class="form-input" id="jobImage" placeholder="https://..." oninput="previewImage(this.value,'jobPreview')"></div>
+                <div class="image-preview" id="jobPreview"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal()">Huy</button><button class="btn btn-primary" onclick="saveJob()">Luu</button></div>
+        </div>
+    </div>
+    <style>
+        .toggle-container{display:flex;align-items:center;gap:12px;}
+        .toggle-status{font-size:14px;color:#dc2626;}
+        .toggle-status.active{color:#059669;}
+        .toggle-switch{position:relative;display:inline-block;width:48px;height:26px;}
+        .toggle-switch input{opacity:0;width:0;height:0;}
+        .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#cbd5e1;border-radius:26px;transition:0.3s;}
+        .toggle-slider:before{position:absolute;content:"";height:20px;width:20px;left:3px;bottom:3px;background:white;border-radius:50%;transition:0.3s;}
+        .toggle-switch input:checked+.toggle-slider{background:#b8860b;}
+        .toggle-switch input:checked+.toggle-slider:before{transform:translateX(22px);}
+        .image-preview{margin:12px 0;border-radius:8px;overflow:hidden;max-height:200px;}
+        .image-preview img{width:100%;max-height:200px;object-fit:cover;}
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:20px;}
+        .card-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .card-title{font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px;}
+        .card-title i{color:#b8860b;}
+        .card-body{padding:20px 24px;}
+        .job-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;}
+        .job-card{background:#f8fafc;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;}
+        .job-image{width:100%;height:140px;object-fit:cover;}
+        .job-content{padding:16px;}
+        .job-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+        .job-title{font-size:17px;font-weight:600;color:#1e293b;}
+        .job-dept{background:#e0f2fe;color:#0369a1;padding:3px 10px;border-radius:12px;font-size:11px;}
+        .job-meta{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:#64748b;margin-bottom:10px;}
+        .job-meta span{display:flex;align-items:center;gap:4px;}
+        .job-meta i{color:#b8860b;}
+        .job-salary{font-size:16px;font-weight:600;color:#059669;margin-bottom:10px;}
+        .job-type{display:inline-block;background:#fef3c7;color:#b45309;padding:3px 10px;border-radius:4px;font-size:11px;margin-bottom:12px;}
+        .job-actions{display:flex;gap:8px;}
+        .job-actions button{flex:1;padding:10px;border:none;border-radius:6px;cursor:pointer;font-size:13px;}
+        .btn-edit{background:#dbeafe;color:#1d4ed8;}
+        .btn-delete{background:#fee2e2;color:#dc2626;}
+        .btn-apps{background:#dcfce7;color:#166534;}
+        .form-group{margin-bottom:16px;}
+        .form-row{display:flex;gap:16px;}
+        .form-row .form-group{flex:1;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+        .form-input,.form-textarea,.form-select{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;background:white;}
+        .form-input:focus,.form-textarea:focus,.form-select:focus{outline:none;border-color:#b8860b;}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:550px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;}
+        .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#64748b;}
+        .modal-body{padding:24px;}
+        .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid #e2e8f0;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#b8860b;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
+        .app-count{background:#dc2626;color:white;padding:2px 8px;border-radius:10px;font-size:10px;margin-left:4px;}
+    </style>
+    <script>
+        function toggleSection(){var t=document.getElementById('sectionToggle');var s=document.getElementById('sectionStatus');s.textContent=t.checked?'Dang hien thi':'Da an';s.classList.toggle('active',t.checked);}
+        function previewImage(url,targetId){var el=document.getElementById(targetId);if(url){el.innerHTML='<img src="'+url+'" onerror="this.parentElement.innerHTML=\'\'">';}else{el.innerHTML='';}}
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},3000);}
+        var jobData=[
+            {id:1,title:'Bep Truong (Head Chef)',dept:'Bep',salary:'25-35 trieu',branch:'Q1',type:'Toan thoi gian',apps:5,image:'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400'},
+            {id:2,title:'Pho Bep (Sous Chef)',dept:'Bep',salary:'18-25 trieu',branch:'Q2',type:'Toan thoi gian',apps:8,image:'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400'},
+            {id:3,title:'Sommelier',dept:'Bar',salary:'15-22 trieu',branch:'Q1',type:'Toan thoi gian',apps:3,image:'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400'},
+            {id:4,title:'Nhan Vien Phuc Vu',dept:'Phuc vu',salary:'8-12 trieu',branch:'all',type:'Ban thoi gian',apps:15,image:'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400'},
+            {id:5,title:'Quan Ly Nha Hang',dept:'Quan ly',salary:'20-30 trieu',branch:'DN',type:'Toan thoi gian',apps:2,image:'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400'}
+        ];
+        function render(){
+            var html='<div class="job-grid">';
+            jobData.forEach(function(j){
+                html+='<div class="job-card">';
+                html+='<img class="job-image" src="'+j.image+'">';
+                html+='<div class="job-content">';
+                html+='<div class="job-header"><div class="job-title">'+j.title+'</div><span class="job-dept">'+j.dept+'</span></div>';
+                html+='<div class="job-salary">'+j.salary+' VND</div>';
+                html+='<span class="job-type">'+j.type+'</span>';
+                html+='<div class="job-meta"><span><i class="fas fa-map-marker-alt"></i> '+(j.branch==='all'?'Tat ca chi nhanh':j.branch)+'</span><span><i class="fas fa-users"></i> '+j.apps+' ung vien</span></div>';
+                html+='<div class="job-actions"><button class="btn-apps" onclick="viewApps('+j.id+')"><i class="fas fa-users"></i> Ung vien<span class="app-count">'+j.apps+'</span></button><button class="btn-edit" onclick="editJob('+j.id+')"><i class="fas fa-edit"></i></button><button class="btn-delete" onclick="deleteJob('+j.id+')"><i class="fas fa-trash"></i></button></div>';
+                html+='</div></div>';
+            });
+            html+='</div>';
+            document.getElementById('jobList').innerHTML=html;
+        }
+        function openModal(){document.getElementById('jobModal').classList.add('show');}
+        function closeModal(){document.getElementById('jobModal').classList.remove('show');}
+        function saveJob(){showSuccess('Da luu vi tri!');closeModal();render();}
+        function editJob(id){openModal();}
+        function deleteJob(id){if(confirm('Xoa vi tri nay?')){showSuccess('Da xoa!');render();}}
+        function viewApps(id){alert('Xem danh sach ung vien cho vi tri #'+id);}
+        render();
+    </script>
+</body>
+</html>

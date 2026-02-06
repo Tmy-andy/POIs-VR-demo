@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Nhanh - Fine Dining Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar" style="background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon" style="background: linear-gradient(135deg, #b8860b, #daa520);"><i class="fas fa-utensils"></i></div><div class="logo-text">Fine Dining</div></div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">CONTENT</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Home & About</a>
+                <a href="menu.html" class="nav-item"><i class="fas fa-book-open"></i> Thuc Don</a>
+                <a href="space.html" class="nav-item"><i class="fas fa-chair"></i> Khong Gian</a>
+                <a href="branches.html" class="nav-item active"><i class="fas fa-map-marker-alt"></i> Chi Nhanh</a>
+                <a href="events.html" class="nav-item"><i class="fas fa-glass-cheers"></i> Su Kien & Tiec</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">MORE</div>
+                <a href="reviews.html" class="nav-item"><i class="fas fa-trophy"></i> Thanh Tuu</a>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Tuyen Dung</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Thu Vien</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Lien He</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">SETTINGS</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a>
+                <a href="../restaurant.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Website</a>
+            </div>
+        </nav>
+    </div>
+    <header class="header"><div class="header-left"><h1 class="page-title">Quan Ly Chi Nhanh</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar" style="background:#b8860b;">AD</div></div></div></header>
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title">Trang thai hien thi - Section Chi Nhanh</div>
+                <div class="toggle-container"><span class="toggle-status active" id="sectionStatus">Dang hien thi</span><label class="toggle-switch"><input type="checkbox" id="sectionToggle" checked onchange="toggleSection()"><span class="toggle-slider"></span></label></div>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-image"></i> Anh/VR360 Tong cho Chi Nhanh</div></div>
+            <div class="card-body">
+                <div class="form-group"><label class="form-label">Link anh hoac VR360</label><input type="url" class="form-input" id="branchBannerUrl" placeholder="https://..." value="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1200" oninput="previewImage(this.value,'branchBannerPreview')"></div>
+                <div class="image-preview" id="branchBannerPreview"><img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1200"></div>
+                <button class="btn btn-primary" onclick="showSuccess('Da luu anh tong!')"><i class="fas fa-save"></i> Luu</button>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title">Danh Sach Chi Nhanh</div><button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Them Chi Nhanh</button></div>
+            <div class="card-body"><div id="branchList"></div></div>
+        </div>
+    </main>
+    <div class="modal" id="branchModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="modalTitle">Them Chi Nhanh</h3><button class="close-btn" onclick="closeModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Ten chi nhanh</label><input type="text" class="form-input" id="branchName" placeholder="VD: Fine Dining Quan 1"></div>
+                <div class="form-group"><label class="form-label">Dia chi</label><input type="text" class="form-input" id="branchAddress" placeholder="VD: 123 Dong Khoi, Q1, TPHCM"></div>
+                <div class="form-group"><label class="form-label">So dien thoai</label><input type="text" class="form-input" id="branchPhone" placeholder="VD: 028 1234 5678"></div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Suc chua</label><input type="text" class="form-input" id="branchCapacity" placeholder="VD: 120 cho"></div>
+                    <div class="form-group"><label class="form-label">Phong VIP</label><input type="text" class="form-input" id="branchVip" placeholder="VD: 3 phong"></div>
+                </div>
+                <div class="form-group"><label class="form-label">Gio hoat dong</label><input type="text" class="form-input" id="branchHours" placeholder="VD: 11:00 - 22:00"></div>
+                <div class="form-group"><label class="form-label">Diem noi bat (cach nhau boi dau phay)</label><input type="text" class="form-input" id="branchFeatures" placeholder="VD: View song, Bai do xe, Wine cellar"></div>
+                <div class="form-group"><label class="form-label">Link Google Maps</label><input type="url" class="form-input" id="branchMap" placeholder="https://maps.google.com/..."></div>
+                <div class="form-group"><label class="form-label">Link hinh anh</label><input type="url" class="form-input" id="branchImage" placeholder="https://..." oninput="previewImage(this.value,'branchPreview')"></div>
+                <div class="image-preview" id="branchPreview"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal()">Huy</button><button class="btn btn-primary" onclick="saveBranch()">Luu</button></div>
+        </div>
+    </div>
+    <style>
+        .toggle-container{display:flex;align-items:center;gap:12px;}
+        .toggle-status{font-size:14px;color:#dc2626;}
+        .toggle-status.active{color:#059669;}
+        .toggle-switch{position:relative;display:inline-block;width:48px;height:26px;}
+        .toggle-switch input{opacity:0;width:0;height:0;}
+        .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#cbd5e1;border-radius:26px;transition:0.3s;}
+        .toggle-slider:before{position:absolute;content:"";height:20px;width:20px;left:3px;bottom:3px;background:white;border-radius:50%;transition:0.3s;}
+        .toggle-switch input:checked+.toggle-slider{background:#b8860b;}
+        .toggle-switch input:checked+.toggle-slider:before{transform:translateX(22px);}
+        .image-preview{margin:12px 0;border-radius:8px;overflow:hidden;max-height:200px;}
+        .image-preview img{width:100%;max-height:200px;object-fit:cover;}
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:20px;}
+        .card-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .card-title{font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px;}
+        .card-title i{color:#b8860b;}
+        .card-body{padding:20px 24px;}
+        .branch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:20px;}
+        .branch-card{background:#f8fafc;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;}
+        .branch-image{width:100%;height:200px;object-fit:cover;}
+        .branch-content{padding:16px;}
+        .branch-name{font-size:18px;font-weight:600;color:#1e293b;margin-bottom:8px;}
+        .branch-info{font-size:13px;color:#64748b;margin-bottom:6px;display:flex;align-items:flex-start;gap:8px;}
+        .branch-info i{color:#b8860b;width:16px;margin-top:2px;}
+        .branch-features{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+        .feature-tag{background:#fef3c7;color:#b45309;padding:3px 8px;border-radius:4px;font-size:11px;}
+        .branch-actions{display:flex;gap:8px;margin-top:14px;}
+        .branch-actions button{flex:1;padding:10px;border:none;border-radius:6px;cursor:pointer;font-size:13px;}
+        .btn-edit{background:#dbeafe;color:#1d4ed8;}
+        .btn-delete{background:#fee2e2;color:#dc2626;}
+        .btn-map{background:#dcfce7;color:#166534;}
+        .form-group{margin-bottom:16px;}
+        .form-row{display:flex;gap:16px;}
+        .form-row .form-group{flex:1;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+        .form-input{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;}
+        .form-input:focus{outline:none;border-color:#b8860b;}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:550px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;}
+        .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#64748b;}
+        .modal-body{padding:24px;}
+        .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid #e2e8f0;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#b8860b;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
+    </style>
+    <script>
+        function toggleSection(){var t=document.getElementById('sectionToggle');var s=document.getElementById('sectionStatus');s.textContent=t.checked?'Dang hien thi':'Da an';s.classList.toggle('active',t.checked);}
+        function previewImage(url,targetId){var el=document.getElementById(targetId);if(url){el.innerHTML='<img src="'+url+'" onerror="this.parentElement.innerHTML=\'\'">';}else{el.innerHTML='';}}
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},3000);}
+        var branchData=[
+            {id:1,name:'Fine Dining Quan 1',address:'123 Dong Khoi, Quan 1, TPHCM',phone:'028 3823 1234',capacity:'120 cho',vip:'3 phong',hours:'11:00 - 22:00',features:['View pho di bo','Wine cellar','Bai do xe'],map:'https://maps.google.com',image:'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400'},
+            {id:2,name:'Fine Dining Quan 2',address:'45 Xa Lo Ha Noi, Quan 2, TPHCM',phone:'028 3740 5678',capacity:'150 cho',vip:'5 phong',hours:'10:00 - 23:00',features:['View song','San vuon','Rooftop bar'],map:'https://maps.google.com',image:'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400'},
+            {id:3,name:'Fine Dining Da Nang',address:'56 Bach Dang, Hai Chau, Da Nang',phone:'0236 382 9012',capacity:'80 cho',vip:'2 phong',hours:'11:00 - 22:00',features:['View cau Rong','Seafood bar','Live music'],map:'https://maps.google.com',image:'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400'}
+        ];
+        function render(){
+            var html='<div class="branch-grid">';
+            branchData.forEach(function(b){
+                html+='<div class="branch-card">';
+                html+='<img class="branch-image" src="'+b.image+'">';
+                html+='<div class="branch-content">';
+                html+='<div class="branch-name">'+b.name+'</div>';
+                html+='<div class="branch-info"><i class="fas fa-map-marker-alt"></i><span>'+b.address+'</span></div>';
+                html+='<div class="branch-info"><i class="fas fa-phone"></i><span>'+b.phone+'</span></div>';
+                html+='<div class="branch-info"><i class="fas fa-clock"></i><span>'+b.hours+'</span></div>';
+                html+='<div class="branch-info"><i class="fas fa-users"></i><span>'+b.capacity+' | '+b.vip+' VIP</span></div>';
+                html+='<div class="branch-features">'+b.features.map(function(f){return '<span class="feature-tag">'+f+'</span>';}).join('')+'</div>';
+                html+='<div class="branch-actions"><button class="btn-edit" onclick="editBranch('+b.id+')"><i class="fas fa-edit"></i> Sua</button><button class="btn-map" onclick="window.open(\''+b.map+'\')"><i class="fas fa-map"></i> Maps</button><button class="btn-delete" onclick="deleteBranch('+b.id+')"><i class="fas fa-trash"></i></button></div>';
+                html+='</div></div>';
+            });
+            html+='</div>';
+            document.getElementById('branchList').innerHTML=html;
+        }
+        function openModal(){document.getElementById('branchModal').classList.add('show');}
+        function closeModal(){document.getElementById('branchModal').classList.remove('show');}
+        function saveBranch(){showSuccess('Da luu chi nhanh!');closeModal();render();}
+        function editBranch(id){openModal();}
+        function deleteBranch(id){if(confirm('Xoa chi nhanh nay?')){showSuccess('Da xoa!');render();}}
+        render();
+    </script>
+</body>
+</html>

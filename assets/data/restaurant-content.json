@@ -318,7 +318,7 @@
     },
     "reviews": {
         "type": "list",
-        "title": "Đánh Giá & Báo Chí",
+        "title": "Thành Tựu & Báo Chí",
         "items": [
             {
                 "id": "customer",
