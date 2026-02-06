@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Thu Vien Anh</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-ticket-alt"></i></div>
+                <div class="logo-text">Adventure Park</div>
+            </div>
+        </div>
+        <div class="property-selector">
+            <div class="property-label">Khu Vui Choi</div>
+            <div class="property-name">Adventure Park Admin</div>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-section-title">TONG QUAN</div>
+            <div class="nav-section">
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Trang Chu & Gioi Thieu</a>
+            </div>
+            <div class="nav-section-title">DIEM THAM QUAN</div>
+            <div class="nav-section">
+                <a href="map.html" class="nav-item"><i class="fas fa-map"></i> Ban Do</a>
+                <a href="attractions.html" class="nav-item"><i class="fas fa-map-marked-alt"></i> Cac Khu Vuc</a>
+                <a href="games.html" class="nav-item"><i class="fas fa-gamepad"></i> Tro Choi</a>
+            </div>
+            <div class="nav-section-title">DICH VU</div>
+            <div class="nav-section">
+                <a href="tickets.html" class="nav-item"><i class="fas fa-ticket-alt"></i> Loai Ve & Gia</a>
+                <a href="schedule.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Lich Hoat Dong</a>
+                <a href="food.html" class="nav-item"><i class="fas fa-utensils"></i> An Uong</a>
+                <a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Dich Vu Khac</a>
+            </div>
+            <div class="nav-section-title">THONG TIN</div>
+            <div class="nav-section">
+                <a href="info.html" class="nav-item"><i class="fas fa-book"></i> Noi Quy & Luu Y</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> Lien He</a>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Tuyen Dung</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a>
+                <a href="gallery.html" class="nav-item active"><i class="fas fa-images"></i> Thu Vien</a>
+            </div>
+            <div class="nav-section-title">HE THONG</div>
+            <div class="nav-section">
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a>
+                <a href="../park.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Trang</a>
+                <a href="../index.html" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> Thoat</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="header">
+        <div class="header-left">
+            <h1 class="page-title">Thu Vien Anh & Video</h1>
+        </div>
+        <div class="header-right">
+            <button class="btn btn-primary" onclick="openModal('uploadModal')"><i class="fas fa-upload"></i> Upload</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="gallery-tabs">
+            <button class="tab-btn active" data-tab="images">Hinh Anh</button>
+            <button class="tab-btn" data-tab="videos">Video</button>
+            <button class="tab-btn" data-tab="vr360">VR360</button>
+        </div>
+        <div class="gallery-grid" id="galleryGrid"></div>
+    </main>
+
+    <!-- Upload Modal -->
+    <div class="modal-overlay" id="uploadModal">
+        <div class="modal modal-lg">
+            <div class="modal-header"><h3>Upload Media</h3><button class="modal-close" onclick="closeModal('uploadModal')"><i class="fas fa-times"></i></button></div>
+            <div class="modal-body">
+                <div class="form-group"><label>Loai media</label><select class="form-control"><option value="image">Hinh anh</option><option value="video">Video</option><option value="vr360">VR360</option></select></div>
+                <div class="form-group"><label>Chon file</label><input type="file" class="form-control" accept="image/*,video/*" multiple></div>
+                <div class="form-group"><label>Mo ta</label><input type="text" class="form-control" placeholder="Mo ta ngan gon..."></div>
+                <div class="form-group"><label>Khu vuc lien quan</label><select class="form-control"><option value="">-- Chon khu vuc --</option><option>Khu Phieu Luu</option><option>Khu Ky Ao</option><option>Khu Nuoc</option></select></div>
+                <div class="upload-preview"><p style="color:#999; text-align:center;"><i class="fas fa-cloud-upload-alt" style="font-size:48px;"></i><br>Keo tha file vao day hoac click de chon</p></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('uploadModal')">Huy</button><button class="btn btn-primary" onclick="saveAndClose('uploadModal')">Upload</button></div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal-overlay" id="editMediaModal">
+        <div class="modal">
+            <div class="modal-header"><h3>Chinh Sua Media</h3><button class="modal-close" onclick="closeModal('editMediaModal')"><i class="fas fa-times"></i></button></div>
+            <div class="modal-body">
+                <div class="form-group"><label>Mo ta</label><input type="text" class="form-control" value="Hinh anh khu phieu luu"></div>
+                <div class="form-group"><label>Khu vuc</label><select class="form-control"><option selected>Khu Phieu Luu</option><option>Khu Ky Ao</option></select></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('editMediaModal')">Huy</button><button class="btn btn-primary" onclick="saveAndClose('editMediaModal')">Luu</button></div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function saveAndClose(id) { alert('Da luu thanh cong!'); closeModal(id); }
+        function confirmDelete() { if(confirm('Ban co chac muon xoa?')) alert('Da xoa!'); }
+
+        fetch('../assets/data/park-content.json')
+            .then(r => r.json())
+            .then(data => {
+                const gallery = data.gallery;
+                const grid = document.getElementById('galleryGrid');
+                if (!gallery || !gallery.items) return;
+                
+                let html = '';
+                gallery.items.forEach(item => {
+                    html += `
+                        <div class="gallery-item">
+                            <img src="${item.image}" alt="${item.name}">
+                            <div class="gallery-overlay">
+                                <span>${item.name}</span>
+                                <div class="gallery-actions">
+                                    <button class="btn btn-sm" onclick="openModal('editMediaModal')"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-sm" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                grid.innerHTML = html;
+            });
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+    </script>
+    <style>
+        .gallery-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tab-btn { padding: 10px 20px; border: none; background: #e5e5e5; cursor: pointer; border-radius: 8px; }
+        .tab-btn.active { background: #16A34A; color: white; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+        .gallery-item { position: relative; border-radius: 8px; overflow: hidden; aspect-ratio: 4/3; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+        .gallery-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .gallery-actions { display: flex; gap: 5px; }
+        .btn-sm { padding: 6px 10px; font-size: 12px; background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; border-radius: 4px; }
+        .upload-preview { border: 2px dashed #ddd; border-radius: 12px; padding: 40px; margin-top: 16px; }
+        .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:1000;}.modal-overlay.active{display:flex;}.modal{background:white;border-radius:12px;width:100%;max-width:500px;max-height:90vh;overflow:hidden;}.modal.modal-lg{max-width:700px;}.modal-header{padding:16px 20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;}.modal-header h3{font-size:18px;font-weight:600;margin:0;}.modal-close{background:none;border:none;font-size:20px;color:#64748b;cursor:pointer;}.modal-body{padding:20px;max-height:60vh;overflow-y:auto;}.modal-footer{padding:16px 20px;border-top:1px solid #e2e8f0;display:flex;justify-content:flex-end;gap:12px;}.form-group{margin-bottom:16px;}.form-group label{display:block;margin-bottom:8px;font-weight:500;font-size:14px;}.form-control{width:100%;padding:10px 14px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;box-sizing:border-box;}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    </style>
+</body>
+</html>

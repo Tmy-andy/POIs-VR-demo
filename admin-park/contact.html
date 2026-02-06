@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Lien He</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-ticket-alt"></i></div>
+                <div class="logo-text">Adventure Park</div>
+            </div>
+        </div>
+        <div class="property-selector">
+            <div class="property-label">Khu Vui Choi</div>
+            <div class="property-name">Adventure Park Admin</div>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-section-title">TONG QUAN</div>
+            <div class="nav-section">
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Trang Chu & Gioi Thieu</a>
+            </div>
+            <div class="nav-section-title">DIEM THAM QUAN</div>
+            <div class="nav-section">
+                <a href="map.html" class="nav-item"><i class="fas fa-map"></i> Ban Do</a>
+                <a href="attractions.html" class="nav-item"><i class="fas fa-map-marked-alt"></i> Cac Khu Vuc</a>
+                <a href="games.html" class="nav-item"><i class="fas fa-gamepad"></i> Tro Choi</a>
+            </div>
+            <div class="nav-section-title">DICH VU</div>
+            <div class="nav-section">
+                <a href="tickets.html" class="nav-item"><i class="fas fa-ticket-alt"></i> Loai Ve & Gia</a>
+                <a href="schedule.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Lich Hoat Dong</a>
+                <a href="food.html" class="nav-item"><i class="fas fa-utensils"></i> An Uong</a>
+                <a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Dich Vu Khac</a>
+            </div>
+            <div class="nav-section-title">THONG TIN</div>
+            <div class="nav-section">
+                <a href="info.html" class="nav-item"><i class="fas fa-book"></i> Noi Quy & Luu Y</a>
+                <a href="contact.html" class="nav-item active"><i class="fas fa-envelope"></i> Lien He</a>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Tuyen Dung</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Thu Vien</a>
+            </div>
+            <div class="nav-section-title">HE THONG</div>
+            <div class="nav-section">
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a>
+                <a href="../park.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Trang</a>
+                <a href="../index.html" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> Thoat</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="header">
+        <div class="header-left">
+            <h1 class="page-title">Quan Ly Lien He</h1>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-envelope"></i></div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalMessages">47</div>
+                    <div class="stat-label">Tong Tin Nhan</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-envelope-open"></i></div>
+                <div class="stat-info">
+                    <div class="stat-value" id="readMessages">32</div>
+                    <div class="stat-label">Da Doc</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                <div class="stat-info">
+                    <div class="stat-value" id="pendingMessages">15</div>
+                    <div class="stat-label">Chua Xu Ly</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Nguoi Gui</th>
+                        <th>Email</th>
+                        <th>Chu De</th>
+                        <th>Ngay Gui</th>
+                        <th>Trang Thai</th>
+                        <th>Thao Tac</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nguyen Van A</td>
+                        <td>nguyenvana@email.com</td>
+                        <td>Hoi ve gio mo cua</td>
+                        <td>2024-01-15</td>
+                        <td><span class="status status-success">Da Tra Loi</span></td>
+                        <td>
+                            <button class="btn btn-secondary btn-sm" onclick="openModal('viewMessageModal')"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-secondary btn-sm" onclick="openModal('replyModal')"><i class="fas fa-reply"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tran Thi B</td>
+                        <td>tranthib@email.com</td>
+                        <td>Dat tiec sinh nhat</td>
+                        <td>2024-01-14</td>
+                        <td><span class="status status-warning">Dang Xu Ly</span></td>
+                        <td>
+                            <button class="btn btn-secondary btn-sm" onclick="openModal('viewMessageModal')"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-secondary btn-sm" onclick="openModal('replyModal')"><i class="fas fa-reply"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Le Van C</td>
+                        <td>levanc@email.com</td>
+                        <td>Hop tac truyen thong</td>
+                        <td>2024-01-13</td>
+                        <td><span class="status status-pending">Moi</span></td>
+                        <td>
+                            <button class="btn btn-secondary btn-sm" onclick="openModal('viewMessageModal')"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-secondary btn-sm" onclick="openModal('replyModal')"><i class="fas fa-reply"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- View Message Modal -->
+    <div class="modal-overlay" id="viewMessageModal">
+        <div class="modal modal-lg">
+            <div class="modal-header"><h3>Chi Tiet Tin Nhan</h3><button class="modal-close" onclick="closeModal('viewMessageModal')"><i class="fas fa-times"></i></button></div>
+            <div class="modal-body">
+                <div class="message-detail">
+                    <p><strong>Tu:</strong> Nguyen Van A (nguyenvana@email.com)</p>
+                    <p><strong>Ngay gui:</strong> 15/01/2024 10:30</p>
+                    <p><strong>Chu de:</strong> Hoi ve gio mo cua</p>
+                    <hr>
+                    <p><strong>Noi dung:</strong></p>
+                    <p>Xin chao, cho toi hoi cong vien mo cua tu may gio den may gio vao cac ngay trong tuan? Cuoi tuan co khac khong? Cam on.</p>
+                </div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('viewMessageModal')">Dong</button><button class="btn btn-primary" onclick="closeModal('viewMessageModal'); openModal('replyModal')">Tra Loi</button></div>
+        </div>
+    </div>
+
+    <!-- Reply Modal -->
+    <div class="modal-overlay" id="replyModal">
+        <div class="modal modal-lg">
+            <div class="modal-header"><h3>Tra Loi Tin Nhan</h3><button class="modal-close" onclick="closeModal('replyModal')"><i class="fas fa-times"></i></button></div>
+            <div class="modal-body">
+                <div class="form-group"><label>Gui den</label><input type="email" class="form-control" value="nguyenvana@email.com" readonly></div>
+                <div class="form-group"><label>Chu de</label><input type="text" class="form-control" value="Re: Hoi ve gio mo cua"></div>
+                <div class="form-group"><label>Noi dung tra loi</label><textarea class="form-control" rows="6" placeholder="Nhap noi dung tra loi..."></textarea></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('replyModal')">Huy</button><button class="btn btn-primary" onclick="saveAndClose('replyModal')">Gui</button></div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function saveAndClose(id) { alert('Da gui thanh cong!'); closeModal(id); }
+    </script>
+    <style>
+        .btn-sm { padding: 6px 12px; font-size: 12px; }
+        .status { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+        .status-success { background: #dcfce7; color: #16A34A; }
+        .status-warning { background: #fef3c7; color: #d97706; }
+        .status-pending { background: #dbeafe; color: #2563eb; }
+        .message-detail p { margin: 8px 0; }
+        .message-detail hr { margin: 16px 0; border: none; border-top: 1px solid #eee; }
+        .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:1000;}.modal-overlay.active{display:flex;}.modal{background:white;border-radius:12px;width:100%;max-width:500px;max-height:90vh;overflow:hidden;}.modal.modal-lg{max-width:700px;}.modal-header{padding:16px 20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;}.modal-header h3{font-size:18px;font-weight:600;margin:0;}.modal-close{background:none;border:none;font-size:20px;color:#64748b;cursor:pointer;}.modal-body{padding:20px;max-height:60vh;overflow-y:auto;}.modal-footer{padding:16px 20px;border-top:1px solid #e2e8f0;display:flex;justify-content:flex-end;gap:12px;}.form-group{margin-bottom:16px;}.form-group label{display:block;margin-bottom:8px;font-weight:500;font-size:14px;}.form-control{width:100%;padding:10px 14px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;box-sizing:border-box;}
+    </style>
+</body>
+</html>

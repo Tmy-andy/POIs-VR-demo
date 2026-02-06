@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Adventure Park Admin - Lich & Su Kien</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="styles/admin.css"></head>
+<body>
+    <div class="sidebar"><div class="sidebar-header"><div class="logo"><div class="logo-icon"><i class="fas fa-ticket-alt"></i></div><div class="logo-text">Adventure Park</div></div></div><div class="property-selector"><div class="property-label">Khu Vui Choi</div><div class="property-name">Adventure Park Admin</div></div><nav class="nav-menu"><div class="nav-section"><div class="nav-section-title">TONG QUAN</div><a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a><a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Gioi Thieu</a></div><div class="nav-section"><div class="nav-section-title">DIEM THAM QUAN</div><a href="attractions.html" class="nav-item"><i class="fas fa-map-marked-alt"></i> Diem Tham Quan</a><a href="map.html" class="nav-item"><i class="fas fa-map"></i> Ban Do</a><a href="games.html" class="nav-item"><i class="fas fa-gamepad"></i> Tro Choi</a></div><div class="nav-section"><div class="nav-section-title">DICH VU</div><a href="tickets.html" class="nav-item"><i class="fas fa-ticket-alt"></i> Ve & Gia Ve</a><a href="schedule.html" class="nav-item active"><i class="fas fa-calendar-alt"></i> Lich & Su Kien</a><a href="food.html" class="nav-item"><i class="fas fa-utensils"></i> An Uong</a><a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Dich Vu Ho Tro</a></div><div class="nav-section"><div class="nav-section-title">THONG TIN</div><a href="info.html" class="nav-item"><i class="fas fa-clock"></i> Thong Tin</a><a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Tuyen Dung</a><a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a><a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Thu Vien</a><a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Lien He</a></div><div class="nav-section"><div class="nav-section-title">HE THONG</div><a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a><a href="../park.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Website</a><a href="../index.html" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> Thoat</a></div></nav></div>
+    <header class="header"><div class="header-left"><h1 class="page-title">Lich Bieu & Su Kien</h1></div><div class="header-right"><button class="btn btn-primary" onclick="openModal('addEventModal')"><i class="fas fa-plus"></i> Them su kien</button></div></header>
+    <main class="main-content"><div class="items-grid" id="scheduleGrid"></div></main>
+
+    <!-- Add Event Modal -->
+    <div class="modal-overlay" id="addEventModal">
+        <div class="modal">
+            <div class="modal-header"><h3>Them Su Kien</h3><button class="modal-close" onclick="closeModal('addEventModal')"><i class="fas fa-times"></i></button></div>
+            <div class="modal-body">
+                <div class="form-group"><label>Ten su kien *</label><input type="text" class="form-control" placeholder="VD: Halloween Festival"></div>
+                <div class="form-group"><label>Loai</label><select class="form-control"><option value="show">Bieu dien</option><option value="event">Su kien</option><option value="workshop">Workshop</option></select></div>
+                <div class="form-group"><label>Mo ta</label><textarea class="form-control" rows="3" placeholder="Mo ta su kien..."></textarea></div>
+                <div class="form-row"><div class="form-group"><label>Ngay bat dau</label><input type="date" class="form-control"></div><div class="form-group"><label>Ngay ket thuc</label><input type="date" class="form-control"></div></div>
+                <div class="form-row"><div class="form-group"><label>Gio bat dau</label><input type="time" class="form-control"></div><div class="form-group"><label>Gio ket thuc</label><input type="time" class="form-control"></div></div>
+                <div class="form-group"><label>Dia diem</label><input type="text" class="form-control" placeholder="VD: San khau chinh"></div>
+                <div class="form-group"><label>Hinh anh</label><input type="file" class="form-control" accept="image/*"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('addEventModal')">Huy</button><button class="btn btn-primary" onclick="saveAndClose('addEventModal')">Them Su Kien</button></div>
+        </div>
+    </div>
+
+    <!-- Edit Event Modal -->
+    <div class="modal-overlay" id="editEventModal">
+        <div class="modal">
+            <div class="modal-header"><h3>Chinh Sua Su Kien</h3><button class="modal-close" onclick="closeModal('editEventModal')"><i class="fas fa-times"></i></button></div>
+            <div class="modal-body">
+                <div class="form-group"><label>Ten su kien *</label><input type="text" class="form-control" value="Halloween Festival"></div>
+                <div class="form-group"><label>Loai</label><select class="form-control"><option value="event" selected>Su kien</option><option value="show">Bieu dien</option><option value="workshop">Workshop</option></select></div>
+                <div class="form-group"><label>Mo ta</label><textarea class="form-control" rows="3">Le hoi Halloween lon nhat mien Nam...</textarea></div>
+                <div class="form-row"><div class="form-group"><label>Ngay bat dau</label><input type="date" class="form-control" value="2026-10-25"></div><div class="form-group"><label>Ngay ket thuc</label><input type="date" class="form-control" value="2026-10-31"></div></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('editEventModal')">Huy</button><button class="btn btn-primary" onclick="saveAndClose('editEventModal')">Luu Thay Doi</button></div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function saveAndClose(id) { alert('Da luu thanh cong!'); closeModal(id); }
+        function confirmDelete() { if(confirm('Ban co chac muon xoa?')) alert('Da xoa!'); }
+
+        document.addEventListener('DOMContentLoaded',function(){fetch('../assets/data/park-content.json').then(function(r){return r.json();}).then(function(data){var schedule=data.schedule;var grid=document.getElementById('scheduleGrid');if(!schedule||!schedule.items)return;var html='';schedule.items.forEach(function(item){var badge=item.badge?'<span class="badge badge-orange">'+item.badge+'</span>':'';html+='<div class="item-card"><img src="'+item.image+'" alt="'+item.name+'" class="item-card-image"><div class="item-card-body"><div class="item-card-title">'+item.name+' '+badge+'</div><div class="item-card-desc">'+item.shortDesc+'</div></div><div class="item-card-actions"><button class="btn btn-secondary btn-sm" onclick="openModal(\'editEventModal\')"><i class="fas fa-edit"></i> Sua</button><button class="btn btn-secondary btn-sm" onclick="confirmDelete()"><i class="fas fa-trash"></i></button></div></div>';});grid.innerHTML=html;});});
+    </script>
+    <style>
+        .btn-sm{padding:6px 12px;font-size:12px;}
+        .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:1000;}.modal-overlay.active{display:flex;}.modal{background:white;border-radius:12px;width:100%;max-width:500px;max-height:90vh;overflow:hidden;}.modal-header{padding:16px 20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;}.modal-header h3{font-size:18px;font-weight:600;margin:0;}.modal-close{background:none;border:none;font-size:20px;color:#64748b;cursor:pointer;}.modal-body{padding:20px;max-height:60vh;overflow-y:auto;}.modal-footer{padding:16px 20px;border-top:1px solid #e2e8f0;display:flex;justify-content:flex-end;gap:12px;}.form-group{margin-bottom:16px;}.form-group label{display:block;margin-bottom:8px;font-weight:500;font-size:14px;}.form-control{width:100%;padding:10px 14px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;box-sizing:border-box;}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    </style>
+</body>
+</html>

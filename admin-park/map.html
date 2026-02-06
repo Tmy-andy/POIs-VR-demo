@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Ban Do</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-ticket-alt"></i></div>
+                <div class="logo-text">Adventure Park</div>
+            </div>
+        </div>
+        <div class="property-selector">
+            <div class="property-label">Khu Vui Choi</div>
+            <div class="property-name">Adventure Park Admin</div>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-section">
+                <div class="nav-section-title">TONG QUAN</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Gioi Thieu</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">DIEM THAM QUAN</div>
+                <a href="attractions.html" class="nav-item"><i class="fas fa-map-marked-alt"></i> Diem Tham Quan</a>
+                <a href="map.html" class="nav-item active"><i class="fas fa-map"></i> Ban Do</a>
+                <a href="games.html" class="nav-item"><i class="fas fa-gamepad"></i> Tro Choi</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">DICH VU</div>
+                <a href="tickets.html" class="nav-item"><i class="fas fa-ticket-alt"></i> Ve & Gia Ve</a>
+                <a href="schedule.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Lich & Su Kien</a>
+                <a href="food.html" class="nav-item"><i class="fas fa-utensils"></i> An Uong</a>
+                <a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Dich Vu Ho Tro</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">THONG TIN</div>
+                <a href="info.html" class="nav-item"><i class="fas fa-clock"></i> Thong Tin Tham Quan</a>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Tuyen Dung</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Thu Vien</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Lien He</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">HE THONG</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a>
+                <a href="../park.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Website</a>
+                <a href="../index.html" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> Thoat</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="header">
+        <div class="header-left">
+            <h1 class="page-title">Ban Do & So Do</h1>
+        </div>
+        <div class="header-right">
+            <button class="btn btn-primary" onclick="openModal('addZoneModal')"><i class="fas fa-plus"></i> Them Khu Vuc</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="map-container">
+            <div class="map-section">
+                <div class="section-header">
+                    <h3>Ban Do Tong The</h3>
+                    <button class="btn btn-secondary btn-sm" onclick="openModal('uploadMapModal')"><i class="fas fa-upload"></i> Thay Ban Do</button>
+                </div>
+                <div class="map-preview">
+                    <img src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=800" alt="Park Map">
+                    <div class="map-markers">
+                        <div class="marker" style="top: 20%; left: 30%;" onclick="openModal('editZoneModal')">
+                            <i class="fas fa-bolt"></i>
+                            <span class="marker-label">Khu Cam Giac Manh</span>
+                        </div>
+                        <div class="marker" style="top: 40%; left: 60%;" onclick="openModal('editZoneModal')">
+                            <i class="fas fa-child"></i>
+                            <span class="marker-label">Khu Tre Em</span>
+                        </div>
+                        <div class="marker" style="top: 60%; left: 40%;" onclick="openModal('editZoneModal')">
+                            <i class="fas fa-utensils"></i>
+                            <span class="marker-label">Khu An Uong</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="zones-list">
+                <div class="section-header">
+                    <h3>Danh Sach Khu Vuc</h3>
+                </div>
+                <div class="zones-grid">
+                    <div class="zone-card">
+                        <div class="zone-icon" style="background: #ef4444;"><i class="fas fa-bolt"></i></div>
+                        <div class="zone-info">
+                            <h4>Khu Cam Giac Manh</h4>
+                            <p>8 tro choi</p>
+                        </div>
+                        <div class="zone-actions">
+                            <button class="btn-icon" onclick="openModal('editZoneModal')"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="zone-card">
+                        <div class="zone-icon" style="background: #3b82f6;"><i class="fas fa-users"></i></div>
+                        <div class="zone-info">
+                            <h4>Khu Gia Dinh</h4>
+                            <p>12 tro choi</p>
+                        </div>
+                        <div class="zone-actions">
+                            <button class="btn-icon" onclick="openModal('editZoneModal')"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="zone-card">
+                        <div class="zone-icon" style="background: #f97316;"><i class="fas fa-child"></i></div>
+                        <div class="zone-info">
+                            <h4>Khu Tre Em</h4>
+                            <p>15 tro choi</p>
+                        </div>
+                        <div class="zone-actions">
+                            <button class="btn-icon" onclick="openModal('editZoneModal')"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="zone-card">
+                        <div class="zone-icon" style="background: #8b5cf6;"><i class="fas fa-vr-cardboard"></i></div>
+                        <div class="zone-info">
+                            <h4>Khu VR & Tuong Tac</h4>
+                            <p>6 tro choi</p>
+                        </div>
+                        <div class="zone-actions">
+                            <button class="btn-icon" onclick="openModal('editZoneModal')"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="zone-card">
+                        <div class="zone-icon" style="background: #22c55e;"><i class="fas fa-tree"></i></div>
+                        <div class="zone-info">
+                            <h4>Khu Sinh Thai</h4>
+                            <p>10 diem</p>
+                        </div>
+                        <div class="zone-actions">
+                            <button class="btn-icon" onclick="openModal('editZoneModal')"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="zone-card">
+                        <div class="zone-icon" style="background: #ec4899;"><i class="fas fa-utensils"></i></div>
+                        <div class="zone-info">
+                            <h4>Khu An Uong</h4>
+                            <p>8 nha hang</p>
+                        </div>
+                        <div class="zone-actions">
+                            <button class="btn-icon" onclick="openModal('editZoneModal')"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Zone Modal -->
+    <div class="modal-overlay" id="addZoneModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Them Khu Vuc Moi</h3>
+                <button class="modal-close" onclick="closeModal('addZoneModal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Ten khu vuc</label>
+                    <input type="text" class="form-control" placeholder="VD: Khu Nuoc">
+                </div>
+                <div class="form-group">
+                    <label>Mau sac</label>
+                    <input type="color" class="form-control" value="#16A34A">
+                </div>
+                <div class="form-group">
+                    <label>Icon (Font Awesome)</label>
+                    <input type="text" class="form-control" placeholder="fas fa-water">
+                </div>
+                <div class="form-group">
+                    <label>Mo ta</label>
+                    <textarea class="form-control" rows="3" placeholder="Mo ta khu vuc..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('addZoneModal')">Huy</button>
+                <button class="btn btn-primary" onclick="saveAndClose('addZoneModal')">Them Khu Vuc</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Zone Modal -->
+    <div class="modal-overlay" id="editZoneModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Chinh Sua Khu Vuc</h3>
+                <button class="modal-close" onclick="closeModal('editZoneModal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Ten khu vuc</label>
+                    <input type="text" class="form-control" value="Khu Cam Giac Manh">
+                </div>
+                <div class="form-group">
+                    <label>Mau sac</label>
+                    <input type="color" class="form-control" value="#ef4444">
+                </div>
+                <div class="form-group">
+                    <label>Icon</label>
+                    <input type="text" class="form-control" value="fas fa-bolt">
+                </div>
+                <div class="form-group">
+                    <label>Vi tri tren ban do (X, Y %)</label>
+                    <div style="display: flex; gap: 12px;">
+                        <input type="number" class="form-control" value="30" placeholder="X">
+                        <input type="number" class="form-control" value="20" placeholder="Y">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('editZoneModal')">Huy</button>
+                <button class="btn btn-primary" onclick="saveAndClose('editZoneModal')">Luu Thay Doi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Map Modal -->
+    <div class="modal-overlay" id="uploadMapModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Thay Ban Do</h3>
+                <button class="modal-close" onclick="closeModal('uploadMapModal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Chon hinh ban do moi</label>
+                    <input type="file" class="form-control" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label>Hoac nhap URL</label>
+                    <input type="url" class="form-control" placeholder="https://...">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('uploadMapModal')">Huy</button>
+                <button class="btn btn-primary" onclick="saveAndClose('uploadMapModal')">Cap Nhat</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function saveAndClose(id) { alert('Da luu thanh cong!'); closeModal(id); }
+        function confirmDelete() { if(confirm('Ban co chac muon xoa?')) alert('Da xoa!'); }
+    </script>
+
+    <style>
+        .map-container { display: grid; gap: 24px; }
+        .map-section, .zones-list { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; }
+        .section-header { padding: 16px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .section-header h3 { font-size: 16px; font-weight: 600; margin: 0; }
+        .map-preview { position: relative; height: 400px; }
+        .map-preview img { width: 100%; height: 100%; object-fit: cover; }
+        .map-markers { position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
+        .marker { position: absolute; width: 40px; height: 40px; background: #16A34A; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; transform: translate(-50%, -50%); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .marker:hover .marker-label { display: block; }
+        .marker-label { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: #0f172a; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; white-space: nowrap; margin-top: 8px; }
+        .zones-grid { padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+        .zone-card { display: flex; align-items: center; gap: 16px; padding: 16px; background: #f8fafc; border-radius: 12px; }
+        .zone-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; }
+        .zone-info { flex: 1; }
+        .zone-info h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+        .zone-info p { font-size: 12px; color: #64748b; margin: 0; }
+        .zone-actions { display: flex; gap: 8px; }
+        .btn-icon { background: none; border: none; color: #64748b; cursor: pointer; padding: 8px; border-radius: 6px; }
+        .btn-icon:hover { background: #e2e8f0; color: #0f172a; }
+        .btn-sm { padding: 6px 12px; font-size: 12px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 14px; }
+        .form-control { width: 100%; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; }
+        
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: white; border-radius: 12px; width: 100%; max-width: 500px; }
+        .modal-header { padding: 16px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h3 { font-size: 18px; font-weight: 600; margin: 0; }
+        .modal-close { background: none; border: none; font-size: 20px; color: #64748b; cursor: pointer; }
+        .modal-body { padding: 20px; }
+        .modal-footer { padding: 16px 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 12px; }
+    </style>
+</body>
+</html>

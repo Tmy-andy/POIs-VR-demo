@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Tro Choi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-ticket-alt"></i></div>
+                <div class="logo-text">Adventure Park</div>
+            </div>
+        </div>
+        <div class="property-selector">
+            <div class="property-label">Khu Vui Choi</div>
+            <div class="property-name">Adventure Park Admin</div>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-section">
+                <div class="nav-section-title">TONG QUAN</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Gioi Thieu</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">DIEM THAM QUAN</div>
+                <a href="attractions.html" class="nav-item"><i class="fas fa-map-marked-alt"></i> Diem Tham Quan</a>
+                <a href="map.html" class="nav-item"><i class="fas fa-map"></i> Ban Do</a>
+                <a href="games.html" class="nav-item active"><i class="fas fa-gamepad"></i> Tro Choi</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">DICH VU</div>
+                <a href="tickets.html" class="nav-item"><i class="fas fa-ticket-alt"></i> Ve & Gia Ve</a>
+                <a href="schedule.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Lich & Su Kien</a>
+                <a href="food.html" class="nav-item"><i class="fas fa-utensils"></i> An Uong</a>
+                <a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Dich Vu Ho Tro</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">THONG TIN</div>
+                <a href="info.html" class="nav-item"><i class="fas fa-clock"></i> Thong Tin Tham Quan</a>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Tuyen Dung</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Thu Vien</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Lien He</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">HE THONG</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a>
+                <a href="../park.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Website</a>
+                <a href="../index.html" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> Thoat</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="header">
+        <div class="header-left">
+            <h1 class="page-title">Quan Ly Tro Choi</h1>
+        </div>
+        <div class="header-right">
+            <button class="btn btn-primary" onclick="openModal('addGameModal')"><i class="fas fa-plus"></i> Them Tro Choi</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="filter-bar">
+            <select class="form-control" style="width: 200px;">
+                <option value="">Tat ca khu vuc</option>
+                <option value="thrill">Khu Cam Giac Manh</option>
+                <option value="family">Khu Gia Dinh</option>
+                <option value="kids">Khu Tre Em</option>
+                <option value="vr">Khu VR & Tuong Tac</option>
+            </select>
+            <select class="form-control" style="width: 150px;">
+                <option value="">Trang thai</option>
+                <option value="active">Dang hoat dong</option>
+                <option value="maintenance">Bao tri</option>
+                <option value="closed">Dong cua</option>
+            </select>
+        </div>
+
+        <div class="games-grid" id="gamesGrid">
+            <div class="game-card">
+                <img src="https://images.unsplash.com/photo-1536086845612-2a0be3864e3c?w=400" class="game-image">
+                <div class="game-status active">Dang hoat dong</div>
+                <div class="game-body">
+                    <h4 class="game-title">Thunder Coaster</h4>
+                    <p class="game-zone"><i class="fas fa-bolt"></i> Khu Cam Giac Manh</p>
+                    <div class="game-meta">
+                        <span><i class="fas fa-ruler-vertical"></i> 140cm+</span>
+                        <span><i class="fas fa-clock"></i> 3 phut</span>
+                    </div>
+                </div>
+                <div class="game-actions">
+                    <button class="btn btn-secondary btn-sm" onclick="openModal('editGameModal')"><i class="fas fa-edit"></i> Sua</button>
+                    <button class="btn btn-secondary btn-sm" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400" class="game-image">
+                <div class="game-status active">Dang hoat dong</div>
+                <div class="game-body">
+                    <h4 class="game-title">Sky Drop Tower</h4>
+                    <p class="game-zone"><i class="fas fa-bolt"></i> Khu Cam Giac Manh</p>
+                    <div class="game-meta">
+                        <span><i class="fas fa-ruler-vertical"></i> 150cm+</span>
+                        <span><i class="fas fa-clock"></i> 1 phut</span>
+                    </div>
+                </div>
+                <div class="game-actions">
+                    <button class="btn btn-secondary btn-sm" onclick="openModal('editGameModal')"><i class="fas fa-edit"></i> Sua</button>
+                    <button class="btn btn-secondary btn-sm" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <img src="https://images.unsplash.com/photo-1605648916361-9bc12ad6a569?w=400" class="game-image">
+                <div class="game-status maintenance">Bao tri</div>
+                <div class="game-body">
+                    <h4 class="game-title">VR Adventure Zone</h4>
+                    <p class="game-zone"><i class="fas fa-vr-cardboard"></i> Khu VR</p>
+                    <div class="game-meta">
+                        <span><i class="fas fa-ruler-vertical"></i> 120cm+</span>
+                        <span><i class="fas fa-clock"></i> 15 phut</span>
+                    </div>
+                </div>
+                <div class="game-actions">
+                    <button class="btn btn-secondary btn-sm" onclick="openModal('editGameModal')"><i class="fas fa-edit"></i> Sua</button>
+                    <button class="btn btn-secondary btn-sm" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <img src="https://images.unsplash.com/photo-1513889961551-628c1e5e2ee9?w=400" class="game-image">
+                <div class="game-status active">Dang hoat dong</div>
+                <div class="game-body">
+                    <h4 class="game-title">Ferris Wheel</h4>
+                    <p class="game-zone"><i class="fas fa-users"></i> Khu Gia Dinh</p>
+                    <div class="game-meta">
+                        <span><i class="fas fa-ruler-vertical"></i> Moi lua tuoi</span>
+                        <span><i class="fas fa-clock"></i> 10 phut</span>
+                    </div>
+                </div>
+                <div class="game-actions">
+                    <button class="btn btn-secondary btn-sm" onclick="openModal('editGameModal')"><i class="fas fa-edit"></i> Sua</button>
+                    <button class="btn btn-secondary btn-sm" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <img src="https://images.unsplash.com/photo-1560969184-10fe8719e047?w=400" class="game-image">
+                <div class="game-status active">Dang hoat dong</div>
+                <div class="game-body">
+                    <h4 class="game-title">Water Splash</h4>
+                    <p class="game-zone"><i class="fas fa-users"></i> Khu Gia Dinh</p>
+                    <div class="game-meta">
+                        <span><i class="fas fa-ruler-vertical"></i> 100cm+</span>
+                        <span><i class="fas fa-clock"></i> 5 phut</span>
+                    </div>
+                </div>
+                <div class="game-actions">
+                    <button class="btn btn-secondary btn-sm" onclick="openModal('editGameModal')"><i class="fas fa-edit"></i> Sua</button>
+                    <button class="btn btn-secondary btn-sm" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+
+            <div class="game-card">
+                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400" class="game-image">
+                <div class="game-status active">Dang hoat dong</div>
+                <div class="game-body">
+                    <h4 class="game-title">Kids Playground</h4>
+                    <p class="game-zone"><i class="fas fa-child"></i> Khu Tre Em</p>
+                    <div class="game-meta">
+                        <span><i class="fas fa-ruler-vertical"></i> 3-10 tuoi</span>
+                        <span><i class="fas fa-clock"></i> Khong gioi han</span>
+                    </div>
+                </div>
+                <div class="game-actions">
+                    <button class="btn btn-secondary btn-sm" onclick="openModal('editGameModal')"><i class="fas fa-edit"></i> Sua</button>
+                    <button class="btn btn-secondary btn-sm" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Game Modal -->
+    <div class="modal-overlay" id="addGameModal">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h3>Them Tro Choi Moi</h3>
+                <button class="modal-close" onclick="closeModal('addGameModal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Ten tro choi *</label>
+                        <input type="text" class="form-control" placeholder="VD: Super Spin">
+                    </div>
+                    <div class="form-group">
+                        <label>Khu vuc *</label>
+                        <select class="form-control">
+                            <option value="">Chon khu vuc</option>
+                            <option value="thrill">Khu Cam Giac Manh</option>
+                            <option value="family">Khu Gia Dinh</option>
+                            <option value="kids">Khu Tre Em</option>
+                            <option value="vr">Khu VR & Tuong Tac</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Mo ta</label>
+                    <textarea class="form-control" rows="3" placeholder="Mo ta tro choi..."></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Chieu cao toi thieu</label>
+                        <input type="text" class="form-control" placeholder="VD: 140cm">
+                    </div>
+                    <div class="form-group">
+                        <label>Thoi gian choi</label>
+                        <input type="text" class="form-control" placeholder="VD: 3 phut">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Suc chua (nguoi/luot)</label>
+                        <input type="number" class="form-control" placeholder="VD: 24">
+                    </div>
+                    <div class="form-group">
+                        <label>Trang thai</label>
+                        <select class="form-control">
+                            <option value="active">Dang hoat dong</option>
+                            <option value="maintenance">Bao tri</option>
+                            <option value="closed">Dong cua</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Hinh anh</label>
+                    <input type="file" class="form-control" accept="image/*">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('addGameModal')">Huy</button>
+                <button class="btn btn-primary" onclick="saveAndClose('addGameModal')">Them Tro Choi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Game Modal -->
+    <div class="modal-overlay" id="editGameModal">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h3>Chinh Sua Tro Choi</h3>
+                <button class="modal-close" onclick="closeModal('editGameModal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Ten tro choi *</label>
+                        <input type="text" class="form-control" value="Thunder Coaster">
+                    </div>
+                    <div class="form-group">
+                        <label>Khu vuc *</label>
+                        <select class="form-control">
+                            <option value="thrill" selected>Khu Cam Giac Manh</option>
+                            <option value="family">Khu Gia Dinh</option>
+                            <option value="kids">Khu Tre Em</option>
+                            <option value="vr">Khu VR & Tuong Tac</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Mo ta</label>
+                    <textarea class="form-control" rows="3">Tau luon siet toc do cao voi nhieu vong xoay cam giac manh...</textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Chieu cao toi thieu</label>
+                        <input type="text" class="form-control" value="140cm">
+                    </div>
+                    <div class="form-group">
+                        <label>Thoi gian choi</label>
+                        <input type="text" class="form-control" value="3 phut">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Suc chua</label>
+                        <input type="number" class="form-control" value="24">
+                    </div>
+                    <div class="form-group">
+                        <label>Trang thai</label>
+                        <select class="form-control">
+                            <option value="active" selected>Dang hoat dong</option>
+                            <option value="maintenance">Bao tri</option>
+                            <option value="closed">Dong cua</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('editGameModal')">Huy</button>
+                <button class="btn btn-primary" onclick="saveAndClose('editGameModal')">Luu Thay Doi</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function saveAndClose(id) { alert('Da luu thanh cong!'); closeModal(id); }
+        function confirmDelete() { if(confirm('Ban co chac muon xoa tro choi nay?')) alert('Da xoa!'); }
+    </script>
+
+    <style>
+        .filter-bar { display: flex; gap: 12px; margin-bottom: 24px; }
+        .form-control { padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; }
+        .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .game-card { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; position: relative; }
+        .game-image { width: 100%; height: 180px; object-fit: cover; }
+        .game-status { position: absolute; top: 12px; right: 12px; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+        .game-status.active { background: #dcfce7; color: #16A34A; }
+        .game-status.maintenance { background: #fef3c7; color: #d97706; }
+        .game-status.closed { background: #fee2e2; color: #dc2626; }
+        .game-body { padding: 16px; }
+        .game-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+        .game-zone { font-size: 13px; color: #64748b; margin-bottom: 12px; }
+        .game-zone i { margin-right: 6px; }
+        .game-meta { display: flex; gap: 16px; font-size: 12px; color: #64748b; }
+        .game-meta i { margin-right: 4px; }
+        .game-actions { padding: 12px 16px; border-top: 1px solid #e2e8f0; display: flex; gap: 8px; }
+        .btn-sm { padding: 6px 12px; font-size: 12px; }
+        
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: white; border-radius: 12px; width: 100%; max-width: 500px; max-height: 90vh; overflow: hidden; }
+        .modal.modal-lg { max-width: 700px; }
+        .modal-header { padding: 16px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h3 { font-size: 18px; font-weight: 600; margin: 0; }
+        .modal-close { background: none; border: none; font-size: 20px; color: #64748b; cursor: pointer; }
+        .modal-body { padding: 20px; max-height: 60vh; overflow-y: auto; }
+        .modal-footer { padding: 16px 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 12px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 14px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    </style>
+</body>
+</html>

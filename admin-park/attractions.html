@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Park Admin - Diem Tham Quan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon"><i class="fas fa-ticket-alt"></i></div><div class="logo-text">Adventure Park</div></div></div>
+        <div class="property-selector"><div class="property-label">Khu Vui Choi</div><div class="property-name">Adventure Park Admin</div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">TONG QUAN</div><a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a><a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Gioi Thieu</a></div>
+            <div class="nav-section"><div class="nav-section-title">DIEM THAM QUAN</div><a href="attractions.html" class="nav-item active"><i class="fas fa-map-marked-alt"></i> Diem Tham Quan</a><a href="map.html" class="nav-item"><i class="fas fa-map"></i> Ban Do</a><a href="games.html" class="nav-item"><i class="fas fa-gamepad"></i> Tro Choi</a></div>
+            <div class="nav-section"><div class="nav-section-title">DICH VU</div><a href="tickets.html" class="nav-item"><i class="fas fa-ticket-alt"></i> Ve & Gia Ve</a><a href="schedule.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Lich & Su Kien</a><a href="food.html" class="nav-item"><i class="fas fa-utensils"></i> An Uong</a><a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Dich Vu Ho Tro</a></div>
+            <div class="nav-section"><div class="nav-section-title">THONG TIN</div><a href="info.html" class="nav-item"><i class="fas fa-clock"></i> Thong Tin</a><a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Tuyen Dung</a><a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a><a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Thu Vien</a><a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Lien He</a></div>
+            <div class="nav-section"><div class="nav-section-title">HE THONG</div><a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a><a href="../park.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Website</a><a href="../index.html" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> Thoat</a></div>
+        </nav>
+    </div>
+    <header class="header"><div class="header-left"><h1 class="page-title">Diem Tham Quan</h1></div><div class="header-right"><button class="btn btn-primary" onclick="openModal('addAttractionModal')"><i class="fas fa-plus"></i> Them moi</button></div></header>
+    <main class="main-content">
+        <div class="zone-tabs">
+            <button class="zone-tab active" data-zone="thrill">Cam giac manh</button>
+            <button class="zone-tab" data-zone="family">Gia dinh</button>
+            <button class="zone-tab" data-zone="kids">Tre em</button>
+            <button class="zone-tab" data-zone="interactive">Tuong tac</button>
+            <button class="zone-tab" data-zone="nature">Thien nhien</button>
+            <button class="zone-tab" data-zone="culture">Van hoa</button>
+            <button class="zone-tab" data-zone="show">Bieu dien</button>
+            <button class="zone-tab" data-zone="checkin">Check-in</button>
+        </div>
+        <div class="items-grid" id="attractionsGrid"></div>
+    </main>
+    <script>
+        var zones = {thrill: 'attractions-thrill', family: 'attractions-family', kids: 'attractions-kids', interactive: 'attractions-interactive', nature: 'attractions-nature', culture: 'attractions-culture', show: 'attractions-show', checkin: 'attractions-checkin'};
+        var currentZone = 'thrill';
+        var contentData = {};
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../assets/data/park-content.json').then(function(r) { return r.json(); }).then(function(data) { contentData = data; renderAttractions(); });
+            document.querySelectorAll('.zone-tab').forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.zone-tab').forEach(function(t) { t.classList.remove('active'); });
+                    tab.classList.add('active');
+                    currentZone = tab.dataset.zone;
+                    renderAttractions();
+                });
+            });
+        });
+        function renderAttractions() {
+            var key = zones[currentZone];
+            var data = contentData[key];
+            var grid = document.getElementById('attractionsGrid');
+            if (!data || !data.items) { grid.innerHTML = '<div class="empty-state"><div class="empty-state-icon"><i class="fas fa-map-marker-alt"></i></div><div class="empty-state-title">Chua co diem tham quan</div></div>'; return; }
+            var html = '';
+            data.items.forEach(function(item) {
+                var badge = item.badge ? '<span class="badge badge-orange">' + item.badge + '</span>' : '';
+                html += '<div class="item-card"><img src="' + item.image + '" alt="' + item.name + '" class="item-card-image"><div class="item-card-body"><div class="item-card-title">' + item.name + ' ' + badge + '</div><div class="item-card-desc">' + item.shortDesc + '</div></div><div class="item-card-actions"><button class="btn btn-secondary btn-sm" onclick="openModal(\'editAttractionModal\')"><i class="fas fa-edit"></i> Sua</button><button class="btn btn-secondary btn-sm" onclick="confirmDelete()"><i class="fas fa-trash"></i></button></div></div>';
+            });
+            grid.innerHTML = html;
+        }
+    </script>
+    <style>
+        .zone-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}.zone-tab{padding:10px 20px;border:1px solid #e2e8f0;border-radius:8px;background:white;font-size:14px;cursor:pointer;transition:all 0.2s;}.zone-tab:hover{border-color:#16A34A;}.zone-tab.active{background:#16A34A;color:white;border-color:#16A34A;}.btn-sm{padding:6px 12px;font-size:12px;}
+        .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:1000;}.modal-overlay.active{display:flex;}.modal{background:white;border-radius:12px;width:100%;max-width:600px;max-height:90vh;overflow:hidden;}.modal-header{padding:16px 20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;}.modal-header h3{font-size:18px;font-weight:600;margin:0;}.modal-close{background:none;border:none;font-size:20px;color:#64748b;cursor:pointer;}.modal-body{padding:20px;max-height:60vh;overflow-y:auto;}.modal-footer{padding:16px 20px;border-top:1px solid #e2e8f0;display:flex;justify-content:flex-end;gap:12px;}.form-group{margin-bottom:16px;}.form-group label{display:block;margin-bottom:8px;font-weight:500;font-size:14px;}.form-control{width:100%;padding:10px 14px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;box-sizing:border-box;}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    </style>
+
+    <!-- Add Modal -->
+    <div class="modal-overlay" id="addAttractionModal">
+        <div class="modal">
+            <div class="modal-header"><h3>Them Diem Tham Quan</h3><button class="modal-close" onclick="closeModal('addAttractionModal')"><i class="fas fa-times"></i></button></div>
+            <div class="modal-body">
+                <div class="form-group"><label>Ten diem tham quan *</label><input type="text" class="form-control" placeholder="VD: Dragon Coaster"></div>
+                <div class="form-group"><label>Khu vuc *</label><select class="form-control"><option value="">Chon khu vuc</option><option value="thrill">Cam giac manh</option><option value="family">Gia dinh</option><option value="kids">Tre em</option><option value="interactive">Tuong tac</option><option value="nature">Thien nhien</option><option value="culture">Van hoa</option><option value="show">Bieu dien</option><option value="checkin">Check-in</option></select></div>
+                <div class="form-group"><label>Mo ta ngan</label><input type="text" class="form-control" placeholder="Mo ta ngan gon..."></div>
+                <div class="form-group"><label>Mo ta chi tiet</label><textarea class="form-control" rows="4" placeholder="Mo ta chi tiet..."></textarea></div>
+                <div class="form-row"><div class="form-group"><label>Chieu cao toi thieu</label><input type="text" class="form-control" placeholder="VD: 140cm"></div><div class="form-group"><label>Thoi gian</label><input type="text" class="form-control" placeholder="VD: 3 phut"></div></div>
+                <div class="form-group"><label>Hinh anh</label><input type="file" class="form-control" accept="image/*"></div>
+                <div class="form-group"><label>Badge (neu co)</label><input type="text" class="form-control" placeholder="VD: HOT, NEW"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('addAttractionModal')">Huy</button><button class="btn btn-primary" onclick="saveAndClose('addAttractionModal')">Them Moi</button></div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal-overlay" id="editAttractionModal">
+        <div class="modal">
+            <div class="modal-header"><h3>Chinh Sua Diem Tham Quan</h3><button class="modal-close" onclick="closeModal('editAttractionModal')"><i class="fas fa-times"></i></button></div>
+            <div class="modal-body">
+                <div class="form-group"><label>Ten diem tham quan *</label><input type="text" class="form-control" value="Thunder Coaster"></div>
+                <div class="form-group"><label>Khu vuc *</label><select class="form-control"><option value="thrill" selected>Cam giac manh</option><option value="family">Gia dinh</option><option value="kids">Tre em</option><option value="interactive">Tuong tac</option></select></div>
+                <div class="form-group"><label>Mo ta ngan</label><input type="text" class="form-control" value="Tau luon siet toc do cao nhat"></div>
+                <div class="form-group"><label>Mo ta chi tiet</label><textarea class="form-control" rows="4">Trai nghiem cam giac manh voi tau luon siet toc do len den 100km/h...</textarea></div>
+                <div class="form-row"><div class="form-group"><label>Chieu cao toi thieu</label><input type="text" class="form-control" value="140cm"></div><div class="form-group"><label>Thoi gian</label><input type="text" class="form-control" value="3 phut"></div></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('editAttractionModal')">Huy</button><button class="btn btn-primary" onclick="saveAndClose('editAttractionModal')">Luu Thay Doi</button></div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function saveAndClose(id) { alert('Da luu thanh cong!'); closeModal(id); }
+        function confirmDelete() { if(confirm('Ban co chac muon xoa?')) alert('Da xoa!'); }
+    </script>
+</body>
+</html>

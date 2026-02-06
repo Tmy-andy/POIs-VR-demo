@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Park Admin - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-ticket-alt"></i></div>
+                <div class="logo-text">Adventure Park</div>
+            </div>
+        </div>
+        <div class="property-selector">
+            <div class="property-label">Khu Vui Choi</div>
+            <div class="property-name">Adventure Park Admin</div>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-section-title">TONG QUAN</div>
+            <div class="nav-section">
+                <a href="index.html" class="nav-item active"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Trang Chu & Gioi Thieu</a>
+            </div>
+            <div class="nav-section-title">DIEM THAM QUAN</div>
+            <div class="nav-section">
+                <a href="map.html" class="nav-item"><i class="fas fa-map"></i> Ban Do</a>
+                <a href="attractions.html" class="nav-item"><i class="fas fa-map-marked-alt"></i> Cac Khu Vuc</a>
+                <a href="games.html" class="nav-item"><i class="fas fa-gamepad"></i> Tro Choi</a>
+            </div>
+            <div class="nav-section-title">DICH VU</div>
+            <div class="nav-section">
+                <a href="tickets.html" class="nav-item"><i class="fas fa-ticket-alt"></i> Loai Ve & Gia</a>
+                <a href="schedule.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Lich Hoat Dong</a>
+                <a href="food.html" class="nav-item"><i class="fas fa-utensils"></i> An Uong</a>
+                <a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Dich Vu Khac</a>
+            </div>
+            <div class="nav-section-title">THONG TIN</div>
+            <div class="nav-section">
+                <a href="info.html" class="nav-item"><i class="fas fa-book"></i> Noi Quy & Luu Y</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> Lien He</a>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Tuyen Dung</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Thu Vien</a>
+            </div>
+            <div class="nav-section-title">HE THONG</div>
+            <div class="nav-section">
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a>
+                <a href="../park.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Trang</a>
+                <a href="../index.html" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> Thoat</a>
+            </div>
+        </nav>
+    </div>
+    <header class="header">
+        <div class="header-left"><h1 class="page-title">Dashboard</h1></div>
+        <div class="header-right">
+            <div class="search-box"><i class="fas fa-search"></i><input type="text" placeholder="Tim kiem..."></div>
+            <button class="notification-btn"><i class="fas fa-bell"></i><span class="notification-badge"></span></button>
+            <div class="user-menu"><div class="user-avatar">AD</div><div class="user-info"><div class="user-name">Admin</div><div class="user-role">Administrator</div></div></div>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="welcome-section">
+            <div class="welcome-content">
+                <h2 class="welcome-title">Chao mung den Adventure Park! &#127881;</h2>
+                <p class="welcome-subtitle">Quan ly noi dung va dich vu khu vui choi cua ban</p>
+                <div class="quick-actions">
+                    <a href="attractions.html" class="quick-action-btn"><i class="fas fa-plus"></i> Them diem tham quan</a>
+                    <a href="schedule.html" class="quick-action-btn"><i class="fas fa-calendar"></i> Cap nhat lich</a>
+                    <a href="../park.html" class="quick-action-btn" target="_blank"><i class="fas fa-eye"></i> Xem website</a>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-cards" id="dashboardCards">
+            <div class="dashboard-card">
+                <div class="card-header"><div class="card-title">Diem tham quan</div><div class="card-icon" style="background:linear-gradient(135deg,#16A34A,#22C55E);"><i class="fas fa-map-marked-alt"></i></div></div>
+                <div class="card-value" id="attractionCount">0</div>
+                <div class="card-change positive"><i class="fas fa-check"></i><span>Dang hoat dong</span></div>
+            </div>
+            <div class="dashboard-card">
+                <div class="card-header"><div class="card-title">Loai ve</div><div class="card-icon" style="background:linear-gradient(135deg,#F97316,#FB923C);"><i class="fas fa-ticket-alt"></i></div></div>
+                <div class="card-value" id="ticketCount">0</div>
+                <div class="card-change positive"><i class="fas fa-check"></i><span>Dang ban</span></div>
+            </div>
+            <div class="dashboard-card">
+                <div class="card-header"><div class="card-title">Su kien</div><div class="card-icon" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA);"><i class="fas fa-calendar-alt"></i></div></div>
+                <div class="card-value" id="eventCount">0</div>
+                <div class="card-change positive"><i class="fas fa-fire"></i><span>Sap dien ra</span></div>
+            </div>
+            <div class="dashboard-card">
+                <div class="card-header"><div class="card-title">Dich vu</div><div class="card-icon" style="background:linear-gradient(135deg,#3B82F6,#60A5FA);"><i class="fas fa-concierge-bell"></i></div></div>
+                <div class="card-value" id="serviceCount">0</div>
+                <div class="card-change positive"><i class="fas fa-star"></i><span>Hoat dong</span></div>
+            </div>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card"><div class="stat-label">Luot khach hom nay</div><div class="stat-value">2,456</div></div>
+            <div class="stat-card"><div class="stat-label">Doanh thu hom nay</div><div class="stat-value">156M</div></div>
+            <div class="stat-card"><div class="stat-label">Ve da ban</div><div class="stat-value">892</div></div>
+            <div class="stat-card"><div class="stat-label">Danh gia TB</div><div class="stat-value">4.9</div></div>
+        </div>
+        <div class="dashboard-grid-2col">
+            <div class="recent-activity">
+                <div class="activity-header"><h3 class="section-title">Hoat dong gan day</h3></div>
+                <div class="activity-list">
+                    <div class="activity-item"><div class="activity-icon" style="background:#dcfce7;color:#16A34A;"><i class="fas fa-ticket-alt"></i></div><div class="activity-content"><div class="activity-text">Cap nhat gia <strong>Ve Gia Dinh</strong></div><div class="activity-time">10 phut truoc</div></div></div>
+                    <div class="activity-item"><div class="activity-icon" style="background:#dbeafe;color:#3B82F6;"><i class="fas fa-calendar"></i></div><div class="activity-content"><div class="activity-text">Them su kien <strong>Halloween Festival</strong></div><div class="activity-time">2 gio truoc</div></div></div>
+                    <div class="activity-item"><div class="activity-icon" style="background:#fef3c7;color:#F97316;"><i class="fas fa-map-marker-alt"></i></div><div class="activity-content"><div class="activity-text">Them diem check-in <strong>Infinity Mirror</strong></div><div class="activity-time">5 gio truoc</div></div></div>
+                    <div class="activity-item"><div class="activity-icon" style="background:#ddd6fe;color:#8B5CF6;"><i class="fas fa-gamepad"></i></div><div class="activity-content"><div class="activity-text">Cap nhat <strong>VR Adventure Zone</strong></div><div class="activity-time">1 ngay truoc</div></div></div>
+                </div>
+            </div>
+            <div class="sidebar-widgets">
+                <div class="widget-card">
+                    <div class="widget-header"><h4 class="widget-title">Su kien sap toi</h4></div>
+                    <div class="widget-content">
+                        <div class="event-item"><div class="event-date"><span class="day">15</span><span class="month">Feb</span></div><div class="event-info"><div class="event-name">Halloween Festival</div><div class="event-time">18:00 - 22:00</div></div></div>
+                        <div class="event-item"><div class="event-date"><span class="day">20</span><span class="month">Feb</span></div><div class="event-info"><div class="event-name">Magic Show</div><div class="event-time">15:00 - 16:30</div></div></div>
+                        <div class="event-item"><div class="event-date"><span class="day">25</span><span class="month">Feb</span></div><div class="event-info"><div class="event-name">Nhac nuoc nghe thuat</div><div class="event-time">19:30 - 20:30</div></div></div>
+                    </div>
+                </div>
+                <div class="widget-card">
+                    <div class="widget-header"><h4 class="widget-title">Top diem tham quan</h4></div>
+                    <div class="widget-content">
+                        <div class="top-item"><span class="rank">1</span><span class="name">Thunder Coaster</span><span class="count">1,245</span></div>
+                        <div class="top-item"><span class="rank">2</span><span class="name">VR Adventure Zone</span><span class="count">982</span></div>
+                        <div class="top-item"><span class="rank">3</span><span class="name">Sky Drop Tower</span><span class="count">876</span></div>
+                        <div class="top-item"><span class="rank">4</span><span class="name">Ferris Wheel</span><span class="count">654</span></div>
+                        <div class="top-item"><span class="rank">5</span><span class="name">Water Splash</span><span class="count">543</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() { loadData(); });
+        function loadData() {
+            fetch('../assets/data/park-content.json')
+                .then(function(r) { return r.json(); })
+                .then(function(data) { updateStats(data); })
+                .catch(function(e) { console.error('Error:', e); });
+        }
+        function updateStats(data) {
+            var attractionCount = 0;
+            var keys = ['attractions-thrill', 'attractions-family', 'attractions-kids', 'attractions-interactive', 'attractions-nature', 'attractions-culture', 'attractions-show', 'attractions-checkin', 'attractions-education'];
+            keys.forEach(function(key) {
+                if (data[key] && data[key].items) attractionCount += data[key].items.length;
+            });
+            document.getElementById('attractionCount').textContent = attractionCount;
+            document.getElementById('ticketCount').textContent = (data.tickets && data.tickets.items) ? data.tickets.items.length : 0;
+            document.getElementById('eventCount').textContent = (data.schedule && data.schedule.items) ? data.schedule.items.length : 0;
+            document.getElementById('serviceCount').textContent = (data.services && data.services.items) ? data.services.items.length : 0;
+        }
+    </script>
+    <style>
+        .welcome-section{background:linear-gradient(135deg,#16A34A,#15803D);border-radius:16px;padding:32px;color:white;margin-bottom:24px;}
+        .welcome-title{font-size:28px;font-weight:700;margin-bottom:8px;}
+        .welcome-subtitle{font-size:16px;opacity:0.9;margin-bottom:20px;}
+        .quick-actions{display:flex;gap:12px;flex-wrap:wrap;}
+        .quick-action-btn{padding:8px 16px;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);border-radius:8px;color:white;text-decoration:none;font-size:14px;font-weight:500;transition:all 0.2s;}
+        .quick-action-btn:hover{background:rgba(255,255,255,0.3);}
+        .dashboard-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-bottom:24px;}
+        .dashboard-card{background:white;border-radius:12px;padding:24px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.1);}
+        .dashboard-card .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+        .dashboard-card .card-title{font-size:14px;font-weight:500;color:#64748b;}
+        .card-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:18px;}
+        .card-value{font-size:28px;font-weight:700;color:#0f172a;margin-bottom:8px;}
+        .card-change{font-size:14px;display:flex;align-items:center;gap:4px;}
+        .card-change.positive{color:#16A34A;}
+        .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px;}
+        .stat-card{background:white;border-radius:12px;padding:20px;border:1px solid #e2e8f0;}
+        .stat-label{font-size:14px;color:#64748b;margin-bottom:8px;}
+        .stat-value{font-size:24px;font-weight:700;color:#0f172a;}
+        .dashboard-grid-2col{display:grid;grid-template-columns:1fr 380px;gap:24px;}
+        .recent-activity{background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;}
+        .activity-header{padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .section-title{font-size:18px;font-weight:600;color:#0f172a;margin:0;}
+        .activity-list{max-height:400px;overflow-y:auto;}
+        .activity-item{padding:16px 24px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;gap:16px;}
+        .activity-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;}
+        .activity-content{flex:1;}
+        .activity-text{font-size:14px;color:#0f172a;margin-bottom:4px;}
+        .activity-time{font-size:12px;color:#64748b;}
+        .sidebar-widgets{display:flex;flex-direction:column;gap:20px;}
+        .widget-card{background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;}
+        .widget-header{padding:16px 20px;border-bottom:1px solid #e2e8f0;}
+        .widget-title{font-size:16px;font-weight:600;color:#0f172a;margin:0;}
+        .widget-content{padding:16px 20px;}
+        .event-item{display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid #f1f5f9;}
+        .event-item:last-child{border-bottom:none;}
+        .event-date{width:48px;height:48px;background:#dcfce7;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+        .event-date .day{font-size:18px;font-weight:700;color:#16A34A;line-height:1;}
+        .event-date .month{font-size:11px;color:#16A34A;text-transform:uppercase;}
+        .event-info{flex:1;}
+        .event-name{font-size:14px;font-weight:500;color:#0f172a;margin-bottom:2px;}
+        .event-time{font-size:12px;color:#64748b;}
+        .top-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f1f5f9;}
+        .top-item:last-child{border-bottom:none;}
+        .top-item .rank{width:24px;height:24px;background:#16A34A;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;}
+        .top-item .name{flex:1;font-size:14px;color:#0f172a;}
+        .top-item .count{font-size:14px;font-weight:600;color:#64748b;}
+        .search-box{position:relative;width:250px;}
+        .search-box input{width:100%;padding:8px 12px 8px 36px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;background:#f8fafc;}
+        .search-box i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#64748b;}
+        .notification-btn{position:relative;padding:8px;border:none;background:none;color:#64748b;cursor:pointer;border-radius:6px;}
+        .notification-btn:hover{background:#f1f5f9;}
+        .notification-badge{position:absolute;top:4px;right:4px;width:8px;height:8px;background:#ef4444;border-radius:50%;}
+        .user-menu{display:flex;align-items:center;gap:8px;padding:6px;border-radius:8px;cursor:pointer;}
+        .user-menu:hover{background:#f1f5f9;}
+        .user-avatar{width:32px;height:32px;border-radius:50%;background:#16A34A;display:flex;align-items:center;justify-content:center;color:white;font-weight:600;font-size:12px;}
+        .user-info{display:flex;flex-direction:column;}
+        .user-name{font-size:14px;font-weight:500;color:#0f172a;}
+        .user-role{font-size:12px;color:#64748b;}
+    </style>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Gioi Thieu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-ticket-alt"></i></div>
+                <div class="logo-text">Adventure Park</div>
+            </div>
+        </div>
+        <div class="property-selector">
+            <div class="property-label">Khu Vui Choi</div>
+            <div class="property-name">Adventure Park Admin</div>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-section">
+                <div class="nav-section-title">TONG QUAN</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item active"><i class="fas fa-info-circle"></i> Gioi Thieu</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">DIEM THAM QUAN</div>
+                <a href="attractions.html" class="nav-item"><i class="fas fa-map-marked-alt"></i> Diem Tham Quan</a>
+                <a href="map.html" class="nav-item"><i class="fas fa-map"></i> Ban Do</a>
+                <a href="games.html" class="nav-item"><i class="fas fa-gamepad"></i> Tro Choi</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">DICH VU</div>
+                <a href="tickets.html" class="nav-item"><i class="fas fa-ticket-alt"></i> Ve & Gia Ve</a>
+                <a href="schedule.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Lich & Su Kien</a>
+                <a href="food.html" class="nav-item"><i class="fas fa-utensils"></i> An Uong</a>
+                <a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Dich Vu Ho Tro</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">THONG TIN</div>
+                <a href="info.html" class="nav-item"><i class="fas fa-clock"></i> Thong Tin Tham Quan</a>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Tuyen Dung</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Thu Vien</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Lien He</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">HE THONG</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a>
+                <a href="../park.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Website</a>
+                <a href="../index.html" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> Thoat</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="header">
+        <div class="header-left">
+            <h1 class="page-title">Gioi Thieu Cong Vien</h1>
+        </div>
+        <div class="header-right">
+            <button class="btn btn-primary" onclick="openModal('homeModal')"><i class="fas fa-edit"></i> Chinh Sua</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="content-grid">
+            <div class="content-section">
+                <div class="section-header">
+                    <h3>Trang Chu - Hero Section</h3>
+                    <button class="btn btn-secondary btn-sm" onclick="openModal('heroModal')"><i class="fas fa-edit"></i></button>
+                </div>
+                <div class="section-body">
+                    <div class="form-group">
+                        <label>Tieu de chinh</label>
+                        <input type="text" class="form-control" id="heroTitle" value="Adventure Park - Thien duong vui choi">
+                    </div>
+                    <div class="form-group">
+                        <label>Slogan</label>
+                        <input type="text" class="form-control" id="heroSlogan" value="Noi nhung cuoc phieu luu bat dau">
+                    </div>
+                    <div class="form-group">
+                        <label>Hinh nen</label>
+                        <div class="image-upload">
+                            <img src="https://images.unsplash.com/photo-1513889961551-628c1e5e2ee9?w=400" alt="Hero">
+                            <button class="btn btn-secondary btn-sm"><i class="fas fa-upload"></i> Doi hinh</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="section-header">
+                    <h3>Gioi Thieu Tong Quan</h3>
+                    <button class="btn btn-secondary btn-sm" onclick="openModal('aboutModal')"><i class="fas fa-edit"></i></button>
+                </div>
+                <div class="section-body">
+                    <div class="form-group">
+                        <label>Tieu de</label>
+                        <input type="text" class="form-control" id="aboutTitle" value="Ve Adventure Park">
+                    </div>
+                    <div class="form-group">
+                        <label>Mo ta</label>
+                        <textarea class="form-control" rows="4" id="aboutDesc">Adventure Park la khu vui choi giai tri hang dau Viet Nam voi hon 50 tro choi, diem tham quan hap dan...</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="section-header">
+                    <h3>Diem Noi Bat</h3>
+                    <button class="btn btn-primary btn-sm" onclick="openModal('highlightModal')"><i class="fas fa-plus"></i> Them</button>
+                </div>
+                <div class="section-body">
+                    <div class="highlight-list">
+                        <div class="highlight-item">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <span>50+ Diem tham quan</span>
+                            <button class="btn-icon" onclick="openModal('editHighlight')"><i class="fas fa-edit"></i></button>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-users"></i>
+                            <span>1 Trieu+ Luot khach/nam</span>
+                            <button class="btn-icon" onclick="openModal('editHighlight')"><i class="fas fa-edit"></i></button>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-star"></i>
+                            <span>4.9 Danh gia</span>
+                            <button class="btn-icon" onclick="openModal('editHighlight')"><i class="fas fa-edit"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Template -->
+    <div class="modal-overlay" id="heroModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Chinh Sua Hero Section</h3>
+                <button class="modal-close" onclick="closeModal('heroModal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Tieu de chinh</label>
+                    <input type="text" class="form-control" value="Adventure Park - Thien duong vui choi">
+                </div>
+                <div class="form-group">
+                    <label>Slogan</label>
+                    <input type="text" class="form-control" value="Noi nhung cuoc phieu luu bat dau">
+                </div>
+                <div class="form-group">
+                    <label>Hinh nen</label>
+                    <input type="file" class="form-control" accept="image/*">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('heroModal')">Huy</button>
+                <button class="btn btn-primary" onclick="saveAndClose('heroModal')">Luu Thay Doi</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="aboutModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Chinh Sua Gioi Thieu</h3>
+                <button class="modal-close" onclick="closeModal('aboutModal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Tieu de</label>
+                    <input type="text" class="form-control" value="Ve Adventure Park">
+                </div>
+                <div class="form-group">
+                    <label>Mo ta chi tiet</label>
+                    <textarea class="form-control" rows="6">Adventure Park la khu vui choi giai tri hang dau Viet Nam...</textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('aboutModal')">Huy</button>
+                <button class="btn btn-primary" onclick="saveAndClose('aboutModal')">Luu Thay Doi</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="highlightModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Them Diem Noi Bat</h3>
+                <button class="modal-close" onclick="closeModal('highlightModal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Icon (Font Awesome)</label>
+                    <input type="text" class="form-control" placeholder="fas fa-star">
+                </div>
+                <div class="form-group">
+                    <label>Noi dung</label>
+                    <input type="text" class="form-control" placeholder="VD: 100+ Tro choi">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('highlightModal')">Huy</button>
+                <button class="btn btn-primary" onclick="saveAndClose('highlightModal')">Them Moi</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+        function saveAndClose(id) {
+            alert('Da luu thanh cong!');
+            closeModal(id);
+        }
+    </script>
+
+    <style>
+        .content-grid { display: grid; gap: 24px; }
+        .content-section { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; }
+        .section-header { padding: 16px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .section-header h3 { font-size: 16px; font-weight: 600; color: #0f172a; margin: 0; }
+        .section-body { padding: 20px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; color: #374151; font-size: 14px; }
+        .form-control { width: 100%; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; }
+        .form-control:focus { outline: none; border-color: #16A34A; box-shadow: 0 0 0 3px rgba(22,163,74,0.1); }
+        .image-upload { display: flex; align-items: center; gap: 16px; }
+        .image-upload img { width: 120px; height: 80px; object-fit: cover; border-radius: 8px; }
+        .highlight-list { display: flex; flex-direction: column; gap: 12px; }
+        .highlight-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #f8fafc; border-radius: 8px; }
+        .highlight-item i { font-size: 20px; color: #16A34A; width: 30px; }
+        .highlight-item span { flex: 1; font-size: 14px; }
+        .btn-icon { background: none; border: none; color: #64748b; cursor: pointer; padding: 4px 8px; }
+        .btn-icon:hover { color: #16A34A; }
+        .btn-sm { padding: 6px 12px; font-size: 12px; }
+        
+        /* Modal Styles */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: white; border-radius: 12px; width: 100%; max-width: 500px; max-height: 90vh; overflow: hidden; }
+        .modal-header { padding: 16px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h3 { font-size: 18px; font-weight: 600; margin: 0; }
+        .modal-close { background: none; border: none; font-size: 20px; color: #64748b; cursor: pointer; }
+        .modal-body { padding: 20px; max-height: 60vh; overflow-y: auto; }
+        .modal-footer { padding: 16px 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 12px; }
+    </style>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Thong Tin Tham Quan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-ticket-alt"></i></div>
+                <div class="logo-text">Adventure Park</div>
+            </div>
+        </div>
+        <div class="property-selector">
+            <div class="property-label">Khu Vui Choi</div>
+            <div class="property-name">Adventure Park Admin</div>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-section-title">TONG QUAN</div>
+            <div class="nav-section">
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Trang Chu & Gioi Thieu</a>
+            </div>
+            <div class="nav-section-title">DIEM THAM QUAN</div>
+            <div class="nav-section">
+                <a href="map.html" class="nav-item"><i class="fas fa-map"></i> Ban Do</a>
+                <a href="attractions.html" class="nav-item"><i class="fas fa-map-marked-alt"></i> Cac Khu Vuc</a>
+                <a href="games.html" class="nav-item"><i class="fas fa-gamepad"></i> Tro Choi</a>
+            </div>
+            <div class="nav-section-title">DICH VU</div>
+            <div class="nav-section">
+                <a href="tickets.html" class="nav-item"><i class="fas fa-ticket-alt"></i> Loai Ve & Gia</a>
+                <a href="schedule.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Lich Hoat Dong</a>
+                <a href="food.html" class="nav-item"><i class="fas fa-utensils"></i> An Uong</a>
+                <a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Dich Vu Khac</a>
+            </div>
+            <div class="nav-section-title">THONG TIN</div>
+            <div class="nav-section">
+                <a href="info.html" class="nav-item active"><i class="fas fa-book"></i> Noi Quy & Luu Y</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> Lien He</a>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Tuyen Dung</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Thu Vien</a>
+            </div>
+            <div class="nav-section-title">HE THONG</div>
+            <div class="nav-section">
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a>
+                <a href="../park.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Trang</a>
+                <a href="../index.html" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> Thoat</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="header">
+        <div class="header-left">
+            <h1 class="page-title">Thong Tin Tham Quan</h1>
+        </div>
+        <div class="header-right">
+            <button class="btn btn-primary" onclick="saveAll()"><i class="fas fa-save"></i> Luu Tat Ca</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="info-grid">
+            <!-- Gio Mo Cua -->
+            <div class="info-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-clock"></i> Gio Mo Cua</h3>
+                    <button class="btn btn-secondary btn-sm" onclick="openModal('hoursModal')"><i class="fas fa-edit"></i></button>
+                </div>
+                <div class="section-body">
+                    <div class="info-item">
+                        <span class="info-label">Thu 2 - Thu 6:</span>
+                        <span class="info-value">08:00 - 21:00</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Thu 7 - Chu Nhat:</span>
+                        <span class="info-value">08:00 - 22:00</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Ngay Le:</span>
+                        <span class="info-value">07:00 - 23:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Noi Quy -->
+            <div class="info-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-clipboard-list"></i> Noi Quy</h3>
+                    <button class="btn btn-primary btn-sm" onclick="openModal('addRuleModal')"><i class="fas fa-plus"></i></button>
+                </div>
+                <div class="section-body">
+                    <div class="rules-list">
+                        <div class="rule-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Tre em duoi 12 tuoi phai co nguoi lon di kem</span>
+                            <button class="btn-icon" onclick="openModal('editRuleModal')"><i class="fas fa-edit"></i></button>
+                        </div>
+                        <div class="rule-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Khong mang thuc an, do uong tu ben ngoai</span>
+                            <button class="btn-icon" onclick="openModal('editRuleModal')"><i class="fas fa-edit"></i></button>
+                        </div>
+                        <div class="rule-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Tuan thu chi dan cua nhan vien</span>
+                            <button class="btn-icon" onclick="openModal('editRuleModal')"><i class="fas fa-edit"></i></button>
+                        </div>
+                        <div class="rule-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Giu gin ve sinh chung</span>
+                            <button class="btn-icon" onclick="openModal('editRuleModal')"><i class="fas fa-edit"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Huong Dan Di Chuyen -->
+            <div class="info-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-directions"></i> Huong Dan Di Chuyen</h3>
+                    <button class="btn btn-secondary btn-sm" onclick="openModal('directionsModal')"><i class="fas fa-edit"></i></button>
+                </div>
+                <div class="section-body">
+                    <div class="direction-item">
+                        <div class="direction-icon"><i class="fas fa-car"></i></div>
+                        <div class="direction-info">
+                            <h4>O to / Xe may</h4>
+                            <p>Di theo duong cao toc, re vao cong chinh...</p>
+                        </div>
+                    </div>
+                    <div class="direction-item">
+                        <div class="direction-icon"><i class="fas fa-bus"></i></div>
+                        <div class="direction-info">
+                            <h4>Xe bus</h4>
+                            <p>Tuyen 52, 68, 150 - Dung tram Adventure Park</p>
+                        </div>
+                    </div>
+                    <div class="direction-item">
+                        <div class="direction-icon"><i class="fas fa-taxi"></i></div>
+                        <div class="direction-info">
+                            <h4>Taxi / Grab</h4>
+                            <p>Dat xe den "Adventure Park - Cong Chinh"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div class="info-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-question-circle"></i> Cau Hoi Thuong Gap</h3>
+                    <button class="btn btn-primary btn-sm" onclick="openModal('addFaqModal')"><i class="fas fa-plus"></i></button>
+                </div>
+                <div class="section-body">
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>Co the mang theo do an khong?</span>
+                                <button class="btn-icon" onclick="openModal('editFaqModal')"><i class="fas fa-edit"></i></button>
+                            </div>
+                            <div class="faq-answer">Khong, cong vien khong cho phep mang do an tu ben ngoai.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>Tre em bao nhieu tuoi duoc mien phi?</span>
+                                <button class="btn-icon" onclick="openModal('editFaqModal')"><i class="fas fa-edit"></i></button>
+                            </div>
+                            <div class="faq-answer">Tre em duoi 1m duoc mien phi ve vao cua.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>Co cho de xe khong?</span>
+                                <button class="btn-icon" onclick="openModal('editFaqModal')"><i class="fas fa-edit"></i></button>
+                            </div>
+                            <div class="faq-answer">Co, bai gui xe mien phi voi suc chua 2000 xe.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Luu Y An Toan -->
+            <div class="info-section full-width">
+                <div class="section-header">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Luu Y An Toan</h3>
+                    <button class="btn btn-primary btn-sm" onclick="openModal('addSafetyModal')"><i class="fas fa-plus"></i></button>
+                </div>
+                <div class="section-body">
+                    <div class="safety-grid">
+                        <div class="safety-card">
+                            <i class="fas fa-heartbeat"></i>
+                            <h4>Suc Khoe</h4>
+                            <p>Nguoi co benh tim, huyet ap cao khong nen choi tro cam giac manh</p>
+                            <button class="btn-icon" onclick="openModal('editSafetyModal')"><i class="fas fa-edit"></i></button>
+                        </div>
+                        <div class="safety-card">
+                            <i class="fas fa-ruler-vertical"></i>
+                            <h4>Chieu Cao</h4>
+                            <p>Mot so tro choi yeu cau chieu cao toi thieu, vui long kiem tra truoc</p>
+                            <button class="btn-icon" onclick="openModal('editSafetyModal')"><i class="fas fa-edit"></i></button>
+                        </div>
+                        <div class="safety-card">
+                            <i class="fas fa-user-shield"></i>
+                            <h4>Giam Sat</h4>
+                            <p>Tre em phai co nguoi lon di kem va giam sat khi choi</p>
+                            <button class="btn-icon" onclick="openModal('editSafetyModal')"><i class="fas fa-edit"></i></button>
+                        </div>
+                        <div class="safety-card">
+                            <i class="fas fa-phone-alt"></i>
+                            <h4>Hotline</h4>
+                            <p>Lien he 1900-xxxx neu can ho tro khan cap</p>
+                            <button class="btn-icon" onclick="openModal('editSafetyModal')"><i class="fas fa-edit"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Hours Modal -->
+    <div class="modal-overlay" id="hoursModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Chinh Sua Gio Mo Cua</h3>
+                <button class="modal-close" onclick="closeModal('hoursModal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Thu 2 - Thu 6</label>
+                    <div style="display: flex; gap: 12px;">
+                        <input type="time" class="form-control" value="08:00">
+                        <span style="line-height: 40px;">-</span>
+                        <input type="time" class="form-control" value="21:00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Thu 7 - Chu Nhat</label>
+                    <div style="display: flex; gap: 12px;">
+                        <input type="time" class="form-control" value="08:00">
+                        <span style="line-height: 40px;">-</span>
+                        <input type="time" class="form-control" value="22:00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Ngay Le</label>
+                    <div style="display: flex; gap: 12px;">
+                        <input type="time" class="form-control" value="07:00">
+                        <span style="line-height: 40px;">-</span>
+                        <input type="time" class="form-control" value="23:00">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('hoursModal')">Huy</button>
+                <button class="btn btn-primary" onclick="saveAndClose('hoursModal')">Luu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Rule Modal -->
+    <div class="modal-overlay" id="addRuleModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Them Noi Quy</h3>
+                <button class="modal-close" onclick="closeModal('addRuleModal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Noi dung noi quy</label>
+                    <textarea class="form-control" rows="3" placeholder="VD: Khong hut thuoc trong khu vuc..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('addRuleModal')">Huy</button>
+                <button class="btn btn-primary" onclick="saveAndClose('addRuleModal')">Them</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add FAQ Modal -->
+    <div class="modal-overlay" id="addFaqModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Them Cau Hoi</h3>
+                <button class="modal-close" onclick="closeModal('addFaqModal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Cau hoi</label>
+                    <input type="text" class="form-control" placeholder="VD: Gio mo cua la may gio?">
+                </div>
+                <div class="form-group">
+                    <label>Tra loi</label>
+                    <textarea class="form-control" rows="3" placeholder="Noi dung tra loi..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('addFaqModal')">Huy</button>
+                <button class="btn btn-primary" onclick="saveAndClose('addFaqModal')">Them</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function saveAndClose(id) { alert('Da luu thanh cong!'); closeModal(id); }
+        function saveAll() { alert('Da luu tat ca thay doi!'); }
+
+        // Load data from JSON
+        fetch('../assets/data/park-content.json')
+            .then(r => r.json())
+            .then(data => {
+                const info = data.info;
+                if (!info || !info.items) return;
+
+                // Find sections
+                const openingHours = info.items.find(i => i.id === 'opening-hours');
+                const rules = info.items.find(i => i.id === 'rules');
+                const guide = info.items.find(i => i.id === 'guide');
+
+                // Update opening hours
+                if (openingHours && openingHours.subItems) {
+                    const hoursContainer = document.querySelector('.info-section .section-body');
+                    if (hoursContainer) {
+                        let html = '';
+                        openingHours.subItems.forEach(item => {
+                            html += `<div class="info-item"><span class="info-label">${item.name}:</span><span class="info-value">${item.desc}</span></div>`;
+                        });
+                        hoursContainer.innerHTML = html;
+                    }
+                }
+
+                // Update rules
+                if (rules && rules.subItems) {
+                    const rulesContainer = document.querySelector('.rules-list');
+                    if (rulesContainer) {
+                        let html = '';
+                        rules.subItems.forEach(item => {
+                            html += `<div class="rule-item"><i class="fas fa-check-circle"></i><span><strong>${item.name}:</strong> ${item.desc}</span><button class="btn-icon" onclick="openModal('editRuleModal')"><i class="fas fa-edit"></i></button></div>`;
+                        });
+                        rulesContainer.innerHTML = html;
+                    }
+                }
+
+                console.log('Info data loaded from JSON');
+            });
+    </script>
+
+    <style>
+        .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+        .info-section { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; }
+        .info-section.full-width { grid-column: span 2; }
+        .section-header { padding: 16px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .section-header h3 { font-size: 16px; font-weight: 600; margin: 0; display: flex; align-items: center; gap: 10px; }
+        .section-header h3 i { color: #16A34A; }
+        .section-body { padding: 20px; }
+        
+        .info-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
+        .info-item:last-child { border-bottom: none; }
+        .info-label { color: #64748b; }
+        .info-value { font-weight: 600; color: #0f172a; }
+        
+        .rules-list { display: flex; flex-direction: column; gap: 12px; }
+        .rule-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px; }
+        .rule-item i { color: #16A34A; }
+        .rule-item span { flex: 1; font-size: 14px; }
+        
+        .direction-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #f1f5f9; }
+        .direction-item:last-child { border-bottom: none; }
+        .direction-icon { width: 48px; height: 48px; background: #dcfce7; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #16A34A; font-size: 20px; }
+        .direction-info h4 { font-size: 14px; margin-bottom: 4px; }
+        .direction-info p { font-size: 13px; color: #64748b; margin: 0; }
+        
+        .faq-list { display: flex; flex-direction: column; gap: 16px; }
+        .faq-item { padding: 16px; background: #f8fafc; border-radius: 8px; }
+        .faq-question { display: flex; justify-content: space-between; align-items: center; font-weight: 600; margin-bottom: 8px; }
+        .faq-answer { font-size: 14px; color: #64748b; }
+        
+        .safety-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .safety-card { padding: 20px; background: #f8fafc; border-radius: 12px; text-align: center; position: relative; }
+        .safety-card i { font-size: 32px; color: #F97316; margin-bottom: 12px; }
+        .safety-card h4 { font-size: 14px; margin-bottom: 8px; }
+        .safety-card p { font-size: 13px; color: #64748b; margin: 0; }
+        .safety-card .btn-icon { position: absolute; top: 8px; right: 8px; }
+        
+        .btn-icon { background: none; border: none; color: #64748b; cursor: pointer; padding: 4px 8px; }
+        .btn-icon:hover { color: #16A34A; }
+        .btn-sm { padding: 6px 12px; font-size: 12px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 14px; }
+        .form-control { width: 100%; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; }
+        
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: white; border-radius: 12px; width: 100%; max-width: 500px; }
+        .modal-header { padding: 16px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h3 { font-size: 18px; font-weight: 600; margin: 0; }
+        .modal-close { background: none; border: none; font-size: 20px; color: #64748b; cursor: pointer; }
+        .modal-body { padding: 20px; }
+        .modal-footer { padding: 16px 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 12px; }
+    </style>
+</body>
+</html>
