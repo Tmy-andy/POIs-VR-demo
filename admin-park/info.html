@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -9,16 +9,8 @@
 </head>
 <body>
     <div class="sidebar">
-        <div class="sidebar-header">
-            <div class="logo">
-                <div class="logo-icon"><i class="fas fa-ticket-alt"></i></div>
-                <div class="logo-text">Adventure Park</div>
-            </div>
-        </div>
-        <div class="property-selector">
-            <div class="property-label">Khu Vui Choi</div>
-            <div class="property-name">Adventure Park Admin</div>
-        </div>
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon"><i class="fas fa-ticket-alt"></i></div><div class="logo-text">Adventure Park</div></div></div>
+        <div class="property-selector"><div class="property-label">Khu Vui Choi</div><div class="property-name">Adventure Park Admin</div></div>
         <nav class="nav-menu">
             <div class="nav-section-title">TONG QUAN</div>
             <div class="nav-section">
@@ -54,356 +46,381 @@
             </div>
         </nav>
     </div>
-
-    <header class="header">
-        <div class="header-left">
-            <h1 class="page-title">Thong Tin Tham Quan</h1>
-        </div>
-        <div class="header-right">
-            <button class="btn btn-primary" onclick="saveAll()"><i class="fas fa-save"></i> Luu Tat Ca</button>
-        </div>
-    </header>
-
+    <header class="header"><div class="header-left"><h1 class="page-title">Thong Tin Tham Quan</h1></div><div class="header-right"><button class="btn btn-primary" onclick="saveAll()"><i class="fas fa-save"></i> Luu Tat Ca</button></div></header>
     <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
         <div class="info-grid">
-            <!-- Gio Mo Cua -->
             <div class="info-section">
-                <div class="section-header">
-                    <h3><i class="fas fa-clock"></i> Gio Mo Cua</h3>
-                    <button class="btn btn-secondary btn-sm" onclick="openModal('hoursModal')"><i class="fas fa-edit"></i></button>
-                </div>
-                <div class="section-body">
-                    <div class="info-item">
-                        <span class="info-label">Thu 2 - Thu 6:</span>
-                        <span class="info-value">08:00 - 21:00</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">Thu 7 - Chu Nhat:</span>
-                        <span class="info-value">08:00 - 22:00</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">Ngay Le:</span>
-                        <span class="info-value">07:00 - 23:00</span>
-                    </div>
-                </div>
+                <div class="section-header"><h3><i class="fas fa-clock"></i> Gio Mo Cua</h3><button class="btn btn-primary btn-sm" onclick="openHoursModal()"><i class="fas fa-plus"></i> Them</button></div>
+                <div class="section-body" id="hoursList"></div>
             </div>
-
-            <!-- Noi Quy -->
             <div class="info-section">
-                <div class="section-header">
-                    <h3><i class="fas fa-clipboard-list"></i> Noi Quy</h3>
-                    <button class="btn btn-primary btn-sm" onclick="openModal('addRuleModal')"><i class="fas fa-plus"></i></button>
-                </div>
-                <div class="section-body">
-                    <div class="rules-list">
-                        <div class="rule-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Tre em duoi 12 tuoi phai co nguoi lon di kem</span>
-                            <button class="btn-icon" onclick="openModal('editRuleModal')"><i class="fas fa-edit"></i></button>
-                        </div>
-                        <div class="rule-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Khong mang thuc an, do uong tu ben ngoai</span>
-                            <button class="btn-icon" onclick="openModal('editRuleModal')"><i class="fas fa-edit"></i></button>
-                        </div>
-                        <div class="rule-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Tuan thu chi dan cua nhan vien</span>
-                            <button class="btn-icon" onclick="openModal('editRuleModal')"><i class="fas fa-edit"></i></button>
-                        </div>
-                        <div class="rule-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Giu gin ve sinh chung</span>
-                            <button class="btn-icon" onclick="openModal('editRuleModal')"><i class="fas fa-edit"></i></button>
-                        </div>
-                    </div>
-                </div>
+                <div class="section-header"><h3><i class="fas fa-clipboard-list"></i> Noi Quy</h3><button class="btn btn-primary btn-sm" onclick="openRuleModal()"><i class="fas fa-plus"></i> Them</button></div>
+                <div class="section-body" id="rulesList"></div>
             </div>
-
-            <!-- Huong Dan Di Chuyen -->
             <div class="info-section">
-                <div class="section-header">
-                    <h3><i class="fas fa-directions"></i> Huong Dan Di Chuyen</h3>
-                    <button class="btn btn-secondary btn-sm" onclick="openModal('directionsModal')"><i class="fas fa-edit"></i></button>
-                </div>
-                <div class="section-body">
-                    <div class="direction-item">
-                        <div class="direction-icon"><i class="fas fa-car"></i></div>
-                        <div class="direction-info">
-                            <h4>O to / Xe may</h4>
-                            <p>Di theo duong cao toc, re vao cong chinh...</p>
-                        </div>
-                    </div>
-                    <div class="direction-item">
-                        <div class="direction-icon"><i class="fas fa-bus"></i></div>
-                        <div class="direction-info">
-                            <h4>Xe bus</h4>
-                            <p>Tuyen 52, 68, 150 - Dung tram Adventure Park</p>
-                        </div>
-                    </div>
-                    <div class="direction-item">
-                        <div class="direction-icon"><i class="fas fa-taxi"></i></div>
-                        <div class="direction-info">
-                            <h4>Taxi / Grab</h4>
-                            <p>Dat xe den "Adventure Park - Cong Chinh"</p>
-                        </div>
-                    </div>
-                </div>
+                <div class="section-header"><h3><i class="fas fa-directions"></i> Huong Dan Di Chuyen</h3><button class="btn btn-primary btn-sm" onclick="openDirectionModal()"><i class="fas fa-plus"></i> Them</button></div>
+                <div class="section-body" id="directionsList"></div>
             </div>
-
-            <!-- FAQ -->
             <div class="info-section">
-                <div class="section-header">
-                    <h3><i class="fas fa-question-circle"></i> Cau Hoi Thuong Gap</h3>
-                    <button class="btn btn-primary btn-sm" onclick="openModal('addFaqModal')"><i class="fas fa-plus"></i></button>
-                </div>
-                <div class="section-body">
-                    <div class="faq-list">
-                        <div class="faq-item">
-                            <div class="faq-question">
-                                <span>Co the mang theo do an khong?</span>
-                                <button class="btn-icon" onclick="openModal('editFaqModal')"><i class="fas fa-edit"></i></button>
-                            </div>
-                            <div class="faq-answer">Khong, cong vien khong cho phep mang do an tu ben ngoai.</div>
-                        </div>
-                        <div class="faq-item">
-                            <div class="faq-question">
-                                <span>Tre em bao nhieu tuoi duoc mien phi?</span>
-                                <button class="btn-icon" onclick="openModal('editFaqModal')"><i class="fas fa-edit"></i></button>
-                            </div>
-                            <div class="faq-answer">Tre em duoi 1m duoc mien phi ve vao cua.</div>
-                        </div>
-                        <div class="faq-item">
-                            <div class="faq-question">
-                                <span>Co cho de xe khong?</span>
-                                <button class="btn-icon" onclick="openModal('editFaqModal')"><i class="fas fa-edit"></i></button>
-                            </div>
-                            <div class="faq-answer">Co, bai gui xe mien phi voi suc chua 2000 xe.</div>
-                        </div>
-                    </div>
-                </div>
+                <div class="section-header"><h3><i class="fas fa-question-circle"></i> Cau Hoi Thuong Gap</h3><button class="btn btn-primary btn-sm" onclick="openFaqModal()"><i class="fas fa-plus"></i> Them</button></div>
+                <div class="section-body" id="faqList"></div>
             </div>
-
-            <!-- Luu Y An Toan -->
             <div class="info-section full-width">
-                <div class="section-header">
-                    <h3><i class="fas fa-exclamation-triangle"></i> Luu Y An Toan</h3>
-                    <button class="btn btn-primary btn-sm" onclick="openModal('addSafetyModal')"><i class="fas fa-plus"></i></button>
-                </div>
-                <div class="section-body">
-                    <div class="safety-grid">
-                        <div class="safety-card">
-                            <i class="fas fa-heartbeat"></i>
-                            <h4>Suc Khoe</h4>
-                            <p>Nguoi co benh tim, huyet ap cao khong nen choi tro cam giac manh</p>
-                            <button class="btn-icon" onclick="openModal('editSafetyModal')"><i class="fas fa-edit"></i></button>
-                        </div>
-                        <div class="safety-card">
-                            <i class="fas fa-ruler-vertical"></i>
-                            <h4>Chieu Cao</h4>
-                            <p>Mot so tro choi yeu cau chieu cao toi thieu, vui long kiem tra truoc</p>
-                            <button class="btn-icon" onclick="openModal('editSafetyModal')"><i class="fas fa-edit"></i></button>
-                        </div>
-                        <div class="safety-card">
-                            <i class="fas fa-user-shield"></i>
-                            <h4>Giam Sat</h4>
-                            <p>Tre em phai co nguoi lon di kem va giam sat khi choi</p>
-                            <button class="btn-icon" onclick="openModal('editSafetyModal')"><i class="fas fa-edit"></i></button>
-                        </div>
-                        <div class="safety-card">
-                            <i class="fas fa-phone-alt"></i>
-                            <h4>Hotline</h4>
-                            <p>Lien he 1900-xxxx neu can ho tro khan cap</p>
-                            <button class="btn-icon" onclick="openModal('editSafetyModal')"><i class="fas fa-edit"></i></button>
-                        </div>
-                    </div>
-                </div>
+                <div class="section-header"><h3><i class="fas fa-exclamation-triangle"></i> Luu Y An Toan</h3><button class="btn btn-primary btn-sm" onclick="openSafetyModal()"><i class="fas fa-plus"></i> Them</button></div>
+                <div class="section-body"><div class="safety-grid" id="safetyList"></div></div>
             </div>
         </div>
     </main>
-
-    <!-- Hours Modal -->
-    <div class="modal-overlay" id="hoursModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3>Chinh Sua Gio Mo Cua</h3>
-                <button class="modal-close" onclick="closeModal('hoursModal')"><i class="fas fa-times"></i></button>
-            </div>
+    <div class="modal" id="hoursModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="hoursModalTitle">Them Gio Mo Cua</h3><button class="close-btn" onclick="closeModal('hoursModal')">x</button></div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Thu 2 - Thu 6</label>
-                    <div style="display: flex; gap: 12px;">
-                        <input type="time" class="form-control" value="08:00">
-                        <span style="line-height: 40px;">-</span>
-                        <input type="time" class="form-control" value="21:00">
+                    <label class="form-label">Cach nhap ngay *</label>
+                    <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="dayInputType" value="select" checked onchange="toggleDayInput()"> Chon thu trong tuan</label>
+                        <label class="radio-item"><input type="radio" name="dayInputType" value="text" onchange="toggleDayInput()"> Tự Điền (VD: Ngay Le, Hang ngay...)</label>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Thu 7 - Chu Nhat</label>
-                    <div style="display: flex; gap: 12px;">
-                        <input type="time" class="form-control" value="08:00">
-                        <span style="line-height: 40px;">-</span>
-                        <input type="time" class="form-control" value="22:00">
+                <div class="form-group" id="daySelectGroup">
+                    <label class="form-label">Chon cac thu</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item"><input type="checkbox" id="dayMon" value="Th2"> Th2</label>
+                        <label class="checkbox-item"><input type="checkbox" id="dayTue" value="Th3"> Th3</label>
+                        <label class="checkbox-item"><input type="checkbox" id="dayWed" value="Th4"> Th4</label>
+                        <label class="checkbox-item"><input type="checkbox" id="dayThu" value="Th5"> Th5</label>
+                        <label class="checkbox-item"><input type="checkbox" id="dayFri" value="Th6"> Th6</label>
+                        <label class="checkbox-item"><input type="checkbox" id="daySat" value="Th7"> Th7</label>
+                        <label class="checkbox-item"><input type="checkbox" id="daySun" value="CN"> CN</label>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Ngay Le</label>
-                    <div style="display: flex; gap: 12px;">
-                        <input type="time" class="form-control" value="07:00">
-                        <span style="line-height: 40px;">-</span>
-                        <input type="time" class="form-control" value="23:00">
-                    </div>
+                <div class="form-group hidden" id="dayTextGroup">
+                    <label class="form-label">Nhap ten ngay</label>
+                    <input type="text" class="form-input" id="hoursLabel" placeholder="VD: Ngay Le, Tet, Hang ngay...">
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Gio mo cua</label><input type="time" class="form-input" id="hoursOpen" value="08:00"></div>
+                    <div class="form-group"><label class="form-label">Gio dong cua</label><input type="time" class="form-input" id="hoursClose" value="21:00"></div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('hoursModal')">Huy</button>
-                <button class="btn btn-primary" onclick="saveAndClose('hoursModal')">Luu</button>
-            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('hoursModal')">Huy</button><button class="btn btn-primary" onclick="saveHours()">Luu</button></div>
         </div>
     </div>
-
-    <!-- Add Rule Modal -->
-    <div class="modal-overlay" id="addRuleModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3>Them Noi Quy</h3>
-                <button class="modal-close" onclick="closeModal('addRuleModal')"><i class="fas fa-times"></i></button>
-            </div>
+    <div class="modal" id="ruleModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="ruleModalTitle">Them Noi Quy</h3><button class="close-btn" onclick="closeModal('ruleModal')">x</button></div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label>Noi dung noi quy</label>
-                    <textarea class="form-control" rows="3" placeholder="VD: Khong hut thuoc trong khu vuc..."></textarea>
-                </div>
+                <div class="form-group"><label class="form-label">Noi dung noi quy *</label><textarea class="form-textarea" id="ruleContent" rows="3" placeholder="VD: Tre em duoi 12 tuoi phai co nguoi lon di kem"></textarea></div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('addRuleModal')">Huy</button>
-                <button class="btn btn-primary" onclick="saveAndClose('addRuleModal')">Them</button>
-            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('ruleModal')">Huy</button><button class="btn btn-primary" onclick="saveRule()">Luu</button></div>
         </div>
     </div>
-
-    <!-- Add FAQ Modal -->
-    <div class="modal-overlay" id="addFaqModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3>Them Cau Hoi</h3>
-                <button class="modal-close" onclick="closeModal('addFaqModal')"><i class="fas fa-times"></i></button>
-            </div>
+    <div class="modal" id="directionModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="directionModalTitle">Them Huong Dan</h3><button class="close-btn" onclick="closeModal('directionModal')">x</button></div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label>Cau hoi</label>
-                    <input type="text" class="form-control" placeholder="VD: Gio mo cua la may gio?">
-                </div>
-                <div class="form-group">
-                    <label>Tra loi</label>
-                    <textarea class="form-control" rows="3" placeholder="Noi dung tra loi..."></textarea>
-                </div>
+                <div class="form-group"><label class="form-label">Icon (Font Awesome)</label><input type="text" class="form-input" id="directionIcon" placeholder="fas fa-car"></div>
+                <div class="form-group"><label class="form-label">Phuong tien *</label><input type="text" class="form-input" id="directionTitle" placeholder="VD: O to / Xe may"></div>
+                <div class="form-group"><label class="form-label">Huong dan</label><textarea class="form-textarea" id="directionDesc" rows="2" placeholder="VD: Di theo duong cao toc..."></textarea></div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('addFaqModal')">Huy</button>
-                <button class="btn btn-primary" onclick="saveAndClose('addFaqModal')">Them</button>
-            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('directionModal')">Huy</button><button class="btn btn-primary" onclick="saveDirection()">Luu</button></div>
         </div>
     </div>
-
-    <script>
-        function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        function saveAndClose(id) { alert('Da luu thanh cong!'); closeModal(id); }
-        function saveAll() { alert('Da luu tat ca thay doi!'); }
-
-        // Load data from JSON
-        fetch('../assets/data/park-content.json')
-            .then(r => r.json())
-            .then(data => {
-                const info = data.info;
-                if (!info || !info.items) return;
-
-                // Find sections
-                const openingHours = info.items.find(i => i.id === 'opening-hours');
-                const rules = info.items.find(i => i.id === 'rules');
-                const guide = info.items.find(i => i.id === 'guide');
-
-                // Update opening hours
-                if (openingHours && openingHours.subItems) {
-                    const hoursContainer = document.querySelector('.info-section .section-body');
-                    if (hoursContainer) {
-                        let html = '';
-                        openingHours.subItems.forEach(item => {
-                            html += `<div class="info-item"><span class="info-label">${item.name}:</span><span class="info-value">${item.desc}</span></div>`;
-                        });
-                        hoursContainer.innerHTML = html;
-                    }
-                }
-
-                // Update rules
-                if (rules && rules.subItems) {
-                    const rulesContainer = document.querySelector('.rules-list');
-                    if (rulesContainer) {
-                        let html = '';
-                        rules.subItems.forEach(item => {
-                            html += `<div class="rule-item"><i class="fas fa-check-circle"></i><span><strong>${item.name}:</strong> ${item.desc}</span><button class="btn-icon" onclick="openModal('editRuleModal')"><i class="fas fa-edit"></i></button></div>`;
-                        });
-                        rulesContainer.innerHTML = html;
-                    }
-                }
-
-                console.log('Info data loaded from JSON');
-            });
-    </script>
-
+    <div class="modal" id="faqModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="faqModalTitle">Them Cau Hoi</h3><button class="close-btn" onclick="closeModal('faqModal')">x</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Cau hoi *</label><input type="text" class="form-input" id="faqQuestion" placeholder="VD: Co the mang theo do an khong?"></div>
+                <div class="form-group"><label class="form-label">Tra loi *</label><textarea class="form-textarea" id="faqAnswer" rows="3" placeholder="Noi dung tra loi..."></textarea></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('faqModal')">Huy</button><button class="btn btn-primary" onclick="saveFaq()">Luu</button></div>
+        </div>
+    </div>
+    <div class="modal" id="safetyModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="safetyModalTitle">Them Luu Y An Toan</h3><button class="close-btn" onclick="closeModal('safetyModal')">x</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Icon (Font Awesome)</label><input type="text" class="form-input" id="safetyIcon" placeholder="fas fa-heartbeat"></div>
+                <div class="form-group"><label class="form-label">Tieu de *</label><input type="text" class="form-input" id="safetyTitle" placeholder="VD: Suc Khoe"></div>
+                <div class="form-group"><label class="form-label">Noi dung</label><textarea class="form-textarea" id="safetyDesc" rows="2" placeholder="Mo ta chi tiet..."></textarea></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('safetyModal')">Huy</button><button class="btn btn-primary" onclick="saveSafety()">Luu</button></div>
+        </div>
+    </div>
     <style>
-        .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-        .info-section { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; }
-        .info-section.full-width { grid-column: span 2; }
-        .section-header { padding: 16px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
-        .section-header h3 { font-size: 16px; font-weight: 600; margin: 0; display: flex; align-items: center; gap: 10px; }
-        .section-header h3 i { color: #16A34A; }
-        .section-body { padding: 20px; }
-        
-        .info-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
-        .info-item:last-child { border-bottom: none; }
-        .info-label { color: #64748b; }
-        .info-value { font-weight: 600; color: #0f172a; }
-        
-        .rules-list { display: flex; flex-direction: column; gap: 12px; }
-        .rule-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px; }
-        .rule-item i { color: #16A34A; }
-        .rule-item span { flex: 1; font-size: 14px; }
-        
-        .direction-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #f1f5f9; }
-        .direction-item:last-child { border-bottom: none; }
-        .direction-icon { width: 48px; height: 48px; background: #dcfce7; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #16A34A; font-size: 20px; }
-        .direction-info h4 { font-size: 14px; margin-bottom: 4px; }
-        .direction-info p { font-size: 13px; color: #64748b; margin: 0; }
-        
-        .faq-list { display: flex; flex-direction: column; gap: 16px; }
-        .faq-item { padding: 16px; background: #f8fafc; border-radius: 8px; }
-        .faq-question { display: flex; justify-content: space-between; align-items: center; font-weight: 600; margin-bottom: 8px; }
-        .faq-answer { font-size: 14px; color: #64748b; }
-        
-        .safety-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-        .safety-card { padding: 20px; background: #f8fafc; border-radius: 12px; text-align: center; position: relative; }
-        .safety-card i { font-size: 32px; color: #F97316; margin-bottom: 12px; }
-        .safety-card h4 { font-size: 14px; margin-bottom: 8px; }
-        .safety-card p { font-size: 13px; color: #64748b; margin: 0; }
-        .safety-card .btn-icon { position: absolute; top: 8px; right: 8px; }
-        
-        .btn-icon { background: none; border: none; color: #64748b; cursor: pointer; padding: 4px 8px; }
-        .btn-icon:hover { color: #16A34A; }
-        .btn-sm { padding: 6px 12px; font-size: 12px; }
-        .form-group { margin-bottom: 16px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 14px; }
-        .form-control { width: 100%; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; }
-        
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; }
-        .modal-overlay.active { display: flex; }
-        .modal { background: white; border-radius: 12px; width: 100%; max-width: 500px; }
-        .modal-header { padding: 16px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
-        .modal-header h3 { font-size: 18px; font-weight: 600; margin: 0; }
-        .modal-close { background: none; border: none; font-size: 20px; color: #64748b; cursor: pointer; }
-        .modal-body { padding: 20px; }
-        .modal-footer { padding: 16px 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 12px; }
+        .info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+        .info-section{background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;}
+        .info-section.full-width{grid-column:span 2;}
+        .section-header{padding:16px 20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;}
+        .section-header h3{font-size:16px;font-weight:600;margin:0;display:flex;align-items:center;gap:10px;}
+        .section-header h3 i{color:#16A34A;}
+        .section-body{padding:20px;}
+        .info-item{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#f8fafc;border-radius:8px;margin-bottom:8px;}
+        .info-item:last-child{margin-bottom:0;}
+        .info-label{color:#64748b;font-size:14px;}
+        .info-value{font-weight:600;color:#0f172a;margin-left:12px;}
+        .info-actions{display:flex;gap:8px;}
+        .rules-list,.directions-list,.faq-list{display:flex;flex-direction:column;gap:8px;}
+        .rule-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#f8fafc;border-radius:8px;}
+        .rule-item i.fa-check-circle{color:#16A34A;font-size:16px;}
+        .rule-item span{flex:1;font-size:14px;}
+        .direction-item{display:flex;gap:16px;padding:16px;background:#f8fafc;border-radius:8px;}
+        .direction-icon{width:48px;height:48px;background:#dcfce7;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#16A34A;font-size:20px;flex-shrink:0;}
+        .direction-info{flex:1;}
+        .direction-info h4{font-size:14px;margin:0 0 4px 0;}
+        .direction-info p{font-size:13px;color:#64748b;margin:0;}
+        .direction-actions{display:flex;gap:8px;align-items:flex-start;}
+        .faq-item{padding:16px;background:#f8fafc;border-radius:8px;}
+        .faq-question{display:flex;justify-content:space-between;align-items:center;font-weight:600;margin-bottom:8px;font-size:14px;}
+        .faq-question span{flex:1;}
+        .faq-answer{font-size:13px;color:#64748b;}
+        .safety-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+        .safety-card{padding:20px;background:#f8fafc;border-radius:12px;text-align:center;position:relative;}
+        .safety-card .card-icon{font-size:32px;color:#F97316;margin-bottom:12px;}
+        .safety-card h4{font-size:14px;margin:0 0 8px 0;}
+        .safety-card p{font-size:13px;color:#64748b;margin:0;}
+        .safety-card .card-actions{position:absolute;top:8px;right:8px;display:flex;gap:4px;}
+        .btn-icon{width:28px;height:28px;border:none;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;background:#e2e8f0;color:#64748b;font-size:12px;}
+        .btn-icon:hover{background:#16A34A;color:white;}
+        .btn-icon.btn-delete:hover{background:#dc2626;}
+        .btn-sm{padding:6px 12px;font-size:12px;}
+        .form-row{display:flex;gap:16px;}
+        .form-row .form-group{flex:1;}
+        .radio-group{display:flex;flex-direction:column;gap:8px;}
+        .radio-item{display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;}
+        .radio-item input{margin:0;}
+        .checkbox-group{display:flex;flex-wrap:wrap;gap:12px;}
+        .checkbox-item{display:flex;align-items:center;gap:6px;font-size:14px;background:#f1f5f9;padding:8px 12px;border-radius:8px;cursor:pointer;}
+        .checkbox-item input{margin:0;}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;margin:0;}
+        .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#64748b;}
+        .modal-body{padding:24px;}
+        .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid #e2e8f0;}
+        .form-group{margin-bottom:16px;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+        .form-input,.form-textarea{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;box-sizing:border-box;}
+        .form-input:focus,.form-textarea:focus{outline:none;border-color:#16A34A;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#16A34A;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
+        .hidden{display:none!important;}
+        .empty-state{text-align:center;padding:24px;color:#94a3b8;font-size:14px;}
     </style>
+    <script>
+        var hoursData=[
+            {id:1,type:'select',days:['Th2','Th3','Th4','Th5','Th6'],label:'',open:'08:00',close:'21:00'},
+            {id:2,type:'select',days:['Th7','CN'],label:'',open:'08:00',close:'22:00'},
+            {id:3,type:'text',days:[],label:'Ngay Le',open:'07:00',close:'23:00'}
+        ];
+        var rulesData=[
+            {id:1,content:'Tre em duoi 12 tuoi phai co nguoi lon di kem'},
+            {id:2,content:'Khong mang thuc an, do uong tu ben ngoai'},
+            {id:3,content:'Tuan thu chi dan cua nhan vien'},
+            {id:4,content:'Giu gin ve sinh chung'}
+        ];
+        var directionsData=[
+            {id:1,icon:'fas fa-car',title:'O to / Xe may',desc:'Di theo duong cao toc, re vao cong chinh...'},
+            {id:2,icon:'fas fa-bus',title:'Xe bus',desc:'Tuyen 52, 68, 150 - Dung tram Adventure Park'},
+            {id:3,icon:'fas fa-taxi',title:'Taxi / Grab',desc:'Dat xe den Adventure Park - Cong Chinh'}
+        ];
+        var faqData=[
+            {id:1,question:'Co the mang theo do an khong?',answer:'Khong, cong vien khong cho phep mang do an tu ben ngoai.'},
+            {id:2,question:'Tre em bao nhieu tuoi duoc mien phi?',answer:'Tre em duoi 1m duoc mien phi ve vao cua.'},
+            {id:3,question:'Co cho de xe khong?',answer:'Co, bai gui xe mien phi voi suc chua 2000 xe.'}
+        ];
+        var safetyData=[
+            {id:1,icon:'fas fa-heartbeat',title:'Suc Khoe',desc:'Nguoi co benh tim, huyet ap cao khong nen choi tro cam giac manh'},
+            {id:2,icon:'fas fa-ruler-vertical',title:'Chieu Cao',desc:'Mot so tro choi yeu cau chieu cao toi thieu, vui long kiem tra truoc'},
+            {id:3,icon:'fas fa-user-shield',title:'Giam Sat',desc:'Tre em phai co nguoi lon di kem va giam sat khi choi'},
+            {id:4,icon:'fas fa-phone-alt',title:'Hotline',desc:'Lien he 1900-xxxx neu can ho tro khan cap'}
+        ];
+        var editingId=null;
+        function renderHours(){
+            var html='';
+            if(hoursData.length===0){html='<div class="empty-state"><i class="fas fa-clock"></i><br>Chua co gio mo cua</div>';}
+            hoursData.forEach(function(h){
+                var label=h.type==='select'?h.days.join(', '):h.label;
+                var time=h.open+' - '+h.close;
+                html+='<div class="info-item"><div><span class="info-label">'+label+':</span><span class="info-value">'+time+'</span></div>';
+                html+='<div class="info-actions"><button class="btn-icon" onclick="openHoursModal('+h.id+')"><i class="fas fa-edit"></i></button><button class="btn-icon btn-delete" onclick="deleteHours('+h.id+')"><i class="fas fa-trash"></i></button></div></div>';
+            });
+            document.getElementById('hoursList').innerHTML=html;
+        }
+        function renderRules(){
+            var html='<div class="rules-list">';
+            if(rulesData.length===0){html+='<div class="empty-state"><i class="fas fa-clipboard-list"></i><br>Chua co noi quy</div>';}
+            rulesData.forEach(function(r){
+                html+='<div class="rule-item"><i class="fas fa-check-circle"></i><span>'+r.content+'</span>';
+                html+='<button class="btn-icon" onclick="openRuleModal('+r.id+')"><i class="fas fa-edit"></i></button><button class="btn-icon btn-delete" onclick="deleteRule('+r.id+')"><i class="fas fa-trash"></i></button></div>';
+            });
+            html+='</div>';
+            document.getElementById('rulesList').innerHTML=html;
+        }
+        function renderDirections(){
+            var html='<div class="directions-list">';
+            if(directionsData.length===0){html+='<div class="empty-state"><i class="fas fa-directions"></i><br>Chua co huong dan</div>';}
+            directionsData.forEach(function(d){
+                html+='<div class="direction-item"><div class="direction-icon"><i class="'+d.icon+'"></i></div>';
+                html+='<div class="direction-info"><h4>'+d.title+'</h4><p>'+d.desc+'</p></div>';
+                html+='<div class="direction-actions"><button class="btn-icon" onclick="openDirectionModal('+d.id+')"><i class="fas fa-edit"></i></button><button class="btn-icon btn-delete" onclick="deleteDirection('+d.id+')"><i class="fas fa-trash"></i></button></div></div>';
+            });
+            html+='</div>';
+            document.getElementById('directionsList').innerHTML=html;
+        }
+        function renderFaq(){
+            var html='<div class="faq-list">';
+            if(faqData.length===0){html+='<div class="empty-state"><i class="fas fa-question-circle"></i><br>Chua co cau hoi</div>';}
+            faqData.forEach(function(f){
+                html+='<div class="faq-item"><div class="faq-question"><span>'+f.question+'</span>';
+                html+='<div style="display:flex;gap:8px;"><button class="btn-icon" onclick="openFaqModal('+f.id+')"><i class="fas fa-edit"></i></button><button class="btn-icon btn-delete" onclick="deleteFaq('+f.id+')"><i class="fas fa-trash"></i></button></div></div>';
+                html+='<div class="faq-answer">'+f.answer+'</div></div>';
+            });
+            html+='</div>';
+            document.getElementById('faqList').innerHTML=html;
+        }
+        function renderSafety(){
+            var html='';
+            if(safetyData.length===0){html='<div class="empty-state" style="grid-column:span 4;"><i class="fas fa-exclamation-triangle"></i><br>Chua co luu y an toan</div>';}
+            safetyData.forEach(function(s){
+                html+='<div class="safety-card"><div class="card-actions"><button class="btn-icon" onclick="openSafetyModal('+s.id+')"><i class="fas fa-edit"></i></button><button class="btn-icon btn-delete" onclick="deleteSafety('+s.id+')"><i class="fas fa-trash"></i></button></div>';
+                html+='<i class="'+s.icon+' card-icon"></i><h4>'+s.title+'</h4><p>'+s.desc+'</p></div>';
+            });
+            document.getElementById('safetyList').innerHTML=html;
+        }
+        function closeModal(id){document.getElementById(id).classList.remove('show');}
+        function toggleDayInput(){
+            var type=document.querySelector('input[name="dayInputType"]:checked').value;
+            document.getElementById('daySelectGroup').classList.toggle('hidden',type!=='select');
+            document.getElementById('dayTextGroup').classList.toggle('hidden',type!=='text');
+        }
+        function openHoursModal(id){
+            editingId=id||null;
+            document.getElementById('hoursModalTitle').textContent=id?'Sua Gio Mo Cua':'Them Gio Mo Cua';
+            if(id){
+                var h=hoursData.find(function(x){return x.id===id;});
+                if(h){
+                    document.querySelector('input[name="dayInputType"][value="'+h.type+'"]').checked=true;
+                    toggleDayInput();
+                    if(h.type==='select'){
+                        ['dayMon','dayTue','dayWed','dayThu','dayFri','daySat','daySun'].forEach(function(cb){document.getElementById(cb).checked=false;});
+                        h.days.forEach(function(d){
+                            var map={'Th2':'dayMon','Th3':'dayTue','Th4':'dayWed','Th5':'dayThu','Th6':'dayFri','Th7':'daySat','CN':'daySun'};
+                            if(map[d])document.getElementById(map[d]).checked=true;
+                        });
+                    }else{
+                        document.getElementById('hoursLabel').value=h.label;
+                    }
+                    document.getElementById('hoursOpen').value=h.open;
+                    document.getElementById('hoursClose').value=h.close;
+                }
+            }else{
+                document.querySelector('input[name="dayInputType"][value="select"]').checked=true;
+                toggleDayInput();
+                ['dayMon','dayTue','dayWed','dayThu','dayFri','daySat','daySun'].forEach(function(cb){document.getElementById(cb).checked=false;});
+                document.getElementById('hoursLabel').value='';
+                document.getElementById('hoursOpen').value='08:00';
+                document.getElementById('hoursClose').value='21:00';
+            }
+            document.getElementById('hoursModal').classList.add('show');
+        }
+        function saveHours(){
+            var type=document.querySelector('input[name="dayInputType"]:checked').value;
+            var days=[];var label='';
+            if(type==='select'){
+                var map={'dayMon':'Th2','dayTue':'Th3','dayWed':'Th4','dayThu':'Th5','dayFri':'Th6','daySat':'Th7','daySun':'CN'};
+                Object.keys(map).forEach(function(cb){if(document.getElementById(cb).checked)days.push(map[cb]);});
+                if(days.length===0){alert('Vui long chon it nhat mot thu!');return;}
+            }else{
+                label=document.getElementById('hoursLabel').value.trim();
+                if(!label){alert('Vui long nhap ten ngay!');return;}
+            }
+            var open=document.getElementById('hoursOpen').value;
+            var close=document.getElementById('hoursClose').value;
+            if(editingId){
+                var h=hoursData.find(function(x){return x.id===editingId;});
+                if(h){h.type=type;h.days=days;h.label=label;h.open=open;h.close=close;}
+            }else{
+                hoursData.push({id:Date.now(),type:type,days:days,label:label,open:open,close:close});
+            }
+            closeModal('hoursModal');renderHours();showSuccess(editingId?'Da cap nhat!':'Da them!');
+        }
+        function deleteHours(id){if(!confirm('Xoa gio mo cua nay?'))return;hoursData=hoursData.filter(function(h){return h.id!==id;});renderHours();showSuccess('Da xoa!');}
+        function openRuleModal(id){
+            editingId=id||null;
+            document.getElementById('ruleModalTitle').textContent=id?'Sua Noi Quy':'Them Noi Quy';
+            if(id){var r=rulesData.find(function(x){return x.id===id;});if(r)document.getElementById('ruleContent').value=r.content;}
+            else{document.getElementById('ruleContent').value='';}
+            document.getElementById('ruleModal').classList.add('show');
+        }
+        function saveRule(){
+            var content=document.getElementById('ruleContent').value.trim();
+            if(!content){alert('Vui long nhap noi dung!');return;}
+            if(editingId){var r=rulesData.find(function(x){return x.id===editingId;});if(r)r.content=content;}
+            else{rulesData.push({id:Date.now(),content:content});}
+            closeModal('ruleModal');renderRules();showSuccess(editingId?'Da cap nhat!':'Da them!');
+        }
+        function deleteRule(id){if(!confirm('Xoa noi quy nay?'))return;rulesData=rulesData.filter(function(r){return r.id!==id;});renderRules();showSuccess('Da xoa!');}
+        function openDirectionModal(id){
+            editingId=id||null;
+            document.getElementById('directionModalTitle').textContent=id?'Sua Huong Dan':'Them Huong Dan';
+            if(id){var d=directionsData.find(function(x){return x.id===id;});if(d){document.getElementById('directionIcon').value=d.icon;document.getElementById('directionTitle').value=d.title;document.getElementById('directionDesc').value=d.desc;}}
+            else{document.getElementById('directionIcon').value='fas fa-car';document.getElementById('directionTitle').value='';document.getElementById('directionDesc').value='';}
+            document.getElementById('directionModal').classList.add('show');
+        }
+        function saveDirection(){
+            var title=document.getElementById('directionTitle').value.trim();
+            if(!title){alert('Vui long nhap ten phuong tien!');return;}
+            var icon=document.getElementById('directionIcon').value.trim()||'fas fa-directions';
+            var desc=document.getElementById('directionDesc').value.trim();
+            if(editingId){var d=directionsData.find(function(x){return x.id===editingId;});if(d){d.icon=icon;d.title=title;d.desc=desc;}}
+            else{directionsData.push({id:Date.now(),icon:icon,title:title,desc:desc});}
+            closeModal('directionModal');renderDirections();showSuccess(editingId?'Da cap nhat!':'Da them!');
+        }
+        function deleteDirection(id){if(!confirm('Xoa huong dan nay?'))return;directionsData=directionsData.filter(function(d){return d.id!==id;});renderDirections();showSuccess('Da xoa!');}
+        function openFaqModal(id){
+            editingId=id||null;
+            document.getElementById('faqModalTitle').textContent=id?'Sua Cau Hoi':'Them Cau Hoi';
+            if(id){var f=faqData.find(function(x){return x.id===id;});if(f){document.getElementById('faqQuestion').value=f.question;document.getElementById('faqAnswer').value=f.answer;}}
+            else{document.getElementById('faqQuestion').value='';document.getElementById('faqAnswer').value='';}
+            document.getElementById('faqModal').classList.add('show');
+        }
+        function saveFaq(){
+            var question=document.getElementById('faqQuestion').value.trim();
+            var answer=document.getElementById('faqAnswer').value.trim();
+            if(!question||!answer){alert('Vui long nhap day du cau hoi va tra loi!');return;}
+            if(editingId){var f=faqData.find(function(x){return x.id===editingId;});if(f){f.question=question;f.answer=answer;}}
+            else{faqData.push({id:Date.now(),question:question,answer:answer});}
+            closeModal('faqModal');renderFaq();showSuccess(editingId?'Da cap nhat!':'Da them!');
+        }
+        function deleteFaq(id){if(!confirm('Xoa cau hoi nay?'))return;faqData=faqData.filter(function(f){return f.id!==id;});renderFaq();showSuccess('Da xoa!');}
+        function openSafetyModal(id){
+            editingId=id||null;
+            document.getElementById('safetyModalTitle').textContent=id?'Sua Luu Y An Toan':'Them Luu Y An Toan';
+            if(id){var s=safetyData.find(function(x){return x.id===id;});if(s){document.getElementById('safetyIcon').value=s.icon;document.getElementById('safetyTitle').value=s.title;document.getElementById('safetyDesc').value=s.desc;}}
+            else{document.getElementById('safetyIcon').value='fas fa-exclamation-triangle';document.getElementById('safetyTitle').value='';document.getElementById('safetyDesc').value='';}
+            document.getElementById('safetyModal').classList.add('show');
+        }
+        function saveSafety(){
+            var title=document.getElementById('safetyTitle').value.trim();
+            if(!title){alert('Vui long nhap tieu de!');return;}
+            var icon=document.getElementById('safetyIcon').value.trim()||'fas fa-exclamation-triangle';
+            var desc=document.getElementById('safetyDesc').value.trim();
+            if(editingId){var s=safetyData.find(function(x){return x.id===editingId;});if(s){s.icon=icon;s.title=title;s.desc=desc;}}
+            else{safetyData.push({id:Date.now(),icon:icon,title:title,desc:desc});}
+            closeModal('safetyModal');renderSafety();showSuccess(editingId?'Da cap nhat!':'Da them!');
+        }
+        function deleteSafety(id){if(!confirm('Xoa luu y nay?'))return;safetyData=safetyData.filter(function(s){return s.id!==id;});renderSafety();showSuccess('Da xoa!');}
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},2000);}
+        function saveAll(){showSuccess('Da luu tat ca thay doi!');}
+        renderHours();renderRules();renderDirections();renderFaq();renderSafety();
+    </script>
 </body>
 </html>
