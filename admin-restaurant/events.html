@@ -112,7 +112,12 @@
         .card-title i{color:#b8860b;}
         .card-body{padding:20px 24px;}
         .package-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
-        .package-card{background:#f8fafc;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;}
+        .package-card{background:#f8fafc;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;cursor:grab;transition:all 0.2s;}
+        .package-card:active{cursor:grabbing;}
+        .package-card.dragging{opacity:0.5;transform:scale(1.02);box-shadow:0 10px 40px rgba(0,0,0,0.15);}
+        .package-card.drag-over{border:2px dashed #b8860b;background:#fffbeb;}
+        .package-drag-handle{position:absolute;top:8px;left:8px;background:rgba(0,0,0,0.5);color:white;padding:6px 10px;border-radius:6px;cursor:grab;z-index:2;}
+        .package-card-wrapper{position:relative;}
         .package-image{width:100%;height:160px;object-fit:cover;}
         .package-content{padding:16px;}
         .package-name{font-size:17px;font-weight:600;color:#1e293b;margin-bottom:6px;}
@@ -122,7 +127,12 @@
         .package-includes{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
         .include-tag{background:#fef3c7;color:#b45309;padding:3px 8px;border-radius:4px;font-size:11px;}
         .event-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;}
-        .event-card{background:#f8fafc;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;display:flex;}
+        .event-card{background:#f8fafc;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;display:flex;transition:all 0.2s;}
+        .event-card.ended{opacity:0.7;background:#f1f5f9;}
+        .event-status{display:inline-block;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:600;margin-left:8px;}
+        .status-ongoing{background:#059669;color:white;}
+        .status-upcoming{background:#f59e0b;color:white;}
+        .status-ended{background:#94a3b8;color:white;}
         .event-image{width:140px;height:140px;object-fit:cover;flex-shrink:0;}
         .event-content{padding:14px;flex:1;}
         .event-date{display:inline-block;background:#b8860b;color:white;padding:4px 10px;border-radius:4px;font-size:11px;margin-bottom:8px;}
@@ -164,14 +174,48 @@
             {id:3,name:'Hoi Nghi Doanh Nghiep',desc:'Goi hoi nghi kem an trua hoac toi voi khong gian sang trong.',price:'Tu 1,200,000 VND/khach',guests:'20-80 khach',includes:['Tea break','Set lunch','Phong hop','May chieu','Wifi'],image:'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400'}
         ];
         var eventData=[
-            {id:1,name:'Wine Tasting Night',desc:'Thuong thuc 12 loai ruou vang cao cap tu Phap va Y.',date:'2024-02-14',time:'19:00 - 22:00',location:'Wine Cellar Q1',ticket:'1,800,000 VND',image:'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=200'},
-            {id:2,name:'Valentine Dinner',desc:'Bua toi lang man danh cho cap doi voi set menu dac biet.',date:'2024-02-14',time:'18:00 - 22:00',location:'Rooftop Q1',ticket:'2,500,000 VND/cap',image:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=200'},
-            {id:3,name:'Cooking Class',desc:'Hoc nau mon Y chinh thong cung bep truong tu Italy.',date:'2024-02-20',time:'14:00 - 17:00',location:'Open Kitchen Q2',ticket:'800,000 VND',image:'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=200'}
+            {id:1,name:'Wine Tasting Night',desc:'Thuong thuc 12 loai ruou vang cao cap tu Phap va Y.',date:'2026-02-14',time:'19:00 - 22:00',location:'Wine Cellar Q1',ticket:'1,800,000 VND',image:'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=200'},
+            {id:2,name:'Valentine Dinner',desc:'Bua toi lang man danh cho cap doi voi set menu dac biet.',date:'2026-02-07',time:'18:00 - 22:00',location:'Rooftop Q1',ticket:'2,500,000 VND/cap',image:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=200'},
+            {id:3,name:'Cooking Class',desc:'Hoc nau mon Y chinh thong cung bep truong tu Italy.',date:'2026-02-20',time:'14:00 - 17:00',location:'Open Kitchen Q2',ticket:'800,000 VND',image:'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=200'},
+            {id:4,name:'Holiday Special',desc:'Su kien da ket thuc.',date:'2025-12-25',time:'18:00 - 23:00',location:'Main Hall',ticket:'1,200,000 VND',image:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=200'}
         ];
+        var draggedPkg=null;
+        function getEventStatus(event){
+            var today=new Date();today.setHours(0,0,0,0);
+            var eventDate=new Date(event.date);eventDate.setHours(0,0,0,0);
+            if(eventDate.getTime()===today.getTime())return 'ongoing';
+            if(eventDate>today)return 'upcoming';
+            return 'ended';
+        }
+        function getStatusText(status){
+            if(status==='ongoing')return 'Dang dien ra';
+            if(status==='upcoming')return 'Sap dien ra';
+            return 'Da ket thuc';
+        }
+        function sortEvents(){
+            eventData.sort(function(a,b){
+                var statusA=getEventStatus(a);var statusB=getEventStatus(b);
+                var order={ongoing:0,upcoming:1,ended:2};
+                if(order[statusA]!==order[statusB])return order[statusA]-order[statusB];
+                return new Date(a.date)-new Date(b.date);
+            });
+        }
+        function handlePkgDragStart(e){draggedPkg=this;this.classList.add('dragging');e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',this.dataset.pkgIndex);}
+        function handlePkgDragEnd(){this.classList.remove('dragging');document.querySelectorAll('.package-card').forEach(function(c){c.classList.remove('drag-over');});}
+        function handlePkgDragOver(e){e.preventDefault();e.dataTransfer.dropEffect='move';this.classList.add('drag-over');}
+        function handlePkgDragLeave(){this.classList.remove('drag-over');}
+        function handlePkgDrop(e){
+            e.preventDefault();this.classList.remove('drag-over');
+            if(draggedPkg===this)return;
+            var fromIdx=parseInt(draggedPkg.dataset.pkgIndex);var toIdx=parseInt(this.dataset.pkgIndex);
+            var item=packageData.splice(fromIdx,1)[0];packageData.splice(toIdx,0,item);
+            renderPackages();showSuccess('Da cap nhat thu tu goi tiec!');
+        }
         function renderPackages(){
             var html='<div class="package-grid">';
-            packageData.forEach(function(p){
-                html+='<div class="package-card">';
+            packageData.forEach(function(p,idx){
+                html+='<div class="package-card" draggable="true" data-pkg-index="'+idx+'">';
+                html+='<div class="package-drag-handle"><i class="fas fa-grip-vertical"></i></div>';
                 html+='<img class="package-image" src="'+p.image+'">';
                 html+='<div class="package-content">';
                 html+='<div class="package-name">'+p.name+'</div>';
@@ -184,14 +228,23 @@
             });
             html+='</div>';
             document.getElementById('packageList').innerHTML=html;
+            document.querySelectorAll('.package-card').forEach(function(card){
+                card.addEventListener('dragstart',handlePkgDragStart);
+                card.addEventListener('dragend',handlePkgDragEnd);
+                card.addEventListener('dragover',handlePkgDragOver);
+                card.addEventListener('dragleave',handlePkgDragLeave);
+                card.addEventListener('drop',handlePkgDrop);
+            });
         }
         function renderEvents(){
+            sortEvents();
             var html='<div class="event-grid">';
             eventData.forEach(function(e){
-                html+='<div class="event-card">';
+                var status=getEventStatus(e);
+                html+='<div class="event-card'+(status==='ended'?' ended':'')+'">';
                 html+='<img class="event-image" src="'+e.image+'">';
                 html+='<div class="event-content">';
-                html+='<span class="event-date">'+e.date+'</span>';
+                html+='<span class="event-date">'+e.date+'</span><span class="event-status status-'+status+'">'+getStatusText(status)+'</span>';
                 html+='<div class="event-name">'+e.name+'</div>';
                 html+='<div class="event-info"><i class="fas fa-clock"></i> '+e.time+'</div>';
                 html+='<div class="event-info"><i class="fas fa-map-marker-alt"></i> '+e.location+'</div>';
@@ -209,9 +262,9 @@
         function savePackage(){showSuccess('Da luu goi tiec!');closePackageModal();renderPackages();}
         function saveEvent(){showSuccess('Da luu su kien!');closeEventModal();renderEvents();}
         function editPackage(id){openPackageModal();}
-        function deletePackage(id){if(confirm('Xoa goi nay?')){showSuccess('Da xoa!');renderPackages();}}
+        function deletePackage(id){if(confirm('Xoa goi nay?')){packageData=packageData.filter(function(p){return p.id!==id;});showSuccess('Da xoa!');renderPackages();}}
         function editEvent(id){openEventModal();}
-        function deleteEvent(id){if(confirm('Xoa su kien nay?')){showSuccess('Da xoa!');renderEvents();}}
+        function deleteEvent(id){if(confirm('Xoa su kien nay?')){eventData=eventData.filter(function(e){return e.id!==id;});showSuccess('Da xoa!');renderEvents();}}
         renderPackages();
         renderEvents();
     </script>

@@ -164,8 +164,8 @@
                 html+='<div class="job-header"><div class="job-title">'+j.title+'</div><span class="job-dept">'+j.dept+'</span></div>';
                 html+='<div class="job-salary">'+j.salary+' VND</div>';
                 html+='<span class="job-type">'+j.type+'</span>';
-                html+='<div class="job-meta"><span><i class="fas fa-map-marker-alt"></i> '+(j.branch==='all'?'Tat ca chi nhanh':j.branch)+'</span><span><i class="fas fa-users"></i> '+j.apps+' ung vien</span></div>';
-                html+='<div class="job-actions"><button class="btn-apps" onclick="viewApps('+j.id+')"><i class="fas fa-users"></i> Ung vien<span class="app-count">'+j.apps+'</span></button><button class="btn-edit" onclick="editJob('+j.id+')"><i class="fas fa-edit"></i></button><button class="btn-delete" onclick="deleteJob('+j.id+')"><i class="fas fa-trash"></i></button></div>';
+                html+='<div class="job-meta"><span><i class="fas fa-map-marker-alt"></i> '+(j.branch==='all'?'Tat ca chi nhanh':j.branch)+'</span></div>';
+                html+='<div class="job-actions"><button class="btn-edit" onclick="editJob('+j.id+')"><i class="fas fa-edit"></i></button><button class="btn-delete" onclick="deleteJob('+j.id+')"><i class="fas fa-trash"></i></button></div>';
                 html+='</div></div>';
             });
             html+='</div>';
@@ -176,7 +176,6 @@
         function saveJob(){showSuccess('Da luu vi tri!');closeModal();render();}
         function editJob(id){openModal();}
         function deleteJob(id){if(confirm('Xoa vi tri nay?')){showSuccess('Da xoa!');render();}}
-        function viewApps(id){alert('Xem danh sach ung vien cho vi tri #'+id);}
         render();
     </script>
 </body>

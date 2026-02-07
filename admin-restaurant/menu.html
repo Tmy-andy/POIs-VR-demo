@@ -109,7 +109,12 @@
         .card-title{font-size:16px;font-weight:600;color:#0f172a;display:flex;align-items:center;gap:10px;}
         .card-title i{color:#b8860b;}
         .card-body{padding:20px 24px;}
-        .category-card{background:#f8fafc;border-radius:12px;padding:20px;margin-bottom:16px;border:1px solid #e2e8f0;}
+        .category-card{background:#f8fafc;border-radius:12px;padding:20px;margin-bottom:16px;border:1px solid #e2e8f0;cursor:grab;transition:all 0.2s;}
+        .category-card:active{cursor:grabbing;}
+        .category-card.dragging{opacity:0.5;transform:scale(1.02);box-shadow:0 10px 40px rgba(0,0,0,0.15);}
+        .category-card.drag-over{border:2px dashed #b8860b;background:#fffbeb;}
+        .drag-handle{cursor:grab;color:#94a3b8;padding:8px;margin-right:8px;}
+        .drag-handle:hover{color:#b8860b;}
         .category-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
         .category-info{display:flex;align-items:center;gap:12px;}
         .category-icon{width:48px;height:48px;background:linear-gradient(135deg,#b8860b,#daa520);color:white;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;}
@@ -164,11 +169,39 @@
             {id:'set-menu',name:'Set Menu',desc:'Combo thuc don theo set',badge:'Tiet kiem',items:[{name:'Set Lunch Business',desc:'Khai vi + Mon chinh + Trang mieng + Do uong',price:'450,000',image:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=300'}]},
             {id:'wine',name:'Ruou Vang',desc:'Wine list da dang',badge:'',items:[{name:'Chateau Margaux 2015',desc:'Vang do Phap, Bordeaux',price:'8,500,000',image:'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=300'}]}
         ];
+        var draggedCat=null;
+        function handleDragStart(e){
+            draggedCat=this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed='move';
+            e.dataTransfer.setData('text/plain',this.dataset.catIndex);
+        }
+        function handleDragEnd(){
+            this.classList.remove('dragging');
+            document.querySelectorAll('.category-card').forEach(function(c){c.classList.remove('drag-over');});
+        }
+        function handleDragOver(e){
+            e.preventDefault();
+            e.dataTransfer.dropEffect='move';
+            this.classList.add('drag-over');
+        }
+        function handleDragLeave(){this.classList.remove('drag-over');}
+        function handleDrop(e){
+            e.preventDefault();
+            this.classList.remove('drag-over');
+            if(draggedCat===this)return;
+            var fromIdx=parseInt(draggedCat.dataset.catIndex);
+            var toIdx=parseInt(this.dataset.catIndex);
+            var item=menuData.splice(fromIdx,1)[0];
+            menuData.splice(toIdx,0,item);
+            render();
+            showSuccess('Da cap nhat thu tu danh muc!');
+        }
         function render(){
             var html='';
-            menuData.forEach(function(cat){
-                html+='<div class="category-card">';
-                html+='<div class="category-header"><div class="category-info"><div class="category-icon"><i class="fas fa-utensils"></i></div><div><div class="category-name">'+cat.name+(cat.badge?'<span class="category-badge">'+cat.badge+'</span>':'')+'</div><div class="category-count">'+cat.items.length+' mon • '+cat.desc+'</div></div></div>';
+            menuData.forEach(function(cat,idx){
+                html+='<div class="category-card" draggable="true" data-cat-index="'+idx+'">';
+                html+='<div class="category-header"><div class="category-info"><span class="drag-handle"><i class="fas fa-grip-vertical"></i></span><div class="category-icon"><i class="fas fa-utensils"></i></div><div><div class="category-name">'+cat.name+(cat.badge?'<span class="category-badge">'+cat.badge+'</span>':'')+'</div><div class="category-count">'+cat.items.length+' mon • '+cat.desc+'</div></div></div>';
                 html+='<div class="category-actions"><button class="btn-edit" onclick="openItemModal(\''+cat.id+'\')"><i class="fas fa-plus"></i></button><button class="btn-edit"><i class="fas fa-edit"></i></button><button class="btn-delete"><i class="fas fa-trash"></i></button></div></div>';
                 html+='<div class="items-grid">';
                 cat.items.forEach(function(item){
@@ -177,6 +210,13 @@
                 html+='</div></div>';
             });
             document.getElementById('categoryList').innerHTML=html;
+            document.querySelectorAll('.category-card').forEach(function(card){
+                card.addEventListener('dragstart',handleDragStart);
+                card.addEventListener('dragend',handleDragEnd);
+                card.addEventListener('dragover',handleDragOver);
+                card.addEventListener('dragleave',handleDragLeave);
+                card.addEventListener('drop',handleDrop);
+            });
         }
         function openCategoryModal(){document.getElementById('categoryModal').classList.add('show');}
         function closeCategoryModal(){document.getElementById('categoryModal').classList.remove('show');}
