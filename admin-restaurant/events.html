@@ -50,7 +50,10 @@
         </div>
         <div class="content-card">
             <div class="card-header"><div class="card-title"><i class="fas fa-concierge-bell"></i> Goi Dich Vu Tiec</div><button class="btn btn-primary" onclick="openPackageModal()"><i class="fas fa-plus"></i> Them Goi</button></div>
-            <div class="card-body"><div id="packageList"></div></div>
+            <div class="card-body">
+                <div class="drag-hint"><i class="fas fa-info-circle"></i> Keo tha cac goi de thay doi thu tu hien thi. Goi o tren se hien thi truoc.</div>
+                <div id="packageList"></div>
+            </div>
         </div>
         <div class="content-card">
             <div class="card-header"><div class="card-title"><i class="fas fa-calendar-alt"></i> Su Kien Sap Toi</div><button class="btn btn-primary" onclick="openEventModal()"><i class="fas fa-plus"></i> Them Su Kien</button></div>
@@ -111,6 +114,7 @@
         .card-title{font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px;}
         .card-title i{color:#b8860b;}
         .card-body{padding:20px 24px;}
+        .drag-hint{background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:12px 16px;margin-bottom:16px;color:#92400e;font-size:14px;display:flex;align-items:center;gap:10px;}
         .package-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
         .package-card{background:#f8fafc;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;cursor:grab;transition:all 0.2s;}
         .package-card:active{cursor:grabbing;}

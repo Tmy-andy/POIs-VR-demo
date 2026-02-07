@@ -89,7 +89,8 @@
         .card-title{font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px;}
         .card-title i{color:#2563eb;}
         .card-body{padding:20px 24px;}
-        .promo-item{display:flex;gap:16px;padding:16px;background:#f8fafc;border-radius:12px;margin-bottom:12px;border:1px solid #e2e8f0;}
+        .promo-item{display:flex;gap:16px;padding:16px;background:#f8fafc;border-radius:12px;margin-bottom:12px;border:1px solid #e2e8f0;transition:all 0.2s;}
+        .promo-item.expired{opacity:0.6;}
         .promo-image{width:120px;height:80px;border-radius:8px;overflow:hidden;flex-shrink:0;background:#e2e8f0;display:flex;align-items:center;justify-content:center;}
         .promo-image img{width:100%;height:100%;object-fit:cover;}
         .promo-image i{font-size:24px;color:#94a3b8;}
@@ -103,6 +104,7 @@
         .promo-badge{padding:3px 8px;border-radius:4px;font-size:11px;font-weight:600;}
         .badge-active{background:#dcfce7;color:#16a34a;}
         .badge-inactive{background:#fef3c7;color:#d97706;}
+        .badge-expired{background:#f1f5f9;color:#64748b;}
         .promo-actions{display:flex;gap:8px;align-items:flex-start;}
         .promo-actions button{width:32px;height:32px;border:none;border-radius:6px;cursor:pointer;}
         .btn-edit{background:#dbeafe;color:#1d4ed8;}
@@ -133,9 +135,10 @@
     <script>
         function toggleSection(){var t=document.getElementById('sectionToggle');var s=document.getElementById('sectionStatus');s.textContent=t.checked?'Dang hien thi':'Da an';s.classList.toggle('active',t.checked);}
         var promoData=[
-            {id:1,code:'WELCOME20',title:'Giam 20% cho khach moi',desc:'Ap dung cho khach hang lan dau su dung dich vu tai Coffee House. Giam ngay 20% tong hoa don.',date:'01/01 - 31/12/2026',status:'active',image:'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400'},
-            {id:2,code:'FREESHIP',title:'Mien phi giao hang',desc:'Mien phi ship cho don hang tu 100.000d trong ban kinh 5km.',date:'01/02 - 28/02/2026',status:'active',image:''},
-            {id:3,code:'TET2026',title:'Uu dai Tet 2026',desc:'Giam 30% tat ca do uong trong dip Tet Nguyen Dan. Chi ap dung tai quan.',date:'20/01 - 10/02/2026',status:'inactive',image:'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400'}
+            {id:1,code:'WELCOME20',title:'Giam 20% cho khach moi',desc:'Ap dung cho khach hang lan dau su dung dich vu tai Coffee House. Giam ngay 20% tong hoa don.',start:'2026-01-01',end:'2026-12-31',image:'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400'},
+            {id:2,code:'FREESHIP',title:'Mien phi giao hang',desc:'Mien phi ship cho don hang tu 100.000d trong ban kinh 5km.',start:'2026-02-01',end:'2026-02-28',image:''},
+            {id:3,code:'TET2026',title:'Uu dai Tet 2026',desc:'Giam 30% tat ca do uong trong dip Tet Nguyen Dan. Chi ap dung tai quan.',start:'2026-01-20',end:'2026-02-10',image:'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400'},
+            {id:4,code:'SUMMER25',title:'Uu dai He 2025',desc:'Da het han.',start:'2025-06-01',end:'2025-08-31',image:''}
         ];
         var editingId=null;
 
@@ -144,19 +147,38 @@
             if(url){el.innerHTML='<img src="'+url+'" onerror="this.parentElement.innerHTML=\'\'">';}else{el.innerHTML='';}
         }
 
+        function getPromoStatus(promo){
+            var today=new Date();today.setHours(0,0,0,0);
+            var startDate=new Date(promo.start);startDate.setHours(0,0,0,0);
+            var endDate=new Date(promo.end);endDate.setHours(0,0,0,0);
+            if(today>endDate)return 'expired';
+            if(today<startDate)return 'upcoming';
+            return 'active';
+        }
+        function sortPromos(){
+            promoData.sort(function(a,b){
+                var statusA=getPromoStatus(a);var statusB=getPromoStatus(b);
+                var order={active:0,upcoming:1,expired:2};
+                if(order[statusA]!==order[statusB])return order[statusA]-order[statusB];
+                return new Date(a.end)-new Date(b.end);
+            });
+        }
+
         function renderPromos(){
+            sortPromos();
             var html='';
             promoData.forEach(function(p){
-                var badgeClass=p.status==='active'?'badge-active':'badge-inactive';
-                var badgeText=p.status==='active'?'Dang ap dung':'Ngung ap dung';
-                html+='<div class="promo-item">';
+                var status=getPromoStatus(p);
+                var badgeClass=status==='active'?'badge-active':(status==='upcoming'?'badge-inactive':'badge-expired');
+                var badgeText=status==='active'?'Dang ap dung':(status==='upcoming'?'Sap dien ra':'Da het han');
+                html+='<div class="promo-item'+(status==='expired'?' expired':'')+'">';
                 html+='<div class="promo-image">';
                 if(p.image){html+='<img src="'+p.image+'">';}else{html+='<i class="fas fa-image"></i>';}
                 html+='</div>';
                 html+='<div class="promo-content">';
                 html+='<div class="promo-header"><span class="promo-code">'+p.code+'</span><span class="promo-title">'+p.title+'</span></div>';
                 html+='<div class="promo-desc">'+p.desc+'</div>';
-                html+='<div class="promo-meta"><span><i class="fas fa-calendar"></i>'+p.date+'</span><span class="promo-badge '+badgeClass+'">'+badgeText+'</span></div>';
+                html+='<div class="promo-meta"><span><i class="fas fa-calendar"></i>'+p.start+' - '+p.end+'</span><span class="promo-badge '+badgeClass+'">'+badgeText+'</span></div>';
                 html+='</div>';
                 html+='<div class="promo-actions">';
                 html+='<button class="btn-edit" onclick="editPromo('+p.id+')"><i class="fas fa-edit"></i></button>';
@@ -187,8 +209,7 @@
                 document.getElementById('promoCode').value=p.code;
                 document.getElementById('promoTitle').value=p.title;
                 document.getElementById('promoDesc').value=p.desc;
-                document.getElementById('promoDate').value=p.date;
-                document.getElementById('promoStatus').value=p.status;
+                document.getElementById('promoDate').value=p.start+' - '+p.end;
                 document.getElementById('promoImage').value=p.image;
                 previewImage(p.image,'imagePreview');
                 document.getElementById('promoModal').classList.add('show');
@@ -197,7 +218,7 @@
 
         function closeModal(){document.getElementById('promoModal').classList.remove('show');}
         function savePromo(){showSuccess(editingId?'Da cap nhat khuyen mai!':'Da them khuyen mai moi!');closeModal();renderPromos();}
-        function deletePromo(id){if(confirm('Xoa khuyen mai nay?')){showSuccess('Da xoa khuyen mai!');renderPromos();}}
+        function deletePromo(id){if(confirm('Xoa khuyen mai nay?')){promoData=promoData.filter(function(p){return p.id!==id;});showSuccess('Da xoa khuyen mai!');renderPromos();}}
         function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},3000);}
 
         renderPromos();

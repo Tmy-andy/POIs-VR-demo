@@ -99,7 +99,8 @@
         .card-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
         .card-title{font-size:16px;font-weight:600;}
         .card-body{padding:20px 24px;}
-        .event-item{display:flex;padding:16px;background:#f8fafc;border-radius:12px;margin-bottom:12px;border:1px solid #e2e8f0;}
+        .event-item{display:flex;padding:16px;background:#f8fafc;border-radius:12px;margin-bottom:12px;border:1px solid #e2e8f0;transition:all 0.2s;}
+        .event-item.ended{opacity:0.7;background:#f1f5f9;}
         .event-image{width:200px;height:130px;border-radius:8px;object-fit:cover;margin-right:20px;}
         .event-info{flex:1;}
         .event-name{font-size:18px;font-weight:600;color:#1e293b;margin-bottom:8px;}
@@ -141,17 +142,36 @@
     <script>
         function toggleSection(){var t=document.getElementById('sectionToggle');var s=document.getElementById('sectionStatus');s.textContent=t.checked?'Dang hien thi':'Da an';s.classList.toggle('active',t.checked);}
         var eventData=[
-            {id:1,name:"Acoustic Night",desc:"Dem nhac acoustic voi cac nghe si tre",start:"2026-02-14",end:"2026-02-14",time:"19:00 - 22:00",price:50000,capacity:50,branch:"Quan 1",status:"upcoming",image:"https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&q=80"},
-            {id:2,name:"Workshop Latte Art",desc:"Hoc cach tao hinh tren ly cafe",start:"2026-02-20",end:"2026-02-20",time:"14:00 - 17:00",price:150000,capacity:20,branch:"Quan 3",status:"upcoming",image:"https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80"},
-            {id:3,name:"Book Exchange",desc:"Doi sach va giao luu doc gia",start:"2026-01-15",end:"2026-01-15",time:"09:00 - 18:00",price:0,capacity:100,branch:"Tat ca",status:"ended",image:"https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&q=80"}
+            {id:1,name:"Acoustic Night",desc:"Dem nhac acoustic voi cac nghe si tre",start:"2026-02-14",end:"2026-02-14",time:"19:00 - 22:00",price:50000,capacity:50,branch:"Quan 1",image:"https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&q=80"},
+            {id:2,name:"Workshop Latte Art",desc:"Hoc cach tao hinh tren ly cafe",start:"2026-02-20",end:"2026-02-20",time:"14:00 - 17:00",price:150000,capacity:20,branch:"Quan 3",image:"https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80"},
+            {id:3,name:"Book Exchange",desc:"Doi sach va giao luu doc gia",start:"2025-01-15",end:"2025-01-15",time:"09:00 - 18:00",price:0,capacity:100,branch:"Tat ca",image:"https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&q=80"},
+            {id:4,name:"Valentine Special",desc:"Su kien dang dien ra hom nay",start:"2026-02-07",end:"2026-02-07",time:"18:00 - 22:00",price:100000,capacity:30,branch:"Quan 1",image:"https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&q=80"}
         ];
         var editingId=null;
+        function getEventStatus(event){
+            var today=new Date();today.setHours(0,0,0,0);
+            var startDate=new Date(event.start);startDate.setHours(0,0,0,0);
+            var endDate=new Date(event.end);endDate.setHours(0,0,0,0);
+            if(today>endDate)return 'ended';
+            if(today>=startDate&&today<=endDate)return 'ongoing';
+            return 'upcoming';
+        }
+        function sortEvents(){
+            eventData.sort(function(a,b){
+                var statusA=getEventStatus(a);var statusB=getEventStatus(b);
+                var order={ongoing:0,upcoming:1,ended:2};
+                if(order[statusA]!==order[statusB])return order[statusA]-order[statusB];
+                return new Date(a.end)-new Date(b.end);
+            });
+        }
         function render(){
+            sortEvents();
             var html='';
             eventData.forEach(function(e){
-                var badgeClass=e.status==='ongoing'?'badge-ongoing':(e.status==='upcoming'?'badge-upcoming':'badge-ended');
-                var badgeText=e.status==='ongoing'?'Dang dien ra':(e.status==='upcoming'?'Sap dien ra':'Da ket thuc');
-                html+='<div class="event-item">';
+                var status=getEventStatus(e);
+                var badgeClass=status==='ongoing'?'badge-ongoing':(status==='upcoming'?'badge-upcoming':'badge-ended');
+                var badgeText=status==='ongoing'?'Dang dien ra':(status==='upcoming'?'Sap dien ra':'Da ket thuc');
+                html+='<div class="event-item'+(status==='ended'?' ended':'')+'">';
                 html+='<img src="'+e.image+'" class="event-image">';
                 html+='<div class="event-info">';
                 html+='<div class="event-name">'+e.name+' <span class="event-badge '+badgeClass+'">'+badgeText+'</span></div>';
@@ -203,7 +223,7 @@
         }
         function closeModal(){document.getElementById('eventModal').classList.remove('show');}
         function saveEvent(){showSuccess(editingId?'Da cap nhat!':'Da them su kien!');closeModal();render();}
-        function deleteEvent(id){if(confirm('Xoa su kien nay?')){showSuccess('Da xoa!');render();}}
+        function deleteEvent(id){if(confirm('Xoa su kien nay?')){eventData=eventData.filter(function(e){return e.id!==id;});showSuccess('Da xoa!');render();}}
         function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},3000);}
         render();
     </script>
