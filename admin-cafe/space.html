@@ -1,58 +1,50 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space - Coffee House Admin</title>
+    <title>Khong Gian - Cafe Admin</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles/admin.css">
 </head>
 <body>
-    <div class="sidebar">
-        <div class="sidebar-header"><div class="logo"><div class="logo-icon" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);"><i class="fas fa-coffee"></i></div><div class="logo-text">Coffee House</div></div></div>
+    <div class="sidebar" style="background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);"><i class="fas fa-coffee"></i></div><div class="logo-text">Cafe Admin</div></div></div>
         <nav class="nav-menu">
             <div class="nav-section"><div class="nav-section-title">CONTENT</div>
                 <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
-                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Home and About</a>
-                <a href="menu.html" class="nav-item"><i class="fas fa-mug-hot"></i> Menu</a>
-                <a href="space.html" class="nav-item active"><i class="fas fa-store"></i> Space</a>
-                <a href="branches.html" class="nav-item"><i class="fas fa-map-marker-alt"></i> Branches</a>
-                <a href="events.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Events</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Home & About</a>
+                <a href="menu.html" class="nav-item"><i class="fas fa-book-open"></i> Thuc Don</a>
+                <a href="space.html" class="nav-item active"><i class="fas fa-chair"></i> Khong Gian</a>
+                <a href="branches.html" class="nav-item"><i class="fas fa-map-marker-alt"></i> Chi Nhanh</a>
+                <a href="events.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Su Kien</a>
             </div>
             <div class="nav-section"><div class="nav-section-title">MORE</div>
-                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Careers</a>
-                <a href="promotion.html" class="nav-item"><i class="fas fa-tags"></i> Promotion</a>
-                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Gallery</a>
-                <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Contact</a>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Tuyen Dung</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Thu Vien</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Lien He</a>
             </div>
             <div class="nav-section"><div class="nav-section-title">SETTINGS</div>
-                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
-                <a href="../cafe.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a>
+                <a href="../cafe.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Website</a>
             </div>
         </nav>
     </div>
-    <header class="header"><div class="header-left"><h1 class="page-title">Khong Gian</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar">AD</div></div></div></header>
+    <header class="header"><div class="header-left"><h1 class="page-title">Quan Ly Khong Gian</h1></div><div class="header-right"><button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Them Khong Gian</button></div></header>
     <main class="main-content">
         <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
+        <div class="drag-hint"><i class="fas fa-info-circle"></i> Keo tha cac muc de thay doi thu tu hien thi. Muc o tren se hien thi truoc.</div>
         <div class="content-card">
-            <div class="card-header">
-                <div class="card-title">Trang thai hien thi - Section Khong Gian</div>
-                <div class="toggle-container">
-                    <span class="toggle-status active" id="sectionStatus">Dang hien thi</span>
-                    <label class="toggle-switch"><input type="checkbox" id="sectionToggle" checked onchange="toggleSection()"><span class="toggle-slider"></span></label>
-                </div>
-            </div>
-        </div>
-        <div class="content-card">
-            <div class="card-header"><div class="card-title"><i class="fas fa-image"></i> Anh/VR360 Tong cho Khong Gian</div></div>
+            <div class="card-header"><div class="card-title"><i class="fas fa-image"></i> Anh Tong The</div></div>
             <div class="card-body">
-                <div class="form-group"><label class="form-label">Link anh hoac VR360</label><input type="url" class="form-input" id="spaceBannerUrl" placeholder="https://..." value="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1200" oninput="previewImage(this.value,'spaceBannerPreview')"></div>
+                <div class="form-group"><label class="form-label">Link anh Banner</label><input type="url" class="form-input" id="spaceBannerUrl" placeholder="https://..." value="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1200" oninput="previewImage(this.value,'spaceBannerPreview')"></div>
                 <div class="image-preview" id="spaceBannerPreview"><img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1200"></div>
-                <button class="btn btn-primary" onclick="showSuccess('Da luu anh tong!')"><i class="fas fa-save"></i> Luu</button>
+                <button class="btn btn-primary" onclick="showSuccess('Da luu!')"><i class="fas fa-save"></i> Luu</button>
             </div>
         </div>
         <div class="content-card">
-            <div class="card-header"><div class="card-title">Danh sach Khong Gian</div><button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Them Khong Gian</button></div>
+            <div class="card-header"><div class="card-title">Danh Sach Khong Gian</div></div>
             <div class="card-body"><div id="spaceList"></div></div>
         </div>
     </main>
@@ -61,41 +53,42 @@
             <div class="modal-header"><h3 id="modalTitle">Them Khong Gian</h3><button class="close-btn" onclick="closeModal()">&times;</button></div>
             <div class="modal-body">
                 <div class="form-row">
-                    <div class="form-group"><label class="form-label">Ten (VI)</label><input type="text" class="form-input" id="spaceNameVi"></div>
-                    <div class="form-group"><label class="form-label">Ten (EN)</label><input type="text" class="form-input" id="spaceNameEn"></div>
+                    <div class="form-group"><label class="form-label">Ten tieng Viet *</label><input type="text" class="form-input" id="spaceNameVi" placeholder="VD: Khu Trong Nha"></div>
+                    <div class="form-group"><label class="form-label">Ten tieng Anh</label><input type="text" class="form-input" id="spaceNameEn" placeholder="VD: Indoor Area"></div>
                 </div>
-                <div class="form-group"><label class="form-label">Mo ta</label><textarea class="form-textarea" id="spaceDesc" rows="3"></textarea></div>
-                <div class="form-group"><label class="form-label">Dac diem (moi dac diem 1 dong)</label><textarea class="form-textarea" id="spaceFeatures" rows="3" placeholder="VD:&#10;Khong gian rieng tu&#10;View nhin dep&#10;Phu hop lam viec"></textarea></div>
-                <div class="form-group"><label class="form-label">Link hinh anh</label><input type="url" class="form-input" id="spaceImage" placeholder="https://..." oninput="previewImage(this.value,'spacePreview')"></div>
+                <div class="form-group"><label class="form-label">Mo ta</label><textarea class="form-textarea" id="spaceDesc" rows="3" placeholder="Mo ta chi tiet ve khong gian..."></textarea></div>
+                <div class="form-group"><label class="form-label">Dac diem (phay cach)</label><input type="text" class="form-input" id="spaceFeatures" placeholder="May lanh, Wifi, O cam, Yên tinh"></div>
+                <div class="form-group"><label class="form-label">Link hinh anh *</label><input type="url" class="form-input" id="spaceImage" placeholder="https://..." oninput="previewImage(this.value,'spacePreview')"></div>
                 <div class="image-preview" id="spacePreview"></div>
             </div>
             <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal()">Huy</button><button class="btn btn-primary" onclick="saveSpace()">Luu</button></div>
         </div>
     </div>
     <style>
+        .drag-hint{background:#eff6ff;border:1px solid #93c5fd;border-radius:8px;padding:12px 16px;margin-bottom:20px;color:#1e40af;font-size:14px;display:flex;align-items:center;gap:10px;}
         .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:20px;}
         .card-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
-        .card-title{font-size:16px;font-weight:600;}
+        .card-title{font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px;}
+        .card-title i{color:#2563eb;}
         .card-body{padding:20px 24px;}
-        .toggle-container{display:flex;align-items:center;gap:12px;}
-        .toggle-status{font-size:14px;color:#64748b;}
-        .toggle-status.active{color:#059669;}
-        .toggle-switch{position:relative;display:inline-block;width:48px;height:26px;}
-        .toggle-switch input{opacity:0;width:0;height:0;}
-        .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#cbd5e1;border-radius:26px;transition:0.3s;}
-        .toggle-slider:before{position:absolute;content:"";height:20px;width:20px;left:3px;bottom:3px;background:white;border-radius:50%;transition:0.3s;}
-        .toggle-switch input:checked+.toggle-slider{background:#2563eb;}
-        .toggle-switch input:checked+.toggle-slider:before{transform:translateX(22px);}
-        .space-item{display:flex;padding:16px;background:#f8fafc;border-radius:12px;margin-bottom:12px;border:1px solid #e2e8f0;}
-        .space-image{width:200px;height:130px;border-radius:8px;object-fit:cover;margin-right:20px;}
-        .space-info{flex:1;}
-        .space-name{font-size:18px;font-weight:600;color:#1e293b;margin-bottom:6px;}
-        .space-name-en{font-size:14px;color:#64748b;font-weight:normal;}
-        .space-desc{font-size:14px;color:#475569;margin-bottom:10px;}
-        .space-features{display:flex;flex-wrap:wrap;gap:8px;}
-        .feature-tag{background:#dbeafe;color:#1d4ed8;padding:4px 10px;border-radius:6px;font-size:12px;}
-        .space-actions{display:flex;flex-direction:column;gap:8px;justify-content:center;}
-        .space-actions button{width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;}
+        .image-preview{margin:12px 0;border-radius:8px;overflow:hidden;max-height:200px;}
+        .image-preview img{width:100%;max-height:200px;object-fit:cover;}
+        .space-list{display:flex;flex-direction:column;gap:8px;}
+        .space-row{display:flex;align-items:center;gap:16px;padding:16px;background:#f8fafc;border-radius:12px;border:2px solid #e2e8f0;transition:all .2s;cursor:grab;}
+        .space-row:hover{border-color:#2563eb;box-shadow:0 4px 12px rgba(0,0,0,.08);}
+        .space-row.dragging{opacity:0.5;border-color:#2563eb;background:#eff6ff;}
+        .drag-handle{color:#94a3b8;font-size:18px;cursor:grab;padding:0 8px;}
+        .item-order{background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;font-weight:700;font-size:14px;min-width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+        .item-image{width:120px;height:80px;border-radius:8px;overflow:hidden;flex-shrink:0;}
+        .item-image img{width:100%;height:100%;object-fit:cover;}
+        .item-info{flex:1;min-width:0;}
+        .item-name{font-size:16px;font-weight:600;color:#1e293b;margin-bottom:2px;}
+        .item-name-en{font-size:13px;color:#64748b;margin-bottom:6px;font-style:italic;}
+        .item-desc{font-size:13px;color:#64748b;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+        .item-features{display:flex;flex-wrap:wrap;gap:6px;}
+        .feature-tag{background:#dbeafe;color:#1d4ed8;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500;}
+        .item-actions{display:flex;gap:8px;}
+        .btn-icon{width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
         .btn-edit{background:#dbeafe;color:#1d4ed8;}
         .btn-delete{background:#fee2e2;color:#dc2626;}
         .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
@@ -110,10 +103,8 @@
         .form-row{display:flex;gap:16px;}
         .form-row .form-group{flex:1;}
         .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
-        .form-input,.form-textarea{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;}
+        .form-input,.form-textarea{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;box-sizing:border-box;}
         .form-input:focus,.form-textarea:focus{outline:none;border-color:#2563eb;}
-        .image-preview{margin-top:8px;border-radius:8px;overflow:hidden;max-height:150px;}
-        .image-preview img{width:100%;height:150px;object-fit:cover;}
         .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
         .btn-primary{background:#2563eb;color:white;}
         .btn-secondary{background:#f1f5f9;color:#475569;}
@@ -123,60 +114,56 @@
     </style>
     <script>
         var spaceData=[
-            {id:1,nameVi:"Khu Trong Nha",nameEn:"Indoor Area",desc:"Khong gian may lanh, yen tinh, phu hop lam viec va doc sach",image:"https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&q=80",features:["May lanh","Wifi toc do cao","O cam sac","Yên tinh"]},
-            {id:2,nameVi:"San Vuon",nameEn:"Garden Area",desc:"Khong gian ngoai troi voi cay xanh va gio mat",image:"https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=400&q=80",features:["Cay xanh","Gio mat","View dep","Cho thu cung"]},
-            {id:3,nameVi:"Tang Lung",nameEn:"Mezzanine",desc:"Tang lung rieng tu, view nhin xuong quan",image:"https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=400&q=80",features:["Rieng tu","View dep","Phu hop hop nhom","Khong gian rong"]}
+            {id:1,nameVi:'Khu Trong Nha',nameEn:'Indoor Area',desc:'Khong gian may lanh thoang mat, phu hop lam viec va hoc tap.',image:'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400',features:['May lanh','Wifi','O cam'],order:0},
+            {id:2,nameVi:'San Vuon',nameEn:'Garden Area',desc:'Khong gian ngoai troi xanh mat, duoc bao phu boi cay xanh tu nhien.',image:'https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=400',features:['Thoang mat','View dep','Pet friendly'],order:1},
+            {id:3,nameVi:'Tang Lung',nameEn:'Mezzanine',desc:'Khong gian rieng tu, yen tinh, phu hop hop nhom va lam viec tap trung.',image:'https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=400',features:['Yen tinh','Rieng tu','Tivi'],order:2}
         ];
-        var editingId=null;
+        var editingId=null;var draggedItem=null;
         function render(){
-            var html='';
-            spaceData.forEach(function(s){
-                html+='<div class="space-item">';
-                html+='<img src="'+s.image+'" class="space-image">';
-                html+='<div class="space-info">';
-                html+='<div class="space-name">'+s.nameVi+' <span class="space-name-en">('+s.nameEn+')</span></div>';
-                html+='<div class="space-desc">'+s.desc+'</div>';
-                html+='<div class="space-features">'+s.features.map(function(f){return '<span class="feature-tag">'+f+'</span>';}).join('')+'</div>';
-                html+='</div>';
-                html+='<div class="space-actions">';
-                html+='<button class="btn-edit" onclick="openModal('+s.id+')"><i class="fas fa-edit"></i></button>';
-                html+='<button class="btn-delete" onclick="deleteSpace('+s.id+')"><i class="fas fa-trash"></i></button>';
+            spaceData.sort(function(a,b){return a.order-b.order;});
+            var html='<div class="space-list" id="spaceListContainer">';
+            spaceData.forEach(function(s,idx){
+                var featuresHtml=s.features.map(function(f){return '<span class="feature-tag">'+f+'</span>';}).join('');
+                html+='<div class="space-row" draggable="true" data-id="'+s.id+'" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)">';
+                html+='<div class="drag-handle"><i class="fas fa-grip-vertical"></i></div>';
+                html+='<div class="item-order">#'+(idx+1)+'</div>';
+                html+='<div class="item-image"><img src="'+s.image+'" onerror="this.src=\'https://via.placeholder.com/120x80\'"></div>';
+                html+='<div class="item-info"><div class="item-name">'+s.nameVi+'</div>';
+                if(s.nameEn)html+='<div class="item-name-en">'+s.nameEn+'</div>';
+                html+='<div class="item-desc">'+s.desc+'</div>';
+                html+='<div class="item-features">'+featuresHtml+'</div></div>';
+                html+='<div class="item-actions">';
+                html+='<button class="btn-icon btn-edit" onclick="openModal('+s.id+')"><i class="fas fa-edit"></i></button>';
+                html+='<button class="btn-icon btn-delete" onclick="deleteSpace('+s.id+')"><i class="fas fa-trash"></i></button>';
                 html+='</div></div>';
             });
+            html+='</div>';
             document.getElementById('spaceList').innerHTML=html;
         }
-        function previewImage(url,targetId){
-            var el=document.getElementById(targetId);
-            if(url){el.innerHTML='<img src="'+url+'" onerror="this.style.display=\'none\'">';}else{el.innerHTML='';}
-        }
+        function handleDragStart(e){draggedItem=e.target.closest('.space-row');draggedItem.classList.add('dragging');}
+        function handleDragOver(e){e.preventDefault();var row=e.target.closest('.space-row');if(row&&row!==draggedItem){var list=document.getElementById('spaceListContainer');var rows=Array.from(list.querySelectorAll('.space-row'));var draggedIdx=rows.indexOf(draggedItem);var targetIdx=rows.indexOf(row);if(draggedIdx<targetIdx){row.parentNode.insertBefore(draggedItem,row.nextSibling);}else{row.parentNode.insertBefore(draggedItem,row);}}}
+        function handleDrop(e){e.preventDefault();updateOrderFromDOM();}
+        function handleDragEnd(e){if(draggedItem)draggedItem.classList.remove('dragging');draggedItem=null;updateOrderFromDOM();}
+        function updateOrderFromDOM(){var rows=document.querySelectorAll('.space-row');rows.forEach(function(row,idx){var id=parseInt(row.dataset.id);var item=spaceData.find(function(s){return s.id===id;});if(item)item.order=idx;});render();showSuccess('Da cap nhat thu tu!');}
+        function previewImage(url,targetId){var el=document.getElementById(targetId);if(url){el.innerHTML='<img src="'+url+'" onerror="this.parentElement.innerHTML=\'\'">';}else{el.innerHTML='';}}
         function openModal(id){
             editingId=id||null;
             document.getElementById('modalTitle').textContent=id?'Sua Khong Gian':'Them Khong Gian';
-            if(id){
-                var s=spaceData.find(function(x){return x.id===id;});
-                if(s){
-                    document.getElementById('spaceNameVi').value=s.nameVi;
-                    document.getElementById('spaceNameEn').value=s.nameEn;
-                    document.getElementById('spaceDesc').value=s.desc;
-                    document.getElementById('spaceFeatures').value=s.features.join('\n');
-                    document.getElementById('spaceImage').value=s.image;
-                    previewImage(s.image,'spacePreview');
-                }
-            }else{
-                document.getElementById('spaceNameVi').value='';
-                document.getElementById('spaceNameEn').value='';
-                document.getElementById('spaceDesc').value='';
-                document.getElementById('spaceFeatures').value='';
-                document.getElementById('spaceImage').value='';
-                document.getElementById('spacePreview').innerHTML='';
-            }
+            if(id){var s=spaceData.find(function(x){return x.id===id;});if(s){document.getElementById('spaceNameVi').value=s.nameVi;document.getElementById('spaceNameEn').value=s.nameEn||'';document.getElementById('spaceDesc').value=s.desc;document.getElementById('spaceFeatures').value=s.features.join(', ');document.getElementById('spaceImage').value=s.image;previewImage(s.image,'spacePreview');}}
+            else{['spaceNameVi','spaceNameEn','spaceDesc','spaceFeatures','spaceImage'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('spacePreview').innerHTML='';}
             document.getElementById('spaceModal').classList.add('show');
         }
         function closeModal(){document.getElementById('spaceModal').classList.remove('show');}
-        function saveSpace(){showSuccess(editingId?'Da cap nhat!':'Da them khong gian!');closeModal();render();}
-        function deleteSpace(id){if(confirm('Xoa khong gian nay?')){showSuccess('Da xoa!');render();}}
-        function toggleSection(){var t=document.getElementById('sectionToggle');var s=document.getElementById('sectionStatus');s.textContent=t.checked?'Dang hien thi':'Da an';s.classList.toggle('active',t.checked);}
-        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},3000);}
+        function saveSpace(){
+            var nameVi=document.getElementById('spaceNameVi').value.trim();var image=document.getElementById('spaceImage').value.trim();
+            if(!nameVi||!image){alert('Vui long nhap ten tieng Viet va link hinh anh!');return;}
+            var featuresStr=document.getElementById('spaceFeatures').value;var features=featuresStr?featuresStr.split(',').map(function(f){return f.trim();}).filter(function(f){return f;}):[];
+            if(editingId){var s=spaceData.find(function(x){return x.id===editingId;});if(s){s.nameVi=nameVi;s.nameEn=document.getElementById('spaceNameEn').value.trim();s.desc=document.getElementById('spaceDesc').value.trim();s.features=features;s.image=image;}}
+            else{var maxOrder=spaceData.reduce(function(max,s){return Math.max(max,s.order);},0);spaceData.push({id:Date.now(),nameVi:nameVi,nameEn:document.getElementById('spaceNameEn').value.trim(),desc:document.getElementById('spaceDesc').value.trim(),features:features,image:image,order:maxOrder+1});}
+            closeModal();render();showSuccess(editingId?'Da cap nhat!':'Da them khong gian!');
+        }
+        function deleteSpace(id){if(!confirm('Xoa khong gian nay?'))return;spaceData=spaceData.filter(function(s){return s.id!==id;});render();showSuccess('Da xoa!');}
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},2000);}
         render();
     </script>
 </body>

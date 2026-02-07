@@ -23,7 +23,7 @@
             <div class="nav-section-title">TONG QUAN</div>
             <div class="nav-section">
                 <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
-                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Trang Chu</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Trang Chu & Gioi Thieu</a>
             </div>
             <div class="nav-section-title">DIEM THAM QUAN</div>
             <div class="nav-section">
@@ -49,7 +49,7 @@
             <div class="nav-section-title">HE THONG</div>
             <div class="nav-section">
                 <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a>
-                <a href="../park.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem</a>
+                <a href="../park.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Trang</a>
                 <a href="../index.html" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> Thoat</a>
             </div>
         </nav>
@@ -62,60 +62,61 @@
         </div>
     </header>
     <main class="main-content">
+        <div class="drag-hint"><i class="fas fa-info-circle"></i> Keo tha cac muc de thay doi thu tu hien thi. Muc o tren se hien thi truoc.</div>
         <div class="category-tabs" id="categoryTabs"></div>
         <div class="attractions-container" id="attractionsContainer"></div>
     </main>
     <div class="modal-overlay" id="addCategoryModal">
         <div class="modal">
-            <div class="modal-header"><h3>Tao Danh Muc Moi</h3><button class="modal-close" onclick="closeModal('addCategoryModal')">X</button></div>
+            <div class="modal-header"><h3>Tao Danh Muc Moi</h3><button class="modal-close" onclick="closeModal('addCategoryModal')">&times;</button></div>
             <div class="modal-body">
                 <div class="form-group"><label>Ten danh muc *</label><input type="text" class="form-control" id="newCategoryName" placeholder="VD: Khu Cam Giac Manh..."></div>
-                <div class="form-group"><label>Icon (FontAwesome)</label><input type="text" class="form-control" id="newCategoryIcon" value="fas fa-map-marker-alt" placeholder="fas fa-bolt"></div>
+                <div class="form-group"><label>Icon (FontAwesome)</label><input type="text" class="form-control" id="newCategoryIcon" value="fas fa-map-marker-alt"></div>
             </div>
             <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('addCategoryModal')">Huy</button><button class="btn btn-primary" onclick="addCategory()">Tao</button></div>
         </div>
     </div>
     <div class="modal-overlay" id="editCategoryModal">
         <div class="modal">
-            <div class="modal-header"><h3>Sua Danh Muc</h3><button class="modal-close" onclick="closeModal('editCategoryModal')">X</button></div>
+            <div class="modal-header"><h3>Sua Danh Muc</h3><button class="modal-close" onclick="closeModal('editCategoryModal')">&times;</button></div>
             <div class="modal-body">
                 <div class="form-group"><label>Ten danh muc *</label><input type="text" class="form-control" id="editCategoryName"></div>
                 <div class="form-group"><label>Icon</label><input type="text" class="form-control" id="editCategoryIcon"></div>
             </div>
-            <div class="modal-footer"><button class="btn btn-danger" onclick="deleteCategory()">Xoa Danh Muc</button><button class="btn btn-secondary" onclick="closeModal('editCategoryModal')">Huy</button><button class="btn btn-primary" onclick="saveCategory()">Luu</button></div>
+            <div class="modal-footer"><button class="btn btn-danger" onclick="deleteCategory()">Xoa</button><button class="btn btn-secondary" onclick="closeModal('editCategoryModal')">Huy</button><button class="btn btn-primary" onclick="saveCategory()">Luu</button></div>
         </div>
     </div>
     <div class="modal-overlay" id="addAttractionModal">
         <div class="modal modal-lg">
-            <div class="modal-header"><h3>Them Diem Tham Quan</h3><button class="modal-close" onclick="closeModal('addAttractionModal')">X</button></div>
+            <div class="modal-header"><h3>Them Diem Tham Quan</h3><button class="modal-close" onclick="closeModal('addAttractionModal')">&times;</button></div>
             <div class="modal-body">
                 <div class="form-group"><label>Danh muc *</label><select class="form-control" id="addAttractionCategory"></select></div>
                 <div class="form-group"><label>Ten dia diem *</label><input type="text" class="form-control" id="addAttractionName" placeholder="VD: Thunder Coaster"></div>
-                <div class="form-group"><label>Mo ta</label><textarea class="form-control" id="addAttractionDesc" rows="3" placeholder="Mo ta chi tiet..."></textarea></div>
-                <div class="form-section-title">Hinh Anh va VR360</div>
-                <div class="form-group"><label>Link hinh anh *</label><input type="url" class="form-control" id="addAttractionImage" placeholder="https://example.com/image.jpg"></div>
-                <div class="form-group"><label>Link VR360 / Tour ao</label><input type="url" class="form-control" id="addAttractionVR" placeholder="https://example.com/vr360"></div>
-                <div class="form-section-title">Badge va Thong Tin</div>
+                <div class="form-group"><label>Mo ta</label><textarea class="form-control" id="addAttractionDesc" rows="3"></textarea></div>
+                <div class="form-section-title">Hinh Anh & VR360</div>
+                <div class="form-group"><label>Link hinh anh *</label><input type="url" class="form-control" id="addAttractionImage" placeholder="https://..."></div>
+                <div class="form-group"><label>Link VR360</label><input type="url" class="form-control" id="addAttractionVR" placeholder="https://..."></div>
+                <div class="form-section-title">Badge & Thong Tin</div>
                 <div class="form-row">
-                    <div class="form-group"><label>Badge</label><input type="text" class="form-control" id="addAttractionBadge" placeholder="VD: HOT, NEW"></div>
+                    <div class="form-group"><label>Badge</label><input type="text" class="form-control" id="addAttractionBadge" placeholder="HOT, NEW..."></div>
                     <div class="form-group"><label>Mau badge</label><select class="form-control" id="addAttractionBadgeColor"><option value="orange">Cam</option><option value="green">Xanh la</option><option value="red">Do</option><option value="blue">Xanh duong</option><option value="purple">Tim</option></select></div>
                 </div>
-                <div class="form-group"><label>Thong tin bo sung</label><textarea class="form-control" id="addAttractionExtra" rows="2" placeholder="VD: Gio mo cua, suc chua..."></textarea></div>
+                <div class="form-group"><label>Thong tin bo sung</label><textarea class="form-control" id="addAttractionExtra" rows="2"></textarea></div>
             </div>
             <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('addAttractionModal')">Huy</button><button class="btn btn-primary" onclick="addAttraction()">Them</button></div>
         </div>
     </div>
     <div class="modal-overlay" id="editAttractionModal">
         <div class="modal modal-lg">
-            <div class="modal-header"><h3>Chinh Sua Diem Tham Quan</h3><button class="modal-close" onclick="closeModal('editAttractionModal')">X</button></div>
+            <div class="modal-header"><h3>Chinh Sua Diem Tham Quan</h3><button class="modal-close" onclick="closeModal('editAttractionModal')">&times;</button></div>
             <div class="modal-body">
                 <div class="form-group"><label>Danh muc *</label><select class="form-control" id="editAttractionCategory"></select></div>
                 <div class="form-group"><label>Ten dia diem *</label><input type="text" class="form-control" id="editAttractionName"></div>
                 <div class="form-group"><label>Mo ta</label><textarea class="form-control" id="editAttractionDesc" rows="3"></textarea></div>
-                <div class="form-section-title">Hinh Anh va VR360</div>
+                <div class="form-section-title">Hinh Anh & VR360</div>
                 <div class="form-group"><label>Link hinh anh *</label><input type="url" class="form-control" id="editAttractionImage"></div>
-                <div class="form-group"><label>Link VR360 / Tour ao</label><input type="url" class="form-control" id="editAttractionVR"></div>
-                <div class="form-section-title">Badge va Thong Tin</div>
+                <div class="form-group"><label>Link VR360</label><input type="url" class="form-control" id="editAttractionVR"></div>
+                <div class="form-section-title">Badge & Thong Tin</div>
                 <div class="form-row">
                     <div class="form-group"><label>Badge</label><input type="text" class="form-control" id="editAttractionBadge"></div>
                     <div class="form-group"><label>Mau badge</label><select class="form-control" id="editAttractionBadgeColor"><option value="orange">Cam</option><option value="green">Xanh la</option><option value="red">Do</option><option value="blue">Xanh duong</option><option value="purple">Tim</option></select></div>
@@ -127,87 +128,99 @@
     </div>
     <div class="modal-overlay" id="previewVRModal">
         <div class="modal modal-xl">
-            <div class="modal-header"><h3>Xem VR360</h3><button class="modal-close" onclick="closeModal('previewVRModal')">X</button></div>
-            <div class="modal-body" style="padding:0; height:70vh;"><iframe id="vrPreviewFrame" src="" style="width:100%; height:100%; border:none;"></iframe></div>
+            <div class="modal-header"><h3>Xem VR360</h3><button class="modal-close" onclick="closeModal('previewVRModal')">&times;</button></div>
+            <div class="modal-body" style="padding:0;height:70vh;"><iframe id="vrPreviewFrame" src="" style="width:100%;height:100%;border:none;"></iframe></div>
         </div>
     </div>
     <script>
-    var categories=[];var attractions=[];var currentCategoryId=null;var editingCategoryId=null;var editingAttractionId=null;
+    var categories=[];var attractions=[];var currentCategoryId=null;var editingCategoryId=null;var editingAttractionId=null;var draggedItem=null;
     document.addEventListener('DOMContentLoaded',function(){loadData();});
-    function loadData(){var savedData=localStorage.getItem('parkAttractions');if(savedData){var data=JSON.parse(savedData);categories=data.categories||[];attractions=data.attractions||[];renderCategories();}else{fetch('../assets/data/park-content.json').then(function(r){return r.json();}).then(function(data){categories=[{id:'thrill',name:'Khu Cam Giac Manh',icon:'fas fa-bolt'},{id:'family',name:'Khu Gia Dinh',icon:'fas fa-users'},{id:'kids',name:'Khu Tre Em',icon:'fas fa-child'},{id:'nature',name:'Khu Thien Nhien',icon:'fas fa-tree'},{id:'culture',name:'Khu Van Hoa',icon:'fas fa-landmark'}];var keys=['attractions-thrill','attractions-family','attractions-kids','attractions-nature','attractions-culture'];var catMap={'attractions-thrill':'thrill','attractions-family':'family','attractions-kids':'kids','attractions-nature':'nature','attractions-culture':'culture'};attractions=[];keys.forEach(function(key){if(data[key]&&data[key].items){data[key].items.forEach(function(item){attractions.push({id:item.id||generateId(),categoryId:catMap[key],name:item.name,desc:item.fullDesc||item.shortDesc||'',image:item.image,vrLink:'',badge:item.badge||'',badgeColor:item.badgeClass||'orange',extra:''});});}});saveData();renderCategories();});}}
+    function loadData(){var savedData=localStorage.getItem('parkAttractions');if(savedData){var data=JSON.parse(savedData);categories=data.categories||[];attractions=data.attractions||[];attractions.forEach(function(a,i){if(typeof a.order==='undefined')a.order=i;});renderCategories();}else{fetch('../assets/data/park-content.json').then(function(r){return r.json();}).then(function(data){categories=[{id:'thrill',name:'Khu Cam Giac Manh',icon:'fas fa-bolt'},{id:'family',name:'Khu Gia Dinh',icon:'fas fa-users'},{id:'kids',name:'Khu Tre Em',icon:'fas fa-child'},{id:'nature',name:'Khu Thien Nhien',icon:'fas fa-tree'},{id:'culture',name:'Khu Van Hoa',icon:'fas fa-landmark'}];var keys=['attractions-thrill','attractions-family','attractions-kids','attractions-nature','attractions-culture'];var catMap={'attractions-thrill':'thrill','attractions-family':'family','attractions-kids':'kids','attractions-nature':'nature','attractions-culture':'culture'};attractions=[];var orderCounter=0;keys.forEach(function(key){if(data[key]&&data[key].items){data[key].items.forEach(function(item){attractions.push({id:item.id||generateId(),categoryId:catMap[key],name:item.name,desc:item.fullDesc||item.shortDesc||'',image:item.image,vrLink:'',badge:item.badge||'',badgeColor:item.badgeClass||'orange',extra:'',order:orderCounter++});});}});saveData();renderCategories();});}}
     function saveData(){localStorage.setItem('parkAttractions',JSON.stringify({categories:categories,attractions:attractions}));}
     function generateId(){return 'id_'+Date.now()+'_'+Math.random().toString(36).substr(2,9);}
-    function renderCategories(){var container=document.getElementById('categoryTabs');if(categories.length===0){container.innerHTML='<div class="empty-hint">Chua co danh muc. Nhan "Them Danh Muc" de bat dau.</div>';document.getElementById('attractionsContainer').innerHTML='';return;}var html='';for(var i=0;i<categories.length;i++){var cat=categories[i];var isActive=currentCategoryId===cat.id||(currentCategoryId===null&&i===0);if(isActive&&currentCategoryId===null)currentCategoryId=cat.id;html+='<div class="category-tab '+(isActive?'active':'')+'" data-id="'+cat.id+'">';html+='<i class="'+cat.icon+'"></i><span>'+cat.name+'</span>';html+='<button class="cat-edit-btn" onclick="openEditCategory(\''+cat.id+'\',event)"><i class="fas fa-pen"></i></button>';html+='</div>';}container.innerHTML=html;var tabs=document.querySelectorAll('.category-tab');tabs.forEach(function(tab){tab.addEventListener('click',function(e){if(e.target.closest('.cat-edit-btn'))return;tabs.forEach(function(t){t.classList.remove('active');});tab.classList.add('active');currentCategoryId=tab.dataset.id;renderAttractions();});});renderAttractions();updateCategorySelects();}
-    function renderAttractions(){var container=document.getElementById('attractionsContainer');var categoryAttractions=attractions.filter(function(a){return a.categoryId===currentCategoryId;});if(categoryAttractions.length===0){container.innerHTML='<div class="empty-state"><div class="empty-icon"><i class="fas fa-map-marker-alt"></i></div><div class="empty-title">Chua co diem tham quan</div><div class="empty-desc">Nhan "Them Diem" de tao diem moi</div></div>';return;}var html='<div class="attractions-grid">';categoryAttractions.forEach(function(item){var badgeHtml=item.badge?'<span class="badge badge-'+item.badgeColor+'">'+item.badge+'</span>':'';var vrBtn=item.vrLink?'<button class="btn btn-vr" onclick="previewVR(\''+item.vrLink+'\')"><i class="fas fa-vr-cardboard"></i> VR360</button>':'';var vrIndicator=item.vrLink?'<div class="vr-indicator"><i class="fas fa-vr-cardboard"></i></div>':'';html+='<div class="attraction-card">';html+='<div class="attraction-image"><img src="'+item.image+'" alt="'+item.name+'" onerror="this.src=\'https://via.placeholder.com/400x250?text=No+Image\'">'+badgeHtml+vrIndicator+'</div>';html+='<div class="attraction-body"><h3 class="attraction-name">'+item.name+'</h3>';html+='<p class="attraction-desc">'+(item.desc||'Chua co mo ta')+'</p>';if(item.extra)html+='<p class="attraction-extra"><i class="fas fa-info-circle"></i> '+item.extra+'</p>';html+='</div>';html+='<div class="attraction-actions">'+vrBtn;html+='<button class="btn btn-secondary btn-sm" onclick="openEditAttraction(\''+item.id+'\')"><i class="fas fa-edit"></i> Sua</button>';html+='<button class="btn btn-secondary btn-sm" onclick="confirmDeleteAttraction(\''+item.id+'\')"><i class="fas fa-trash"></i></button>';html+='</div></div>';});html+='</div>';container.innerHTML=html;}
+    function renderCategories(){var container=document.getElementById('categoryTabs');if(categories.length===0){container.innerHTML='<div class="empty-hint">Chua co danh muc. Nhan "Them Danh Muc" de bat dau.</div>';document.getElementById('attractionsContainer').innerHTML='';return;}var html='';for(var i=0;i<categories.length;i++){var cat=categories[i];var isActive=currentCategoryId===cat.id||(currentCategoryId===null&&i===0);if(isActive&&currentCategoryId===null)currentCategoryId=cat.id;html+='<div class="category-tab '+(isActive?'active':'')+'" data-id="'+cat.id+'" onclick="switchCategory(\''+cat.id+'\')">';html+='<i class="'+cat.icon+'"></i><span>'+cat.name+'</span>';html+='<button class="cat-edit-btn" onclick="openEditCategory(\''+cat.id+'\',event)"><i class="fas fa-pen"></i></button>';html+='</div>';}container.innerHTML=html;renderAttractions();updateCategorySelects();}
+    function switchCategory(id){currentCategoryId=id;renderCategories();}
+    function renderAttractions(){var container=document.getElementById('attractionsContainer');var categoryAttractions=attractions.filter(function(a){return a.categoryId===currentCategoryId;}).sort(function(a,b){return a.order-b.order;});if(categoryAttractions.length===0){container.innerHTML='<div class="empty-state"><div class="empty-icon"><i class="fas fa-map-marker-alt"></i></div><div class="empty-title">Chua co diem tham quan</div><div class="empty-desc">Nhan "Them Diem" de tao diem moi</div></div>';return;}var html='<div class="attractions-list" id="attractionsList">';categoryAttractions.forEach(function(item,idx){var badgeHtml=item.badge?'<span class="item-badge badge-'+item.badgeColor+'">'+item.badge+'</span>':'';var vrIcon=item.vrLink?'<span class="vr-icon" title="Co VR360"><i class="fas fa-vr-cardboard"></i></span>':'';html+='<div class="attraction-row" draggable="true" data-id="'+item.id+'" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)">';html+='<div class="drag-handle"><i class="fas fa-grip-vertical"></i></div>';html+='<div class="item-order">#'+(idx+1)+'</div>';html+='<div class="item-image"><img src="'+item.image+'" onerror="this.src=\'https://via.placeholder.com/80x60?text=No+Image\'"></div>';html+='<div class="item-info"><div class="item-name">'+item.name+badgeHtml+vrIcon+'</div><div class="item-desc">'+(item.desc||'Chua co mo ta')+'</div></div>';html+='<div class="item-actions">';if(item.vrLink)html+='<button class="btn-icon btn-vr" onclick="previewVR(\''+item.vrLink+'\')"><i class="fas fa-vr-cardboard"></i></button>';html+='<button class="btn-icon btn-edit" onclick="openEditAttraction(\''+item.id+'\')"><i class="fas fa-edit"></i></button>';html+='<button class="btn-icon btn-delete" onclick="confirmDeleteAttraction(\''+item.id+'\')"><i class="fas fa-trash"></i></button>';html+='</div></div>';});html+='</div>';container.innerHTML=html;}
+    function handleDragStart(e){draggedItem=e.target.closest('.attraction-row');draggedItem.classList.add('dragging');}
+    function handleDragOver(e){e.preventDefault();var row=e.target.closest('.attraction-row');if(row&&row!==draggedItem){var list=document.getElementById('attractionsList');var rows=Array.from(list.querySelectorAll('.attraction-row'));var draggedIdx=rows.indexOf(draggedItem);var targetIdx=rows.indexOf(row);if(draggedIdx<targetIdx){row.parentNode.insertBefore(draggedItem,row.nextSibling);}else{row.parentNode.insertBefore(draggedItem,row);}}}
+    function handleDrop(e){e.preventDefault();updateOrderFromDOM();}
+    function handleDragEnd(e){if(draggedItem)draggedItem.classList.remove('dragging');draggedItem=null;updateOrderFromDOM();}
+    function updateOrderFromDOM(){var rows=document.querySelectorAll('.attraction-row');var newOrder=[];rows.forEach(function(row,idx){newOrder.push({id:row.dataset.id,order:idx});});newOrder.forEach(function(item){var attr=attractions.find(function(a){return a.id===item.id;});if(attr)attr.order=item.order;});saveData();renderAttractions();}
     function updateCategorySelects(){var selects=['addAttractionCategory','editAttractionCategory'];selects.forEach(function(selectId){var select=document.getElementById(selectId);if(select){var options='<option value="">-- Chon danh muc --</option>';categories.forEach(function(cat){options+='<option value="'+cat.id+'">'+cat.name+'</option>';});select.innerHTML=options;}});}
     function openModal(id){document.getElementById(id).classList.add('active');}
     function closeModal(id){document.getElementById(id).classList.remove('active');}
-    function addCategory(){var name=document.getElementById('newCategoryName').value.trim();var icon=document.getElementById('newCategoryIcon').value.trim()||'fas fa-map-marker-alt';if(!name){alert('Vui long nhap ten danh muc!');return;}var newCategory={id:generateId(),name:name,icon:icon};categories.push(newCategory);saveData();document.getElementById('newCategoryName').value='';closeModal('addCategoryModal');currentCategoryId=newCategory.id;renderCategories();alert('Da tao danh muc "'+name+'" thanh cong!');}
+    function addCategory(){var name=document.getElementById('newCategoryName').value.trim();var icon=document.getElementById('newCategoryIcon').value.trim()||'fas fa-map-marker-alt';if(!name){alert('Vui long nhap ten danh muc!');return;}var newCategory={id:generateId(),name:name,icon:icon};categories.push(newCategory);saveData();document.getElementById('newCategoryName').value='';closeModal('addCategoryModal');currentCategoryId=newCategory.id;renderCategories();}
     function openEditCategory(id,event){event.stopPropagation();editingCategoryId=id;var cat=categories.find(function(c){return c.id===id;});if(cat){document.getElementById('editCategoryName').value=cat.name;document.getElementById('editCategoryIcon').value=cat.icon;openModal('editCategoryModal');}}
-    function saveCategory(){var name=document.getElementById('editCategoryName').value.trim();var icon=document.getElementById('editCategoryIcon').value.trim();if(!name){alert('Vui long nhap ten danh muc!');return;}var cat=categories.find(function(c){return c.id===editingCategoryId;});if(cat){cat.name=name;cat.icon=icon||'fas fa-map-marker-alt';saveData();closeModal('editCategoryModal');renderCategories();alert('Da cap nhat danh muc thanh cong!');}}
-    function deleteCategory(){if(!confirm('Ban co chac muon xoa danh muc nay? Tat ca diem tham quan trong danh muc cung se bi xoa!'))return;attractions=attractions.filter(function(a){return a.categoryId!==editingCategoryId;});categories=categories.filter(function(c){return c.id!==editingCategoryId;});saveData();closeModal('editCategoryModal');currentCategoryId=categories.length>0?categories[0].id:null;renderCategories();alert('Da xoa danh muc thanh cong!');}
-    function addAttraction(){var categoryId=document.getElementById('addAttractionCategory').value;var name=document.getElementById('addAttractionName').value.trim();var desc=document.getElementById('addAttractionDesc').value.trim();var image=document.getElementById('addAttractionImage').value.trim();var vrLink=document.getElementById('addAttractionVR').value.trim();var badge=document.getElementById('addAttractionBadge').value.trim();var badgeColor=document.getElementById('addAttractionBadgeColor').value;var extra=document.getElementById('addAttractionExtra').value.trim();if(!categoryId){alert('Vui long chon danh muc!');return;}if(!name){alert('Vui long nhap ten dia diem!');return;}if(!image){alert('Vui long nhap link hinh anh!');return;}attractions.push({id:generateId(),categoryId:categoryId,name:name,desc:desc,image:image,vrLink:vrLink,badge:badge,badgeColor:badgeColor,extra:extra});saveData();document.getElementById('addAttractionName').value='';document.getElementById('addAttractionDesc').value='';document.getElementById('addAttractionImage').value='';document.getElementById('addAttractionVR').value='';document.getElementById('addAttractionBadge').value='';document.getElementById('addAttractionExtra').value='';closeModal('addAttractionModal');currentCategoryId=categoryId;renderCategories();alert('Da them diem tham quan "'+name+'" thanh cong!');}
+    function saveCategory(){var name=document.getElementById('editCategoryName').value.trim();var icon=document.getElementById('editCategoryIcon').value.trim();if(!name){alert('Vui long nhap ten danh muc!');return;}var cat=categories.find(function(c){return c.id===editingCategoryId;});if(cat){cat.name=name;cat.icon=icon||'fas fa-map-marker-alt';saveData();closeModal('editCategoryModal');renderCategories();}}
+    function deleteCategory(){if(!confirm('Ban co chac muon xoa danh muc nay? Tat ca diem tham quan trong danh muc cung se bi xoa!'))return;attractions=attractions.filter(function(a){return a.categoryId!==editingCategoryId;});categories=categories.filter(function(c){return c.id!==editingCategoryId;});saveData();closeModal('editCategoryModal');currentCategoryId=categories.length>0?categories[0].id:null;renderCategories();}
+    function addAttraction(){var categoryId=document.getElementById('addAttractionCategory').value;var name=document.getElementById('addAttractionName').value.trim();var image=document.getElementById('addAttractionImage').value.trim();if(!categoryId){alert('Vui long chon danh muc!');return;}if(!name){alert('Vui long nhap ten!');return;}if(!image){alert('Vui long nhap link hinh anh!');return;}var maxOrder=attractions.filter(function(a){return a.categoryId===categoryId;}).reduce(function(max,a){return Math.max(max,a.order||0);},0);attractions.push({id:generateId(),categoryId:categoryId,name:name,desc:document.getElementById('addAttractionDesc').value.trim(),image:image,vrLink:document.getElementById('addAttractionVR').value.trim(),badge:document.getElementById('addAttractionBadge').value.trim(),badgeColor:document.getElementById('addAttractionBadgeColor').value,extra:document.getElementById('addAttractionExtra').value.trim(),order:maxOrder+1});saveData();['addAttractionName','addAttractionDesc','addAttractionImage','addAttractionVR','addAttractionBadge','addAttractionExtra'].forEach(function(id){document.getElementById(id).value='';});closeModal('addAttractionModal');currentCategoryId=categoryId;renderCategories();}
     function openEditAttraction(id){editingAttractionId=id;var item=attractions.find(function(a){return a.id===id;});if(item){document.getElementById('editAttractionCategory').value=item.categoryId;document.getElementById('editAttractionName').value=item.name;document.getElementById('editAttractionDesc').value=item.desc||'';document.getElementById('editAttractionImage').value=item.image;document.getElementById('editAttractionVR').value=item.vrLink||'';document.getElementById('editAttractionBadge').value=item.badge||'';document.getElementById('editAttractionBadgeColor').value=item.badgeColor||'orange';document.getElementById('editAttractionExtra').value=item.extra||'';openModal('editAttractionModal');}}
-    function saveAttraction(){var categoryId=document.getElementById('editAttractionCategory').value;var name=document.getElementById('editAttractionName').value.trim();var image=document.getElementById('editAttractionImage').value.trim();if(!categoryId||!name||!image){alert('Vui long dien day du thong tin bat buoc!');return;}var item=attractions.find(function(a){return a.id===editingAttractionId;});if(item){item.categoryId=categoryId;item.name=name;item.desc=document.getElementById('editAttractionDesc').value.trim();item.image=image;item.vrLink=document.getElementById('editAttractionVR').value.trim();item.badge=document.getElementById('editAttractionBadge').value.trim();item.badgeColor=document.getElementById('editAttractionBadgeColor').value;item.extra=document.getElementById('editAttractionExtra').value.trim();saveData();closeModal('editAttractionModal');renderCategories();alert('Da cap nhat thanh cong!');}}
-    function deleteAttraction(){if(!confirm('Ban co chac muon xoa diem tham quan nay?'))return;attractions=attractions.filter(function(a){return a.id!==editingAttractionId;});saveData();closeModal('editAttractionModal');renderAttractions();alert('Da xoa thanh cong!');}
-    function confirmDeleteAttraction(id){if(!confirm('Ban co chac muon xoa diem tham quan nay?'))return;attractions=attractions.filter(function(a){return a.id!==id;});saveData();renderAttractions();}
+    function saveAttraction(){var categoryId=document.getElementById('editAttractionCategory').value;var name=document.getElementById('editAttractionName').value.trim();var image=document.getElementById('editAttractionImage').value.trim();if(!categoryId||!name||!image){alert('Vui long dien day du thong tin!');return;}var item=attractions.find(function(a){return a.id===editingAttractionId;});if(item){item.categoryId=categoryId;item.name=name;item.desc=document.getElementById('editAttractionDesc').value.trim();item.image=image;item.vrLink=document.getElementById('editAttractionVR').value.trim();item.badge=document.getElementById('editAttractionBadge').value.trim();item.badgeColor=document.getElementById('editAttractionBadgeColor').value;item.extra=document.getElementById('editAttractionExtra').value.trim();saveData();closeModal('editAttractionModal');renderCategories();}}
+    function deleteAttraction(){if(!confirm('Xoa diem tham quan nay?'))return;attractions=attractions.filter(function(a){return a.id!==editingAttractionId;});saveData();closeModal('editAttractionModal');renderAttractions();}
+    function confirmDeleteAttraction(id){if(!confirm('Xoa diem tham quan nay?'))return;attractions=attractions.filter(function(a){return a.id!==id;});saveData();renderAttractions();}
     function previewVR(url){document.getElementById('vrPreviewFrame').src=url;openModal('previewVRModal');}
     </script>
     <style>
+    .drag-hint{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 16px;margin-bottom:20px;color:#166534;font-size:14px;display:flex;align-items:center;gap:10px;}
     .category-tabs{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
-    .category-tab{display:flex;align-items:center;gap:10px;padding:12px 20px;background:#fff;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;transition:all .2s;font-weight:500;position:relative}
+    .category-tab{display:flex;align-items:center;gap:10px;padding:12px 20px;background:#fff;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;transition:all .2s;font-weight:500}
     .category-tab:hover{border-color:#16A34A}
     .category-tab.active{background:linear-gradient(135deg,#16A34A 0%,#22C55E 100%);color:#fff;border-color:#16A34A}
-    .category-tab i:first-child{font-size:16px}
     .cat-edit-btn{background:rgba(255,255,255,.2);border:none;width:24px;height:24px;border-radius:6px;cursor:pointer;color:inherit;opacity:0;transition:opacity .2s}
     .category-tab:hover .cat-edit-btn{opacity:.7}
     .category-tab.active .cat-edit-btn{opacity:1}
-    .cat-edit-btn:hover{opacity:1!important;background:rgba(255,255,255,.3)}
-    .empty-hint{color:#94a3b8;font-style:italic;padding:20px}
-    .attractions-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:24px}
-    .attraction-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.08);transition:transform .2s,box-shadow .2s}
-    .attraction-card:hover{transform:translateY(-4px);box-shadow:0 8px 25px rgba(0,0,0,.12)}
-    .attraction-image{position:relative;height:200px;overflow:hidden}
-    .attraction-image img{width:100%;height:100%;object-fit:cover}
-    .attraction-image .badge{position:absolute;top:12px;left:12px;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;text-transform:uppercase}
-    .badge-orange{background:#F97316;color:#fff}
-    .badge-green{background:#16A34A;color:#fff}
-    .badge-red{background:#DC2626;color:#fff}
-    .badge-blue{background:#2563EB;color:#fff}
-    .badge-purple{background:#7C3AED;color:#fff}
-    .vr-indicator{position:absolute;top:12px;right:12px;width:40px;height:40px;background:rgba(0,0,0,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#22C55E;font-size:18px}
-    .attraction-body{padding:20px}
-    .attraction-name{font-size:18px;font-weight:600;margin-bottom:8px;color:#0f172a}
-    .attraction-desc{font-size:14px;color:#64748b;line-height:1.5;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-    .attraction-extra{font-size:13px;color:#94a3b8;padding:8px 12px;background:#f8fafc;border-radius:8px;margin:0}
-    .attraction-extra i{margin-right:6px}
-    .attraction-actions{padding:16px 20px;border-top:1px solid #f1f5f9;display:flex;gap:10px}
-    .btn-vr{background:linear-gradient(135deg,#7C3AED 0%,#A855F7 100%);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px}
-    .btn-vr:hover{opacity:.9}
+    .attractions-list{display:flex;flex-direction:column;gap:8px;}
+    .attraction-row{display:flex;align-items:center;gap:16px;padding:16px;background:#fff;border-radius:12px;border:2px solid #e2e8f0;transition:all .2s;cursor:grab;}
+    .attraction-row:hover{border-color:#16A34A;box-shadow:0 4px 12px rgba(0,0,0,.08);}
+    .attraction-row.dragging{opacity:0.5;border-color:#16A34A;background:#f0fdf4;}
+    .drag-handle{color:#94a3b8;font-size:18px;cursor:grab;padding:0 8px;}
+    .drag-handle:active{cursor:grabbing;}
+    .item-order{background:linear-gradient(135deg,#16A34A,#22C55E);color:#fff;font-weight:700;font-size:14px;min-width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+    .item-image{width:100px;height:70px;border-radius:8px;overflow:hidden;flex-shrink:0;}
+    .item-image img{width:100%;height:100%;object-fit:cover;}
+    .item-info{flex:1;min-width:0;}
+    .item-name{font-size:16px;font-weight:600;color:#1e293b;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+    .item-badge{padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;text-transform:uppercase;}
+    .badge-orange{background:#fed7aa;color:#c2410c;}
+    .badge-green{background:#bbf7d0;color:#166534;}
+    .badge-red{background:#fecaca;color:#dc2626;}
+    .badge-blue{background:#bfdbfe;color:#1d4ed8;}
+    .badge-purple{background:#e9d5ff;color:#7c3aed;}
+    .vr-icon{color:#7c3aed;font-size:14px;}
+    .item-desc{font-size:13px;color:#64748b;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .item-actions{display:flex;gap:8px;}
+    .btn-icon{width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+    .btn-edit{background:#dbeafe;color:#1d4ed8;}
+    .btn-edit:hover{background:#bfdbfe;}
+    .btn-delete{background:#fee2e2;color:#dc2626;}
+    .btn-delete:hover{background:#fecaca;}
+    .btn-vr{background:#f3e8ff;color:#7c3aed;}
+    .btn-vr:hover{background:#e9d5ff;}
     .empty-state{text-align:center;padding:60px 20px;color:#94a3b8}
     .empty-icon{font-size:64px;margin-bottom:16px;opacity:.5}
     .empty-title{font-size:20px;font-weight:600;margin-bottom:8px;color:#64748b}
     .empty-desc{font-size:14px}
+    .empty-hint{color:#94a3b8;font-style:italic;padding:20px}
     .form-section-title{font-size:14px;font-weight:600;color:#16A34A;margin:24px 0 16px;padding-bottom:8px;border-bottom:2px solid #dcfce7}
     .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:1000}
     .modal-overlay.active{display:flex}
     .modal{background:#fff;border-radius:16px;width:100%;max-width:500px;max-height:90vh;overflow:hidden}
-    .modal.modal-lg{max-width:700px}
+    .modal.modal-lg{max-width:600px}
     .modal.modal-xl{max-width:1000px}
     .modal-header{padding:20px 24px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center}
     .modal-header h3{font-size:18px;font-weight:600;margin:0}
-    .modal-close{background:none;border:none;font-size:20px;color:#64748b;cursor:pointer;width:32px;height:32px;border-radius:8px}
-    .modal-close:hover{background:#f1f5f9}
+    .modal-close{background:none;border:none;font-size:24px;color:#64748b;cursor:pointer}
     .modal-body{padding:24px;max-height:60vh;overflow-y:auto}
     .modal-footer{padding:16px 24px;border-top:1px solid #e2e8f0;display:flex;justify-content:flex-end;gap:12px}
-    .form-group{margin-bottom:20px}
-    .form-group label{display:block;margin-bottom:8px;font-weight:500;font-size:14px;color:#334155}
-    .form-control{width:100%;padding:12px 16px;border:1px solid #d1d5db;border-radius:10px;font-size:14px;box-sizing:border-box;transition:border-color .2s,box-shadow .2s}
+    .form-group{margin-bottom:16px}
+    .form-group label{display:block;margin-bottom:6px;font-weight:500;font-size:14px;color:#334155}
+    .form-control{width:100%;padding:10px 14px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;box-sizing:border-box}
     .form-control:focus{outline:none;border-color:#16A34A;box-shadow:0 0 0 3px rgba(22,163,74,.1)}
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    .btn-sm{padding:8px 14px;font-size:13px}
-    .btn-danger{background:#DC2626;color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer}
-    .btn-danger:hover{background:#B91C1C}
+    .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px}
+    .btn-primary{background:#16A34A;color:#fff}
+    .btn-secondary{background:#f1f5f9;color:#475569}
+    .btn-danger{background:#dc2626;color:#fff}
     </style>
 </body>
 </html>
