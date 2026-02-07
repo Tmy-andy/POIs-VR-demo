@@ -1,24 +1,16 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Dich Vu Ho Tro</title>
+    <title>Admin - Dich Vu & Ho Tro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles/admin.css">
 </head>
 <body>
     <div class="sidebar">
-        <div class="sidebar-header">
-            <div class="logo">
-                <div class="logo-icon"><i class="fas fa-ticket-alt"></i></div>
-                <div class="logo-text">Adventure Park</div>
-            </div>
-        </div>
-        <div class="property-selector">
-            <div class="property-label">Khu Vui Choi</div>
-            <div class="property-name">Adventure Park Admin</div>
-        </div>
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon"><i class="fas fa-ticket-alt"></i></div><div class="logo-text">Adventure Park</div></div></div>
+        <div class="property-selector"><div class="property-label">Khu Vui Choi</div><div class="property-name">Adventure Park Admin</div></div>
         <nav class="nav-menu">
             <div class="nav-section-title">TONG QUAN</div>
             <div class="nav-section">
@@ -54,86 +46,119 @@
             </div>
         </nav>
     </div>
-
-    <header class="header">
-        <div class="header-left">
-            <h1 class="page-title">Dich Vu Ho Tro</h1>
-        </div>
-        <div class="header-right">
-            <button class="btn btn-primary" onclick="openModal('addServiceModal')"><i class="fas fa-plus"></i> Them Dich Vu</button>
-        </div>
-    </header>
-
+    <header class="header"><div class="header-left"><h1 class="page-title">Quan Ly Dich Vu Ho Tro</h1></div><div class="header-right"><button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Them Dich Vu</button></div></header>
     <main class="main-content">
-        <div class="items-grid" id="servicesGrid"></div>
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
+        <div class="drag-hint"><i class="fas fa-info-circle"></i> Keo tha cac muc de thay doi thu tu hien thi. Muc o tren se hien thi truoc.</div>
+        <div class="content-card"><div class="card-body"><div id="serviceList"></div></div></div>
     </main>
-
-    <!-- Add Modal -->
-    <div class="modal-overlay" id="addServiceModal">
-        <div class="modal">
-            <div class="modal-header"><h3>Them Dich Vu</h3><button class="modal-close" onclick="closeModal('addServiceModal')"><i class="fas fa-times"></i></button></div>
+    <div class="modal" id="serviceModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="modalTitle">Them Dich Vu</h3><button class="close-btn" onclick="closeModal()">&times;</button></div>
             <div class="modal-body">
-                <div class="form-group"><label>Ten dich vu *</label><input type="text" class="form-control" placeholder="VD: Gui do"></div>
-                <div class="form-group"><label>Icon (Font Awesome)</label><input type="text" class="form-control" placeholder="fas fa-briefcase"></div>
-                <div class="form-group"><label>Mo ta</label><textarea class="form-control" rows="3" placeholder="Mo ta dich vu..."></textarea></div>
-                <div class="form-group"><label>Vi tri</label><input type="text" class="form-control" placeholder="VD: Cong chinh"></div>
+                <div class="form-group"><label class="form-label">Ten dich vu *</label><input type="text" class="form-input" id="serviceName" placeholder="VD: Gui do"></div>
+                <div class="form-group"><label class="form-label">Icon (Font Awesome)</label><input type="text" class="form-input" id="serviceIcon" placeholder="fas fa-briefcase"></div>
+                <div class="form-group"><label class="form-label">Mo ta</label><textarea class="form-textarea" id="serviceDesc" rows="2" placeholder="Mo ta dich vu..."></textarea></div>
+                <div class="form-group"><label class="form-label">Vi tri</label><input type="text" class="form-input" id="serviceLocation" placeholder="VD: Cong chinh"></div>
+                <div class="form-group"><label class="form-label">Gia (de trong neu mien phi)</label><input type="text" class="form-input" id="servicePrice" placeholder="VD: 50,000d"></div>
             </div>
-            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('addServiceModal')">Huy</button><button class="btn btn-primary" onclick="saveAndClose('addServiceModal')">Them</button></div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal()">Huy</button><button class="btn btn-primary" onclick="saveService()">Luu</button></div>
         </div>
     </div>
-
-    <!-- Edit Modal -->
-    <div class="modal-overlay" id="editServiceModal">
-        <div class="modal">
-            <div class="modal-header"><h3>Chinh Sua Dich Vu</h3><button class="modal-close" onclick="closeModal('editServiceModal')"><i class="fas fa-times"></i></button></div>
-            <div class="modal-body">
-                <div class="form-group"><label>Ten dich vu *</label><input type="text" class="form-control" value="Gui do"></div>
-                <div class="form-group"><label>Icon</label><input type="text" class="form-control" value="fas fa-briefcase"></div>
-                <div class="form-group"><label>Mo ta</label><textarea class="form-control" rows="3">Dich vu gui do mien phi...</textarea></div>
-                <div class="form-group"><label>Vi tri</label><input type="text" class="form-control" value="Cong chinh"></div>
-            </div>
-            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('editServiceModal')">Huy</button><button class="btn btn-primary" onclick="saveAndClose('editServiceModal')">Luu</button></div>
-        </div>
-    </div>
-
-    <script>
-        function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        function saveAndClose(id) { alert('Da luu thanh cong!'); closeModal(id); }
-        function confirmDelete() { if(confirm('Ban co chac muon xoa?')) alert('Da xoa!'); }
-
-        fetch('../assets/data/park-content.json')
-            .then(r => r.json())
-            .then(data => {
-                const services = data.services;
-                const grid = document.getElementById('servicesGrid');
-                if (!services || !services.items) return;
-                
-                let html = '';
-                services.items.forEach(item => {
-                    html += `
-                        <div class="item-card">
-                            <div class="item-card-icon"><i class="${item.icon}"></i></div>
-                            <div class="item-card-body">
-                                <div class="item-card-title">${item.name}</div>
-                                <div class="item-card-desc">${item.desc}</div>
-                                <div class="item-card-meta">${item.location}</div>
-                            </div>
-                            <div class="item-card-actions">
-                                <button class="btn btn-secondary btn-sm" onclick="openModal('editServiceModal')"><i class="fas fa-edit"></i></button>
-                                <button class="btn btn-secondary btn-sm" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
-                            </div>
-                        </div>
-                    `;
-                });
-                grid.innerHTML = html;
-            });
-    </script>
     <style>
-        .btn-sm { padding: 6px 12px; font-size: 12px; }
-        .item-card-meta { font-size: 12px; color: #666; margin-top: 8px; }
-        .item-card-icon { font-size: 48px; color: #16A34A; text-align: center; padding: 20px; }
-        .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:1000;}.modal-overlay.active{display:flex;}.modal{background:white;border-radius:12px;width:100%;max-width:500px;max-height:90vh;overflow:hidden;}.modal-header{padding:16px 20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;}.modal-header h3{font-size:18px;font-weight:600;margin:0;}.modal-close{background:none;border:none;font-size:20px;color:#64748b;cursor:pointer;}.modal-body{padding:20px;max-height:60vh;overflow-y:auto;}.modal-footer{padding:16px 20px;border-top:1px solid #e2e8f0;display:flex;justify-content:flex-end;gap:12px;}.form-group{margin-bottom:16px;}.form-group label{display:block;margin-bottom:8px;font-weight:500;font-size:14px;}.form-control{width:100%;padding:10px 14px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;box-sizing:border-box;}
+        .drag-hint{background:#ecfdf5;border:1px solid #6ee7b7;border-radius:8px;padding:12px 16px;margin-bottom:20px;color:#065f46;font-size:14px;display:flex;align-items:center;gap:10px;}
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;}
+        .card-body{padding:20px 24px;}
+        .item-list{display:flex;flex-direction:column;gap:8px;}
+        .item-row{display:flex;align-items:center;gap:16px;padding:16px;background:#f8fafc;border-radius:12px;border:2px solid #e2e8f0;transition:all .2s;cursor:grab;}
+        .item-row:hover{border-color:#16A34A;box-shadow:0 4px 12px rgba(0,0,0,.08);}
+        .item-row.dragging{opacity:0.5;border-color:#16A34A;background:#ecfdf5;}
+        .drag-handle{color:#94a3b8;font-size:18px;cursor:grab;padding:0 8px;}
+        .item-order{background:linear-gradient(135deg,#16A34A,#22C55E);color:#fff;font-weight:700;font-size:14px;min-width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+        .item-icon{width:60px;height:60px;border-radius:12px;background:#ecfdf5;display:flex;align-items:center;justify-content:center;font-size:24px;color:#16A34A;flex-shrink:0;}
+        .item-info{flex:1;min-width:0;}
+        .item-name{font-size:16px;font-weight:600;color:#1e293b;margin-bottom:4px;}
+        .item-desc{font-size:13px;color:#64748b;margin-bottom:6px;}
+        .item-meta{display:flex;gap:16px;font-size:12px;color:#94a3b8;}
+        .item-meta span{display:flex;align-items:center;gap:4px;}
+        .item-meta i{color:#16A34A;}
+        .item-price{font-size:14px;font-weight:600;color:#F97316;padding:4px 12px;background:#fff7ed;border-radius:20px;}
+        .item-free{font-size:14px;font-weight:600;color:#16A34A;padding:4px 12px;background:#dcfce7;border-radius:20px;}
+        .item-actions{display:flex;gap:8px;}
+        .btn-icon{width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+        .btn-edit{background:#dbeafe;color:#1d4ed8;}
+        .btn-delete{background:#fee2e2;color:#dc2626;}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;}
+        .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#64748b;}
+        .modal-body{padding:24px;}
+        .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid #e2e8f0;}
+        .form-group{margin-bottom:16px;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+        .form-input,.form-textarea{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;box-sizing:border-box;}
+        .form-input:focus,.form-textarea:focus{outline:none;border-color:#16A34A;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#16A34A;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
     </style>
+    <script>
+        var serviceData=[
+            {id:1,name:'Gui Do',icon:'fas fa-briefcase',desc:'Dich vu gui do mien phi tai cong chinh',location:'Cong chinh',price:'',order:0},
+            {id:2,name:'Cho Thue Xe Lan',icon:'fas fa-wheelchair',desc:'Cho thue xe lan va xe day tre em',location:'Cong chinh, Khu B',price:'50,000d/ngay',order:1},
+            {id:3,name:'Y Te',icon:'fas fa-first-aid',desc:'Tram y te san sang ho tro 24/7',location:'Khu trung tam',price:'',order:2},
+            {id:4,name:'Wifi Mien Phi',icon:'fas fa-wifi',desc:'Wifi toc do cao toan khu vuc',location:'Toan cong vien',price:'',order:3},
+            {id:5,name:'ATM',icon:'fas fa-credit-card',desc:'May ATM da ngan hang',location:'Gan cong chinh',price:'',order:4},
+            {id:6,name:'Photo & Luu Niem',icon:'fas fa-camera',desc:'Dich vu chup anh chuyen nghiep',location:'Nhieu vi tri',price:'100,000d+',order:5}
+        ];
+        var editingId=null;var draggedItem=null;
+        function render(){
+            serviceData.sort(function(a,b){return a.order-b.order;});
+            var html='<div class="item-list" id="serviceListContainer">';
+            serviceData.forEach(function(s,idx){
+                var priceHtml=s.price?'<span class="item-price">'+s.price+'</span>':'<span class="item-free">Mien phi</span>';
+                html+='<div class="item-row" draggable="true" data-id="'+s.id+'" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)">';
+                html+='<div class="drag-handle"><i class="fas fa-grip-vertical"></i></div>';
+                html+='<div class="item-order">#'+(idx+1)+'</div>';
+                html+='<div class="item-icon"><i class="'+s.icon+'"></i></div>';
+                html+='<div class="item-info"><div class="item-name">'+s.name+'</div>';
+                html+='<div class="item-desc">'+s.desc+'</div>';
+                html+='<div class="item-meta"><span><i class="fas fa-map-marker-alt"></i> '+s.location+'</span></div></div>';
+                html+=priceHtml;
+                html+='<div class="item-actions"><button class="btn-icon btn-edit" onclick="openModal('+s.id+')"><i class="fas fa-edit"></i></button><button class="btn-icon btn-delete" onclick="deleteService('+s.id+')"><i class="fas fa-trash"></i></button></div></div>';
+            });
+            html+='</div>';
+            document.getElementById('serviceList').innerHTML=html;
+        }
+        function handleDragStart(e){draggedItem=e.target.closest('.item-row');draggedItem.classList.add('dragging');}
+        function handleDragOver(e){e.preventDefault();var row=e.target.closest('.item-row');if(row&&row!==draggedItem){var list=document.getElementById('serviceListContainer');var rows=Array.from(list.querySelectorAll('.item-row'));var draggedIdx=rows.indexOf(draggedItem);var targetIdx=rows.indexOf(row);if(draggedIdx<targetIdx){row.parentNode.insertBefore(draggedItem,row.nextSibling);}else{row.parentNode.insertBefore(draggedItem,row);}}}
+        function handleDrop(e){e.preventDefault();updateOrderFromDOM();}
+        function handleDragEnd(e){if(draggedItem)draggedItem.classList.remove('dragging');draggedItem=null;updateOrderFromDOM();}
+        function updateOrderFromDOM(){var rows=document.querySelectorAll('.item-row');rows.forEach(function(row,idx){var id=parseInt(row.dataset.id);var item=serviceData.find(function(s){return s.id===id;});if(item)item.order=idx;});render();showSuccess('Da cap nhat thu tu!');}
+        function openModal(id){
+            editingId=id||null;
+            document.getElementById('modalTitle').textContent=id?'Sua Dich Vu':'Them Dich Vu';
+            if(id){var s=serviceData.find(function(x){return x.id===id;});if(s){document.getElementById('serviceName').value=s.name;document.getElementById('serviceIcon').value=s.icon;document.getElementById('serviceDesc').value=s.desc;document.getElementById('serviceLocation').value=s.location;document.getElementById('servicePrice').value=s.price;}}
+            else{['serviceName','serviceIcon','serviceDesc','serviceLocation','servicePrice'].forEach(function(id){document.getElementById(id).value='';});}
+            document.getElementById('serviceModal').classList.add('show');
+        }
+        function closeModal(){document.getElementById('serviceModal').classList.remove('show');}
+        function saveService(){
+            var name=document.getElementById('serviceName').value.trim();
+            if(!name){alert('Vui long nhap ten dich vu!');return;}
+            var icon=document.getElementById('serviceIcon').value.trim()||'fas fa-concierge-bell';
+            if(editingId){var s=serviceData.find(function(x){return x.id===editingId;});if(s){s.name=name;s.icon=icon;s.desc=document.getElementById('serviceDesc').value.trim();s.location=document.getElementById('serviceLocation').value.trim();s.price=document.getElementById('servicePrice').value.trim();}}
+            else{var maxOrder=serviceData.reduce(function(max,s){return Math.max(max,s.order);},0);serviceData.push({id:Date.now(),name:name,icon:icon,desc:document.getElementById('serviceDesc').value.trim(),location:document.getElementById('serviceLocation').value.trim(),price:document.getElementById('servicePrice').value.trim(),order:maxOrder+1});}
+            closeModal();render();showSuccess(editingId?'Da cap nhat!':'Da them dich vu!');
+        }
+        function deleteService(id){if(!confirm('Xoa dich vu nay?'))return;serviceData=serviceData.filter(function(s){return s.id!==id;});render();showSuccess('Da xoa!');}
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},2000);}
+        render();
+    </script>
 </body>
 </html>

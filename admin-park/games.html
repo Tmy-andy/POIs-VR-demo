@@ -1,24 +1,16 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Tro Choi</title>
+    <title>Admin - Tro Choi & Hoat Dong</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles/admin.css">
 </head>
 <body>
     <div class="sidebar">
-        <div class="sidebar-header">
-            <div class="logo">
-                <div class="logo-icon"><i class="fas fa-ticket-alt"></i></div>
-                <div class="logo-text">Adventure Park</div>
-            </div>
-        </div>
-        <div class="property-selector">
-            <div class="property-label">Khu Vui Choi</div>
-            <div class="property-name">Adventure Park Admin</div>
-        </div>
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon"><i class="fas fa-ticket-alt"></i></div><div class="logo-text">Adventure Park</div></div></div>
+        <div class="property-selector"><div class="property-label">Khu Vui Choi</div><div class="property-name">Adventure Park Admin</div></div>
         <nav class="nav-menu">
             <div class="nav-section-title">TONG QUAN</div>
             <div class="nav-section">
@@ -54,299 +46,147 @@
             </div>
         </nav>
     </div>
-
-    <header class="header">
-        <div class="header-left">
-            <h1 class="page-title">Quan Ly Tro Choi</h1>
-        </div>
-        <div class="header-right">
-            <button class="btn btn-primary" onclick="openModal('addGameModal')"><i class="fas fa-plus"></i> Them Tro Choi</button>
-        </div>
-    </header>
-
+    <header class="header"><div class="header-left"><h1 class="page-title">Quan Ly Tro Choi</h1></div><div class="header-right"><button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Them Tro Choi</button></div></header>
     <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
+        <div class="drag-hint"><i class="fas fa-info-circle"></i> Keo tha cac muc de thay doi thu tu hien thi. Muc o tren se hien thi truoc.</div>
         <div class="filter-bar">
-            <select class="form-control" style="width: 200px;">
+            <select class="form-select" id="zoneFilter" onchange="render()">
                 <option value="">Tat ca khu vuc</option>
                 <option value="thrill">Khu Cam Giac Manh</option>
                 <option value="family">Khu Gia Dinh</option>
                 <option value="kids">Khu Tre Em</option>
-                <option value="vr">Khu VR & Tuong Tac</option>
-            </select>
-            <select class="form-control" style="width: 150px;">
-                <option value="">Trang thai</option>
-                <option value="active">Dang hoat dong</option>
-                <option value="maintenance">Bao tri</option>
-                <option value="closed">Dong cua</option>
+                <option value="vr">Khu VR</option>
             </select>
         </div>
-
-        <div class="games-grid" id="gamesGrid">
-            <div class="game-card">
-                <img src="https://images.unsplash.com/photo-1536086845612-2a0be3864e3c?w=400" class="game-image">
-                <div class="game-status active">Dang hoat dong</div>
-                <div class="game-body">
-                    <h4 class="game-title">Thunder Coaster</h4>
-                    <p class="game-zone"><i class="fas fa-bolt"></i> Khu Cam Giac Manh</p>
-                    <div class="game-meta">
-                        <span><i class="fas fa-ruler-vertical"></i> 140cm+</span>
-                        <span><i class="fas fa-clock"></i> 3 phut</span>
-                    </div>
-                </div>
-                <div class="game-actions">
-                    <button class="btn btn-secondary btn-sm" onclick="openModal('editGameModal')"><i class="fas fa-edit"></i> Sua</button>
-                    <button class="btn btn-secondary btn-sm" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-
-            <div class="game-card">
-                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400" class="game-image">
-                <div class="game-status active">Dang hoat dong</div>
-                <div class="game-body">
-                    <h4 class="game-title">Sky Drop Tower</h4>
-                    <p class="game-zone"><i class="fas fa-bolt"></i> Khu Cam Giac Manh</p>
-                    <div class="game-meta">
-                        <span><i class="fas fa-ruler-vertical"></i> 150cm+</span>
-                        <span><i class="fas fa-clock"></i> 1 phut</span>
-                    </div>
-                </div>
-                <div class="game-actions">
-                    <button class="btn btn-secondary btn-sm" onclick="openModal('editGameModal')"><i class="fas fa-edit"></i> Sua</button>
-                    <button class="btn btn-secondary btn-sm" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-
-            <div class="game-card">
-                <img src="https://images.unsplash.com/photo-1605648916361-9bc12ad6a569?w=400" class="game-image">
-                <div class="game-status maintenance">Bao tri</div>
-                <div class="game-body">
-                    <h4 class="game-title">VR Adventure Zone</h4>
-                    <p class="game-zone"><i class="fas fa-vr-cardboard"></i> Khu VR</p>
-                    <div class="game-meta">
-                        <span><i class="fas fa-ruler-vertical"></i> 120cm+</span>
-                        <span><i class="fas fa-clock"></i> 15 phut</span>
-                    </div>
-                </div>
-                <div class="game-actions">
-                    <button class="btn btn-secondary btn-sm" onclick="openModal('editGameModal')"><i class="fas fa-edit"></i> Sua</button>
-                    <button class="btn btn-secondary btn-sm" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-
-            <div class="game-card">
-                <img src="https://images.unsplash.com/photo-1513889961551-628c1e5e2ee9?w=400" class="game-image">
-                <div class="game-status active">Dang hoat dong</div>
-                <div class="game-body">
-                    <h4 class="game-title">Ferris Wheel</h4>
-                    <p class="game-zone"><i class="fas fa-users"></i> Khu Gia Dinh</p>
-                    <div class="game-meta">
-                        <span><i class="fas fa-ruler-vertical"></i> Moi lua tuoi</span>
-                        <span><i class="fas fa-clock"></i> 10 phut</span>
-                    </div>
-                </div>
-                <div class="game-actions">
-                    <button class="btn btn-secondary btn-sm" onclick="openModal('editGameModal')"><i class="fas fa-edit"></i> Sua</button>
-                    <button class="btn btn-secondary btn-sm" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-
-            <div class="game-card">
-                <img src="https://images.unsplash.com/photo-1560969184-10fe8719e047?w=400" class="game-image">
-                <div class="game-status active">Dang hoat dong</div>
-                <div class="game-body">
-                    <h4 class="game-title">Water Splash</h4>
-                    <p class="game-zone"><i class="fas fa-users"></i> Khu Gia Dinh</p>
-                    <div class="game-meta">
-                        <span><i class="fas fa-ruler-vertical"></i> 100cm+</span>
-                        <span><i class="fas fa-clock"></i> 5 phut</span>
-                    </div>
-                </div>
-                <div class="game-actions">
-                    <button class="btn btn-secondary btn-sm" onclick="openModal('editGameModal')"><i class="fas fa-edit"></i> Sua</button>
-                    <button class="btn btn-secondary btn-sm" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-
-            <div class="game-card">
-                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400" class="game-image">
-                <div class="game-status active">Dang hoat dong</div>
-                <div class="game-body">
-                    <h4 class="game-title">Kids Playground</h4>
-                    <p class="game-zone"><i class="fas fa-child"></i> Khu Tre Em</p>
-                    <div class="game-meta">
-                        <span><i class="fas fa-ruler-vertical"></i> 3-10 tuoi</span>
-                        <span><i class="fas fa-clock"></i> Khong gioi han</span>
-                    </div>
-                </div>
-                <div class="game-actions">
-                    <button class="btn btn-secondary btn-sm" onclick="openModal('editGameModal')"><i class="fas fa-edit"></i> Sua</button>
-                    <button class="btn btn-secondary btn-sm" onclick="confirmDelete()"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-        </div>
+        <div class="content-card"><div class="card-body"><div id="gameList"></div></div></div>
     </main>
-
-    <!-- Add Game Modal -->
-    <div class="modal-overlay" id="addGameModal">
-        <div class="modal modal-lg">
-            <div class="modal-header">
-                <h3>Them Tro Choi Moi</h3>
-                <button class="modal-close" onclick="closeModal('addGameModal')"><i class="fas fa-times"></i></button>
-            </div>
+    <div class="modal" id="gameModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="modalTitle">Them Tro Choi</h3><button class="close-btn" onclick="closeModal()">&times;</button></div>
             <div class="modal-body">
+                <div class="form-group"><label class="form-label">Ten tro choi *</label><input type="text" class="form-input" id="gameName" placeholder="VD: Thunder Coaster"></div>
+                <div class="form-group"><label class="form-label">Khu vuc *</label><select class="form-input" id="gameZone"><option value="thrill">Khu Cam Giac Manh</option><option value="family">Khu Gia Dinh</option><option value="kids">Khu Tre Em</option><option value="vr">Khu VR</option></select></div>
                 <div class="form-row">
-                    <div class="form-group">
-                        <label>Ten tro choi *</label>
-                        <input type="text" class="form-control" placeholder="VD: Super Spin">
-                    </div>
-                    <div class="form-group">
-                        <label>Khu vuc *</label>
-                        <select class="form-control">
-                            <option value="">Chon khu vuc</option>
-                            <option value="thrill">Khu Cam Giac Manh</option>
-                            <option value="family">Khu Gia Dinh</option>
-                            <option value="kids">Khu Tre Em</option>
-                            <option value="vr">Khu VR & Tuong Tac</option>
-                        </select>
-                    </div>
+                    <div class="form-group"><label class="form-label">Chieu cao toi thieu</label><input type="text" class="form-input" id="gameHeight" placeholder="VD: 140cm+"></div>
+                    <div class="form-group"><label class="form-label">Thoi gian</label><input type="text" class="form-input" id="gameDuration" placeholder="VD: 3 phut"></div>
                 </div>
-                <div class="form-group">
-                    <label>Mo ta</label>
-                    <textarea class="form-control" rows="3" placeholder="Mo ta tro choi..."></textarea>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Chieu cao toi thieu</label>
-                        <input type="text" class="form-control" placeholder="VD: 140cm">
-                    </div>
-                    <div class="form-group">
-                        <label>Thoi gian choi</label>
-                        <input type="text" class="form-control" placeholder="VD: 3 phut">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Suc chua (nguoi/luot)</label>
-                        <input type="number" class="form-control" placeholder="VD: 24">
-                    </div>
-                    <div class="form-group">
-                        <label>Trang thai</label>
-                        <select class="form-control">
-                            <option value="active">Dang hoat dong</option>
-                            <option value="maintenance">Bao tri</option>
-                            <option value="closed">Dong cua</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Hinh anh</label>
-                    <input type="file" class="form-control" accept="image/*">
-                </div>
+                <div class="form-group"><label class="form-label">Trang thai</label><select class="form-input" id="gameStatus"><option value="active">Dang hoat dong</option><option value="maintenance">Bao tri</option><option value="closed">Dong cua</option></select></div>
+                <div class="form-group"><label class="form-label">Mo ta</label><textarea class="form-textarea" id="gameDesc" rows="2"></textarea></div>
+                <div class="form-group"><label class="form-label">Link hinh anh *</label><input type="url" class="form-input" id="gameImage" placeholder="https://..." oninput="previewImage(this.value,'gamePreview')"></div>
+                <div class="image-preview" id="gamePreview"></div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('addGameModal')">Huy</button>
-                <button class="btn btn-primary" onclick="saveAndClose('addGameModal')">Them Tro Choi</button>
-            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal()">Huy</button><button class="btn btn-primary" onclick="saveGame()">Luu</button></div>
         </div>
     </div>
-
-    <!-- Edit Game Modal -->
-    <div class="modal-overlay" id="editGameModal">
-        <div class="modal modal-lg">
-            <div class="modal-header">
-                <h3>Chinh Sua Tro Choi</h3>
-                <button class="modal-close" onclick="closeModal('editGameModal')"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Ten tro choi *</label>
-                        <input type="text" class="form-control" value="Thunder Coaster">
-                    </div>
-                    <div class="form-group">
-                        <label>Khu vuc *</label>
-                        <select class="form-control">
-                            <option value="thrill" selected>Khu Cam Giac Manh</option>
-                            <option value="family">Khu Gia Dinh</option>
-                            <option value="kids">Khu Tre Em</option>
-                            <option value="vr">Khu VR & Tuong Tac</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Mo ta</label>
-                    <textarea class="form-control" rows="3">Tau luon siet toc do cao voi nhieu vong xoay cam giac manh...</textarea>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Chieu cao toi thieu</label>
-                        <input type="text" class="form-control" value="140cm">
-                    </div>
-                    <div class="form-group">
-                        <label>Thoi gian choi</label>
-                        <input type="text" class="form-control" value="3 phut">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Suc chua</label>
-                        <input type="number" class="form-control" value="24">
-                    </div>
-                    <div class="form-group">
-                        <label>Trang thai</label>
-                        <select class="form-control">
-                            <option value="active" selected>Dang hoat dong</option>
-                            <option value="maintenance">Bao tri</option>
-                            <option value="closed">Dong cua</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('editGameModal')">Huy</button>
-                <button class="btn btn-primary" onclick="saveAndClose('editGameModal')">Luu Thay Doi</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        function saveAndClose(id) { alert('Da luu thanh cong!'); closeModal(id); }
-        function confirmDelete() { if(confirm('Ban co chac muon xoa tro choi nay?')) alert('Da xoa!'); }
-    </script>
-
     <style>
-        .filter-bar { display: flex; gap: 12px; margin-bottom: 24px; }
-        .form-control { padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; }
-        .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .game-card { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; position: relative; }
-        .game-image { width: 100%; height: 180px; object-fit: cover; }
-        .game-status { position: absolute; top: 12px; right: 12px; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; }
-        .game-status.active { background: #dcfce7; color: #16A34A; }
-        .game-status.maintenance { background: #fef3c7; color: #d97706; }
-        .game-status.closed { background: #fee2e2; color: #dc2626; }
-        .game-body { padding: 16px; }
-        .game-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
-        .game-zone { font-size: 13px; color: #64748b; margin-bottom: 12px; }
-        .game-zone i { margin-right: 6px; }
-        .game-meta { display: flex; gap: 16px; font-size: 12px; color: #64748b; }
-        .game-meta i { margin-right: 4px; }
-        .game-actions { padding: 12px 16px; border-top: 1px solid #e2e8f0; display: flex; gap: 8px; }
-        .btn-sm { padding: 6px 12px; font-size: 12px; }
-        
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; }
-        .modal-overlay.active { display: flex; }
-        .modal { background: white; border-radius: 12px; width: 100%; max-width: 500px; max-height: 90vh; overflow: hidden; }
-        .modal.modal-lg { max-width: 700px; }
-        .modal-header { padding: 16px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
-        .modal-header h3 { font-size: 18px; font-weight: 600; margin: 0; }
-        .modal-close { background: none; border: none; font-size: 20px; color: #64748b; cursor: pointer; }
-        .modal-body { padding: 20px; max-height: 60vh; overflow-y: auto; }
-        .modal-footer { padding: 16px 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 12px; }
-        .form-group { margin-bottom: 16px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 14px; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .drag-hint{background:#ecfdf5;border:1px solid #6ee7b7;border-radius:8px;padding:12px 16px;margin-bottom:20px;color:#065f46;font-size:14px;display:flex;align-items:center;gap:10px;}
+        .filter-bar{margin-bottom:16px;}
+        .form-select{padding:10px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;min-width:200px;}
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;}
+        .card-body{padding:20px 24px;}
+        .image-preview{margin:12px 0;border-radius:8px;overflow:hidden;max-height:150px;}
+        .image-preview img{width:100%;max-height:150px;object-fit:cover;}
+        .item-list{display:flex;flex-direction:column;gap:8px;}
+        .item-row{display:flex;align-items:center;gap:16px;padding:16px;background:#f8fafc;border-radius:12px;border:2px solid #e2e8f0;transition:all .2s;cursor:grab;}
+        .item-row:hover{border-color:#16A34A;box-shadow:0 4px 12px rgba(0,0,0,.08);}
+        .item-row.dragging{opacity:0.5;border-color:#16A34A;background:#ecfdf5;}
+        .drag-handle{color:#94a3b8;font-size:18px;cursor:grab;padding:0 8px;}
+        .item-order{background:linear-gradient(135deg,#16A34A,#22C55E);color:#fff;font-weight:700;font-size:14px;min-width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+        .item-image{width:100px;height:70px;border-radius:8px;overflow:hidden;flex-shrink:0;}
+        .item-image img{width:100%;height:100%;object-fit:cover;}
+        .item-info{flex:1;min-width:0;}
+        .item-name{font-size:16px;font-weight:600;color:#1e293b;margin-bottom:4px;}
+        .item-zone{font-size:13px;color:#64748b;margin-bottom:4px;}
+        .item-meta{display:flex;gap:16px;font-size:12px;color:#94a3b8;}
+        .item-meta span{display:flex;align-items:center;gap:4px;}
+        .item-meta i{color:#16A34A;}
+        .item-status{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+        .status-active{background:#dcfce7;color:#166534;}
+        .status-maintenance{background:#fef3c7;color:#b45309;}
+        .status-closed{background:#fee2e2;color:#dc2626;}
+        .item-actions{display:flex;gap:8px;}
+        .btn-icon{width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+        .btn-edit{background:#dbeafe;color:#1d4ed8;}
+        .btn-delete{background:#fee2e2;color:#dc2626;}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:550px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;}
+        .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#64748b;}
+        .modal-body{padding:24px;}
+        .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid #e2e8f0;}
+        .form-group{margin-bottom:16px;}
+        .form-row{display:flex;gap:16px;}
+        .form-row .form-group{flex:1;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+        .form-input,.form-textarea{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;box-sizing:border-box;}
+        .form-input:focus,.form-textarea:focus{outline:none;border-color:#16A34A;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#16A34A;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
     </style>
+    <script>
+        var gameData=[
+            {id:1,name:'Thunder Coaster',zone:'thrill',height:'140cm+',duration:'3 phut',status:'active',desc:'Tau luon siet toc do 100km/h',image:'https://images.unsplash.com/photo-1536086845612-2a0be3864e3c?w=400',order:0},
+            {id:2,name:'Sky Drop Tower',zone:'thrill',height:'150cm+',duration:'1 phut',status:'active',desc:'Thap roi tu do 60m',image:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400',order:1},
+            {id:3,name:'VR Adventure Zone',zone:'vr',height:'120cm+',duration:'15 phut',status:'maintenance',desc:'Trai nghiem thuc te ao',image:'https://images.unsplash.com/photo-1605648916361-9bc12ad6a569?w=400',order:2},
+            {id:4,name:'Ferris Wheel',zone:'family',height:'Moi lua tuoi',duration:'10 phut',status:'active',desc:'Vong quay khong lo',image:'https://images.unsplash.com/photo-1513889961551-628c1e5e2ee9?w=400',order:3},
+            {id:5,name:'Water Splash',zone:'family',height:'100cm+',duration:'5 phut',status:'active',desc:'Vuot thac nuoc',image:'https://images.unsplash.com/photo-1560969184-10fe8719e047?w=400',order:4},
+            {id:6,name:'Kids Playground',zone:'kids',height:'3-10 tuoi',duration:'Khong gioi han',status:'active',desc:'San choi tre em',image:'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400',order:5}
+        ];
+        var zoneNames={'thrill':'Khu Cam Giac Manh','family':'Khu Gia Dinh','kids':'Khu Tre Em','vr':'Khu VR'};
+        var zoneIcons={'thrill':'fas fa-bolt','family':'fas fa-users','kids':'fas fa-child','vr':'fas fa-vr-cardboard'};
+        var editingId=null;var draggedItem=null;
+        function render(){
+            var filter=document.getElementById('zoneFilter').value;
+            var filtered=filter?gameData.filter(function(g){return g.zone===filter;}):gameData;
+            filtered.sort(function(a,b){return a.order-b.order;});
+            var html='<div class="item-list" id="gameListContainer">';
+            filtered.forEach(function(g,idx){
+                var statusClass='status-'+g.status;
+                var statusText=g.status==='active'?'Dang hoat dong':(g.status==='maintenance'?'Bao tri':'Dong cua');
+                html+='<div class="item-row" draggable="true" data-id="'+g.id+'" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)">';
+                html+='<div class="drag-handle"><i class="fas fa-grip-vertical"></i></div>';
+                html+='<div class="item-order">#'+(idx+1)+'</div>';
+                html+='<div class="item-image"><img src="'+g.image+'" onerror="this.src=\'https://via.placeholder.com/100x70\'"></div>';
+                html+='<div class="item-info"><div class="item-name">'+g.name+'</div>';
+                html+='<div class="item-zone"><i class="'+zoneIcons[g.zone]+'"></i> '+zoneNames[g.zone]+'</div>';
+                html+='<div class="item-meta"><span><i class="fas fa-ruler-vertical"></i> '+g.height+'</span><span><i class="fas fa-clock"></i> '+g.duration+'</span></div></div>';
+                html+='<span class="item-status '+statusClass+'">'+statusText+'</span>';
+                html+='<div class="item-actions"><button class="btn-icon btn-edit" onclick="openModal('+g.id+')"><i class="fas fa-edit"></i></button><button class="btn-icon btn-delete" onclick="deleteGame('+g.id+')"><i class="fas fa-trash"></i></button></div></div>';
+            });
+            html+='</div>';
+            document.getElementById('gameList').innerHTML=html;
+        }
+        function handleDragStart(e){draggedItem=e.target.closest('.item-row');draggedItem.classList.add('dragging');}
+        function handleDragOver(e){e.preventDefault();var row=e.target.closest('.item-row');if(row&&row!==draggedItem){var list=document.getElementById('gameListContainer');var rows=Array.from(list.querySelectorAll('.item-row'));var draggedIdx=rows.indexOf(draggedItem);var targetIdx=rows.indexOf(row);if(draggedIdx<targetIdx){row.parentNode.insertBefore(draggedItem,row.nextSibling);}else{row.parentNode.insertBefore(draggedItem,row);}}}
+        function handleDrop(e){e.preventDefault();updateOrderFromDOM();}
+        function handleDragEnd(e){if(draggedItem)draggedItem.classList.remove('dragging');draggedItem=null;updateOrderFromDOM();}
+        function updateOrderFromDOM(){var rows=document.querySelectorAll('.item-row');rows.forEach(function(row,idx){var id=parseInt(row.dataset.id);var item=gameData.find(function(g){return g.id===id;});if(item)item.order=idx;});render();showSuccess('Da cap nhat thu tu!');}
+        function previewImage(url,targetId){var el=document.getElementById(targetId);if(url){el.innerHTML='<img src="'+url+'" onerror="this.parentElement.innerHTML=\'\'">';}else{el.innerHTML='';}}
+        function openModal(id){
+            editingId=id||null;
+            document.getElementById('modalTitle').textContent=id?'Sua Tro Choi':'Them Tro Choi';
+            if(id){var g=gameData.find(function(x){return x.id===id;});if(g){document.getElementById('gameName').value=g.name;document.getElementById('gameZone').value=g.zone;document.getElementById('gameHeight').value=g.height;document.getElementById('gameDuration').value=g.duration;document.getElementById('gameStatus').value=g.status;document.getElementById('gameDesc').value=g.desc;document.getElementById('gameImage').value=g.image;previewImage(g.image,'gamePreview');}}
+            else{['gameName','gameHeight','gameDuration','gameDesc','gameImage'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('gameZone').value='thrill';document.getElementById('gameStatus').value='active';document.getElementById('gamePreview').innerHTML='';}
+            document.getElementById('gameModal').classList.add('show');
+        }
+        function closeModal(){document.getElementById('gameModal').classList.remove('show');}
+        function saveGame(){
+            var name=document.getElementById('gameName').value.trim();var image=document.getElementById('gameImage').value.trim();
+            if(!name||!image){alert('Vui long nhap ten va link hinh anh!');return;}
+            if(editingId){var g=gameData.find(function(x){return x.id===editingId;});if(g){g.name=name;g.zone=document.getElementById('gameZone').value;g.height=document.getElementById('gameHeight').value.trim();g.duration=document.getElementById('gameDuration').value.trim();g.status=document.getElementById('gameStatus').value;g.desc=document.getElementById('gameDesc').value.trim();g.image=image;}}
+            else{var maxOrder=gameData.reduce(function(max,g){return Math.max(max,g.order);},0);gameData.push({id:Date.now(),name:name,zone:document.getElementById('gameZone').value,height:document.getElementById('gameHeight').value.trim(),duration:document.getElementById('gameDuration').value.trim(),status:document.getElementById('gameStatus').value,desc:document.getElementById('gameDesc').value.trim(),image:image,order:maxOrder+1});}
+            closeModal();render();showSuccess(editingId?'Da cap nhat!':'Da them tro choi!');
+        }
+        function deleteGame(id){if(!confirm('Xoa tro choi nay?'))return;gameData=gameData.filter(function(g){return g.id!==id;});render();showSuccess('Da xoa!');}
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},2000);}
+        render();
+    </script>
 </body>
 </html>

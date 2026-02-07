@@ -3,22 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - An Uong</title>
+    <title>Admin - An Uong & Dich Vu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles/admin.css">
 </head>
 <body>
     <div class="sidebar">
-        <div class="sidebar-header">
-            <div class="logo">
-                <div class="logo-icon"><i class="fas fa-ticket-alt"></i></div>
-                <div class="logo-text">Adventure Park</div>
-            </div>
-        </div>
-        <div class="property-selector">
-            <div class="property-label">Khu Vui Choi</div>
-            <div class="property-name">Adventure Park Admin</div>
-        </div>
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon"><i class="fas fa-ticket-alt"></i></div><div class="logo-text">Adventure Park</div></div></div>
+        <div class="property-selector"><div class="property-label">Khu Vui Choi</div><div class="property-name">Adventure Park Admin</div></div>
         <nav class="nav-menu">
             <div class="nav-section-title">TONG QUAN</div>
             <div class="nav-section">
@@ -54,65 +46,145 @@
             </div>
         </nav>
     </div>
-
-    <header class="header">
-        <div class="header-left"><h1 class="page-title">An Uong & Nha Hang</h1></div>
-        <div class="header-right"><button class="btn btn-primary" onclick="openModal('addFoodModal')"><i class="fas fa-plus"></i> Them Nha Hang</button></div>
-    </header>
-
+    <header class="header"><div class="header-left"><h1 class="page-title">Quan Ly An Uong</h1></div><div class="header-right"><button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Them Nha Hang</button></div></header>
     <main class="main-content">
-        <div class="items-grid" id="foodGrid"></div>
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
+        <div class="drag-hint"><i class="fas fa-info-circle"></i> Keo tha cac muc de thay doi thu tu hien thi. Muc o tren se hien thi truoc.</div>
+        <div class="filter-bar">
+            <select class="form-select" id="typeFilter" onchange="render()">
+                <option value="">Tat ca loai</option>
+                <option value="restaurant">Nha hang</option>
+                <option value="fastfood">Fast Food</option>
+                <option value="cafe">Cafe & Giai khat</option>
+                <option value="snack">An vat</option>
+            </select>
+        </div>
+        <div class="content-card"><div class="card-body"><div id="foodList"></div></div></div>
     </main>
-
-    <!-- Add Modal -->
-    <div class="modal-overlay" id="addFoodModal">
-        <div class="modal">
-            <div class="modal-header"><h3>Them Nha Hang / Quan An</h3><button class="modal-close" onclick="closeModal('addFoodModal')"><i class="fas fa-times"></i></button></div>
+    <div class="modal" id="foodModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="modalTitle">Them Nha Hang</h3><button class="close-btn" onclick="closeModal()">&times;</button></div>
             <div class="modal-body">
-                <div class="form-group"><label>Ten *</label><input type="text" class="form-control" placeholder="VD: BBQ Garden"></div>
-                <div class="form-group"><label>Loai hinh</label><select class="form-control"><option value="restaurant">Nha hang</option><option value="fastfood">Fast Food</option><option value="cafe">Cafe & Giai khat</option><option value="snack">An vat</option></select></div>
-                <div class="form-group"><label>Mo ta</label><textarea class="form-control" rows="3" placeholder="Mo ta..."></textarea></div>
-                <div class="form-row"><div class="form-group"><label>Gio mo cua</label><input type="time" class="form-control"></div><div class="form-group"><label>Gio dong cua</label><input type="time" class="form-control"></div></div>
-                <div class="form-group"><label>Khu vuc</label><input type="text" class="form-control" placeholder="VD: Khu A"></div>
-                <div class="form-group"><label>Hinh anh</label><input type="file" class="form-control" accept="image/*"></div>
+                <div class="form-group"><label class="form-label">Ten *</label><input type="text" class="form-input" id="foodName" placeholder="VD: Adventure BBQ"></div>
+                <div class="form-group"><label class="form-label">Loai hinh</label><select class="form-input" id="foodType"><option value="restaurant">Nha hang</option><option value="fastfood">Fast Food</option><option value="cafe">Cafe & Giai khat</option><option value="snack">An vat</option></select></div>
+                <div class="form-group"><label class="form-label">Mo ta</label><textarea class="form-textarea" id="foodDesc" rows="2"></textarea></div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Gio mo cua</label><input type="time" class="form-input" id="foodOpenTime" value="09:00"></div>
+                    <div class="form-group"><label class="form-label">Gio dong cua</label><input type="time" class="form-input" id="foodCloseTime" value="21:00"></div>
+                </div>
+                <div class="form-group"><label class="form-label">Khu vuc</label><input type="text" class="form-input" id="foodLocation" placeholder="VD: Khu A - Gan cong chinh"></div>
+                <div class="form-group"><label class="form-label">Link hinh anh</label><input type="url" class="form-input" id="foodImage" placeholder="https://..." oninput="previewImage(this.value,'foodPreview')"></div>
+                <div class="image-preview" id="foodPreview"></div>
             </div>
-            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('addFoodModal')">Huy</button><button class="btn btn-primary" onclick="saveAndClose('addFoodModal')">Them</button></div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal()">Huy</button><button class="btn btn-primary" onclick="saveFood()">Luu</button></div>
         </div>
     </div>
-
-    <!-- Edit Modal -->
-    <div class="modal-overlay" id="editFoodModal">
-        <div class="modal">
-            <div class="modal-header"><h3>Chinh Sua Nha Hang</h3><button class="modal-close" onclick="closeModal('editFoodModal')"><i class="fas fa-times"></i></button></div>
-            <div class="modal-body">
-                <div class="form-group"><label>Ten *</label><input type="text" class="form-control" value="Adventure BBQ"></div>
-                <div class="form-group"><label>Loai hinh</label><select class="form-control"><option value="restaurant" selected>Nha hang</option><option value="fastfood">Fast Food</option></select></div>
-                <div class="form-group"><label>Mo ta</label><textarea class="form-control" rows="3">Nha hang BBQ phong cach...</textarea></div>
-            </div>
-            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('editFoodModal')">Huy</button><button class="btn btn-primary" onclick="saveAndClose('editFoodModal')">Luu</button></div>
-        </div>
-    </div>
-
-    <script>
-        function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        function saveAndClose(id) { alert('Da luu thanh cong!'); closeModal(id); }
-        function confirmDelete() { if(confirm('Ban co chac muon xoa?')) alert('Da xoa!'); }
-
-        fetch('../assets/data/park-content.json').then(r=>r.json()).then(data=>{
-            var food=data.food;
-            var g=document.getElementById('foodGrid');
-            if(!food||!food.items)return;
-            var h='';
-            food.items.forEach(i=>{
-                h+='<div class="item-card"><img src="'+i.image+'" class="item-card-image"><div class="item-card-body"><div class="item-card-title">'+i.name+'</div><div class="item-card-desc">'+i.shortDesc+'</div></div><div class="item-card-actions"><button class="btn btn-secondary btn-sm" onclick="openModal(\'editFoodModal\')"><i class="fas fa-edit"></i></button><button class="btn btn-secondary btn-sm" onclick="confirmDelete()"><i class="fas fa-trash"></i></button></div></div>';
-            });
-            g.innerHTML=h;
-        });
-    </script>
     <style>
-        .btn-sm{padding:6px 12px;font-size:12px;}
-        .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:1000;}.modal-overlay.active{display:flex;}.modal{background:white;border-radius:12px;width:100%;max-width:500px;max-height:90vh;overflow:hidden;}.modal-header{padding:16px 20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;}.modal-header h3{font-size:18px;font-weight:600;margin:0;}.modal-close{background:none;border:none;font-size:20px;color:#64748b;cursor:pointer;}.modal-body{padding:20px;max-height:60vh;overflow-y:auto;}.modal-footer{padding:16px 20px;border-top:1px solid #e2e8f0;display:flex;justify-content:flex-end;gap:12px;}.form-group{margin-bottom:16px;}.form-group label{display:block;margin-bottom:8px;font-weight:500;font-size:14px;}.form-control{width:100%;padding:10px 14px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;box-sizing:border-box;}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+        .drag-hint{background:#ecfdf5;border:1px solid #6ee7b7;border-radius:8px;padding:12px 16px;margin-bottom:20px;color:#065f46;font-size:14px;display:flex;align-items:center;gap:10px;}
+        .filter-bar{margin-bottom:16px;}
+        .form-select{padding:10px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;min-width:200px;}
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;}
+        .card-body{padding:20px 24px;}
+        .image-preview{margin:12px 0;border-radius:8px;overflow:hidden;max-height:150px;}
+        .image-preview img{width:100%;max-height:150px;object-fit:cover;}
+        .item-list{display:flex;flex-direction:column;gap:8px;}
+        .item-row{display:flex;align-items:center;gap:16px;padding:16px;background:#f8fafc;border-radius:12px;border:2px solid #e2e8f0;transition:all .2s;cursor:grab;}
+        .item-row:hover{border-color:#16A34A;box-shadow:0 4px 12px rgba(0,0,0,.08);}
+        .item-row.dragging{opacity:0.5;border-color:#16A34A;background:#ecfdf5;}
+        .drag-handle{color:#94a3b8;font-size:18px;cursor:grab;padding:0 8px;}
+        .item-order{background:linear-gradient(135deg,#16A34A,#22C55E);color:#fff;font-weight:700;font-size:14px;min-width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+        .item-image{width:100px;height:70px;border-radius:8px;overflow:hidden;flex-shrink:0;background:#f1f5f9;display:flex;align-items:center;justify-content:center;}
+        .item-image img{width:100%;height:100%;object-fit:cover;}
+        .item-image i{font-size:28px;color:#16A34A;}
+        .item-info{flex:1;min-width:0;}
+        .item-name{font-size:16px;font-weight:600;color:#1e293b;margin-bottom:4px;}
+        .item-desc{font-size:13px;color:#64748b;margin-bottom:6px;}
+        .item-meta{display:flex;gap:16px;font-size:12px;color:#94a3b8;}
+        .item-meta span{display:flex;align-items:center;gap:4px;}
+        .item-meta i{color:#16A34A;}
+        .item-type{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+        .type-restaurant{background:#dcfce7;color:#166534;}
+        .type-fastfood{background:#fef3c7;color:#b45309;}
+        .type-cafe{background:#dbeafe;color:#1d4ed8;}
+        .type-snack{background:#fce7f3;color:#be185d;}
+        .item-actions{display:flex;gap:8px;}
+        .btn-icon{width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+        .btn-edit{background:#dbeafe;color:#1d4ed8;}
+        .btn-delete{background:#fee2e2;color:#dc2626;}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:550px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;}
+        .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#64748b;}
+        .modal-body{padding:24px;}
+        .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid #e2e8f0;}
+        .form-group{margin-bottom:16px;}
+        .form-row{display:flex;gap:16px;}
+        .form-row .form-group{flex:1;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+        .form-input,.form-textarea{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;box-sizing:border-box;}
+        .form-input:focus,.form-textarea:focus{outline:none;border-color:#16A34A;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#16A34A;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
     </style>
+    <script>
+        var foodData=[
+            {id:1,name:'Adventure BBQ',type:'restaurant',desc:'Nha hang BBQ phong cach Cowboy',openTime:'10:00',closeTime:'21:00',location:'Khu A - Gan cong chinh',image:'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400',order:0},
+            {id:2,name:'Tropical Cafe',type:'cafe',desc:'Cafe va giai khat voi view dep',openTime:'08:00',closeTime:'22:00',location:'Khu B - Gan ho nuoc',image:'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400',order:1},
+            {id:3,name:'Fast Food Zone',type:'fastfood',desc:'Hamburger, hotdog, pizza',openTime:'09:00',closeTime:'21:00',location:'Khu C - Trung tam',image:'https://images.unsplash.com/photo-1561758033-d89a9ad46330?w=400',order:2},
+            {id:4,name:'Snack Corner',type:'snack',desc:'Bap rang, kem, keo',openTime:'09:00',closeTime:'21:00',location:'Nhieu vi tri',image:'https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=400',order:3}
+        ];
+        var typeNames={'restaurant':'Nha hang','fastfood':'Fast Food','cafe':'Cafe','snack':'An vat'};
+        var editingId=null;var draggedItem=null;
+        function render(){
+            var filter=document.getElementById('typeFilter').value;
+            var filtered=filter?foodData.filter(function(f){return f.type===filter;}):foodData;
+            filtered.sort(function(a,b){return a.order-b.order;});
+            var html='<div class="item-list" id="foodListContainer">';
+            filtered.forEach(function(f,idx){
+                var imageHtml=f.image?'<img src="'+f.image+'" onerror="this.parentElement.innerHTML=\'<i class=\\\'fas fa-utensils\\\'></i>\'">':'<i class="fas fa-utensils"></i>';
+                html+='<div class="item-row" draggable="true" data-id="'+f.id+'" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)">';
+                html+='<div class="drag-handle"><i class="fas fa-grip-vertical"></i></div>';
+                html+='<div class="item-order">#'+(idx+1)+'</div>';
+                html+='<div class="item-image">'+imageHtml+'</div>';
+                html+='<div class="item-info"><div class="item-name">'+f.name+'</div>';
+                html+='<div class="item-desc">'+f.desc+'</div>';
+                html+='<div class="item-meta"><span><i class="fas fa-clock"></i> '+f.openTime+' - '+f.closeTime+'</span><span><i class="fas fa-map-marker-alt"></i> '+f.location+'</span></div></div>';
+                html+='<span class="item-type type-'+f.type+'">'+typeNames[f.type]+'</span>';
+                html+='<div class="item-actions"><button class="btn-icon btn-edit" onclick="openModal('+f.id+')"><i class="fas fa-edit"></i></button><button class="btn-icon btn-delete" onclick="deleteFood('+f.id+')"><i class="fas fa-trash"></i></button></div></div>';
+            });
+            html+='</div>';
+            document.getElementById('foodList').innerHTML=html;
+        }
+        function handleDragStart(e){draggedItem=e.target.closest('.item-row');draggedItem.classList.add('dragging');}
+        function handleDragOver(e){e.preventDefault();var row=e.target.closest('.item-row');if(row&&row!==draggedItem){var list=document.getElementById('foodListContainer');var rows=Array.from(list.querySelectorAll('.item-row'));var draggedIdx=rows.indexOf(draggedItem);var targetIdx=rows.indexOf(row);if(draggedIdx<targetIdx){row.parentNode.insertBefore(draggedItem,row.nextSibling);}else{row.parentNode.insertBefore(draggedItem,row);}}}
+        function handleDrop(e){e.preventDefault();updateOrderFromDOM();}
+        function handleDragEnd(e){if(draggedItem)draggedItem.classList.remove('dragging');draggedItem=null;updateOrderFromDOM();}
+        function updateOrderFromDOM(){var rows=document.querySelectorAll('.item-row');rows.forEach(function(row,idx){var id=parseInt(row.dataset.id);var item=foodData.find(function(f){return f.id===id;});if(item)item.order=idx;});render();showSuccess('Da cap nhat thu tu!');}
+        function previewImage(url,targetId){var el=document.getElementById(targetId);if(url){el.innerHTML='<img src="'+url+'" onerror="this.parentElement.innerHTML=\'\'">';}else{el.innerHTML='';}}
+        function openModal(id){
+            editingId=id||null;
+            document.getElementById('modalTitle').textContent=id?'Sua Nha Hang':'Them Nha Hang';
+            if(id){var f=foodData.find(function(x){return x.id===id;});if(f){document.getElementById('foodName').value=f.name;document.getElementById('foodType').value=f.type;document.getElementById('foodDesc').value=f.desc;document.getElementById('foodOpenTime').value=f.openTime;document.getElementById('foodCloseTime').value=f.closeTime;document.getElementById('foodLocation').value=f.location;document.getElementById('foodImage').value=f.image||'';previewImage(f.image,'foodPreview');}}
+            else{['foodName','foodDesc','foodLocation','foodImage'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('foodType').value='restaurant';document.getElementById('foodOpenTime').value='09:00';document.getElementById('foodCloseTime').value='21:00';document.getElementById('foodPreview').innerHTML='';}
+            document.getElementById('foodModal').classList.add('show');
+        }
+        function closeModal(){document.getElementById('foodModal').classList.remove('show');}
+        function saveFood(){
+            var name=document.getElementById('foodName').value.trim();
+            if(!name){alert('Vui long nhap ten!');return;}
+            if(editingId){var f=foodData.find(function(x){return x.id===editingId;});if(f){f.name=name;f.type=document.getElementById('foodType').value;f.desc=document.getElementById('foodDesc').value.trim();f.openTime=document.getElementById('foodOpenTime').value;f.closeTime=document.getElementById('foodCloseTime').value;f.location=document.getElementById('foodLocation').value.trim();f.image=document.getElementById('foodImage').value.trim();}}
+            else{var maxOrder=foodData.reduce(function(max,f){return Math.max(max,f.order);},0);foodData.push({id:Date.now(),name:name,type:document.getElementById('foodType').value,desc:document.getElementById('foodDesc').value.trim(),openTime:document.getElementById('foodOpenTime').value,closeTime:document.getElementById('foodCloseTime').value,location:document.getElementById('foodLocation').value.trim(),image:document.getElementById('foodImage').value.trim(),order:maxOrder+1});}
+            closeModal();render();showSuccess(editingId?'Da cap nhat!':'Da them nha hang!');
+        }
+        function deleteFood(id){if(!confirm('Xoa nha hang nay?'))return;foodData=foodData.filter(function(f){return f.id!==id;});render();showSuccess('Da xoa!');}
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},2000);}
+        render();
+    </script>
 </body>
 </html>
