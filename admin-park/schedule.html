@@ -49,13 +49,19 @@
     <header class="header"><div class="header-left"><h1 class="page-title">Quan Ly Su Kien</h1></div><div class="header-right"><button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Them Su Kien</button></div></header>
     <main class="main-content">
         <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
-        <div class="drag-hint"><i class="fas fa-info-circle"></i> Keo tha cac muc de thay doi thu tu hien thi. Muc o tren se hien thi truoc.</div>
+        <div class="auto-sort-hint"><i class="fas fa-sort-amount-down"></i> Tu dong sap xep theo thoi gian: Dang dien ra → Sap dien ra → Da ket thuc</div>
         <div class="filter-bar">
             <select class="form-select" id="typeFilter" onchange="render()">
                 <option value="">Tat ca loai</option>
                 <option value="show">Bieu dien</option>
                 <option value="event">Su kien</option>
                 <option value="workshop">Workshop</option>
+            </select>
+            <select class="form-select" id="statusFilter" onchange="render()">
+                <option value="">Tat ca trang thai</option>
+                <option value="ongoing">Dang dien ra</option>
+                <option value="upcoming">Sap dien ra</option>
+                <option value="ended">Da ket thuc</option>
             </select>
         </div>
         <div class="content-card"><div class="card-body"><div id="scheduleList"></div></div></div>
@@ -84,19 +90,25 @@
         </div>
     </div>
     <style>
-        .drag-hint{background:#ecfdf5;border:1px solid #6ee7b7;border-radius:8px;padding:12px 16px;margin-bottom:20px;color:#065f46;font-size:14px;display:flex;align-items:center;gap:10px;}
-        .filter-bar{margin-bottom:16px;}
-        .form-select{padding:10px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;min-width:200px;}
+        .auto-sort-hint{background:#e0f2fe;border:1px solid #7dd3fc;border-radius:8px;padding:12px 16px;margin-bottom:20px;color:#0369a1;font-size:14px;display:flex;align-items:center;gap:10px;}
+        .filter-bar{margin-bottom:16px;display:flex;gap:12px;flex-wrap:wrap;}
+        .form-select{padding:10px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;min-width:180px;}
         .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;}
         .card-body{padding:20px 24px;}
         .image-preview{margin:12px 0;border-radius:8px;overflow:hidden;max-height:150px;}
         .image-preview img{width:100%;max-height:150px;object-fit:cover;}
         .item-list{display:flex;flex-direction:column;gap:8px;}
-        .item-row{display:flex;align-items:center;gap:16px;padding:16px;background:#f8fafc;border-radius:12px;border:2px solid #e2e8f0;transition:all .2s;cursor:grab;}
+        .item-row{display:flex;align-items:center;gap:16px;padding:16px;background:#f8fafc;border-radius:12px;border:2px solid #e2e8f0;transition:all .2s;}
         .item-row:hover{border-color:#16A34A;box-shadow:0 4px 12px rgba(0,0,0,.08);}
-        .item-row.dragging{opacity:0.5;border-color:#16A34A;background:#ecfdf5;}
-        .drag-handle{color:#94a3b8;font-size:18px;cursor:grab;padding:0 8px;}
+        .item-row.ended{background:#f1f5f9;opacity:0.7;border-color:#cbd5e1;}
+        .item-row.ended:hover{border-color:#94a3b8;}
+        .item-row.ongoing{background:#ecfdf5;border-color:#86efac;}
+        .item-status-badge{min-width:100px;text-align:center;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;}
+        .status-ongoing{background:#dcfce7;color:#16a34a;}
+        .status-upcoming{background:#dbeafe;color:#1d4ed8;}
+        .status-ended{background:#e2e8f0;color:#64748b;}
         .item-order{background:linear-gradient(135deg,#16A34A,#22C55E);color:#fff;font-weight:700;font-size:14px;min-width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+        .item-row.ended .item-order{background:linear-gradient(135deg,#94a3b8,#cbd5e1);}
         .item-image{width:100px;height:70px;border-radius:8px;overflow:hidden;flex-shrink:0;background:#f1f5f9;display:flex;align-items:center;justify-content:center;}
         .item-image img{width:100%;height:100%;object-fit:cover;}
         .item-image i{font-size:28px;color:#16A34A;}
@@ -104,9 +116,10 @@
         .item-name{font-size:16px;font-weight:600;color:#1e293b;margin-bottom:4px;display:flex;align-items:center;gap:8px;}
         .item-badge{background:#fef3c7;color:#b45309;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;}
         .item-desc{font-size:13px;color:#64748b;margin-bottom:6px;}
-        .item-meta{display:flex;gap:16px;font-size:12px;color:#94a3b8;}
+        .item-meta{display:flex;gap:16px;font-size:12px;color:#94a3b8;flex-wrap:wrap;}
         .item-meta span{display:flex;align-items:center;gap:4px;}
         .item-meta i{color:#16A34A;}
+        .item-row.ended .item-meta i{color:#94a3b8;}
         .item-type{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;}
         .type-show{background:#dbeafe;color:#1d4ed8;}
         .type-event{background:#fce7f3;color:#be185d;}
@@ -138,41 +151,79 @@
     </style>
     <script>
         var scheduleData=[
-            {id:1,name:'Halloween Festival',type:'event',desc:'Le hoi Halloween lon nhat mien Nam',startDate:'2026-10-25',endDate:'2026-10-31',startTime:'18:00',endTime:'22:00',location:'Toan bo cong vien',badge:'Hot',image:'https://images.unsplash.com/photo-1509557965875-b88c97052f0e?w=400',order:0},
-            {id:2,name:'Water Splash Show',type:'show',desc:'Bieu dien nhac nuoc hoanh trang',startDate:'',endDate:'',startTime:'19:00',endTime:'19:30',location:'San khau nuoc',badge:'',image:'https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?w=400',order:1},
-            {id:3,name:'Magic Workshop',type:'workshop',desc:'Hoc ao thuat cung nghe si chuyen nghiep',startDate:'',endDate:'',startTime:'14:00',endTime:'15:00',location:'Khu hoat dong',badge:'Moi',image:'https://images.unsplash.com/photo-1503095396549-807759245b35?w=400',order:2},
-            {id:4,name:'Parade',type:'show',desc:'Dieu hanh nhac vu voi nhan vat hoat hinh',startDate:'',endDate:'',startTime:'16:00',endTime:'16:45',location:'Duong chinh',badge:'',image:'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=400',order:3}
+            {id:1,name:'Halloween Festival',type:'event',desc:'Le hoi Halloween lon nhat mien Nam',startDate:'2026-10-25',endDate:'2026-10-31',startTime:'18:00',endTime:'22:00',location:'Toan bo cong vien',badge:'Hot',image:'https://images.unsplash.com/photo-1509557965875-b88c97052f0e?w=400'},
+            {id:2,name:'Water Splash Show',type:'show',desc:'Bieu dien nhac nuoc hoanh trang',startDate:'2026-02-07',endDate:'2026-12-31',startTime:'19:00',endTime:'19:30',location:'San khau nuoc',badge:'',image:'https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?w=400'},
+            {id:3,name:'Magic Workshop',type:'workshop',desc:'Hoc ao thuat cung nghe si chuyen nghiep',startDate:'2026-02-01',endDate:'2026-02-05',startTime:'14:00',endTime:'15:00',location:'Khu hoat dong',badge:'',image:'https://images.unsplash.com/photo-1503095396549-807759245b35?w=400'},
+            {id:4,name:'Parade',type:'show',desc:'Dieu hanh nhac vu voi nhan vat hoat hinh',startDate:'2026-02-07',endDate:'2026-12-31',startTime:'16:00',endTime:'16:45',location:'Duong chinh',badge:'',image:'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=400'},
+            {id:5,name:'Tet Festival 2026',type:'event',desc:'Hoi xuan chao nam moi',startDate:'2026-02-10',endDate:'2026-02-15',startTime:'09:00',endTime:'21:00',location:'Quang truong chinh',badge:'Sap dien ra',image:'https://images.unsplash.com/photo-1548192746-dd526f154ed9?w=400'}
         ];
         var typeNames={'show':'Bieu dien','event':'Su kien','workshop':'Workshop'};
-        var editingId=null;var draggedItem=null;
+        var statusNames={'ongoing':'Dang dien ra','upcoming':'Sap dien ra','ended':'Da ket thuc'};
+        var editingId=null;
+
+        function getToday(){
+            return new Date().toISOString().split('T')[0];
+        }
+
+        function getEventStatus(event){
+            var today=getToday();
+            var start=event.startDate||today;
+            var end=event.endDate||event.startDate||today;
+            if(today>end)return 'ended';
+            if(today>=start&&today<=end)return 'ongoing';
+            return 'upcoming';
+        }
+
+        function sortEvents(events){
+            return events.sort(function(a,b){
+                var statusA=getEventStatus(a);
+                var statusB=getEventStatus(b);
+                var statusOrder={'ongoing':0,'upcoming':1,'ended':2};
+                if(statusOrder[statusA]!==statusOrder[statusB]){
+                    return statusOrder[statusA]-statusOrder[statusB];
+                }
+                var endA=a.endDate||a.startDate||'9999-12-31';
+                var endB=b.endDate||b.startDate||'9999-12-31';
+                if(statusA==='ended'){
+                    return endB.localeCompare(endA);
+                }
+                return endA.localeCompare(endB);
+            });
+        }
+
         function render(){
-            var filter=document.getElementById('typeFilter').value;
-            var filtered=filter?scheduleData.filter(function(s){return s.type===filter;}):scheduleData;
-            filtered.sort(function(a,b){return a.order-b.order;});
-            var html='<div class="item-list" id="scheduleListContainer">';
+            var typeFilter=document.getElementById('typeFilter').value;
+            var statusFilter=document.getElementById('statusFilter').value;
+            var filtered=scheduleData.filter(function(s){
+                if(typeFilter&&s.type!==typeFilter)return false;
+                if(statusFilter&&getEventStatus(s)!==statusFilter)return false;
+                return true;
+            });
+            filtered=sortEvents(filtered);
+            var html='<div class="item-list">';
+            if(filtered.length===0){
+                html+='<div style="text-align:center;padding:40px;color:#64748b;"><i class="fas fa-calendar-times" style="font-size:48px;margin-bottom:16px;display:block;"></i>Khong co su kien nao</div>';
+            }
             filtered.forEach(function(s,idx){
+                var status=getEventStatus(s);
                 var badgeHtml=s.badge?'<span class="item-badge">'+s.badge+'</span>':'';
                 var imageHtml=s.image?'<img src="'+s.image+'" onerror="this.parentElement.innerHTML=\'<i class=\\\'fas fa-calendar-alt\\\'></i>\'">':'<i class="fas fa-calendar-alt"></i>';
                 var dateText=s.startDate?(s.startDate+(s.endDate&&s.endDate!==s.startDate?' - '+s.endDate:'')):'Hang ngay';
-                var timeText=s.startTime+' - '+s.endTime;
-                html+='<div class="item-row" draggable="true" data-id="'+s.id+'" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)">';
-                html+='<div class="drag-handle"><i class="fas fa-grip-vertical"></i></div>';
+                var timeText=(s.startTime||'--:--')+' - '+(s.endTime||'--:--');
+                html+='<div class="item-row '+status+'" data-id="'+s.id+'">';
                 html+='<div class="item-order">#'+(idx+1)+'</div>';
                 html+='<div class="item-image">'+imageHtml+'</div>';
                 html+='<div class="item-info"><div class="item-name">'+s.name+' '+badgeHtml+'</div>';
                 html+='<div class="item-desc">'+s.desc+'</div>';
                 html+='<div class="item-meta"><span><i class="fas fa-calendar"></i> '+dateText+'</span><span><i class="fas fa-clock"></i> '+timeText+'</span><span><i class="fas fa-map-marker-alt"></i> '+s.location+'</span></div></div>';
+                html+='<span class="item-status-badge status-'+status+'">'+statusNames[status]+'</span>';
                 html+='<span class="item-type type-'+s.type+'">'+typeNames[s.type]+'</span>';
                 html+='<div class="item-actions"><button class="btn-icon btn-edit" onclick="openModal('+s.id+')"><i class="fas fa-edit"></i></button><button class="btn-icon btn-delete" onclick="deleteEvent('+s.id+')"><i class="fas fa-trash"></i></button></div></div>';
             });
             html+='</div>';
             document.getElementById('scheduleList').innerHTML=html;
         }
-        function handleDragStart(e){draggedItem=e.target.closest('.item-row');draggedItem.classList.add('dragging');}
-        function handleDragOver(e){e.preventDefault();var row=e.target.closest('.item-row');if(row&&row!==draggedItem){var list=document.getElementById('scheduleListContainer');var rows=Array.from(list.querySelectorAll('.item-row'));var draggedIdx=rows.indexOf(draggedItem);var targetIdx=rows.indexOf(row);if(draggedIdx<targetIdx){row.parentNode.insertBefore(draggedItem,row.nextSibling);}else{row.parentNode.insertBefore(draggedItem,row);}}}
-        function handleDrop(e){e.preventDefault();updateOrderFromDOM();}
-        function handleDragEnd(e){if(draggedItem)draggedItem.classList.remove('dragging');draggedItem=null;updateOrderFromDOM();}
-        function updateOrderFromDOM(){var rows=document.querySelectorAll('.item-row');rows.forEach(function(row,idx){var id=parseInt(row.dataset.id);var item=scheduleData.find(function(s){return s.id===id;});if(item)item.order=idx;});render();showSuccess('Da cap nhat thu tu!');}
+
         function previewImage(url,targetId){var el=document.getElementById(targetId);if(url){el.innerHTML='<img src="'+url+'" onerror="this.parentElement.innerHTML=\'\'">';}else{el.innerHTML='';}}
         function openModal(id){
             editingId=id||null;
@@ -186,7 +237,7 @@
             var name=document.getElementById('eventName').value.trim();
             if(!name){alert('Vui long nhap ten su kien!');return;}
             if(editingId){var s=scheduleData.find(function(x){return x.id===editingId;});if(s){s.name=name;s.type=document.getElementById('eventType').value;s.desc=document.getElementById('eventDesc').value.trim();s.startDate=document.getElementById('eventStartDate').value;s.endDate=document.getElementById('eventEndDate').value;s.startTime=document.getElementById('eventStartTime').value;s.endTime=document.getElementById('eventEndTime').value;s.location=document.getElementById('eventLocation').value.trim();s.badge=document.getElementById('eventBadge').value.trim();s.image=document.getElementById('eventImage').value.trim();}}
-            else{var maxOrder=scheduleData.reduce(function(max,s){return Math.max(max,s.order);},0);scheduleData.push({id:Date.now(),name:name,type:document.getElementById('eventType').value,desc:document.getElementById('eventDesc').value.trim(),startDate:document.getElementById('eventStartDate').value,endDate:document.getElementById('eventEndDate').value,startTime:document.getElementById('eventStartTime').value,endTime:document.getElementById('eventEndTime').value,location:document.getElementById('eventLocation').value.trim(),badge:document.getElementById('eventBadge').value.trim(),image:document.getElementById('eventImage').value.trim(),order:maxOrder+1});}
+            else{scheduleData.push({id:Date.now(),name:name,type:document.getElementById('eventType').value,desc:document.getElementById('eventDesc').value.trim(),startDate:document.getElementById('eventStartDate').value,endDate:document.getElementById('eventEndDate').value,startTime:document.getElementById('eventStartTime').value,endTime:document.getElementById('eventEndTime').value,location:document.getElementById('eventLocation').value.trim(),badge:document.getElementById('eventBadge').value.trim(),image:document.getElementById('eventImage').value.trim()});}
             closeModal();render();showSuccess(editingId?'Da cap nhat!':'Da them su kien!');
         }
         function deleteEvent(id){if(!confirm('Xoa su kien nay?'))return;scheduleData=scheduleData.filter(function(s){return s.id!==id;});render();showSuccess('Da xoa!');}
