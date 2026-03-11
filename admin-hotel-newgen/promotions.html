@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promotions - Hotel 360 New Gen</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon"><i class="fas fa-gem"></i></div><div class="logo-text">Hotel 360 CMS</div></div></div>
+        <div class="property-selector"><div class="property-label">Current Hotel</div><div class="property-name">Boton Blue Hotel & Spa</div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">MAIN</div><a href="index.html" class="nav-item"><i class="fas fa-chart-pie"></i> Dashboard</a></div>
+            <div class="nav-section"><div class="nav-section-title">CONTENT</div>
+                <a href="rooms.html" class="nav-item"><i class="fas fa-bed"></i> Rooms</a>
+                <a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Services</a>
+                <a href="scenes.html" class="nav-item"><i class="fas fa-vr-cardboard"></i> Scenes & 360°</a>
+                <a href="promotions.html" class="nav-item active"><i class="fas fa-tags"></i> Promotions</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Gallery</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">BOOKING</div>
+                <a href="booking.html" class="nav-item"><i class="fas fa-calendar-check"></i> Configuration</a>
+                <a href="requests.html" class="nav-item"><i class="fas fa-clipboard-list"></i> Requests <span class="nav-badge">3</span></a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">SYSTEM</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../hotel-newgen.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+                <a href="#" class="nav-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="header"><div class="header-left"><h1 class="page-title">Promotions</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar">AD</div></div></div></header>
+
+    <main class="main-content">
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title">Active Promotions</div>
+                <button class="btn btn-primary" onclick="addPromotion()"><i class="fas fa-plus"></i> Create Promotion</button>
+            </div>
+            <div class="card-body">
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Title</th><th>Discount</th><th>Valid Period</th><th>Applied To</th><th>Status</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Summer Special 2026</strong></td>
+                            <td><span style="color:#C9A861;font-weight:700;">20% OFF</span></td>
+                            <td>01/06 – 31/08/2026</td>
+                            <td>All rooms</td>
+                            <td><span class="status-badge published">Active</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline" onclick="editPromotion('Summer Special 2026','20','01/06/2026','31/08/2026','All rooms','active','percent')"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-danger" onclick="deletePromotion('Summer Special 2026')"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Early Bird Booking</strong></td>
+                            <td><span style="color:#C9A861;font-weight:700;">15% OFF</span></td>
+                            <td>Book 30 days ahead</td>
+                            <td>Deluxe, Suite</td>
+                            <td><span class="status-badge published">Active</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline" onclick="editPromotion('Early Bird Booking','15','','','Deluxe, Suite','active','percent')"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-danger" onclick="deletePromotion('Early Bird Booking')"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Spa & Stay Package</strong></td>
+                            <td><span style="color:#C9A861;font-weight:700;">Combo</span></td>
+                            <td>All year</td>
+                            <td>Pacific, Suite + Spa</td>
+                            <td><span class="status-badge draft">Draft</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline" onclick="editPromotion('Spa &amp; Stay Package','0','','','Pacific, Suite + Spa','draft','combo')"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-danger" onclick="deletePromotion('Spa & Stay Package')"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script>function logout(){if(confirm('Logout?'))window.location.href='../index.html';}</script>
+
+    <!-- Promotion Modal (Add/Edit) -->
+    <div class="modal-overlay" id="promoModal">
+        <div class="modal" style="max-width:580px;">
+            <div class="modal-header">
+                <h3 id="promoModalTitle"><i class="fas fa-tags" style="color:#C9A861;margin-right:8px;"></i> Create Promotion</h3>
+                <button class="modal-close" onclick="closeModal('promoModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Promotion Title <span style="color:#ef4444;">*</span></label>
+                    <input type="text" class="form-input" id="promoTitle" placeholder="e.g. Summer Special 2026">
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                    <div class="form-group">
+                        <label class="form-label">Discount Type</label>
+                        <select class="form-input" id="promoType">
+                            <option value="percent">Percentage (%)</option>
+                            <option value="fixed">Fixed Amount (VND)</option>
+                            <option value="combo">Combo / Package</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Discount Value</label>
+                        <input type="number" class="form-input" id="promoValue" placeholder="e.g. 20">
+                    </div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                    <div class="form-group">
+                        <label class="form-label">Start Date</label>
+                        <input type="date" class="form-input" id="promoStart">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">End Date</label>
+                        <input type="date" class="form-input" id="promoEnd">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Applied To</label>
+                    <input type="text" class="form-input" id="promoApplied" placeholder="e.g. All rooms, Deluxe + Suite">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-input" id="promoDesc" rows="3" placeholder="Promotion details..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Status</label>
+                    <select class="form-input" id="promoStatus">
+                        <option value="active">Active</option>
+                        <option value="draft">Draft</option>
+                        <option value="expired">Expired</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('promoModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="savePromotion()"><i class="fas fa-save"></i> Save Promotion</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="deletePromoModal">
+        <div class="modal" style="max-width:420px;text-align:center;">
+            <div class="modal-body" style="padding:32px;">
+                <div style="width:56px;height:56px;border-radius:50%;background:rgba(239,68,68,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+                    <i class="fas fa-trash-alt" style="color:#ef4444;font-size:24px;"></i>
+                </div>
+                <h3 style="margin-bottom:8px;">Delete Promotion?</h3>
+                <p style="color:#94a3b8;margin-bottom:24px;">Are you sure you want to delete "<strong id="deletePromoName" style="color:#C9A861;"></strong>"? This action cannot be undone.</p>
+                <div style="display:flex;gap:12px;justify-content:center;">
+                    <button class="btn btn-outline" onclick="closeModal('deletePromoModal')">Cancel</button>
+                    <button class="btn btn-danger" onclick="confirmDeletePromo()"><i class="fas fa-trash"></i> Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Alert -->
+    <div class="alert alert-success" id="successAlert" style="position:fixed;top:20px;right:20px;z-index:10001;min-width:300px;display:none;">
+        <i class="fas fa-check-circle"></i>
+        <span id="successMsg">Success!</span>
+    </div>
+
+    <script>
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function showSuccess(msg) {
+            const el = document.getElementById('successAlert');
+            document.getElementById('successMsg').textContent = msg;
+            el.style.display = 'flex';
+            setTimeout(() => { el.style.display = 'none'; }, 3000);
+        }
+
+        let editMode = false;
+        function addPromotion() {
+            editMode = false;
+            document.getElementById('promoModalTitle').innerHTML = '<i class="fas fa-tags" style="color:#C9A861;margin-right:8px;"></i> Create Promotion';
+            document.getElementById('promoTitle').value = '';
+            document.getElementById('promoType').value = 'percent';
+            document.getElementById('promoValue').value = '';
+            document.getElementById('promoStart').value = '';
+            document.getElementById('promoEnd').value = '';
+            document.getElementById('promoApplied').value = '';
+            document.getElementById('promoDesc').value = '';
+            document.getElementById('promoStatus').value = 'active';
+            openModal('promoModal');
+        }
+
+        function editPromotion(title, value, start, end, applied, status, type) {
+            editMode = true;
+            document.getElementById('promoModalTitle').innerHTML = '<i class="fas fa-edit" style="color:#C9A861;margin-right:8px;"></i> Edit Promotion';
+            document.getElementById('promoTitle').value = title;
+            document.getElementById('promoType').value = type;
+            document.getElementById('promoValue').value = value;
+            document.getElementById('promoApplied').value = applied;
+            document.getElementById('promoStatus').value = status;
+            document.getElementById('promoDesc').value = '';
+            openModal('promoModal');
+        }
+
+        function savePromotion() {
+            const title = document.getElementById('promoTitle').value.trim();
+            if (!title) { alert('Please enter a promotion title'); return; }
+            closeModal('promoModal');
+            showSuccess(editMode ? 'Promotion updated!' : 'Promotion created!');
+        }
+
+        let deleteTarget = '';
+        function deletePromotion(name) {
+            deleteTarget = name;
+            document.getElementById('deletePromoName').textContent = name;
+            openModal('deletePromoModal');
+        }
+        function confirmDeletePromo() {
+            closeModal('deletePromoModal');
+            showSuccess('Promotion "' + deleteTarget + '" deleted!');
+        }
+    </script>
+</body>
+</html>

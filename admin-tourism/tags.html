@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tags - Tourism Admin</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="styles/admin.css">
+    <style>
+        .tags-cloud{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
+        .tag-chip{display:inline-flex;align-items:center;gap:8px;background:#f0fdfa;color:#0D9488;padding:8px 16px;border-radius:24px;font-size:14px;font-weight:500;border:1px solid #99f6e4;cursor:pointer;transition:all .2s}
+        .tag-chip:hover{background:#0D9488;color:#fff}
+        .tag-chip .tag-count{background:rgba(13,148,136,.15);padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600}
+        .tag-chip:hover .tag-count{background:rgba(255,255,255,.2)}
+        .tag-chip .tag-remove{opacity:.5;cursor:pointer;font-size:12px}
+        .tag-chip .tag-remove:hover{opacity:1}
+        .add-tag-inline{display:flex;gap:8px;margin-bottom:24px;max-width:400px}
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon"><i class="fas fa-map-marked-alt"></i></div><div class="logo-text">Tourism Admin</div></div></div>
+        <div class="property-selector"><div class="property-label">Platform</div><div class="property-name">Du Lịch Bà Rịa — 360°</div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">MAIN</div><a href="index.html" class="nav-item"><i class="fas fa-chart-pie"></i> Dashboard</a></div>
+            <div class="nav-section"><div class="nav-section-title">NỘI DUNG</div>
+                <a href="provinces.html" class="nav-item"><i class="fas fa-landmark"></i> Tỉnh/Thành</a>
+                <a href="categories.html" class="nav-item"><i class="fas fa-folder-open"></i> Danh Mục</a>
+                <a href="pois.html" class="nav-item"><i class="fas fa-map-pin"></i> Điểm Đến <span class="nav-badge">12</span></a>
+                <a href="tags.html" class="nav-item active"><i class="fas fa-tags"></i> Tags</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">TRỰC QUAN</div>
+                <a href="map-config.html" class="nav-item"><i class="fas fa-map"></i> Cấu Hình Bản Đồ</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Gallery</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">HỆ THỐNG</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../tourism-map-360.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+                <a href="#" class="nav-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="header">
+        <div class="header-left"><h1 class="page-title">Quản Lý Tags</h1></div>
+        <div class="header-right"></div>
+    </header>
+
+    <main class="main-content">
+        <!-- Add Tag -->
+        <div class="content-card" style="margin-bottom:24px;">
+            <div class="card-body">
+                <h3 style="font-size:16px;font-weight:600;margin-bottom:12px;color:#0f172a;">Thêm Tag Mới</h3>
+                <div class="add-tag-inline">
+                    <input class="form-input" placeholder="Nhập tên tag..." id="newTagInput">
+                    <button class="btn btn-primary" onclick="addTag()"><i class="fas fa-plus"></i> Thêm</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tags Cloud -->
+        <div class="content-card">
+            <div class="card-header"><div class="card-title">Tất Cả Tags <span style="font-size:13px;color:#64748b;font-weight:400;">(15 tags)</span></div></div>
+            <div class="card-body">
+                <div class="tags-cloud" id="tagsCloud">
+                    <div class="tag-chip"><i class="fas fa-tag"></i> biển <span class="tag-count">3</span><span class="tag-remove" onclick="removeTag(this)"><i class="fas fa-times"></i></span></div>
+                    <div class="tag-chip"><i class="fas fa-tag"></i> hoàng-hôn <span class="tag-count">2</span><span class="tag-remove" onclick="removeTag(this)"><i class="fas fa-times"></i></span></div>
+                    <div class="tag-chip"><i class="fas fa-tag"></i> gia-đình <span class="tag-count">4</span><span class="tag-remove" onclick="removeTag(this)"><i class="fas fa-times"></i></span></div>
+                    <div class="tag-chip"><i class="fas fa-tag"></i> di-tích <span class="tag-count">2</span><span class="tag-remove" onclick="removeTag(this)"><i class="fas fa-times"></i></span></div>
+                    <div class="tag-chip"><i class="fas fa-tag"></i> phật-giáo <span class="tag-count">1</span><span class="tag-remove" onclick="removeTag(this)"><i class="fas fa-times"></i></span></div>
+                    <div class="tag-chip"><i class="fas fa-tag"></i> ẩm-thực <span class="tag-count">2</span><span class="tag-remove" onclick="removeTag(this)"><i class="fas fa-times"></i></span></div>
+                    <div class="tag-chip"><i class="fas fa-tag"></i> đặc-sản <span class="tag-count">2</span><span class="tag-remove" onclick="removeTag(this)"><i class="fas fa-times"></i></span></div>
+                    <div class="tag-chip"><i class="fas fa-tag"></i> sóng <span class="tag-count">1</span><span class="tag-remove" onclick="removeTag(this)"><i class="fas fa-times"></i></span></div>
+                    <div class="tag-chip"><i class="fas fa-tag"></i> thể-thao <span class="tag-count">1</span><span class="tag-remove" onclick="removeTag(this)"><i class="fas fa-times"></i></span></div>
+                    <div class="tag-chip"><i class="fas fa-tag"></i> núi <span class="tag-count">1</span><span class="tag-remove" onclick="removeTag(this)"><i class="fas fa-times"></i></span></div>
+                    <div class="tag-chip"><i class="fas fa-tag"></i> view <span class="tag-count">3</span><span class="tag-remove" onclick="removeTag(this)"><i class="fas fa-times"></i></span></div>
+                    <div class="tag-chip"><i class="fas fa-tag"></i> tượng <span class="tag-count">1</span><span class="tag-remove" onclick="removeTag(this)"><i class="fas fa-times"></i></span></div>
+                    <div class="tag-chip"><i class="fas fa-tag"></i> hải-đăng <span class="tag-count">1</span><span class="tag-remove" onclick="removeTag(this)"><i class="fas fa-times"></i></span></div>
+                    <div class="tag-chip"><i class="fas fa-tag"></i> check-in <span class="tag-count">5</span><span class="tag-remove" onclick="removeTag(this)"><i class="fas fa-times"></i></span></div>
+                    <div class="tag-chip"><i class="fas fa-tag"></i> lịch-sử <span class="tag-count">2</span><span class="tag-remove" onclick="removeTag(this)"><i class="fas fa-times"></i></span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tags Table -->
+        <div class="content-card" style="margin-top:24px;">
+            <div class="card-header"><div class="card-title">Chi Tiết Tags</div></div>
+            <div class="card-body">
+                <table class="data-table">
+                    <thead><tr><th>Tag</th><th>Slug</th><th>Số POI</th><th>Ngày tạo</th><th>Thao tác</th></tr></thead>
+                    <tbody>
+                        <tr><td><span class="poi-tag">#biển</span></td><td>bien</td><td>3</td><td>01/01/2025</td><td><button class="btn btn-outline btn-sm"><i class="fas fa-edit"></i></button> <button class="btn btn-outline btn-sm" style="color:#ef4444;border-color:#fca5a5;"><i class="fas fa-trash"></i></button></td></tr>
+                        <tr><td><span class="poi-tag">#check-in</span></td><td>check-in</td><td>5</td><td>01/01/2025</td><td><button class="btn btn-outline btn-sm"><i class="fas fa-edit"></i></button> <button class="btn btn-outline btn-sm" style="color:#ef4444;border-color:#fca5a5;"><i class="fas fa-trash"></i></button></td></tr>
+                        <tr><td><span class="poi-tag">#gia-đình</span></td><td>gia-dinh</td><td>4</td><td>02/01/2025</td><td><button class="btn btn-outline btn-sm"><i class="fas fa-edit"></i></button> <button class="btn btn-outline btn-sm" style="color:#ef4444;border-color:#fca5a5;"><i class="fas fa-trash"></i></button></td></tr>
+                        <tr><td><span class="poi-tag">#view</span></td><td>view</td><td>3</td><td>03/01/2025</td><td><button class="btn btn-outline btn-sm"><i class="fas fa-edit"></i></button> <button class="btn btn-outline btn-sm" style="color:#ef4444;border-color:#fca5a5;"><i class="fas fa-trash"></i></button></td></tr>
+                        <tr><td><span class="poi-tag">#hoàng-hôn</span></td><td>hoang-hon</td><td>2</td><td>03/01/2025</td><td><button class="btn btn-outline btn-sm"><i class="fas fa-edit"></i></button> <button class="btn btn-outline btn-sm" style="color:#ef4444;border-color:#fca5a5;"><i class="fas fa-trash"></i></button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function addTag(){var v=document.getElementById('newTagInput').value.trim();if(v){var chip=document.createElement('div');chip.className='tag-chip';chip.innerHTML='<i class="fas fa-tag"></i> '+v+' <span class="tag-count">0</span><span class="tag-remove" onclick="removeTag(this)"><i class="fas fa-times"></i></span>';document.getElementById('tagsCloud').appendChild(chip);document.getElementById('newTagInput').value='';}}
+        function removeTag(el){if(confirm('Xóa tag này?'))el.closest('.tag-chip').remove();}
+        function logout(){if(confirm('Đăng xuất?'))window.location.href='../index.html'}
+    </script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cấu Hình Bản Đồ - Tourism Admin</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="styles/admin.css">
+    <style>
+        .map-preview-large{height:400px;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0}
+        .tile-options{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:12px}
+        .tile-option{border:2px solid #e2e8f0;border-radius:12px;overflow:hidden;cursor:pointer;transition:all .2s}
+        .tile-option.active{border-color:#0D9488;box-shadow:0 0 0 3px rgba(13,148,136,.2)}
+        .tile-thumb{height:100px;background:#e2e8f0;display:flex;align-items:center;justify-content:center;font-size:28px;color:#94a3b8}
+        .tile-name{padding:10px;text-align:center;font-size:13px;font-weight:600;color:#0f172a}
+        .config-section{background:#fff;border-radius:12px;border:1px solid #e2e8f0;padding:24px;margin-bottom:24px}
+        .config-section h3{font-size:16px;font-weight:600;color:#0f172a;margin:0 0 4px;}
+        .config-section p{font-size:13px;color:#64748b;margin:0 0 16px;}
+        .marker-style-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+        .marker-style{text-align:center;padding:16px;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;transition:all .2s}
+        .marker-style.active{border-color:#0D9488;background:#f0fdfa}
+        .marker-style i{font-size:24px;display:block;margin-bottom:8px}
+        .marker-style span{font-size:12px;color:#64748b}
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon"><i class="fas fa-map-marked-alt"></i></div><div class="logo-text">Tourism Admin</div></div></div>
+        <div class="property-selector"><div class="property-label">Platform</div><div class="property-name">Du Lịch Bà Rịa — 360°</div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">MAIN</div><a href="index.html" class="nav-item"><i class="fas fa-chart-pie"></i> Dashboard</a></div>
+            <div class="nav-section"><div class="nav-section-title">NỘI DUNG</div>
+                <a href="provinces.html" class="nav-item"><i class="fas fa-landmark"></i> Tỉnh/Thành</a>
+                <a href="categories.html" class="nav-item"><i class="fas fa-folder-open"></i> Danh Mục</a>
+                <a href="pois.html" class="nav-item"><i class="fas fa-map-pin"></i> Điểm Đến <span class="nav-badge">12</span></a>
+                <a href="tags.html" class="nav-item"><i class="fas fa-tags"></i> Tags</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">TRỰC QUAN</div>
+                <a href="map-config.html" class="nav-item active"><i class="fas fa-map"></i> Cấu Hình Bản Đồ</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Gallery</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">HỆ THỐNG</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../tourism-map-360.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+                <a href="#" class="nav-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="header">
+        <div class="header-left"><h1 class="page-title">Cấu Hình Bản Đồ</h1></div>
+        <div class="header-right"><button class="btn btn-primary" onclick="saveConfig()"><i class="fas fa-save"></i> Lưu Cấu Hình</button></div>
+    </header>
+
+    <main class="main-content">
+        <!-- Map Preview -->
+        <div class="config-section">
+            <h3><i class="fas fa-map"></i> Xem Trước Bản Đồ</h3>
+            <p>Bản đồ hiển thị với cấu hình hiện tại</p>
+            <div class="map-preview-large" id="configMap"></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+            <!-- Center & Zoom -->
+            <div class="config-section">
+                <h3><i class="fas fa-crosshairs"></i> Vị Trí Trung Tâm</h3>
+                <p>Tọa độ trung tâm mặc định khi mở bản đồ</p>
+                <div class="form-grid">
+                    <div class="form-group"><label class="form-label">Center Latitude</label><input type="number" class="form-input" value="10.346" step="0.001" id="centerLat"></div>
+                    <div class="form-group"><label class="form-label">Center Longitude</label><input type="number" class="form-input" value="107.084" step="0.001" id="centerLng"></div>
+                    <div class="form-group"><label class="form-label">Default Zoom</label><input type="number" class="form-input" value="13" min="1" max="18" id="defaultZoom"></div>
+                    <div class="form-group"><label class="form-label">Max Zoom</label><input type="number" class="form-input" value="18" min="1" max="20"></div>
+                    <div class="form-group"><label class="form-label">Min Zoom</label><input type="number" class="form-input" value="10" min="1" max="18"></div>
+                </div>
+                <button class="btn btn-outline btn-sm" onclick="updateMapCenter()" style="margin-top:8px;"><i class="fas fa-sync"></i> Áp dụng lên bản đồ</button>
+            </div>
+
+            <!-- Marker Style -->
+            <div class="config-section">
+                <h3><i class="fas fa-map-marker-alt"></i> Kiểu Marker</h3>
+                <p>Chọn kiểu hiển thị marker trên bản đồ</p>
+                <div class="marker-style-grid">
+                    <div class="marker-style active" onclick="selectMarkerStyle(this)"><i class="fas fa-map-marker-alt" style="color:#0D9488;"></i><span>Default Pin</span></div>
+                    <div class="marker-style" onclick="selectMarkerStyle(this)"><i class="fas fa-circle" style="color:#0D9488;"></i><span>Circle Dot</span></div>
+                    <div class="marker-style" onclick="selectMarkerStyle(this)"><i class="fas fa-star" style="color:#F59E0B;"></i><span>Star</span></div>
+                    <div class="marker-style" onclick="selectMarkerStyle(this)"><i class="fas fa-icons" style="color:#8B5CF6;"></i><span>Category Icon</span></div>
+                </div>
+                <div class="form-group" style="margin-top:16px;">
+                    <label class="form-label">Marker Size</label>
+                    <input type="range" min="16" max="48" value="28" style="width:100%">
+                    <div style="display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;"><span>Nhỏ</span><span>Lớn</span></div>
+                </div>
+                <div class="form-group">
+                    <div class="toggle-group">
+                        <span class="toggle-label">Cluster markers khi zoom xa</span>
+                        <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tile Layer -->
+        <div class="config-section">
+            <h3><i class="fas fa-layer-group"></i> Tile Layer (Nền bản đồ)</h3>
+            <p>Chọn kiểu nền bản đồ hiển thị</p>
+            <div class="tile-options">
+                <div class="tile-option active" onclick="selectTile(this,'osm')">
+                    <div class="tile-thumb">🗺️</div>
+                    <div class="tile-name">OpenStreetMap</div>
+                </div>
+                <div class="tile-option" onclick="selectTile(this,'satellite')">
+                    <div class="tile-thumb">🛰️</div>
+                    <div class="tile-name">Satellite (Esri)</div>
+                </div>
+                <div class="tile-option" onclick="selectTile(this,'dark')">
+                    <div class="tile-thumb" style="background:#1a1a2e;">🌙</div>
+                    <div class="tile-name">Dark Mode</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popup & Panel Config -->
+        <div class="config-section">
+            <h3><i class="fas fa-window-restore"></i> Popup & Panel</h3>
+            <p>Cấu hình hiển thị thông tin khi click marker</p>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">Kiểu hiển thị</label>
+                    <select class="form-input">
+                        <option value="side-panel" selected>Side Panel (360°)</option>
+                        <option value="popup">Map Popup</option>
+                        <option value="modal">Modal Full</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Panel Width</label>
+                    <select class="form-input">
+                        <option>400px</option><option selected>450px</option><option>500px</option><option>50%</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="toggle-group"><span class="toggle-label">Hiển thị panorama 360° trong panel</span><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+            </div>
+            <div class="form-group">
+                <div class="toggle-group"><span class="toggle-label">Hiển thị gallery ảnh</span><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+            </div>
+            <div class="form-group">
+                <div class="toggle-group"><span class="toggle-label">Hiển thị thông tin chi tiết</span><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function selectMarkerStyle(el){document.querySelectorAll('.marker-style').forEach(e=>e.classList.remove('active'));el.classList.add('active')}
+        function selectTile(el,type){document.querySelectorAll('.tile-option').forEach(e=>e.classList.remove('active'));el.classList.add('active')}
+        function updateMapCenter(){var lat=parseFloat(document.getElementById('centerLat').value),lng=parseFloat(document.getElementById('centerLng').value),z=parseInt(document.getElementById('defaultZoom').value);if(window._map)window._map.setView([lat,lng],z)}
+        function saveConfig(){alert('Cấu hình đã được lưu! (Demo)')}
+        function logout(){if(confirm('Đăng xuất?'))window.location.href='../index.html'}
+        document.addEventListener('DOMContentLoaded',function(){
+            var map=L.map('configMap').setView([10.346,107.084],13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OSM'}).addTo(map);
+            window._map=map;
+            var pois=[{name:'Bãi Trước',lat:10.346,lng:107.074},{name:'Thích Ca Phật Đài',lat:10.342,lng:107.069},{name:'Bãi Sau',lat:10.335,lng:107.088},{name:'Núi Nhỏ',lat:10.327,lng:107.085},{name:'Hải Đăng',lat:10.326,lng:107.084},{name:'Bánh Khọt VT',lat:10.350,lng:107.077}];
+            pois.forEach(function(p){L.marker([p.lat,p.lng]).addTo(map).bindPopup(p.name)});
+        });
+    </script>
+</body>
+</html>

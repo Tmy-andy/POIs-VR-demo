@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Hotel 360 New Gen</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon"><i class="fas fa-gem"></i></div><div class="logo-text">Hotel 360 CMS</div></div></div>
+        <div class="property-selector"><div class="property-label">Current Hotel</div><div class="property-name">Boton Blue Hotel & Spa</div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">MAIN</div><a href="index.html" class="nav-item"><i class="fas fa-chart-pie"></i> Dashboard</a></div>
+            <div class="nav-section"><div class="nav-section-title">CONTENT</div>
+                <a href="rooms.html" class="nav-item"><i class="fas fa-bed"></i> Rooms</a>
+                <a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Services</a>
+                <a href="scenes.html" class="nav-item"><i class="fas fa-vr-cardboard"></i> Scenes & 360°</a>
+                <a href="promotions.html" class="nav-item"><i class="fas fa-tags"></i> Promotions</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Gallery</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">BOOKING</div>
+                <a href="booking.html" class="nav-item"><i class="fas fa-calendar-check"></i> Configuration</a>
+                <a href="requests.html" class="nav-item"><i class="fas fa-clipboard-list"></i> Requests <span class="nav-badge">3</span></a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">SYSTEM</div>
+                <a href="settings.html" class="nav-item active"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../hotel-newgen.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+                <a href="#" class="nav-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="header"><div class="header-left"><h1 class="page-title">Settings</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar">AD</div></div></div></header>
+
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Saved!</span></div>
+
+        <!-- Hotel Info -->
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title">Hotel Information</div>
+            </div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Hotel Name <span class="required">*</span></label>
+                        <input type="text" class="form-input" value="Boton Blue Hotel & Spa">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Star Rating</label>
+                        <select class="form-select">
+                            <option>★★★</option>
+                            <option selected>★★★★</option>
+                            <option>★★★★★</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tagline / Subtitle</label>
+                    <input type="text" class="form-input" value="Experience To Enjoy">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Address</label>
+                    <input type="text" class="form-input" value="86 Trần Phú, Nha Trang, Khánh Hoà">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Phone</label>
+                        <input type="text" class="form-input" value="+84 258 352 9999">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="text" class="form-input" value="info@botonblue.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Website</label>
+                        <input type="text" class="form-input" value="https://botonblue.com">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theme & Branding -->
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title">Theme & Branding</div>
+            </div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Primary Color (Gold)</label>
+                        <div style="display:flex;gap:8px;align-items:center;">
+                            <input type="color" value="#C9A861" style="width:40px;height:40px;border:1px solid #d1d5db;border-radius:8px;cursor:pointer;">
+                            <input type="text" class="form-input" value="#C9A861" style="width:120px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Dark Background</label>
+                        <div style="display:flex;gap:8px;align-items:center;">
+                            <input type="color" value="#060a10" style="width:40px;height:40px;border:1px solid #d1d5db;border-radius:8px;cursor:pointer;">
+                            <input type="text" class="form-input" value="#060a10" style="width:120px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Logo</label>
+                    <div class="image-upload-area" style="padding:20px;">
+                        <p style="color:#64748b;font-size:13px;"><i class="fas fa-image"></i> Upload hotel logo (SVG or PNG, max 200px height)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Media -->
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title">Social Media Links</div>
+            </div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fab fa-facebook" style="color:#1877f2;"></i> Facebook</label>
+                        <input type="text" class="form-input" placeholder="https://facebook.com/...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fab fa-instagram" style="color:#e4405f;"></i> Instagram</label>
+                        <input type="text" class="form-input" placeholder="https://instagram.com/...">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fab fa-tiktok"></i> TikTok</label>
+                        <input type="text" class="form-input" placeholder="https://tiktok.com/@...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fab fa-youtube" style="color:#ff0000;"></i> YouTube</label>
+                        <input type="text" class="form-input" placeholder="https://youtube.com/...">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:12px;">
+            <button class="btn btn-secondary">Reset</button>
+            <button class="btn btn-primary" onclick="saveSettings()"><i class="fas fa-save"></i> Save Settings</button>
+        </div>
+    </main>
+
+    <script>
+        function logout(){if(confirm('Logout?'))window.location.href='../index.html';}
+        function saveSettings(){const a=document.getElementById('successAlert');a.classList.remove('hidden');document.getElementById('successMessage').textContent='Settings saved!';setTimeout(()=>a.classList.add('hidden'),3000);}
+    </script>
+</body>
+</html>

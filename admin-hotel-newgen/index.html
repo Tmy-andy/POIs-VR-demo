@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Hotel 360 New Gen</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-gem"></i></div>
+                <div class="logo-text">Hotel 360 CMS</div>
+            </div>
+        </div>
+        <div class="property-selector">
+            <div class="property-label">Current Hotel</div>
+            <div class="property-name">Boton Blue Hotel & Spa</div>
+        </div>
+
+        <nav class="nav-menu">
+            <div class="nav-section">
+                <div class="nav-section-title">MAIN</div>
+                <a href="index.html" class="nav-item active"><i class="fas fa-chart-pie"></i> Dashboard</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">CONTENT</div>
+                <a href="rooms.html" class="nav-item"><i class="fas fa-bed"></i> Rooms</a>
+                <a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Services</a>
+                <a href="scenes.html" class="nav-item"><i class="fas fa-vr-cardboard"></i> Scenes & 360°</a>
+                <a href="promotions.html" class="nav-item"><i class="fas fa-tags"></i> Promotions</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Gallery</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">BOOKING</div>
+                <a href="booking.html" class="nav-item"><i class="fas fa-calendar-check"></i> Configuration</a>
+                <a href="requests.html" class="nav-item"><i class="fas fa-clipboard-list"></i> Requests <span class="nav-badge">3</span></a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">SYSTEM</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../hotel-newgen.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+                <a href="#" class="nav-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <h1 class="page-title">Dashboard</h1>
+        </div>
+        <div class="header-right">
+            <div class="user-menu">
+                <div class="user-avatar">AD</div>
+                <div class="user-info" style="display:flex;flex-direction:column;">
+                    <span style="font-size:14px;font-weight:500;color:#0f172a;">Admin</span>
+                    <span style="font-size:12px;color:#64748b;">Super Admin</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Welcome -->
+        <div class="welcome-section">
+            <div>
+                <h2 class="welcome-title">Welcome back! 👋</h2>
+                <p class="welcome-subtitle">Manage your Hotel 360° New Gen immersive website</p>
+                <div class="quick-actions">
+                    <a href="rooms.html" class="quick-action-btn"><i class="fas fa-plus"></i> Add Room</a>
+                    <a href="scenes.html" class="quick-action-btn"><i class="fas fa-upload"></i> Upload Panorama</a>
+                    <a href="promotions.html" class="quick-action-btn"><i class="fas fa-tag"></i> Create Promotion</a>
+                    <a href="../hotel-newgen.html" class="quick-action-btn" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Cards -->
+        <div class="dashboard-cards">
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-title" style="font-size:14px;font-weight:500;color:#64748b;">Total Rooms</div>
+                    <div class="card-icon" style="background:linear-gradient(135deg,#0f172a,#1e293b);"><i class="fas fa-bed" style="color:#C9A861;"></i></div>
+                </div>
+                <div class="card-value">8</div>
+                <div class="card-change positive"><i class="fas fa-arrow-up"></i> 4 room types</div>
+            </div>
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-title" style="font-size:14px;font-weight:500;color:#64748b;">360° Scenes</div>
+                    <div class="card-icon" style="background:linear-gradient(135deg,#C9A861,#a88a3d);"><i class="fas fa-vr-cardboard"></i></div>
+                </div>
+                <div class="card-value">12</div>
+                <div class="card-change positive"><i class="fas fa-check"></i> All active</div>
+            </div>
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-title" style="font-size:14px;font-weight:500;color:#64748b;">Services</div>
+                    <div class="card-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);"><i class="fas fa-concierge-bell"></i></div>
+                </div>
+                <div class="card-value">7</div>
+                <div class="card-change positive"><i class="fas fa-fire"></i> 3 dining + 4 rec</div>
+            </div>
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-title" style="font-size:14px;font-weight:500;color:#64748b;">Booking Requests</div>
+                    <div class="card-icon" style="background:linear-gradient(135deg,#10b981,#059669);"><i class="fas fa-calendar-check"></i></div>
+                </div>
+                <div class="card-value">156</div>
+                <div class="card-change positive"><i class="fas fa-arrow-up"></i> +12 this week</div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Page Views (30d)</div>
+                <div class="stat-value">18,247</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">VR360 Interactions</div>
+                <div class="stat-value">5,891</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Avg. Session</div>
+                <div class="stat-value">4m 32s</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Booking Rate</div>
+                <div class="stat-value">6.2%</div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="recent-activity">
+            <div class="activity-header">
+                <h3 class="section-title">Recent Activity</h3>
+            </div>
+            <div class="activity-list">
+                <div class="activity-item">
+                    <div class="activity-icon" style="background:rgba(201,168,97,0.15);color:#C9A861;"><i class="fas fa-bed"></i></div>
+                    <div class="activity-content">
+                        <div class="activity-text">Updated <strong>Suite Room</strong> panorama and hotspots</div>
+                        <div class="activity-time">10 minutes ago</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon" style="background:#e0f2fe;color:#0284c7;"><i class="fas fa-vr-cardboard"></i></div>
+                    <div class="activity-content">
+                        <div class="activity-text">Uploaded new 360° scene for <strong>Lobby</strong></div>
+                        <div class="activity-time">1 hour ago</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon" style="background:#d1fae5;color:#059669;"><i class="fas fa-calendar-check"></i></div>
+                    <div class="activity-content">
+                        <div class="activity-text">New booking request from <strong>Nguyễn Văn A</strong></div>
+                        <div class="activity-time">2 hours ago</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon" style="background:#fef3c7;color:#f59e0b;"><i class="fas fa-tags"></i></div>
+                    <div class="activity-content">
+                        <div class="activity-text">Published promotion <strong>Summer Special 2026</strong></div>
+                        <div class="activity-time">5 hours ago</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon" style="background:#ddd6fe;color:#7c3aed;"><i class="fas fa-concierge-bell"></i></div>
+                    <div class="activity-content">
+                        <div class="activity-text">Updated <strong>Skylight Restaurant</strong> description</div>
+                        <div class="activity-time">1 day ago</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function logout() {
+            if(confirm('Are you sure you want to logout?')) {
+                window.location.href = '../index.html';
+            }
+        }
+    </script>
+</body>
+</html>

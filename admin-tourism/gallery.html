@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Tourism Admin</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="styles/admin.css">
+    <style>
+        .gallery-filter{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
+        .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+        .gallery-item{background:#fff;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;transition:all .3s;position:relative}
+        .gallery-item:hover{box-shadow:0 4px 12px rgba(0,0,0,.1)}
+        .gallery-thumb{height:180px;background:#e2e8f0;display:flex;align-items:center;justify-content:center;font-size:48px;color:#94a3b8;position:relative;overflow:hidden}
+        .gallery-thumb .overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;gap:8px;opacity:0;transition:opacity .3s}
+        .gallery-item:hover .overlay{opacity:1}
+        .overlay button{width:36px;height:36px;border-radius:50%;border:none;background:rgba(255,255,255,.9);color:#0f172a;cursor:pointer;font-size:14px;transition:all .2s}
+        .overlay button:hover{background:#fff;transform:scale(1.1)}
+        .gallery-info{padding:12px}
+        .gallery-name{font-size:13px;font-weight:600;color:#0f172a;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .gallery-meta{font-size:11px;color:#94a3b8;display:flex;justify-content:space-between}
+        .gallery-badge{position:absolute;top:8px;left:8px;padding:3px 8px;border-radius:12px;font-size:10px;font-weight:600;color:#fff}
+        .upload-zone{border:2px dashed #99f6e4;border-radius:16px;padding:48px;text-align:center;background:#f0fdfa;cursor:pointer;transition:all .3s;margin-bottom:24px}
+        .upload-zone:hover{border-color:#0D9488;background:#ccfbf1}
+        .upload-zone i{font-size:48px;color:#0D9488;margin-bottom:12px}
+        .storage-bar{background:#e2e8f0;border-radius:8px;height:8px;overflow:hidden;margin-top:8px}
+        .storage-fill{height:100%;background:linear-gradient(90deg,#0D9488,#14B8A6);border-radius:8px;width:35%}
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon"><i class="fas fa-map-marked-alt"></i></div><div class="logo-text">Tourism Admin</div></div></div>
+        <div class="property-selector"><div class="property-label">Platform</div><div class="property-name">Du Lịch Bà Rịa — 360°</div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">MAIN</div><a href="index.html" class="nav-item"><i class="fas fa-chart-pie"></i> Dashboard</a></div>
+            <div class="nav-section"><div class="nav-section-title">NỘI DUNG</div>
+                <a href="provinces.html" class="nav-item"><i class="fas fa-landmark"></i> Tỉnh/Thành</a>
+                <a href="categories.html" class="nav-item"><i class="fas fa-folder-open"></i> Danh Mục</a>
+                <a href="pois.html" class="nav-item"><i class="fas fa-map-pin"></i> Điểm Đến <span class="nav-badge">12</span></a>
+                <a href="tags.html" class="nav-item"><i class="fas fa-tags"></i> Tags</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">TRỰC QUAN</div>
+                <a href="map-config.html" class="nav-item"><i class="fas fa-map"></i> Cấu Hình Bản Đồ</a>
+                <a href="gallery.html" class="nav-item active"><i class="fas fa-images"></i> Gallery</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">HỆ THỐNG</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../tourism-map-360.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+                <a href="#" class="nav-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="header">
+        <div class="header-left"><h1 class="page-title">Gallery Ảnh</h1></div>
+        <div class="header-right">
+            <span style="font-size:13px;color:#64748b;margin-right:12px;">Storage: 350MB / 1GB</span>
+            <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
+            <input type="file" id="fileInput" multiple accept="image/*" style="display:none">
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Storage -->
+        <div class="content-card" style="margin-bottom:20px;">
+            <div class="card-body" style="padding:16px 20px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                    <span style="font-size:13px;font-weight:600;color:#0f172a;">Dung lượng sử dụng</span>
+                    <span style="font-size:13px;color:#64748b;">350 MB / 1 GB (35%)</span>
+                </div>
+                <div class="storage-bar"><div class="storage-fill"></div></div>
+            </div>
+        </div>
+
+        <!-- Upload Zone -->
+        <div class="upload-zone" id="dropZone">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p style="font-size:16px;font-weight:600;color:#0D9488;margin-bottom:4px;">Kéo thả ảnh vào đây hoặc click để chọn</p>
+            <p style="font-size:13px;color:#64748b;">JPG, PNG, WebP — tối đa 10MB/ảnh</p>
+        </div>
+
+        <!-- Filters -->
+        <div class="gallery-filter">
+            <input class="form-input" placeholder="Tìm ảnh..." style="max-width:200px;height:38px;">
+            <select class="form-input" style="max-width:180px;height:38px;">
+                <option value="">Tất cả điểm đến</option>
+                <option>Bãi Trước</option><option>Thích Ca Phật Đài</option><option>Bánh Khọt VT</option><option>Bãi Sau</option><option>Núi Nhỏ</option><option>Hải Đăng</option>
+            </select>
+            <select class="form-input" style="max-width:150px;height:38px;">
+                <option value="">Loại ảnh</option>
+                <option>Thumbnail</option><option>Panorama</option><option>Gallery</option>
+            </select>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="gallery-thumb">🏖<div class="gallery-badge" style="background:#0D9488;">Panorama</div><div class="overlay"><button title="Xem" onclick="viewImage('bai-truoc-panorama.jpg','Bãi Trước','Panorama','4.2MB')"><i class="fas fa-expand"></i></button><button title="Sửa" onclick="editImage('bai-truoc-panorama.jpg','Bãi Trước','Panorama')"><i class="fas fa-edit"></i></button><button title="Xóa" onclick="deleteImage('bai-truoc-panorama.jpg')"><i class="fas fa-trash" style="color:#ef4444;"></i></button></div></div>
+                <div class="gallery-info"><div class="gallery-name">bai-truoc-panorama.jpg</div><div class="gallery-meta"><span>Bãi Trước</span><span>4.2MB</span></div></div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-thumb">🛕<div class="gallery-badge" style="background:#0D9488;">Panorama</div><div class="overlay"><button title="Xem" onclick="viewImage('thich-ca-phat-dai-360.jpg','Thích Ca Phật Đài','Panorama','5.1MB')"><i class="fas fa-expand"></i></button><button title="Sửa" onclick="editImage('thich-ca-phat-dai-360.jpg','Thích Ca Phật Đài','Panorama')"><i class="fas fa-edit"></i></button><button title="Xóa" onclick="deleteImage('thich-ca-phat-dai-360.jpg')"><i class="fas fa-trash" style="color:#ef4444;"></i></button></div></div>
+                <div class="gallery-info"><div class="gallery-name">thich-ca-phat-dai-360.jpg</div><div class="gallery-meta"><span>Thích Ca Phật Đài</span><span>5.1MB</span></div></div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-thumb">🍜<div class="gallery-badge" style="background:#3B82F6;">Gallery</div><div class="overlay"><button title="Xem" onclick="viewImage('banh-khot-01.jpg','Bánh Khọt VT','Gallery','1.8MB')"><i class="fas fa-expand"></i></button><button title="Sửa" onclick="editImage('banh-khot-01.jpg','Bánh Khọt VT','Gallery')"><i class="fas fa-edit"></i></button><button title="Xóa" onclick="deleteImage('banh-khot-01.jpg')"><i class="fas fa-trash" style="color:#ef4444;"></i></button></div></div>
+                <div class="gallery-info"><div class="gallery-name">banh-khot-01.jpg</div><div class="gallery-meta"><span>Bánh Khọt VT</span><span>1.8MB</span></div></div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-thumb"><i class="fas fa-water" style="font-size:24px;color:#0D9488;"></i><div class="gallery-badge" style="background:#0D9488;">Panorama</div><div class="overlay"><button title="Xem" onclick="viewImage('bai-sau-panorama.jpg','Bãi Sau','Panorama','3.9MB')"><i class="fas fa-expand"></i></button><button title="Sửa" onclick="editImage('bai-sau-panorama.jpg','Bãi Sau','Panorama')"><i class="fas fa-edit"></i></button><button title="Xóa" onclick="deleteImage('bai-sau-panorama.jpg')"><i class="fas fa-trash" style="color:#ef4444;"></i></button></div></div>
+                <div class="gallery-info"><div class="gallery-name">bai-sau-panorama.jpg</div><div class="gallery-meta"><span>Bãi Sau</span><span>3.9MB</span></div></div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-thumb">🌿<div class="gallery-badge" style="background:#F59E0B;">Thumbnail</div><div class="overlay"><button title="Xem" onclick="viewImage('nui-nho-thumb.jpg','Núi Nhỏ','Thumbnail','420KB')"><i class="fas fa-expand"></i></button><button title="Sửa" onclick="editImage('nui-nho-thumb.jpg','Núi Nhỏ','Thumbnail')"><i class="fas fa-edit"></i></button><button title="Xóa" onclick="deleteImage('nui-nho-thumb.jpg')"><i class="fas fa-trash" style="color:#ef4444;"></i></button></div></div>
+                <div class="gallery-info"><div class="gallery-name">nui-nho-thumb.jpg</div><div class="gallery-meta"><span>Núi Nhỏ</span><span>420KB</span></div></div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-thumb"><i class="fas fa-star" style="font-size:24px;color:#0D9488;"></i><div class="gallery-badge" style="background:#0D9488;">Panorama</div><div class="overlay"><button title="Xem" onclick="viewImage('hai-dang-360.jpg','Hải Đăng','Panorama','4.5MB')"><i class="fas fa-expand"></i></button><button title="Sửa" onclick="editImage('hai-dang-360.jpg','Hải Đăng','Panorama')"><i class="fas fa-edit"></i></button><button title="Xóa" onclick="deleteImage('hai-dang-360.jpg')"><i class="fas fa-trash" style="color:#ef4444;"></i></button></div></div>
+                <div class="gallery-info"><div class="gallery-name">hai-dang-360.jpg</div><div class="gallery-meta"><span>Hải Đăng</span><span>4.5MB</span></div></div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-thumb">🏖<div class="gallery-badge" style="background:#3B82F6;">Gallery</div><div class="overlay"><button title="Xem" onclick="viewImage('bai-truoc-sunset.jpg','Bãi Trước','Gallery','2.1MB')"><i class="fas fa-expand"></i></button><button title="Sửa" onclick="editImage('bai-truoc-sunset.jpg','Bãi Trước','Gallery')"><i class="fas fa-edit"></i></button><button title="Xóa" onclick="deleteImage('bai-truoc-sunset.jpg')"><i class="fas fa-trash" style="color:#ef4444;"></i></button></div></div>
+                <div class="gallery-info"><div class="gallery-name">bai-truoc-sunset.jpg</div><div class="gallery-meta"><span>Bãi Trước</span><span>2.1MB</span></div></div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-thumb">🛕<div class="gallery-badge" style="background:#3B82F6;">Gallery</div><div class="overlay"><button title="Xem" onclick="viewImage('thich-ca-02.jpg','Thích Ca Phật Đài','Gallery','1.5MB')"><i class="fas fa-expand"></i></button><button title="Sửa" onclick="editImage('thich-ca-02.jpg','Thích Ca Phật Đài','Gallery')"><i class="fas fa-edit"></i></button><button title="Xóa" onclick="deleteImage('thich-ca-02.jpg')"><i class="fas fa-trash" style="color:#ef4444;"></i></button></div></div>
+                <div class="gallery-info"><div class="gallery-name">thich-ca-02.jpg</div><div class="gallery-meta"><span>Thích Ca Phật Đài</span><span>1.5MB</span></div></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Image View Modal -->
+    <div class="modal-overlay" id="viewImageModal">
+        <div class="modal" style="max-width:640px;">
+            <div class="modal-header"><h3 class="modal-title"><i class="fas fa-image" style="color:#0D9488;margin-right:8px;"></i> Xem Ảnh</h3><button class="modal-close" onclick="closeModal('viewImageModal')">&times;</button></div>
+            <div class="modal-body">
+                <div style="background:linear-gradient(135deg,#0D9488,#134E4A);border-radius:10px;height:280px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+                    <div style="text-align:center;color:white;">
+                        <i class="fas fa-image" style="font-size:56px;opacity:.6;"></i>
+                        <p id="viewPreviewName" style="margin:12px 0 0;font-size:14px;opacity:.8;">image.jpg</p>
+                    </div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                    <div style="background:#f8fafc;padding:12px;border-radius:8px;">
+                        <div style="font-size:11px;color:#94a3b8;margin-bottom:2px;">Tên file</div>
+                        <div id="viewFileName" style="font-size:14px;font-weight:600;color:#0f172a;">—</div>
+                    </div>
+                    <div style="background:#f8fafc;padding:12px;border-radius:8px;">
+                        <div style="font-size:11px;color:#94a3b8;margin-bottom:2px;">Dung lượng</div>
+                        <div id="viewFileSize" style="font-size:14px;font-weight:600;color:#0f172a;">—</div>
+                    </div>
+                    <div style="background:#f8fafc;padding:12px;border-radius:8px;">
+                        <div style="font-size:11px;color:#94a3b8;margin-bottom:2px;">Điểm đến</div>
+                        <div id="viewFilePoi" style="font-size:14px;font-weight:600;color:#0D9488;">—</div>
+                    </div>
+                    <div style="background:#f8fafc;padding:12px;border-radius:8px;">
+                        <div style="font-size:11px;color:#94a3b8;margin-bottom:2px;">Loại</div>
+                        <div id="viewFileType" style="font-size:14px;font-weight:600;color:#0f172a;">—</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('viewImageModal')">Đóng</button></div>
+        </div>
+    </div>
+
+    <!-- Edit Image Modal -->
+    <div class="modal-overlay" id="editImageModal">
+        <div class="modal" style="max-width:500px;">
+            <div class="modal-header"><h3 class="modal-title"><i class="fas fa-edit" style="color:#0D9488;margin-right:8px;"></i> Chỉnh Sửa Ảnh</h3><button class="modal-close" onclick="closeModal('editImageModal')">&times;</button></div>
+            <div class="modal-body">
+                <div style="background:#f8fafc;border-radius:10px;height:120px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;border:1px solid #e2e8f0;">
+                    <div style="text-align:center;color:#94a3b8;">
+                        <i class="fas fa-image" style="font-size:32px;"></i>
+                        <p id="editPreviewName" style="margin:8px 0 0;font-size:13px;">image.jpg</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tên hiển thị</label>
+                    <input class="form-input" id="editImgTitle" placeholder="Tên mô tả cho ảnh">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Alt Text (SEO)</label>
+                    <input class="form-input" id="editImgAlt" placeholder="Mô tả ảnh cho SEO">
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Điểm đến</label>
+                        <select class="form-input" id="editImgPoi">
+                            <option>Bãi Trước</option><option>Thích Ca Phật Đài</option><option>Bánh Khọt VT</option><option>Bãi Sau</option><option>Núi Nhỏ</option><option>Hải Đăng</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Loại ảnh</label>
+                        <select class="form-input" id="editImgType">
+                            <option>Panorama</option><option>Gallery</option><option>Thumbnail</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Mô tả</label>
+                    <textarea class="form-input" id="editImgDesc" rows="2" placeholder="Mô tả ngắn về ảnh"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('editImageModal')">Hủy</button><button class="btn btn-primary" onclick="saveImageEdit()"><i class="fas fa-save"></i> Lưu</button></div>
+        </div>
+    </div>
+
+    <!-- Delete Image Modal -->
+    <div class="modal-overlay" id="deleteImageModal">
+        <div class="modal" style="max-width:420px;text-align:center;">
+            <div class="modal-body" style="padding:32px;">
+                <div style="width:56px;height:56px;border-radius:50%;background:rgba(239,68,68,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+                    <i class="fas fa-trash-alt" style="color:#ef4444;font-size:24px;"></i>
+                </div>
+                <h3 style="margin-bottom:8px;">Xóa Ảnh?</h3>
+                <p style="color:#64748b;margin-bottom:24px;">Bạn có chắc muốn xóa "<strong id="deleteImgName" style="color:#0D9488;"></strong>"? Hành động này không thể hoàn tác.</p>
+                <div style="display:flex;gap:12px;justify-content:center;">
+                    <button class="btn btn-outline" onclick="closeModal('deleteImageModal')">Hủy</button>
+                    <button class="btn btn-danger" onclick="confirmDeleteImage()"><i class="fas fa-trash"></i> Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Alert -->
+    <div class="alert alert-success" id="successAlert" style="position:fixed;top:20px;right:20px;z-index:10001;min-width:300px;display:none;">
+        <i class="fas fa-check-circle"></i>
+        <span id="successMsg">Success!</span>
+    </div>
+
+    <script>
+        function openModal(id){document.getElementById(id).classList.add('active')}
+        function closeModal(id){document.getElementById(id).classList.remove('active')}
+        function logout(){if(confirm('Đăng xuất?'))window.location.href='../index.html'}
+
+        function showSuccess(msg) {
+            const el = document.getElementById('successAlert');
+            document.getElementById('successMsg').textContent = msg;
+            el.style.display = 'flex';
+            setTimeout(() => { el.style.display = 'none'; }, 3000);
+        }
+
+        // View Image
+        function viewImage(name, poi, type, size) {
+            document.getElementById('viewPreviewName').textContent = name;
+            document.getElementById('viewFileName').textContent = name;
+            document.getElementById('viewFileSize').textContent = size;
+            document.getElementById('viewFilePoi').textContent = poi;
+            document.getElementById('viewFileType').textContent = type;
+            openModal('viewImageModal');
+        }
+
+        // Edit Image
+        function editImage(name, poi, type) {
+            document.getElementById('editPreviewName').textContent = name;
+            document.getElementById('editImgTitle').value = name.replace(/\.[^.]+$/, '').replace(/-/g, ' ');
+            document.getElementById('editImgAlt').value = poi + ' - ' + type;
+            document.getElementById('editImgPoi').value = poi;
+            document.getElementById('editImgType').value = type;
+            document.getElementById('editImgDesc').value = '';
+            openModal('editImageModal');
+        }
+        function saveImageEdit() {
+            closeModal('editImageModal');
+            showSuccess('Thông tin ảnh đã được cập nhật!');
+        }
+
+        // Delete Image
+        let deleteImgTarget = '';
+        function deleteImage(name) {
+            deleteImgTarget = name;
+            document.getElementById('deleteImgName').textContent = name;
+            openModal('deleteImageModal');
+        }
+        function confirmDeleteImage() {
+            closeModal('deleteImageModal');
+            showSuccess('Đã xóa "' + deleteImgTarget + '"!');
+        }
+
+        // Drag & drop
+        var dz=document.getElementById('dropZone');
+        dz.addEventListener('dragover',function(e){e.preventDefault();dz.style.borderColor='#0D9488';dz.style.background='#ccfbf1'});
+        dz.addEventListener('dragleave',function(){dz.style.borderColor='#99f6e4';dz.style.background='#f0fdfa'});
+        dz.addEventListener('drop',function(e){e.preventDefault();dz.style.borderColor='#99f6e4';dz.style.background='#f0fdfa';showSuccess('Upload '+e.dataTransfer.files.length+' file(s) thành công!')});
+        dz.addEventListener('click',function(){document.getElementById('fileInput').click()});
+    </script>
+</body>
+</html>

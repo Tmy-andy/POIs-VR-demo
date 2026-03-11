@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scenes & 360° - Hotel 360 New Gen</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="styles/admin.css">
+    <style>
+        .scene-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px;margin-bottom:16px;transition:all .3s}
+        .scene-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.06)}
+        .scene-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+        .scene-card-title{display:flex;align-items:center;gap:12px}
+        .scene-card-title h3{font-size:16px;font-weight:600;color:#0f172a;margin:0}
+        .scene-card-title .scene-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+        .scene-card-title .scene-page{font-size:12px;color:#94a3b8;margin-top:2px}
+        .link-input-group{display:flex;gap:8px;align-items:stretch}
+        .link-input-group .form-input{flex:1;font-size:13px;font-family:'Courier New',monospace;background:#f8fafc}
+        .link-input-group .form-input:focus{background:#fff}
+        .link-actions{display:flex;gap:6px}
+        .link-preview-btn{padding:8px 14px;border-radius:8px;border:1px solid #e2e8f0;background:#fff;cursor:pointer;color:#64748b;font-size:13px;display:flex;align-items:center;gap:6px;transition:all .2s;white-space:nowrap}
+        .link-preview-btn:hover{border-color:#C9A861;color:#C9A861;background:#fefcf3}
+        .link-status{display:flex;align-items:center;gap:6px;font-size:12px;margin-top:8px}
+        .link-status .dot{width:8px;height:8px;border-radius:50%}
+        .link-status .dot.green{background:#22c55e}
+        .link-status .dot.gray{background:#cbd5e1}
+        .scene-meta{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap}
+        .scene-meta-item{display:flex;align-items:center;gap:6px;font-size:12px;color:#64748b;background:#f8fafc;padding:4px 10px;border-radius:6px}
+        .section-divider{display:flex;align-items:center;gap:12px;margin:28px 0 20px;font-size:13px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.05em}
+        .section-divider::after{content:'';flex:1;height:1px;background:#e2e8f0}
+        .tips-box{background:#fefcf3;border:1px solid rgba(201,168,97,.2);border-radius:10px;padding:16px 20px}
+        .tips-box h4{font-size:14px;color:#92400e;margin-bottom:8px}
+        .tips-box ul{list-style:none;padding:0;margin:0}
+        .tips-box li{font-size:13px;color:#78716c;padding:4px 0;display:flex;align-items:start;gap:8px}
+        .tips-box li i{color:#C9A861;margin-top:3px;font-size:11px}
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon"><i class="fas fa-gem"></i></div><div class="logo-text">Hotel 360 CMS</div></div></div>
+        <div class="property-selector"><div class="property-label">Current Hotel</div><div class="property-name">Boton Blue Hotel & Spa</div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">MAIN</div><a href="index.html" class="nav-item"><i class="fas fa-chart-pie"></i> Dashboard</a></div>
+            <div class="nav-section"><div class="nav-section-title">CONTENT</div>
+                <a href="rooms.html" class="nav-item"><i class="fas fa-bed"></i> Rooms</a>
+                <a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Services</a>
+                <a href="scenes.html" class="nav-item active"><i class="fas fa-vr-cardboard"></i> Scenes & 360°</a>
+                <a href="promotions.html" class="nav-item"><i class="fas fa-tags"></i> Promotions</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Gallery</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">BOOKING</div>
+                <a href="booking.html" class="nav-item"><i class="fas fa-calendar-check"></i> Configuration</a>
+                <a href="requests.html" class="nav-item"><i class="fas fa-clipboard-list"></i> Requests <span class="nav-badge">3</span></a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">SYSTEM</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../hotel-newgen.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+                <a href="#" class="nav-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="header"><div class="header-left"><h1 class="page-title">Scenes & 360°</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar">AD</div></div></div></header>
+
+    <main class="main-content">
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i>
+            <span>Nhập link trang VR 360° cho từng khu vực / phần tử của khách sạn. Link sẽ được hiển thị trên website khi khách nhấn xem 360°.</span>
+        </div>
+
+        <!-- ═══ TRANG CHỦ ═══ -->
+        <div class="section-divider"><i class="fas fa-home"></i> Trang Chủ</div>
+
+        <div class="scene-card">
+            <div class="scene-card-header">
+                <div class="scene-card-title">
+                    <div class="scene-icon" style="background:linear-gradient(135deg,#C9A861,#a88a3d);color:#fff;"><i class="fas fa-home"></i></div>
+                    <div>
+                        <h3>Homepage — Lobby</h3>
+                        <div class="scene-page">Trang chủ · Scene mặc định khi vào website</div>
+                    </div>
+                </div>
+                <span class="status-badge published">Active</span>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">Link VR 360°</label>
+                <div class="link-input-group">
+                    <input type="url" class="form-input" id="link-lobby" value="https://botonbluehotel.com/vr360/lobby" placeholder="https://... nhập link trang VR 360°">
+                    <div class="link-actions">
+                        <button class="link-preview-btn" onclick="previewLink('link-lobby')" title="Xem trước"><i class="fas fa-external-link-alt"></i> Xem</button>
+                        <button class="link-preview-btn" onclick="copyLink('link-lobby')" title="Copy"><i class="fas fa-copy"></i></button>
+                        <button class="link-preview-btn" onclick="saveSceneLink('Homepage — Lobby')" title="Lưu"><i class="fas fa-save" style="color:#C9A861;"></i></button>
+                    </div>
+                </div>
+                <div class="link-status"><div class="dot green"></div><span style="color:#22c55e;">Link hoạt động</span><span style="color:#94a3b8;margin-left:8px;">· Cập nhật: 10/03/2026</span></div>
+            </div>
+        </div>
+
+        <!-- ═══ PHÒNG ═══ -->
+        <div class="section-divider"><i class="fas fa-bed"></i> Phòng</div>
+
+        <div class="scene-card">
+            <div class="scene-card-header">
+                <div class="scene-card-title">
+                    <div class="scene-icon" style="background:#EFF6FF;color:#3B82F6;"><i class="fas fa-bed"></i></div>
+                    <div><h3>Deluxe Twin Room</h3><div class="scene-page">Phòng Deluxe với view biển</div></div>
+                </div>
+                <span class="status-badge published">Active</span>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">Link VR 360°</label>
+                <div class="link-input-group">
+                    <input type="url" class="form-input" id="link-deluxe" value="https://botonbluehotel.com/vr360/room-deluxe" placeholder="https://... nhập link trang VR 360°">
+                    <div class="link-actions">
+                        <button class="link-preview-btn" onclick="previewLink('link-deluxe')"><i class="fas fa-external-link-alt"></i> Xem</button>
+                        <button class="link-preview-btn" onclick="copyLink('link-deluxe')"><i class="fas fa-copy"></i></button>
+                        <button class="link-preview-btn" onclick="saveSceneLink('Deluxe Twin Room')"><i class="fas fa-save" style="color:#C9A861;"></i></button>
+                    </div>
+                </div>
+                <div class="link-status"><div class="dot green"></div><span style="color:#22c55e;">Link hoạt động</span><span style="color:#94a3b8;margin-left:8px;">· Cập nhật: 08/03/2026</span></div>
+            </div>
+        </div>
+
+        <div class="scene-card">
+            <div class="scene-card-header">
+                <div class="scene-card-title">
+                    <div class="scene-icon" style="background:#EFF6FF;color:#3B82F6;"><i class="fas fa-bed"></i></div>
+                    <div><h3>Superior Twin Room</h3><div class="scene-page">Phòng Superior view núi</div></div>
+                </div>
+                <span class="status-badge published">Active</span>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">Link VR 360°</label>
+                <div class="link-input-group">
+                    <input type="url" class="form-input" id="link-superior" value="https://botonbluehotel.com/vr360/room-superior" placeholder="https://... nhập link trang VR 360°">
+                    <div class="link-actions">
+                        <button class="link-preview-btn" onclick="previewLink('link-superior')"><i class="fas fa-external-link-alt"></i> Xem</button>
+                        <button class="link-preview-btn" onclick="copyLink('link-superior')"><i class="fas fa-copy"></i></button>
+                        <button class="link-preview-btn" onclick="saveSceneLink('Superior Twin Room')"><i class="fas fa-save" style="color:#C9A861;"></i></button>
+                    </div>
+                </div>
+                <div class="link-status"><div class="dot green"></div><span style="color:#22c55e;">Link hoạt động</span><span style="color:#94a3b8;margin-left:8px;">· Cập nhật: 08/03/2026</span></div>
+            </div>
+        </div>
+
+        <div class="scene-card">
+            <div class="scene-card-header">
+                <div class="scene-card-title">
+                    <div class="scene-icon" style="background:#EFF6FF;color:#3B82F6;"><i class="fas fa-bed"></i></div>
+                    <div><h3>Pacific Double Room</h3><div class="scene-page">Phòng Pacific view biển</div></div>
+                </div>
+                <span class="status-badge published">Active</span>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">Link VR 360°</label>
+                <div class="link-input-group">
+                    <input type="url" class="form-input" id="link-pacific" value="https://botonbluehotel.com/vr360/room-pacific" placeholder="https://... nhập link trang VR 360°">
+                    <div class="link-actions">
+                        <button class="link-preview-btn" onclick="previewLink('link-pacific')"><i class="fas fa-external-link-alt"></i> Xem</button>
+                        <button class="link-preview-btn" onclick="copyLink('link-pacific')"><i class="fas fa-copy"></i></button>
+                        <button class="link-preview-btn" onclick="saveSceneLink('Pacific Double Room')"><i class="fas fa-save" style="color:#C9A861;"></i></button>
+                    </div>
+                </div>
+                <div class="link-status"><div class="dot green"></div><span style="color:#22c55e;">Link hoạt động</span><span style="color:#94a3b8;margin-left:8px;">· Cập nhật: 07/03/2026</span></div>
+            </div>
+        </div>
+
+        <div class="scene-card">
+            <div class="scene-card-header">
+                <div class="scene-card-title">
+                    <div class="scene-icon" style="background:#EFF6FF;color:#3B82F6;"><i class="fas fa-bed"></i></div>
+                    <div><h3>Suite Room</h3><div class="scene-page">Suite cao cấp view biển exclusive</div></div>
+                </div>
+                <span class="status-badge draft">Draft</span>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">Link VR 360°</label>
+                <div class="link-input-group">
+                    <input type="url" class="form-input" id="link-suite" value="" placeholder="https://... nhập link trang VR 360°">
+                    <div class="link-actions">
+                        <button class="link-preview-btn" onclick="previewLink('link-suite')"><i class="fas fa-external-link-alt"></i> Xem</button>
+                        <button class="link-preview-btn" onclick="copyLink('link-suite')"><i class="fas fa-copy"></i></button>
+                        <button class="link-preview-btn" onclick="saveSceneLink('Suite Room')"><i class="fas fa-save" style="color:#C9A861;"></i></button>
+                    </div>
+                </div>
+                <div class="link-status"><div class="dot gray"></div><span style="color:#94a3b8;">Chưa có link</span></div>
+            </div>
+        </div>
+
+        <!-- ═══ DỊCH VỤ ẨM THỰC ═══ -->
+        <div class="section-divider"><i class="fas fa-utensils"></i> Dịch Vụ Ẩm Thực</div>
+
+        <div class="scene-card">
+            <div class="scene-card-header">
+                <div class="scene-card-title">
+                    <div class="scene-icon" style="background:#FEF3C7;color:#D97706;"><i class="fas fa-utensils"></i></div>
+                    <div><h3>Skylight Restaurant</h3><div class="scene-page">Buffet quốc tế sáng/tối</div></div>
+                </div>
+                <span class="status-badge published">Active</span>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">Link VR 360°</label>
+                <div class="link-input-group">
+                    <input type="url" class="form-input" id="link-dining" value="https://botonbluehotel.com/vr360/dining" placeholder="https://... nhập link trang VR 360°">
+                    <div class="link-actions">
+                        <button class="link-preview-btn" onclick="previewLink('link-dining')"><i class="fas fa-external-link-alt"></i> Xem</button>
+                        <button class="link-preview-btn" onclick="copyLink('link-dining')"><i class="fas fa-copy"></i></button>
+                        <button class="link-preview-btn" onclick="saveSceneLink('Skylight Restaurant')"><i class="fas fa-save" style="color:#C9A861;"></i></button>
+                    </div>
+                </div>
+                <div class="link-status"><div class="dot green"></div><span style="color:#22c55e;">Link hoạt động</span><span style="color:#94a3b8;margin-left:8px;">· Cập nhật: 09/03/2026</span></div>
+            </div>
+        </div>
+
+        <div class="scene-card">
+            <div class="scene-card-header">
+                <div class="scene-card-title">
+                    <div class="scene-icon" style="background:#FEF3C7;color:#D97706;"><i class="fas fa-utensils"></i></div>
+                    <div><h3>The Grill House</h3><div class="scene-page">Hải sản nướng tươi sống</div></div>
+                </div>
+                <span class="status-badge draft">Draft</span>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">Link VR 360°</label>
+                <div class="link-input-group">
+                    <input type="url" class="form-input" id="link-grill" value="" placeholder="https://... nhập link trang VR 360°">
+                    <div class="link-actions">
+                        <button class="link-preview-btn" onclick="previewLink('link-grill')"><i class="fas fa-external-link-alt"></i> Xem</button>
+                        <button class="link-preview-btn" onclick="copyLink('link-grill')"><i class="fas fa-copy"></i></button>
+                        <button class="link-preview-btn" onclick="saveSceneLink('The Grill House')"><i class="fas fa-save" style="color:#C9A861;"></i></button>
+                    </div>
+                </div>
+                <div class="link-status"><div class="dot gray"></div><span style="color:#94a3b8;">Chưa có link</span></div>
+            </div>
+        </div>
+
+        <div class="scene-card">
+            <div class="scene-card-header">
+                <div class="scene-card-title">
+                    <div class="scene-icon" style="background:#FEF3C7;color:#D97706;"><i class="fas fa-glass-martini-alt"></i></div>
+                    <div><h3>Lobby Lounge</h3><div class="scene-page">Trà chiều, cocktail & live music</div></div>
+                </div>
+                <span class="status-badge draft">Draft</span>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">Link VR 360°</label>
+                <div class="link-input-group">
+                    <input type="url" class="form-input" id="link-lounge" value="" placeholder="https://... nhập link trang VR 360°">
+                    <div class="link-actions">
+                        <button class="link-preview-btn" onclick="previewLink('link-lounge')"><i class="fas fa-external-link-alt"></i> Xem</button>
+                        <button class="link-preview-btn" onclick="copyLink('link-lounge')"><i class="fas fa-copy"></i></button>
+                        <button class="link-preview-btn" onclick="saveSceneLink('Lobby Lounge')"><i class="fas fa-save" style="color:#C9A861;"></i></button>
+                    </div>
+                </div>
+                <div class="link-status"><div class="dot gray"></div><span style="color:#94a3b8;">Chưa có link</span></div>
+            </div>
+        </div>
+
+        <!-- ═══ TIỆN ÍCH & GIẢI TRÍ ═══ -->
+        <div class="section-divider"><i class="fas fa-swimming-pool"></i> Tiện Ích & Giải Trí</div>
+
+        <div class="scene-card">
+            <div class="scene-card-header">
+                <div class="scene-card-title">
+                    <div class="scene-icon" style="background:#ECFDF5;color:#059669;"><i class="fas fa-swimming-pool"></i></div>
+                    <div><h3>Infinity Pool</h3><div class="scene-page">Hồ bơi vô cực tầng 5</div></div>
+                </div>
+                <span class="status-badge published">Active</span>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">Link VR 360°</label>
+                <div class="link-input-group">
+                    <input type="url" class="form-input" id="link-pool" value="https://botonbluehotel.com/vr360/recreation" placeholder="https://... nhập link trang VR 360°">
+                    <div class="link-actions">
+                        <button class="link-preview-btn" onclick="previewLink('link-pool')"><i class="fas fa-external-link-alt"></i> Xem</button>
+                        <button class="link-preview-btn" onclick="copyLink('link-pool')"><i class="fas fa-copy"></i></button>
+                        <button class="link-preview-btn" onclick="saveSceneLink('Infinity Pool')"><i class="fas fa-save" style="color:#C9A861;"></i></button>
+                    </div>
+                </div>
+                <div class="link-status"><div class="dot green"></div><span style="color:#22c55e;">Link hoạt động</span><span style="color:#94a3b8;margin-left:8px;">· Cập nhật: 09/03/2026</span></div>
+            </div>
+        </div>
+
+        <div class="scene-card">
+            <div class="scene-card-header">
+                <div class="scene-card-title">
+                    <div class="scene-icon" style="background:#ECFDF5;color:#059669;"><i class="fas fa-spa"></i></div>
+                    <div><h3>Lotus Spa</h3><div class="scene-page">Spa cao cấp liệu pháp truyền thống</div></div>
+                </div>
+                <span class="status-badge draft">Draft</span>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">Link VR 360°</label>
+                <div class="link-input-group">
+                    <input type="url" class="form-input" id="link-spa" value="" placeholder="https://... nhập link trang VR 360°">
+                    <div class="link-actions">
+                        <button class="link-preview-btn" onclick="previewLink('link-spa')"><i class="fas fa-external-link-alt"></i> Xem</button>
+                        <button class="link-preview-btn" onclick="copyLink('link-spa')"><i class="fas fa-copy"></i></button>
+                        <button class="link-preview-btn" onclick="saveSceneLink('Lotus Spa')"><i class="fas fa-save" style="color:#C9A861;"></i></button>
+                    </div>
+                </div>
+                <div class="link-status"><div class="dot gray"></div><span style="color:#94a3b8;">Chưa có link</span></div>
+            </div>
+        </div>
+
+        <div class="scene-card">
+            <div class="scene-card-header">
+                <div class="scene-card-title">
+                    <div class="scene-icon" style="background:#ECFDF5;color:#059669;"><i class="fas fa-dumbbell"></i></div>
+                    <div><h3>Fitness Center</h3><div class="scene-page">Phòng tập hiện đại 24/7</div></div>
+                </div>
+                <span class="status-badge draft">Draft</span>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">Link VR 360°</label>
+                <div class="link-input-group">
+                    <input type="url" class="form-input" id="link-gym" value="" placeholder="https://... nhập link trang VR 360°">
+                    <div class="link-actions">
+                        <button class="link-preview-btn" onclick="previewLink('link-gym')"><i class="fas fa-external-link-alt"></i> Xem</button>
+                        <button class="link-preview-btn" onclick="copyLink('link-gym')"><i class="fas fa-copy"></i></button>
+                        <button class="link-preview-btn" onclick="saveSceneLink('Fitness Center')"><i class="fas fa-save" style="color:#C9A861;"></i></button>
+                    </div>
+                </div>
+                <div class="link-status"><div class="dot gray"></div><span style="color:#94a3b8;">Chưa có link</span></div>
+            </div>
+        </div>
+
+        <!-- ═══ THÊM MỚI ═══ -->
+        <div class="content-card" style="margin-top:28px;">
+            <div class="card-header">
+                <div class="card-title"><i class="fas fa-plus-circle" style="color:#C9A861;margin-right:8px;"></i> Thêm Scene Mới</div>
+            </div>
+            <div class="card-body">
+                <p style="font-size:13px;color:#64748b;margin-bottom:16px;">Thêm link VR 360° cho phần tử mới (phòng, dịch vụ, khu vực,...)</p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                    <div class="form-group">
+                        <label class="form-label">Tên phần tử <span style="color:#ef4444;">*</span></label>
+                        <input type="text" class="form-input" id="newSceneName" placeholder="VD: Phòng họp A, Kids Zone,...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Danh mục</label>
+                        <select class="form-input" id="newSceneCategory">
+                            <option value="homepage">Trang chủ</option>
+                            <option value="room">Phòng</option>
+                            <option value="dining">Ẩm thực</option>
+                            <option value="recreation">Tiện ích & Giải trí</option>
+                            <option value="event">Hội nghị & Sự kiện</option>
+                            <option value="other">Khác</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Link VR 360° <span style="color:#ef4444;">*</span></label>
+                    <input type="url" class="form-input" id="newSceneLink" placeholder="https://... dán link trang VR 360° tại đây">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Ghi chú</label>
+                    <input type="text" class="form-input" id="newSceneNote" placeholder="Ghi chú thêm (tuỳ chọn)">
+                </div>
+                <button class="btn btn-primary" onclick="addNewScene()"><i class="fas fa-plus"></i> Thêm Scene</button>
+            </div>
+        </div>
+
+        <!-- ═══ TỔNG QUAN & HƯỚNG DẪN ═══ -->
+        <div class="content-card" style="margin-top:20px;">
+            <div class="card-header"><div class="card-title"><i class="fas fa-chart-bar" style="color:#C9A861;margin-right:8px;"></i> Tổng Quan</div></div>
+            <div class="card-body">
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;">
+                    <div style="text-align:center;padding:16px;background:#f8fafc;border-radius:10px;">
+                        <div style="font-size:28px;font-weight:700;color:#0f172a;">11</div>
+                        <div style="font-size:12px;color:#64748b;">Tổng phần tử</div>
+                    </div>
+                    <div style="text-align:center;padding:16px;background:#f0fdf4;border-radius:10px;">
+                        <div style="font-size:28px;font-weight:700;color:#22c55e;">5</div>
+                        <div style="font-size:12px;color:#64748b;">Đã có link 360°</div>
+                    </div>
+                    <div style="text-align:center;padding:16px;background:#fef2f2;border-radius:10px;">
+                        <div style="font-size:28px;font-weight:700;color:#ef4444;">6</div>
+                        <div style="font-size:12px;color:#64748b;">Chưa có link</div>
+                    </div>
+                </div>
+                <div class="tips-box">
+                    <h4><i class="fas fa-lightbulb"></i> Hướng dẫn</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Dán link trang VR 360° vào ô tương ứng, nhấn nút <strong>Lưu</strong> (icon <i class="fas fa-save"></i>) để áp dụng.</li>
+                        <li><i class="fas fa-check"></i> Nhấn nút <strong>Xem</strong> để mở trang VR 360° trong tab mới và kiểm tra.</li>
+                        <li><i class="fas fa-check"></i> Link 360° cũng có thể nhập trực tiếp khi chỉnh sửa từng <strong>Phòng</strong> hoặc <strong>Dịch vụ</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Alert -->
+    <div class="alert alert-success" id="successAlert" style="position:fixed;top:20px;right:20px;z-index:10001;min-width:300px;display:none;">
+        <i class="fas fa-check-circle"></i>
+        <span id="successMsg">Success!</span>
+    </div>
+
+    <script>
+        function logout() { if(confirm('Logout?')) window.location.href='../index.html'; }
+
+        function showSuccess(msg) {
+            const el = document.getElementById('successAlert');
+            document.getElementById('successMsg').textContent = msg;
+            el.style.display = 'flex';
+            setTimeout(() => { el.style.display = 'none'; }, 3000);
+        }
+
+        function previewLink(inputId) {
+            const url = document.getElementById(inputId).value.trim();
+            if (!url) { alert('Chưa có link VR 360°. Vui lòng nhập link trước.'); return; }
+            window.open(url, '_blank');
+        }
+
+        function copyLink(inputId) {
+            const url = document.getElementById(inputId).value.trim();
+            if (!url) { alert('Chưa có link để copy.'); return; }
+            navigator.clipboard.writeText(url).then(() => {
+                showSuccess('Đã copy link!');
+            }).catch(() => {
+                const input = document.getElementById(inputId);
+                input.select();
+                document.execCommand('copy');
+                showSuccess('Đã copy link!');
+            });
+        }
+
+        function saveSceneLink(name) {
+            showSuccess('Đã lưu link 360° cho "' + name + '"!');
+        }
+
+        function addNewScene() {
+            const name = document.getElementById('newSceneName').value.trim();
+            const link = document.getElementById('newSceneLink').value.trim();
+            if (!name) { alert('Vui lòng nhập tên phần tử.'); return; }
+            if (!link) { alert('Vui lòng nhập link VR 360°.'); return; }
+            showSuccess('Đã thêm scene "' + name + '"!');
+            document.getElementById('newSceneName').value = '';
+            document.getElementById('newSceneLink').value = '';
+            document.getElementById('newSceneNote').value = '';
+        }
+    </script>
+</body>
+</html>
