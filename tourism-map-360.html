@@ -64,9 +64,11 @@ a{color:inherit;text-decoration:none}button{cursor:pointer;border:none;backgroun
 .ui.hidden .poi-panel,
 .ui.hidden .detail-panel,
 .ui.hidden .minimap-wrap,
+.ui.hidden .area-sidebar,
 .ui.hidden .scene-indicator{opacity:0;pointer-events:none;transform:translateY(8px)}
 .ui.hidden .topbar{transform:translateY(-20px)}
 .ui.hidden .poi-panel,.ui.hidden .detail-panel{transform:translateX(calc(100% + 20px))}
+.ui.hidden .area-sidebar{transform:translateX(calc(-100% - 20px))}
 
 /* Restore button — always visible */
 .ui-restore{
@@ -102,7 +104,73 @@ a{color:inherit;text-decoration:none}button{cursor:pointer;border:none;backgroun
 .tb-btn svg{width:14px;height:14px;stroke:currentColor;stroke-width:1.8;fill:none}
 .tb-btn.active{background:var(--accent-soft);border-color:rgba(34,211,167,.3);color:var(--accent)}
 
-/* ═══ CATEGORY FILTER CHIPS (inside poi-panel) ═══ */
+/* ═══ AREA SIDEBAR (left) ═══ */
+.area-sidebar{
+  position:absolute;left:14px;top:64px;width:72px;
+  max-height:calc(100vh - 64px - 28px);
+  background:var(--panel);backdrop-filter:blur(40px) saturate(1.3);
+  border:1px solid var(--glass-border);border-radius:14px;
+  display:flex;flex-direction:column;z-index:30;
+  overflow:hidden;
+  transition:opacity .5s var(--ease),transform .5s var(--ease);
+}
+.area-sb-header{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  padding:14px 6px 10px;border-bottom:1px solid var(--glass-border);flex-shrink:0;
+}
+.area-sb-icon{width:16px;height:16px;stroke:var(--accent);stroke-width:1.8;fill:none}
+.area-sb-title{font-size:9px;font-weight:700;color:var(--text-mute);text-transform:uppercase;letter-spacing:.08em}
+.area-sb-list{
+  flex:1 1 auto;min-height:0;overflow-y:auto;padding:8px 0;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.area-sb-list::-webkit-scrollbar{display:none}
+
+.area-sb-item{
+  width:56px;padding:6px 0;display:flex;flex-direction:column;align-items:center;gap:4px;
+  border-radius:10px;cursor:pointer;transition:all .2s;position:relative;flex-shrink:0;
+}
+.area-sb-item:hover{background:rgba(255,255,255,.06)}
+.area-sb-item.active{background:var(--accent-soft)}
+.area-sb-item.active::before{
+  content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:3px;height:24px;background:var(--accent);border-radius:0 3px 3px 0;
+}
+.area-sb-thumb{
+  width:40px;height:40px;border-radius:10px;overflow:hidden;
+  background:var(--glass);display:flex;align-items:center;justify-content:center;
+  border:2px solid transparent;transition:border-color .2s;
+}
+.area-sb-item.active .area-sb-thumb{border-color:var(--accent)}
+.area-sb-thumb img{width:100%;height:100%;object-fit:cover}
+.area-sb-thumb .area-sb-globe{width:18px;height:18px;stroke:var(--text-mute);stroke-width:1.6;fill:none}
+.area-sb-label{
+  font-size:9px;font-weight:600;color:var(--text-mute);text-align:center;
+  line-height:1.2;max-width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.area-sb-item.active .area-sb-label{color:var(--accent)}
+
+/* Area hover popup (positioned via JS, fixed to viewport) */
+.area-popup{
+  position:fixed;left:0;top:0;width:400px;z-index:65;
+  background:rgba(14,20,36,.96);backdrop-filter:blur(24px);
+  border:1px solid var(--glass-border);border-radius:16px;
+  box-shadow:0 16px 48px rgba(0,0,0,.6);
+  opacity:0;pointer-events:none;transform:translateX(-10px) scale(.97);
+  transition:all .25s cubic-bezier(.4,0,.2,1);overflow:hidden;
+}
+.area-popup.visible{opacity:1;pointer-events:auto;transform:translateX(0) scale(1)}
+.area-popup-img{height:230px;background:var(--glass);overflow:hidden;position:relative}
+.area-popup-img img{width:100%;height:100%;object-fit:cover}
+.area-popup-img::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(14,20,36,.6) 0%,transparent 50%);
+}
+.area-popup-body{padding:16px 20px}
+.area-popup-name{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px}
+.area-popup-desc{font-size:13px;color:var(--text-dim);line-height:1.65;margin-bottom:12px}
+.area-popup-stat{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--accent);font-weight:600}
 .poi-filters{
   display:flex;gap:7px;padding:0 0 14px;overflow-x:auto;flex-wrap:wrap;
   scrollbar-width:none;-ms-overflow-style:none;
@@ -236,14 +304,14 @@ a{color:inherit;text-decoration:none}button{cursor:pointer;border:none;backgroun
 
 /* ═══ MINI MAP ═══ */
 .minimap-wrap{
-  position:absolute;bottom:14px;left:14px;z-index:100;
+  position:absolute;top:64px;left:100px;z-index:100;
   width:200px;height:150px;border-radius:12px;overflow:hidden;
   border:1px solid var(--glass-border);box-shadow:0 8px 32px rgba(0,0,0,.4);
   transition:all .4s var(--ease);
   min-width:140px;min-height:100px;
   max-width:calc(100vw - 28px);max-height:calc(100vh - 28px);
 }
-.minimap-wrap.hidden{opacity:0;transform:translateY(16px);pointer-events:none}
+.minimap-wrap.hidden{opacity:0;transform:translateY(-16px);pointer-events:none}
 .minimap-wrap.resizing{transition:none}
 .minimap-wrap.expanded{
   width:calc(100vw - 28px)!important;height:calc(100vh - 28px)!important;
@@ -381,6 +449,7 @@ a{color:inherit;text-decoration:none}button{cursor:pointer;border:none;backgroun
   /* Scene indicator: sit above collapsed panel */
   .scene-indicator{
     bottom:calc(160px + 12px);left:50%;transform:translateX(-50%);
+    white-space:nowrap;
     transition:opacity .3s var(--ease),transform .3s var(--ease);
   }
   /* Hide scene indicator when panel expanded or dragging */
@@ -394,7 +463,7 @@ a{color:inherit;text-decoration:none}button{cursor:pointer;border:none;backgroun
   .filter-chip svg{width:13px;height:13px}
   .poi-close{display:none}
   #btnList{display:none}
-  .minimap-wrap{width:150px;height:110px;left:auto;bottom:auto;right:6px;top:52px;min-width:110px;min-height:80px}
+  .minimap-wrap{width:150px;height:110px;left:auto;bottom:auto;right:6px;top:111px;min-width:110px;min-height:80px}
   .minimap-wrap.expanded{width:calc(100vw - 12px)!important;height:calc(100vh - 12px)!important}
   .minimap-resize{width:20px;height:20px}
   .minimap-resize svg{width:10px;height:10px}
@@ -407,6 +476,28 @@ a{color:inherit;text-decoration:none}button{cursor:pointer;border:none;backgroun
   .ui-restore{bottom:14px;right:14px;width:38px;height:38px}
   .ui-restore svg{width:18px;height:18px}
   .ui.hidden .poi-panel,.ui.hidden .detail-panel{transform:translateY(100%)}
+  .ui.hidden .area-sidebar{transform:translateX(calc(-100% - 20px))}
+
+  /* Area sidebar: horizontal strip at top-left */
+  .area-sidebar{
+    left:6px;top:57px;bottom:auto;width:auto;height:auto;
+    max-width:calc(100vw - 12px);
+    flex-direction:row;border-radius:10px;padding:4px 6px;gap:2px;
+    overflow-x:auto;overflow-y:hidden;
+    scrollbar-width:none;-ms-overflow-style:none;
+  }
+  .area-sidebar::-webkit-scrollbar{display:none}
+  .area-sb-header{display:none}
+  .area-sb-list{
+    flex-direction:row;padding:0;gap:2px;
+    overflow:visible;min-height:auto;
+    flex-wrap:nowrap;
+  }
+  .area-sb-item{width:auto;padding:4px 6px;flex-direction:row;gap:4px;flex-shrink:0}
+  .area-sb-thumb{width:28px;height:28px;border-radius:6px}
+  .area-sb-label{font-size:8px;max-width:40px}
+  .area-sb-item.active::before{display:none}
+  .area-popup{display:none}
 }
 </style>
 </head>
@@ -445,6 +536,25 @@ a{color:inherit;text-decoration:none}button{cursor:pointer;border:none;backgroun
         <i data-lucide="list"></i>
         Danh sách
       </button>
+    </div>
+  </div>
+
+  <!-- AREA SIDEBAR (left) -->
+  <div class="area-sidebar" id="areaSidebar">
+    <div class="area-sb-header">
+      <i data-lucide="map-pin" class="area-sb-icon"></i>
+      <span class="area-sb-title">Khu vực</span>
+    </div>
+    <div class="area-sb-list" id="areaSbList"></div>
+  </div>
+
+  <!-- Area hover popup (outside sidebar to avoid overflow clip) -->
+  <div class="area-popup" id="areaPopup">
+    <div class="area-popup-img" id="areaPopupImg"></div>
+    <div class="area-popup-body">
+      <div class="area-popup-name" id="areaPopupName"></div>
+      <div class="area-popup-desc" id="areaPopupDesc"></div>
+      <div class="area-popup-stat" id="areaPopupStat"></div>
     </div>
   </div>
 
@@ -517,6 +627,25 @@ a{color:inherit;text-decoration:none}button{cursor:pointer;border:none;backgroun
 // ══════════════════════════════════════
 // DATA
 // ══════════════════════════════════════
+const AREAS = [
+  {id:"all", label:"Tất cả khu vực"},
+  {id:"vung-tau", label:"Vũng Tàu", lat:10.346, lng:107.084, zoom:12,
+    thumb:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=240&fit=crop",
+    desc:"Thành phố biển nổi tiếng với Bãi Trước, Bãi Sau và nhiều di tích lịch sử.", pois:6},
+  {id:"ba-ria", label:"Bà Rịa", lat:10.496, lng:107.168, zoom:12,
+    thumb:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=240&fit=crop",
+    desc:"Thành phố lịch sử với nhiều di tích văn hóa và thiên nhiên hùng vĩ.", pois:2},
+  {id:"xuyen-moc", label:"Xuyên Mộc", lat:10.530, lng:107.400, zoom:11,
+    thumb:"https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=400&h=240&fit=crop",
+    desc:"Vùng biển hoang sơ với bãi biển đẹp và suối nước nóng Bình Châu.", pois:2},
+  {id:"ho-tram", label:"Hồ Tràm", lat:10.476, lng:107.375, zoom:13,
+    thumb:"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&h=240&fit=crop",
+    desc:"Khu nghỉ dưỡng cao cấp với resort 5 sao, casino và bãi biển riêng.", pois:1},
+  {id:"con-dao", label:"Côn Đảo", lat:8.683, lng:106.609, zoom:11,
+    thumb:"https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=400&h=240&fit=crop",
+    desc:"Quần đảo thiên nhiên hoang sơ với rạn san hô và di tích lịch sử.", pois:1},
+];
+
 const CATEGORIES = [
   {id:"all", label:"Tất cả", icon:"globe"},
   {id:"beach", label:"Biển", icon:"waves", color:"#22D3A7"},
@@ -534,7 +663,7 @@ const OVERVIEW = {
 
 const POIS = [
   {
-    id:1, cat:"beach", name:"Bãi Trước", addr:"Tp. Vũng Tàu",
+    id:1, cat:"beach", area:"vung-tau", name:"Bãi Trước", addr:"Tp. Vũng Tàu",
     lat:10.3460, lng:107.0723,
     pitch:-10, yaw:40,
     panorama:"https://pannellum.org/images/alma.jpg",
@@ -546,7 +675,7 @@ const POIS = [
     emoji:"🏖️"
   },
   {
-    id:2, cat:"beach", name:"Bãi Sau", addr:"Tp. Vũng Tàu",
+    id:2, cat:"beach", area:"vung-tau", name:"Bãi Sau", addr:"Tp. Vũng Tàu",
     lat:10.3380, lng:107.0850,
     pitch:-8, yaw:120,
     panorama:"https://pannellum.org/images/bma-1.jpg",
@@ -558,7 +687,7 @@ const POIS = [
     emoji:"🌊"
   },
   {
-    id:3, cat:"temple", name:"Tượng Chúa Kitô", addr:"Núi Nhỏ, Vũng Tàu",
+    id:3, cat:"temple", area:"vung-tau", name:"Tượng Chúa Kitô", addr:"Núi Nhỏ, Vũng Tàu",
     lat:10.3280, lng:107.0845,
     pitch:15, yaw:180,
     panorama:"https://pannellum.org/images/cerro-toco-0.jpg",
@@ -570,7 +699,7 @@ const POIS = [
     emoji:"✝️"
   },
   {
-    id:4, cat:"nature", name:"Núi Dinh", addr:"H. Tân Thành",
+    id:4, cat:"nature", area:"ba-ria", name:"Núi Dinh", addr:"H. Tân Thành",
     lat:10.5030, lng:107.0980,
     pitch:20, yaw:-50,
     panorama:"https://pannellum.org/images/alma.jpg",
@@ -582,7 +711,7 @@ const POIS = [
     emoji:"⛰️"
   },
   {
-    id:5, cat:"food", name:"Chợ Hải Sản Vũng Tàu", addr:"Đường Trần Phú, Vũng Tàu",
+    id:5, cat:"food", area:"vung-tau", name:"Chợ Hải Sản Vũng Tàu", addr:"Đường Trần Phú, Vũng Tàu",
     lat:10.3500, lng:107.0750,
     pitch:-5, yaw:-120,
     panorama:"https://pannellum.org/images/bma-1.jpg",
@@ -594,7 +723,7 @@ const POIS = [
     emoji:"🦀"
   },
   {
-    id:6, cat:"history", name:"Bạch Dinh", addr:"Tp. Vũng Tàu",
+    id:6, cat:"history", area:"vung-tau", name:"Bạch Dinh", addr:"Tp. Vũng Tàu",
     lat:10.3400, lng:107.0720,
     pitch:5, yaw:-20,
     panorama:"https://pannellum.org/images/cerro-toco-0.jpg",
@@ -606,7 +735,7 @@ const POIS = [
     emoji:"🏛️"
   },
   {
-    id:7, cat:"resort", name:"Hồ Tràm Strip", addr:"Xuyên Mộc",
+    id:7, cat:"resort", area:"ho-tram", name:"Hồ Tràm Strip", addr:"Xuyên Mộc",
     lat:10.4760, lng:107.3750,
     pitch:-2, yaw:250,
     panorama:"https://pannellum.org/images/alma.jpg",
@@ -618,7 +747,7 @@ const POIS = [
     emoji:"🏨"
   },
   {
-    id:8, cat:"nature", name:"Côn Đảo", addr:"H. Côn Đảo",
+    id:8, cat:"nature", area:"con-dao", name:"Côn Đảo", addr:"H. Côn Đảo",
     lat:8.6832, lng:106.6093,
     pitch:12, yaw:300,
     panorama:"https://pannellum.org/images/bma-1.jpg",
@@ -632,11 +761,12 @@ const POIS = [
 ];
 
 // ══════════ STATE ══════════
-let viewer=null, map=null, activeCats=new Set(), activePOI=null, viewMode="overview";
+let viewer=null, map=null, activeCats=new Set(), activeArea="all", activePOI=null, viewMode="overview";
 let poiPanelOpen=true, minimapVisible=true, markers=[];
 
 // ══════════ INIT ══════════
 function init(){
+  renderAreaSidebar();
   renderCategories();
   renderPOIList();
   loadOverview();
@@ -701,8 +831,9 @@ function loadPOIScene(poi){
 function renderCategories(){
   const el=document.getElementById("poiFilters");
   const cats=CATEGORIES.filter(c=>c.id!=="all");
+  const areaPois = activeArea==="all" ? POIS : POIS.filter(p=>p.area===activeArea);
   el.innerHTML=cats.map(c=>{
-    const count = POIS.filter(p=>p.cat===c.id).length;
+    const count = areaPois.filter(p=>p.cat===c.id).length;
     const isActive = activeCats.has(c.id);
     return `<button class="filter-chip ${isActive?'active':''}" data-cat="${c.id}" onclick="toggleCat('${c.id}')">
       <span class="chip-check"><i data-lucide="check" class="chip-check-icon"></i></span>
@@ -725,9 +856,85 @@ function toggleCat(catId){
   if(viewMode==="overview") loadOverview();
 }
 
+function switchArea(areaId){
+  activeArea = areaId;
+  renderCategories();
+  renderPOIList();
+  if(viewMode==="overview") loadOverview();
+  // Fly minimap to area
+  const area = AREAS.find(a=>a.id===areaId);
+  if(map && area && area.lat) {
+    map.flyTo([area.lat, area.lng], area.zoom||12, {duration:1.2});
+  } else if(map) {
+    map.setView([10.40,107.15],9,{animate:true});
+  }
+  // Re-render sidebar active state
+  renderAreaSidebar();
+}
+
+// ══════════ AREA SIDEBAR ══════════
+function renderAreaSidebar(){
+  const list = document.getElementById("areaSbList");
+  list.innerHTML = AREAS.map(a => {
+    const isActive = activeArea === a.id;
+    const isAll = a.id === "all";
+    return `<div class="area-sb-item ${isActive?'active':''}" onclick="switchArea('${a.id}')"
+      ${!isAll ? `onmouseenter="showAreaPopup('${a.id}',this)" onmouseleave="hideAreaPopup()"` : `onmouseenter="hideAreaPopup()"`}>
+      <div class="area-sb-thumb">
+        ${a.thumb ? `<img src="${a.thumb}" alt="${a.label}" loading="lazy">` : `<i data-lucide="globe" class="area-sb-globe"></i>`}
+      </div>
+      <div class="area-sb-label">${isAll ? 'Tất cả' : a.label}</div>
+    </div>`;
+  }).join("");
+  lucide.createIcons({root:list});
+}
+
+let areaPopupTimer = null;
+function showAreaPopup(areaId, el){
+  clearTimeout(areaPopupTimer);
+  const area = AREAS.find(a=>a.id===areaId);
+  if(!area || !area.thumb) return;
+  const popup = document.getElementById("areaPopup");
+  const count = POIS.filter(p=>p.area===areaId).length;
+  document.getElementById("areaPopupImg").innerHTML = `<img src="${area.thumb}" alt="${area.label}">`;
+  document.getElementById("areaPopupName").textContent = area.label;
+  document.getElementById("areaPopupDesc").textContent = area.desc || "";
+  document.getElementById("areaPopupStat").innerHTML = `<i data-lucide="map-pin" style="width:13px;height:13px"></i> ${count} điểm đến`;
+  lucide.createIcons({root:document.getElementById("areaPopupStat")});
+  // Position popup using fixed coords (popup is outside sidebar now)
+  const sidebar = document.getElementById("areaSidebar");
+  const sbRect = sidebar.getBoundingClientRect();
+  const elRect = el.getBoundingClientRect();
+  const popupH = 400;
+  // Place to the right of the sidebar
+  const popupLeft = sbRect.right + 12;
+  // Vertically align to hovered item, clamped to viewport
+  let popupTop = elRect.top - 20;
+  const maxTop = window.innerHeight - popupH - 14;
+  popupTop = Math.max(14, Math.min(popupTop, maxTop));
+  popup.style.left = popupLeft + "px";
+  popup.style.top = popupTop + "px";
+  popup.classList.add("visible");
+}
+function hideAreaPopup(){
+  areaPopupTimer = setTimeout(() => {
+    document.getElementById("areaPopup").classList.remove("visible");
+  }, 200);
+}
+// Keep popup alive when hovering over it
+document.addEventListener("DOMContentLoaded", function(){
+  const popup = document.getElementById("areaPopup");
+  if(popup){
+    popup.addEventListener("mouseenter", function(){ clearTimeout(areaPopupTimer); });
+    popup.addEventListener("mouseleave", function(){ hideAreaPopup(); });
+  }
+});
+
 function getFilteredPOIs(){
-  if(activeCats.size===0) return POIS;
-  return POIS.filter(p=>activeCats.has(p.cat));
+  let result = POIS;
+  if(activeArea!=="all") result = result.filter(p=>p.area===activeArea);
+  if(activeCats.size>0) result = result.filter(p=>activeCats.has(p.cat));
+  return result;
 }
 
 // ══════════ POI LIST ══════════
@@ -838,6 +1045,19 @@ function backToOverview(){
 }
 
 // ══════════ MINIMAP ══════════
+function positionMinimap(){
+  if(window.innerWidth<=860 || mapExpanded) return;
+  const wrap=document.getElementById("minimapWrap");
+  const sidebar=document.getElementById("areaSidebar");
+  if(!wrap||!sidebar) return;
+  const sbRect=sidebar.getBoundingClientRect();
+  // Always right of sidebar, below header
+  wrap.style.top="64px";
+  wrap.style.bottom="auto";
+  wrap.style.left=(sbRect.right+14)+"px";
+  wrap.style.right="auto";
+}
+
 function initMinimap(){
   map=L.map("minimap",{
     zoomControl:false, attributionControl:false,
@@ -964,7 +1184,7 @@ function toggleMapExpand(){
   mapExpanded=!mapExpanded;
   const wrap=document.getElementById("minimapWrap");
   const btn=document.getElementById("btnMapExpand");
-  // reset position to default corner so expanded fits viewport
+  // reset position for expanded to fit viewport
   wrap.style.left="14px";wrap.style.bottom="14px";wrap.style.right="auto";wrap.style.top="auto";
   wrap.classList.toggle("expanded",mapExpanded);
   btn.title=mapExpanded?"Thu nhỏ bản đồ":"Mở rộng bản đồ";
@@ -973,7 +1193,9 @@ function toggleMapExpand(){
     :'<i data-lucide="maximize-2"></i>';
   lucide.createIcons({root:btn});
   if(!mapExpanded){
+    // Restore smart position
     wrap.style.left="";wrap.style.bottom="";wrap.style.right="";wrap.style.top="";
+    setTimeout(positionMinimap, 50);
   }
   if(map) setTimeout(()=>map.invalidateSize(),400);
 }
@@ -1228,6 +1450,9 @@ document.addEventListener("DOMContentLoaded",()=>{
   bindFrameDrag();
   bindMobilePanelDrag(document.getElementById("poiPanel"));
   bindMobilePanelDrag(document.getElementById("detailPanel"));
+  // Position minimap smartly after sidebar renders
+  setTimeout(positionMinimap, 100);
+  window.addEventListener("resize", positionMinimap);
 });
 </script>
 </body>

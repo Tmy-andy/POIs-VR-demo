@@ -3,27 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tỉnh/Thành - Tourism Admin</title>
+    <title>Khu Vực - Tourism Admin</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <link rel="stylesheet" href="styles/admin.css">
     <style>
-        .province-card{background:#fff;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;transition:all .3s}
+        /* 2-column layout */
+        .province-layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+        @media(max-width:960px){.province-layout{grid-template-columns:1fr}}
+        .province-list{display:flex;flex-direction:column;gap:16px}
+
+        .province-card{background:#fff;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;transition:all .3s;cursor:pointer}
         .province-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08)}
-        .province-hero{height:180px;background:linear-gradient(135deg,#0D9488,#134E4A);display:flex;align-items:center;justify-content:center;color:#fff;font-size:48px;position:relative}
+        .province-card.selected{border-color:#0D9488;box-shadow:0 0 0 2px rgba(13,148,136,.2)}
+        .province-card-inner{display:flex;gap:0}
+        .province-hero{width:100px;min-height:120px;background:linear-gradient(135deg,#0D9488,#134E4A);display:flex;align-items:center;justify-content:center;color:#fff;font-size:32px;position:relative;flex-shrink:0}
         .province-hero img{width:100%;height:100%;object-fit:cover}
-        .province-hero .overlay-badge{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.9);color:#0D9488;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600}
-        .province-body{padding:20px}
-        .province-name{font-size:18px;font-weight:700;color:#0f172a;margin-bottom:4px}
-        .province-slug{font-size:13px;color:#94a3b8;margin-bottom:12px}
-        .province-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
-        .p-stat{text-align:center;padding:8px;background:#f8fafc;border-radius:8px}
-        .p-stat-val{font-size:16px;font-weight:700;color:#0D9488}
+        .province-body{padding:14px 16px;flex:1;min-width:0}
+        .province-name{font-size:16px;font-weight:700;color:#0f172a;margin-bottom:2px}
+        .province-slug{font-size:12px;color:#94a3b8;margin-bottom:8px}
+        .province-stats{display:flex;gap:12px;margin-bottom:10px}
+        .p-stat{display:flex;align-items:center;gap:4px}
+        .p-stat-val{font-size:14px;font-weight:700;color:#0D9488}
         .p-stat-lbl{font-size:11px;color:#64748b}
-        .province-actions{display:flex;gap:8px}
-        .map-config-box{background:#fff;border-radius:12px;border:1px solid #e2e8f0;padding:20px}
-        .map-preview{height:300px;border-radius:8px;overflow:hidden;border:1px solid #e2e8f0;margin-top:12px}
+        .province-actions{display:flex;gap:6px}
+        .province-status{position:absolute;top:6px;right:6px;background:rgba(255,255,255,.9);color:#0D9488;padding:2px 8px;border-radius:12px;font-size:10px;font-weight:600;display:flex;align-items:center;gap:3px}
+
+        /* Image upload field */
+        .img-upload-zone{position:relative;border:2px dashed #e2e8f0;border-radius:10px;overflow:hidden;transition:all .3s;cursor:pointer;background:#f8fafc;min-height:140px;display:flex;align-items:center;justify-content:center}
+        .img-upload-zone:hover{border-color:#0D9488;background:#f0fdfa}
+        .img-upload-zone.has-image{border-style:solid;border-color:#e2e8f0}
+        .img-upload-zone.has-image:hover{border-color:#0D9488}
+        .img-upload-placeholder{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px;text-align:center}
+        .img-upload-placeholder i{font-size:28px;color:#94a3b8}
+        .img-upload-placeholder span{font-size:12px;color:#94a3b8}
+        .img-upload-placeholder small{font-size:11px;color:#cbd5e1}
+        .img-upload-preview{width:100%;height:180px;object-fit:cover;display:block}
+        .img-upload-actions{position:absolute;top:8px;right:8px;display:flex;gap:4px}
+        .img-upload-actions button{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;border:none;cursor:pointer;transition:all .2s}
+        .img-upload-actions .img-btn-change{background:rgba(255,255,255,.9);color:#64748b}
+        .img-upload-actions .img-btn-change:hover{background:#fff;color:#0D9488}
+        .img-upload-actions .img-btn-remove{background:rgba(255,255,255,.9);color:#ef4444}
+        .img-upload-actions .img-btn-remove:hover{background:#fff;color:#dc2626}
+        .img-url-input{margin-top:8px;display:flex;gap:6px}
+        .img-url-input input{flex:1}
+        .img-url-input button{flex-shrink:0}
+
+        /* Map config panel */
+        .map-config-box{background:#fff;border-radius:12px;border:1px solid #e2e8f0;padding:20px;position:sticky}
+        .map-config-title{font-size:16px;font-weight:700;color:#0f172a;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+        .map-config-sub{font-size:12px;color:#94a3b8;margin-bottom:16px}
+        .map-preview{height:320px;border-radius:10px;overflow:hidden;border:1px solid #e2e8f0;margin-bottom:16px}
+        .map-config-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+        .map-field label{font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;display:block}
+        .map-field input{width:100%;padding:7px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#0f172a;background:#f8fafc;transition:border .2s}
+        .map-field input:focus{border-color:#0D9488;outline:none;background:#fff}
+        .map-config-actions{display:flex;gap:8px;margin-top:14px}
+
     </style>
 </head>
 <body>
@@ -33,7 +70,7 @@
         <nav class="nav-menu">
             <div class="nav-section"><div class="nav-section-title">MAIN</div><a href="index.html" class="nav-item"><i class="fas fa-chart-pie"></i> Dashboard</a></div>
             <div class="nav-section"><div class="nav-section-title">NỘI DUNG</div>
-                <a href="provinces.html" class="nav-item active"><i class="fas fa-landmark"></i> Tỉnh/Thành</a>
+                <a href="provinces.html" class="nav-item active"><i class="fas fa-map-signs"></i> Khu Vực</a>
                 <a href="categories.html" class="nav-item"><i class="fas fa-folder-open"></i> Danh Mục</a>
                 <a href="pois.html" class="nav-item"><i class="fas fa-map-pin"></i> Điểm Đến <span class="nav-badge">12</span></a>
                 <a href="tags.html" class="nav-item"><i class="fas fa-tags"></i> Tags</a>
@@ -51,51 +88,146 @@
     </div>
 
     <header class="header">
-        <div class="header-left"><h1 class="page-title">Tỉnh/Thành Phố</h1></div>
-        <div class="header-right"><button class="btn btn-primary" onclick="openModal('addProvinceModal')"><i class="fas fa-plus"></i> Thêm Tỉnh/Thành</button></div>
+        <div class="header-left"><h1 class="page-title">Quản Lý Khu Vực</h1></div>
+        <div class="header-right"><button class="btn btn-primary" onclick="openModal('addProvinceModal')"><i class="fas fa-plus"></i> Thêm Khu Vực</button></div>
     </header>
 
     <main class="main-content">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
-            <!-- Province Card -->
-            <div class="province-card">
-                <div class="province-hero">
-                    <span>🏖</span>
-                    <div class="overlay-badge"><i class="fas fa-check-circle"></i> Active</div>
-                </div>
-                <div class="province-body">
-                    <div class="province-name">Bà Rịa — Vũng Tàu</div>
-                    <div class="province-slug">ba-ria-vung-tau</div>
-                    <div class="province-stats">
-                        <div class="p-stat"><div class="p-stat-val">12</div><div class="p-stat-lbl">Điểm Đến</div></div>
-                        <div class="p-stat"><div class="p-stat-val">6</div><div class="p-stat-lbl">Danh mục</div></div>
-                        <div class="p-stat"><div class="p-stat-val">12</div><div class="p-stat-lbl">VR 360°</div></div>
+        <div class="province-layout">
+            <!-- LEFT: Area Cards List -->
+            <div class="province-list">
+                <!-- Area 1: Vũng Tàu -->
+                <div class="province-card selected" onclick="selectArea(this,'Vũng Tàu','vung-tau',10.346,107.084,12)">
+                    <div class="province-card-inner">
+                        <div class="province-hero">
+                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=240&fit=crop" alt="Vũng Tàu">
+                            <div class="province-status"><i class="fas fa-check-circle"></i> Active</div>
+                        </div>
+                        <div class="province-body">
+                            <div class="province-name">Vũng Tàu</div>
+                            <div class="province-slug">vung-tau</div>
+                            <div class="province-stats">
+                                <div class="p-stat"><div class="p-stat-val">6</div><div class="p-stat-lbl">Điểm Đến</div></div>
+                                <div class="p-stat"><div class="p-stat-val">4</div><div class="p-stat-lbl">Danh mục</div></div>
+                                <div class="p-stat"><div class="p-stat-val">6</div><div class="p-stat-lbl">VR 360°</div></div>
+                            </div>
+                            <div class="province-actions">
+                                <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();editProvince('Vũng Tàu','vung-tau','Thành phố biển nổi tiếng với Bãi Trước, Bãi Sau','https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=240&fit=crop')"><i class="fas fa-edit"></i> Sửa Thông Tin Chi Tiết</button>
+                                <button class="btn btn-outline btn-sm" onclick="event.stopPropagation();openOverview360()"><i class="fas fa-vr-cardboard"></i> Overview 360°</button>
+                                <button class="btn btn-outline btn-sm" style="color:#ef4444;border-color:#fca5a5;" onclick="event.stopPropagation();deleteProvince('Vũng Tàu')"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="province-actions">
-                        <button class="btn btn-primary btn-sm" onclick="editProvince('Bà Rịa — Vũng Tàu','ba-ria-vung-tau','Thành phố biển với nhiều địa điểm du lịch hấp dẫn',10.346,107.084)"><i class="fas fa-edit"></i> Sửa</button>
-                        <button class="btn btn-outline btn-sm" onclick="openOverview360()"><i class="fas fa-vr-cardboard"></i> Overview 360°</button>
-                        <button class="btn btn-outline btn-sm" style="color:#ef4444;border-color:#fca5a5;" onclick="deleteProvince('Bà Rịa — Vũng Tàu')"><i class="fas fa-trash"></i></button>
+                </div>
+                <!-- Area 2: Bà Rịa -->
+                <div class="province-card" onclick="selectArea(this,'Bà Rịa','ba-ria',10.496,107.168,12)">
+                    <div class="province-card-inner">
+                        <div class="province-hero" style="background:linear-gradient(135deg,#D97706,#92400E);">
+                            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=240&fit=crop" alt="Bà Rịa">
+                            <div class="province-status"><i class="fas fa-check-circle"></i> Active</div>
+                        </div>
+                        <div class="province-body">
+                            <div class="province-name">Bà Rịa</div>
+                            <div class="province-slug">ba-ria</div>
+                            <div class="province-stats">
+                                <div class="p-stat"><div class="p-stat-val">2</div><div class="p-stat-lbl">Điểm Đến</div></div>
+                                <div class="p-stat"><div class="p-stat-val">2</div><div class="p-stat-lbl">Danh mục</div></div>
+                                <div class="p-stat"><div class="p-stat-val">2</div><div class="p-stat-lbl">VR 360°</div></div>
+                            </div>
+                            <div class="province-actions">
+                                <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();editProvince('Bà Rịa','ba-ria','Thành phố lịch sử với nhiều di tích văn hóa','https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=240&fit=crop')"><i class="fas fa-edit"></i> Sửa Thông Tin Chi Tiết</button>
+                                <button class="btn btn-outline btn-sm" onclick="event.stopPropagation();openOverview360()"><i class="fas fa-vr-cardboard"></i> Overview 360°</button>
+                                <button class="btn btn-outline btn-sm" style="color:#ef4444;border-color:#fca5a5;" onclick="event.stopPropagation();deleteProvince('Bà Rịa')"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Area 3: Xuyên Mộc -->
+                <div class="province-card" onclick="selectArea(this,'Xuyên Mộc','xuyen-moc',10.530,107.400,11)">
+                    <div class="province-card-inner">
+                        <div class="province-hero" style="background:linear-gradient(135deg,#059669,#064E3B);">
+                            <img src="https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=400&h=240&fit=crop" alt="Xuyên Mộc">
+                            <div class="province-status"><i class="fas fa-check-circle"></i> Active</div>
+                        </div>
+                        <div class="province-body">
+                            <div class="province-name">Xuyên Mộc</div>
+                            <div class="province-slug">xuyen-moc</div>
+                            <div class="province-stats">
+                                <div class="p-stat"><div class="p-stat-val">2</div><div class="p-stat-lbl">Điểm Đến</div></div>
+                                <div class="p-stat"><div class="p-stat-val">2</div><div class="p-stat-lbl">Danh mục</div></div>
+                                <div class="p-stat"><div class="p-stat-val">1</div><div class="p-stat-lbl">VR 360°</div></div>
+                            </div>
+                            <div class="province-actions">
+                                <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();editProvince('Xuyên Mộc','xuyen-moc','Vùng biển hoang sơ với Hồ Tràm, Bình Châu','https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=400&h=240&fit=crop')"><i class="fas fa-edit"></i> Sửa Thông Tin Chi Tiết</button>
+                                <button class="btn btn-outline btn-sm" onclick="event.stopPropagation();openOverview360()"><i class="fas fa-vr-cardboard"></i> Overview 360°</button>
+                                <button class="btn btn-outline btn-sm" style="color:#ef4444;border-color:#fca5a5;" onclick="event.stopPropagation();deleteProvince('Xuyên Mộc')"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Area 4: Hồ Tràm -->
+                <div class="province-card" onclick="selectArea(this,'Hồ Tràm','ho-tram',10.476,107.375,13)">
+                    <div class="province-card-inner">
+                        <div class="province-hero" style="background:linear-gradient(135deg,#7C3AED,#4C1D95);">
+                            <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&h=240&fit=crop" alt="Hồ Tràm">
+                            <div class="province-status"><i class="fas fa-check-circle"></i> Active</div>
+                        </div>
+                        <div class="province-body">
+                            <div class="province-name">Hồ Tràm</div>
+                            <div class="province-slug">ho-tram</div>
+                            <div class="province-stats">
+                                <div class="p-stat"><div class="p-stat-val">1</div><div class="p-stat-lbl">Điểm Đến</div></div>
+                                <div class="p-stat"><div class="p-stat-val">1</div><div class="p-stat-lbl">Danh mục</div></div>
+                                <div class="p-stat"><div class="p-stat-val">1</div><div class="p-stat-lbl">VR 360°</div></div>
+                            </div>
+                            <div class="province-actions">
+                                <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();editProvince('Hồ Tràm','ho-tram','Khu nghỉ dưỡng cao cấp với resort và casino','https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&h=240&fit=crop')"><i class="fas fa-edit"></i> Sửa Thông Tin Chi Tiết</button>
+                                <button class="btn btn-outline btn-sm" onclick="event.stopPropagation();openOverview360()"><i class="fas fa-vr-cardboard"></i> Overview 360°</button>
+                                <button class="btn btn-outline btn-sm" style="color:#ef4444;border-color:#fca5a5;" onclick="event.stopPropagation();deleteProvince('Hồ Tràm')"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Area 5: Côn Đảo -->
+                <div class="province-card" onclick="selectArea(this,'Côn Đảo','con-dao',8.683,106.609,11)">
+                    <div class="province-card-inner">
+                        <div class="province-hero" style="background:linear-gradient(135deg,#3B82F6,#1E3A5F);">
+                            <img src="https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=400&h=240&fit=crop" alt="Côn Đảo">
+                            <div class="province-status"><i class="fas fa-check-circle"></i> Active</div>
+                        </div>
+                        <div class="province-body">
+                            <div class="province-name">Côn Đảo</div>
+                            <div class="province-slug">con-dao</div>
+                            <div class="province-stats">
+                                <div class="p-stat"><div class="p-stat-val">1</div><div class="p-stat-lbl">Điểm Đến</div></div>
+                                <div class="p-stat"><div class="p-stat-val">1</div><div class="p-stat-lbl">Danh mục</div></div>
+                                <div class="p-stat"><div class="p-stat-val">1</div><div class="p-stat-lbl">VR 360°</div></div>
+                            </div>
+                            <div class="province-actions">
+                                <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();editProvince('Côn Đảo','con-dao','Quần đảo thiên nhiên hoang sơ và di tích lịch sử','https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=400&h=240&fit=crop')"><i class="fas fa-edit"></i> Sửa Thông Tin Chi Tiết</button>
+                                <button class="btn btn-outline btn-sm" onclick="event.stopPropagation();openOverview360()"><i class="fas fa-vr-cardboard"></i> Overview 360°</button>
+                                <button class="btn btn-outline btn-sm" style="color:#ef4444;border-color:#fca5a5;" onclick="event.stopPropagation();deleteProvince('Côn Đảo')"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Map center config -->
+            <!-- RIGHT: Map Config Panel -->
             <div class="map-config-box">
-                <h3 style="margin:0 0 4px;font-size:16px;font-weight:600;color:#0f172a;">Cấu hình bản đồ — Bà Rịa — Vũng Tàu</h3>
-                <p style="font-size:13px;color:#64748b;margin:0 0 16px;">Set center & zoom mặc định khi chọn tỉnh</p>
-                <div class="form-grid">
-                    <div class="form-group"><label class="form-label">Latitude</label><input type="number" class="form-input" value="10.346" step="0.001"></div>
-                    <div class="form-group"><label class="form-label">Longitude</label><input type="number" class="form-input" value="107.084" step="0.001"></div>
-                    <div class="form-group"><label class="form-label">Default Zoom</label><input type="number" class="form-input" value="12" min="1" max="18"></div>
-                    <div class="form-group"><label class="form-label"><i class="fas fa-vr-cardboard" style="color:#0D9488;margin-right:4px;"></i> Link VR 360° Overview</label>
-                        <div style="display:flex;gap:8px;">
-                            <input type="url" class="form-input" id="mapOverviewVrLink" value="https://dulich-brvt.vn/vr360/overview" placeholder="https://... dán link VR 360°" style="font-family:'Courier New',monospace;font-size:13px;">
-                            <button class="btn btn-outline btn-sm" onclick="var u=document.getElementById('mapOverviewVrLink').value.trim();if(u)window.open(u,'_blank');else alert('Chưa nhập link!');" title="Xem trước"><i class="fas fa-external-link-alt"></i></button>
-                        </div>
-                    </div>
-                </div>
+                <div class="map-config-title"><i class="fas fa-map" style="color:#0D9488;"></i> Bản Đồ Khu Vực</div>
+                <div class="map-config-sub" id="mapConfigSub">Vũng Tàu — vung-tau</div>
                 <div class="map-preview" id="provinceMap"></div>
-                <div style="margin-top:12px;text-align:right;"><button class="btn btn-primary btn-sm" onclick="saveMapConfig()"><i class="fas fa-save"></i> Lưu cấu hình</button></div>
+                <div class="map-config-fields">
+                    <div class="map-field"><label>Latitude</label><input type="number" id="cfgLat" value="10.346" step="0.001"></div>
+                    <div class="map-field"><label>Longitude</label><input type="number" id="cfgLng" value="107.084" step="0.001"></div>
+                    <div class="map-field"><label>Zoom</label><input type="number" id="cfgZoom" value="12" min="5" max="18"></div>
+                    <div class="map-field"><label>Trạng thái</label><input type="text" value="Active" readonly style="color:#0D9488;font-weight:600;"></div>
+                </div>
+                <div class="map-config-actions">
+                    <button class="btn btn-primary btn-sm" onclick="saveMapConfig()"><i class="fas fa-save"></i> Lưu cấu hình</button>
+                    <button class="btn btn-outline btn-sm" onclick="resetMapView()"><i class="fas fa-sync-alt"></i> Reset</button>
+                </div>
             </div>
         </div>
     </main>
@@ -103,11 +235,31 @@
     <!-- Add Province Modal -->
     <div class="modal-overlay" id="addProvinceModal">
         <div class="modal">
-            <div class="modal-header"><h3 class="modal-title">Thêm Tỉnh/Thành Phố</h3><button class="modal-close" onclick="closeModal('addProvinceModal')">&times;</button></div>
+            <div class="modal-header"><h3 class="modal-title"><i class="fas fa-plus-circle" style="color:#0D9488;margin-right:8px;"></i> Thêm Khu Vực Mới</h3><button class="modal-close" onclick="closeModal('addProvinceModal')">&times;</button></div>
             <div class="modal-body">
-                <div class="form-group"><label class="form-label">Tên tỉnh/thành <span class="required">*</span></label><input class="form-input" placeholder="VD: Bà Rịa — Vũng Tàu"></div>
-                <div class="form-group"><label class="form-label">Slug</label><input class="form-input" placeholder="ba-ria-vung-tau"></div>
-                <div class="form-group"><label class="form-label">Mô tả ngắn</label><textarea class="form-input" rows="3" placeholder="Giới thiệu về tỉnh/thành..."></textarea></div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-image" style="color:#0D9488;margin-right:4px;"></i> Ảnh đại diện khu vực</label>
+                    <div class="img-upload-zone" id="addImgZone" onclick="document.getElementById('addImgFile').click()">
+                        <div class="img-upload-placeholder" id="addImgPlaceholder">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Click để chọn ảnh hoặc nhập URL bên dưới</span>
+                            <small>JPG, PNG · Khuyến nghị 400×240px</small>
+                        </div>
+                        <img class="img-upload-preview" id="addImgPreview" style="display:none" alt="Preview">
+                        <div class="img-upload-actions" id="addImgActions" style="display:none">
+                            <button type="button" class="img-btn-change" onclick="event.stopPropagation();document.getElementById('addImgFile').click()" title="Đổi ảnh"><i class="fas fa-sync-alt"></i></button>
+                            <button type="button" class="img-btn-remove" onclick="event.stopPropagation();clearAddImage()" title="Xóa ảnh"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <input type="file" id="addImgFile" accept="image/*" style="display:none" onchange="handleAddFileSelect(this)">
+                    <div class="img-url-input">
+                        <input class="form-input" id="addImgUrl" placeholder="https://... dán URL ảnh tại đây" style="font-family:'Courier New',monospace;font-size:12px;">
+                        <button type="button" class="btn btn-outline btn-sm" onclick="loadAddImageFromUrl()" title="Tải ảnh từ URL"><i class="fas fa-link"></i> Tải</button>
+                    </div>
+                </div>
+                <div class="form-group"><label class="form-label">Tên khu vực <span class="required">*</span></label><input class="form-input" placeholder="VD: Vũng Tàu, Bà Rịa, Hồ Tràm..."></div>
+                <div class="form-group"><label class="form-label">Slug</label><input class="form-input" placeholder="vung-tau"></div>
+                <div class="form-group"><label class="form-label">Mô tả ngắn</label><textarea class="form-input" rows="3" placeholder="Giới thiệu về khu vực..."></textarea></div>
                 <div class="form-grid">
                     <div class="form-group"><label class="form-label">Latitude</label><input type="number" class="form-input" step="0.001"></div>
                     <div class="form-group"><label class="form-label">Longitude</label><input type="number" class="form-input" step="0.001"></div>
@@ -135,19 +287,148 @@
             setTimeout(() => { el.style.display = 'none'; }, 3000);
         }
 
-        // Edit Province
-        function editProvince(name, slug, desc, lat, lng) {
+        // Main map
+        let mainMap, mainMarker;
+        const areas = [
+            {name:'Vũng Tàu', slug:'vung-tau', lat:10.346, lng:107.084, zoom:12},
+            {name:'Bà Rịa', slug:'ba-ria', lat:10.496, lng:107.168, zoom:12},
+            {name:'Xuyên Mộc', slug:'xuyen-moc', lat:10.530, lng:107.400, zoom:11},
+            {name:'Hồ Tràm', slug:'ho-tram', lat:10.476, lng:107.375, zoom:13},
+            {name:'Côn Đảo', slug:'con-dao', lat:8.683, lng:106.609, zoom:11},
+        ];
+        function initMainMap() {
+            mainMap = L.map('provinceMap', {zoomControl:true, attributionControl:false}).setView([10.346, 107.084], 12);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {maxZoom:18, subdomains:'abcd'}).addTo(mainMap);
+            // Add all area markers
+            areas.forEach(a => {
+                L.circleMarker([a.lat, a.lng], {radius:8, fillColor:'#0D9488', color:'#fff', weight:2, fillOpacity:.9})
+                    .addTo(mainMap).bindTooltip(a.name, {direction:'top', offset:[0,-8]});
+            });
+            // Center marker
+            mainMarker = L.marker([10.346, 107.084]).addTo(mainMap);
+        }
+        function selectArea(el, name, slug, lat, lng, zoom) {
+            document.querySelectorAll('.province-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            document.getElementById('mapConfigSub').textContent = name + ' — ' + slug;
+            document.getElementById('cfgLat').value = lat;
+            document.getElementById('cfgLng').value = lng;
+            document.getElementById('cfgZoom').value = zoom;
+            if (mainMap) {
+                mainMap.flyTo([lat, lng], zoom, {duration: 1});
+                mainMarker.setLatLng([lat, lng]);
+            }
+        }
+        function resetMapView() {
+            if (mainMap) mainMap.setView([10.40, 107.15], 9);
+        }
+        window.addEventListener('DOMContentLoaded', initMainMap);
+
+        // Edit Province (info + image)
+        function editProvince(name, slug, desc, thumb) {
             document.getElementById('editProvName').value = name;
             document.getElementById('editProvSlug').value = slug;
             document.getElementById('editProvDesc').value = desc;
-            document.getElementById('editProvLat').value = lat;
-            document.getElementById('editProvLng').value = lng;
+            // Set image
+            if (thumb) {
+                setEditImagePreview(thumb);
+                document.getElementById('editImgUrl').value = thumb;
+            } else {
+                clearEditImage();
+            }
             openModal('editProvinceModal');
+        }
+
+        function setEditImagePreview(url) {
+            const preview = document.getElementById('editImgPreview');
+            const placeholder = document.getElementById('editImgPlaceholder');
+            const actions = document.getElementById('editImgActions');
+            const zone = document.getElementById('editImgZone');
+            preview.src = url;
+            preview.style.display = 'block';
+            placeholder.style.display = 'none';
+            actions.style.display = 'flex';
+            zone.classList.add('has-image');
+        }
+
+        function clearEditImage() {
+            const preview = document.getElementById('editImgPreview');
+            const placeholder = document.getElementById('editImgPlaceholder');
+            const actions = document.getElementById('editImgActions');
+            const zone = document.getElementById('editImgZone');
+            preview.src = '';
+            preview.style.display = 'none';
+            placeholder.style.display = 'flex';
+            actions.style.display = 'none';
+            zone.classList.remove('has-image');
+            document.getElementById('editImgUrl').value = '';
+            document.getElementById('editImgFile').value = '';
+        }
+
+        function handleEditFileSelect(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    setEditImagePreview(e.target.result);
+                    document.getElementById('editImgUrl').value = '';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function loadEditImageFromUrl() {
+            const url = document.getElementById('editImgUrl').value.trim();
+            if (!url) { alert('Chưa nhập URL ảnh!'); return; }
+            setEditImagePreview(url);
+        }
+
+        // Add modal image functions
+        function setAddImagePreview(url) {
+            const preview = document.getElementById('addImgPreview');
+            const placeholder = document.getElementById('addImgPlaceholder');
+            const actions = document.getElementById('addImgActions');
+            const zone = document.getElementById('addImgZone');
+            preview.src = url;
+            preview.style.display = 'block';
+            placeholder.style.display = 'none';
+            actions.style.display = 'flex';
+            zone.classList.add('has-image');
+        }
+
+        function clearAddImage() {
+            const preview = document.getElementById('addImgPreview');
+            const placeholder = document.getElementById('addImgPlaceholder');
+            const actions = document.getElementById('addImgActions');
+            const zone = document.getElementById('addImgZone');
+            preview.src = '';
+            preview.style.display = 'none';
+            placeholder.style.display = 'flex';
+            actions.style.display = 'none';
+            zone.classList.remove('has-image');
+            document.getElementById('addImgUrl').value = '';
+            document.getElementById('addImgFile').value = '';
+        }
+
+        function handleAddFileSelect(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    setAddImagePreview(e.target.result);
+                    document.getElementById('addImgUrl').value = '';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function loadAddImageFromUrl() {
+            const url = document.getElementById('addImgUrl').value.trim();
+            if (!url) { alert('Chưa nhập URL ảnh!'); return; }
+            setAddImagePreview(url);
         }
 
         function saveProvince(mode) {
             closeModal(mode === 'add' ? 'addProvinceModal' : 'editProvinceModal');
-            showSuccess(mode === 'add' ? 'Tỉnh/Thành đã được thêm!' : 'Tỉnh/Thành đã được cập nhật!');
+            showSuccess(mode === 'add' ? 'Khu vực đã được thêm!' : 'Khu vực đã được cập nhật!');
         }
 
         // Delete Province
@@ -171,32 +452,39 @@
         function saveMapConfig() {
             showSuccess('Cấu hình bản đồ đã lưu!');
         }
-
-        // Map preview
-        document.addEventListener('DOMContentLoaded',function(){
-            var map=L.map('provinceMap').setView([10.346,107.084],12);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OSM'}).addTo(map);
-            L.marker([10.346,107.084]).addTo(map).bindPopup('Bà Rịa — Vũng Tàu Center');
-        });
     </script>
 
-    <!-- Edit Province Modal -->
+    <!-- Edit Province Modal (info + image) -->
     <div class="modal-overlay" id="editProvinceModal">
-        <div class="modal">
-            <div class="modal-header"><h3 class="modal-title"><i class="fas fa-edit" style="color:#0D9488;margin-right:8px;"></i> Sửa Tỉnh/Thành</h3><button class="modal-close" onclick="closeModal('editProvinceModal')">&times;</button></div>
+        <div class="modal" style="max-width:560px;">
+            <div class="modal-header"><h3 class="modal-title"><i class="fas fa-edit" style="color:#0D9488;margin-right:8px;"></i> Sửa Thông Tin Chi Tiết</h3><button class="modal-close" onclick="closeModal('editProvinceModal')">&times;</button></div>
             <div class="modal-body">
-                <div class="form-group"><label class="form-label">Tên tỉnh/thành <span class="required">*</span></label><input class="form-input" id="editProvName"></div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-image" style="color:#0D9488;margin-right:4px;"></i> Ảnh đại diện khu vực</label>
+                    <div class="img-upload-zone" id="editImgZone" onclick="document.getElementById('editImgFile').click()">
+                        <div class="img-upload-placeholder" id="editImgPlaceholder">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Click để chọn ảnh hoặc nhập URL bên dưới</span>
+                            <small>JPG, PNG · Khuyến nghị 400×240px</small>
+                        </div>
+                        <img class="img-upload-preview" id="editImgPreview" style="display:none" alt="Preview">
+                        <div class="img-upload-actions" id="editImgActions" style="display:none">
+                            <button type="button" class="img-btn-change" onclick="event.stopPropagation();document.getElementById('editImgFile').click()" title="Đổi ảnh"><i class="fas fa-sync-alt"></i></button>
+                            <button type="button" class="img-btn-remove" onclick="event.stopPropagation();clearEditImage()" title="Xóa ảnh"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <input type="file" id="editImgFile" accept="image/*" style="display:none" onchange="handleEditFileSelect(this)">
+                    <div class="img-url-input">
+                        <input class="form-input" id="editImgUrl" placeholder="https://... dán URL ảnh tại đây" style="font-family:'Courier New',monospace;font-size:12px;">
+                        <button type="button" class="btn btn-outline btn-sm" onclick="loadEditImageFromUrl()" title="Tải ảnh từ URL"><i class="fas fa-link"></i> Tải</button>
+                    </div>
+                </div>
+                <div class="form-group"><label class="form-label">Tên khu vực <span class="required">*</span></label><input class="form-input" id="editProvName"></div>
                 <div class="form-group"><label class="form-label">Slug</label><input class="form-input" id="editProvSlug"></div>
                 <div class="form-group"><label class="form-label">Mô tả ngắn</label><textarea class="form-input" rows="3" id="editProvDesc"></textarea></div>
-                <div class="form-grid">
-                    <div class="form-group"><label class="form-label">Latitude</label><input type="number" class="form-input" id="editProvLat" step="0.001"></div>
-                    <div class="form-group"><label class="form-label">Longitude</label><input type="number" class="form-input" id="editProvLng" step="0.001"></div>
-                </div>
-                <div class="form-group"><label class="form-label"><i class="fas fa-vr-cardboard" style="color:#0D9488;margin-right:4px;"></i> Link VR 360° Overview</label>
-                    <div style="display:flex;gap:8px;">
-                        <input type="url" class="form-input" id="editProvVrLink" placeholder="https://... dán link VR 360° tại đây" style="flex:1;font-family:'Courier New',monospace;font-size:13px;">
-                        <button type="button" class="btn btn-outline btn-sm" onclick="var u=document.getElementById('editProvVrLink').value.trim();if(u)window.open(u,'_blank');else alert('Chưa nhập link!');" title="Xem trước"><i class="fas fa-external-link-alt"></i></button>
-                    </div>
+                <div style="background:#f0fdfa;border-radius:10px;padding:12px;border:1px solid #99f6e4;font-size:12px;color:#0D9488;display:flex;align-items:center;gap:8px;">
+                    <i class="fas fa-info-circle"></i>
+                    Tọa độ Latitude / Longitude có thể chỉnh sửa trực tiếp trên bản đồ bên phải trang chính.
                 </div>
             </div>
             <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('editProvinceModal')">Hủy</button><button class="btn btn-primary" onclick="saveProvince('edit')"><i class="fas fa-save"></i> Lưu</button></div>
@@ -210,7 +498,7 @@
             <div class="modal-body">
                 <div class="alert alert-info" style="margin-bottom:16px;">
                     <i class="fas fa-info-circle"></i>
-                    <span>Nhập link trang VR 360° overview của tỉnh/thành. Link sẽ hiển thị khi người dùng chọn tỉnh trên bản đồ.</span>
+                    <span>Nhập link trang VR 360° overview của khu vực. Link sẽ hiển thị khi người dùng chọn khu vực trên bản đồ.</span>
                 </div>
                 <div class="form-group">
                     <label class="form-label"><i class="fas fa-vr-cardboard" style="color:#0D9488;margin-right:6px;"></i> Link VR 360° Overview</label>
@@ -238,8 +526,8 @@
                 <div style="width:56px;height:56px;border-radius:50%;background:rgba(239,68,68,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
                     <i class="fas fa-trash-alt" style="color:#ef4444;font-size:24px;"></i>
                 </div>
-                <h3 style="margin-bottom:8px;">Xóa Tỉnh/Thành?</h3>
-                <p style="color:#64748b;margin-bottom:24px;">Bạn có chắc muốn xóa "<strong id="deleteProvName" style="color:#0D9488;"></strong>"? Tất cả điểm đến thuộc tỉnh này cũng sẽ bị xóa.</p>
+                <h3 style="margin-bottom:8px;">Xóa Khu Vực?</h3>
+                <p style="color:#64748b;margin-bottom:24px;">Bạn có chắc muốn xóa "<strong id="deleteProvName" style="color:#0D9488;"></strong>"? Tất cả điểm đến thuộc khu vực này cũng sẽ bị xóa.</p>
                 <div style="display:flex;gap:12px;justify-content:center;">
                     <button class="btn btn-outline" onclick="closeModal('deleteProvinceModal')">Hủy</button>
                     <button class="btn btn-danger" onclick="confirmDeleteProvince()"><i class="fas fa-trash"></i> Xóa</button>

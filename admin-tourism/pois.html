@@ -67,7 +67,7 @@
         <nav class="nav-menu">
             <div class="nav-section"><div class="nav-section-title">MAIN</div><a href="index.html" class="nav-item"><i class="fas fa-chart-pie"></i> Dashboard</a></div>
             <div class="nav-section"><div class="nav-section-title">NỘI DUNG</div>
-                <a href="provinces.html" class="nav-item"><i class="fas fa-landmark"></i> Tỉnh/Thành</a>
+                <a href="provinces.html" class="nav-item"><i class="fas fa-map-signs"></i> Khu Vực</a>
                 <a href="categories.html" class="nav-item"><i class="fas fa-folder-open"></i> Danh Mục</a>
                 <a href="pois.html" class="nav-item active"><i class="fas fa-map-pin"></i> Điểm Đến <span class="nav-badge">12</span></a>
                 <a href="tags.html" class="nav-item"><i class="fas fa-tags"></i> Tags</a>
@@ -93,7 +93,7 @@
         <!-- Search -->
         <div class="filter-bar">
             <input class="form-input" placeholder="Tìm điểm đến..." style="max-width:280px">
-            <select class="form-input"><option value="">Tất cả tỉnh</option><option>Bà Rịa — Vũng Tàu</option></select>
+            <select class="form-input"><option value="">Tất cả khu vực</option><option>Vũng Tàu</option><option>Bà Rịa</option><option>Xuyên Mộc</option><option>Hồ Tràm</option><option>Côn Đảo</option></select>
             <select class="form-input"><option value="">Trạng thái</option><option>Published</option><option>Draft</option></select>
         </div>
 
@@ -250,8 +250,8 @@
                     <div class="form-group"><label class="form-label">Tên điểm đến <span class="required">*</span></label><input class="form-input" placeholder="VD: Bãi Trước"></div>
                     <div class="form-group"><label class="form-label">Slug</label><input class="form-input" placeholder="bai-truoc"></div>
                     <div class="form-grid">
-                        <div class="form-group"><label class="form-label">Tỉnh/Thành <span class="required">*</span></label>
-                            <select class="form-input"><option>Bà Rịa — Vũng Tàu</option></select>
+                        <div class="form-group"><label class="form-label">Khu Vực <span class="required">*</span></label>
+                            <select class="form-input"><option>-- Chọn khu vực --</option><option>Vũng Tàu</option><option>Bà Rịa</option><option>Xuyên Mộc</option><option>Hồ Tràm</option><option>Côn Đảo</option></select>
                         </div>
                         <div class="form-group"><label class="form-label">Danh mục <span class="required">*</span></label>
                             <select class="form-input"><option>-- Chọn danh mục --</option><option>Biển & Tắm</option><option>Di Tích & Đền</option><option>Ẩm Thực</option><option>Thiên Nhiên</option><option>Giải Trí</option><option>Mua Sắm</option></select>
@@ -321,6 +321,9 @@
             <div class="modal-body" style="overflow-y:auto;max-height:calc(90vh - 140px);">
                 <div class="form-group"><label class="form-label">Tên điểm đến <span class="required">*</span></label><input class="form-input" id="editPoiName"></div>
                 <div class="form-grid">
+                    <div class="form-group"><label class="form-label">Khu Vực</label>
+                        <select class="form-input" id="editPoiArea"><option>Vũng Tàu</option><option>Bà Rịa</option><option>Xuyên Mộc</option><option>Hồ Tràm</option><option>Côn Đảo</option></select>
+                    </div>
                     <div class="form-group"><label class="form-label">Danh mục</label>
                         <select class="form-input" id="editPoiCat"><option>Biển & Tắm</option><option>Di Tích & Đền</option><option>Ẩm Thực</option><option>Thiên Nhiên</option><option>Giải Trí</option><option>Mua Sắm</option></select>
                     </div>
