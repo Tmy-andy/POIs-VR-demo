@@ -69,7 +69,7 @@
                     <div class="province-stats">
                         <div class="p-stat"><div class="p-stat-val">12</div><div class="p-stat-lbl">Điểm Đến</div></div>
                         <div class="p-stat"><div class="p-stat-val">6</div><div class="p-stat-lbl">Danh mục</div></div>
-                        <div class="p-stat"><div class="p-stat-val">12</div><div class="p-stat-lbl">Panorama</div></div>
+                        <div class="p-stat"><div class="p-stat-val">12</div><div class="p-stat-lbl">VR 360°</div></div>
                     </div>
                     <div class="province-actions">
                         <button class="btn btn-primary btn-sm" onclick="editProvince('Bà Rịa — Vũng Tàu','ba-ria-vung-tau','Thành phố biển với nhiều địa điểm du lịch hấp dẫn',10.346,107.084)"><i class="fas fa-edit"></i> Sửa</button>
@@ -87,8 +87,11 @@
                     <div class="form-group"><label class="form-label">Latitude</label><input type="number" class="form-input" value="10.346" step="0.001"></div>
                     <div class="form-group"><label class="form-label">Longitude</label><input type="number" class="form-input" value="107.084" step="0.001"></div>
                     <div class="form-group"><label class="form-label">Default Zoom</label><input type="number" class="form-input" value="12" min="1" max="18"></div>
-                    <div class="form-group"><label class="form-label">Overview Panorama</label>
-                        <select class="form-input"><option>overview_brvt.jpg</option><option>-- Upload new --</option></select>
+                    <div class="form-group"><label class="form-label"><i class="fas fa-vr-cardboard" style="color:#0D9488;margin-right:4px;"></i> Link VR 360° Overview</label>
+                        <div style="display:flex;gap:8px;">
+                            <input type="url" class="form-input" id="mapOverviewVrLink" value="https://dulich-brvt.vn/vr360/overview" placeholder="https://... dán link VR 360°" style="font-family:'Courier New',monospace;font-size:13px;">
+                            <button class="btn btn-outline btn-sm" onclick="var u=document.getElementById('mapOverviewVrLink').value.trim();if(u)window.open(u,'_blank');else alert('Chưa nhập link!');" title="Xem trước"><i class="fas fa-external-link-alt"></i></button>
+                        </div>
                     </div>
                 </div>
                 <div class="map-preview" id="provinceMap"></div>
@@ -109,8 +112,11 @@
                     <div class="form-group"><label class="form-label">Latitude</label><input type="number" class="form-input" step="0.001"></div>
                     <div class="form-group"><label class="form-label">Longitude</label><input type="number" class="form-input" step="0.001"></div>
                 </div>
-                <div class="form-group"><label class="form-label">Overview Panorama</label>
-                    <div class="upload-area"><i class="fas fa-cloud-upload-alt"></i><p>Upload ảnh panorama overview</p></div>
+                <div class="form-group"><label class="form-label"><i class="fas fa-vr-cardboard" style="color:#0D9488;margin-right:4px;"></i> Link VR 360° Overview</label>
+                    <div style="display:flex;gap:8px;">
+                        <input type="url" class="form-input" placeholder="https://... dán link VR 360° tại đây" style="flex:1;font-family:'Courier New',monospace;font-size:13px;">
+                        <button type="button" class="btn btn-outline btn-sm" onclick="var u=this.previousElementSibling.value.trim();if(u)window.open(u,'_blank');else alert('Chưa nhập link!');" title="Xem trước"><i class="fas fa-external-link-alt"></i></button>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('addProvinceModal')">Hủy</button><button class="btn btn-primary" onclick="saveProvince('add')"><i class="fas fa-save"></i> Lưu</button></div>
@@ -186,8 +192,11 @@
                     <div class="form-group"><label class="form-label">Latitude</label><input type="number" class="form-input" id="editProvLat" step="0.001"></div>
                     <div class="form-group"><label class="form-label">Longitude</label><input type="number" class="form-input" id="editProvLng" step="0.001"></div>
                 </div>
-                <div class="form-group"><label class="form-label">Ảnh đại diện</label>
-                    <div class="upload-area" onclick="this.querySelector('input').click()"><i class="fas fa-cloud-upload-alt"></i><p>Click để upload ảnh mới</p><input type="file" accept="image/*" style="display:none;"></div>
+                <div class="form-group"><label class="form-label"><i class="fas fa-vr-cardboard" style="color:#0D9488;margin-right:4px;"></i> Link VR 360° Overview</label>
+                    <div style="display:flex;gap:8px;">
+                        <input type="url" class="form-input" id="editProvVrLink" placeholder="https://... dán link VR 360° tại đây" style="flex:1;font-family:'Courier New',monospace;font-size:13px;">
+                        <button type="button" class="btn btn-outline btn-sm" onclick="var u=document.getElementById('editProvVrLink').value.trim();if(u)window.open(u,'_blank');else alert('Chưa nhập link!');" title="Xem trước"><i class="fas fa-external-link-alt"></i></button>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('editProvinceModal')">Hủy</button><button class="btn btn-primary" onclick="saveProvince('edit')"><i class="fas fa-save"></i> Lưu</button></div>
@@ -199,22 +208,26 @@
         <div class="modal" style="max-width:700px;">
             <div class="modal-header"><h3 class="modal-title"><i class="fas fa-vr-cardboard" style="color:#0D9488;margin-right:8px;"></i> Overview 360° — Bà Rịa — Vũng Tàu</h3><button class="modal-close" onclick="closeModal('overview360Modal')">&times;</button></div>
             <div class="modal-body">
-                <div style="background:linear-gradient(135deg,#0D9488,#134E4A);border-radius:12px;height:350px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
-                    <div style="text-align:center;color:white;">
-                        <i class="fas fa-vr-cardboard" style="font-size:48px;margin-bottom:12px;opacity:.7;"></i>
-                        <p style="margin:0;font-size:16px;">Panorama Overview</p>
-                        <p style="margin:4px 0 0;font-size:13px;opacity:.7;">overview_brvt.jpg</p>
-                    </div>
+                <div class="alert alert-info" style="margin-bottom:16px;">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Nhập link trang VR 360° overview của tỉnh/thành. Link sẽ hiển thị khi người dùng chọn tỉnh trên bản đồ.</span>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Thay đổi panorama overview</label>
-                    <div style="display:flex;gap:12px;">
-                        <input type="file" class="form-input" accept="image/*" style="flex:1;padding:8px;">
-                        <button class="btn btn-primary" onclick="closeModal('overview360Modal');showSuccess('Overview panorama đã cập nhật!')"><i class="fas fa-upload"></i> Upload</button>
+                    <label class="form-label"><i class="fas fa-vr-cardboard" style="color:#0D9488;margin-right:6px;"></i> Link VR 360° Overview</label>
+                    <div style="display:flex;gap:8px;">
+                        <input type="url" class="form-input" id="overview360Link" value="https://dulich-brvt.vn/vr360/overview" placeholder="https://... dán link VR 360° tại đây" style="flex:1;font-family:'Courier New',monospace;font-size:13px;">
+                        <button class="btn btn-outline" onclick="var u=document.getElementById('overview360Link').value.trim();if(u)window.open(u,'_blank');else alert('Chưa nhập link!');" title="Xem trước"><i class="fas fa-external-link-alt"></i> Xem</button>
                     </div>
                 </div>
+                <div style="background:#f0fdfa;border-radius:10px;padding:14px;border:1px solid #99f6e4;display:flex;align-items:center;gap:10px;">
+                    <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;"></div>
+                    <span style="font-size:13px;color:#0D9488;font-weight:500;">Link VR 360° đã được gán</span>
+                </div>
             </div>
-            <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('overview360Modal')">Đóng</button></div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('overview360Modal')">Đóng</button>
+                <button class="btn btn-primary" onclick="closeModal('overview360Modal');showSuccess('Link VR 360° overview đã cập nhật!')"><i class="fas fa-save"></i> Lưu</button>
+            </div>
         </div>
     </div>
 

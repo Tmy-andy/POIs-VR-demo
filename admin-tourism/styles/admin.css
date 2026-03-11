@@ -375,13 +375,40 @@ input:checked + .toggle-slider:before { transform: translateX(24px); }
 /* Color Swatch */
 .color-swatch { width: 24px; height: 24px; border-radius: 50%; display: inline-block; vertical-align: middle; border: 2px solid white; box-shadow: 0 0 0 1px #e2e8f0; }
 
-/* Modal */
-.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+/* Modal Overlay */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; }
+.modal-overlay.active { display: flex; }
+/* Modal (inner dialog) */
+.modal { background: white; border-radius: 12px; max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
 .modal-content { background: white; border-radius: 12px; max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto; }
 .modal-header { padding: 20px 24px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+.modal-close { background: none; border: none; font-size: 24px; cursor: pointer; color: #64748b; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px; transition: background 0.2s; }
+.modal-close:hover { background: #f1f5f9; color: #0f172a; }
 .close-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: #64748b; }
 .modal-body { padding: 24px; }
 .modal-footer { padding: 16px 24px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 12px; }
+
+/* Form Grid */
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+
+/* Toggle Group (used in settings, map-config) */
+.toggle-group { display: flex; align-items: center; justify-content: space-between; }
+.toggle-label { font-size: 14px; color: #374151; }
+.toggle { position: relative; display: inline-block; width: 48px; height: 24px; flex-shrink: 0; }
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: 0.3s; border-radius: 24px; }
+.toggle .toggle-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: 0.3s; border-radius: 50%; }
+.toggle input:checked + .toggle-slider { background-color: #0D9488; }
+.toggle input:checked + .toggle-slider:before { transform: translateX(24px); }
+
+/* Upload Area */
+.upload-area { border: 2px dashed #cbd5e1; border-radius: 8px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s; background: #f8fafc; }
+.upload-area:hover { border-color: #0D9488; background: rgba(13, 148, 136, 0.05); }
+.upload-area i { font-size: 28px; color: #94a3b8; margin-bottom: 8px; display: block; }
+.upload-area p { font-size: 14px; color: #64748b; margin: 0; }
+
+/* Tab Group (used in pois add modal) */
+.tab-group { display: flex; gap: 4px; margin-bottom: 24px; border-bottom: 2px solid #e5e7eb; }
 
 @media (max-width: 768px) {
     .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
