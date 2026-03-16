@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Đăng Nhập — VR360 Admin</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;font-family:'Inter',system-ui,-apple-system,sans-serif;overflow:hidden}
+
+/* ═══ ANIMATED BACKGROUND ═══ */
+.bg{
+  position:fixed;inset:0;z-index:0;
+  background:linear-gradient(135deg,#f0f4ff 0%,#e8ecf7 30%,#faf5ff 60%,#f0fdfa 100%);
+  overflow:hidden;
+}
+.bg::before{
+  content:'';position:absolute;
+  width:800px;height:800px;
+  background:radial-gradient(circle,rgba(34,211,167,.18) 0%,transparent 70%);
+  top:-200px;right:-200px;
+  animation:float1 12s ease-in-out infinite;
+}
+.bg::after{
+  content:'';position:absolute;
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(99,102,241,.12) 0%,transparent 70%);
+  bottom:-150px;left:-150px;
+  animation:float2 15s ease-in-out infinite;
+}
+@keyframes float1{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(-80px,60px) scale(1.1)}
+  66%{transform:translate(40px,-40px) scale(.95)}
+}
+@keyframes float2{
+  0%,100%{transform:translate(0,0) scale(1)}
+  50%{transform:translate(60px,-80px) scale(1.15)}
+}
+
+/* Floating orbs */
+.orb{
+  position:absolute;border-radius:50%;
+  filter:blur(80px);opacity:.6;
+  animation:orbFloat 20s ease-in-out infinite;
+}
+.orb-1{width:350px;height:350px;background:rgba(139,92,246,.12);top:10%;left:60%;animation-delay:-5s}
+.orb-2{width:250px;height:250px;background:rgba(244,114,182,.1);bottom:20%;right:10%;animation-delay:-10s}
+.orb-3{width:280px;height:280px;background:rgba(34,211,167,.1);top:50%;left:15%;animation-delay:-3s}
+@keyframes orbFloat{
+  0%,100%{transform:translateY(0) translateX(0)}
+  25%{transform:translateY(-30px) translateX(20px)}
+  50%{transform:translateY(20px) translateX(-30px)}
+  75%{transform:translateY(-15px) translateX(-10px)}
+}
+
+/* Grid pattern overlay */
+.bg-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,0,0,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,0,0,.025) 1px,transparent 1px);
+  background-size:60px 60px;
+  animation:gridShift 30s linear infinite;
+}
+@keyframes gridShift{
+  0%{transform:translate(0,0)}
+  100%{transform:translate(60px,60px)}
+}
+
+/* ═══ MAIN LAYOUT ═══ */
+.login-page{
+  position:relative;z-index:1;
+  display:flex;align-items:center;justify-content:center;
+  width:100%;height:100%;padding:20px;
+}
+
+/* ═══ LOGIN CARD ═══ */
+.login-card{
+  width:100%;max-width:440px;
+  background:rgba(255,255,255,.82);
+  backdrop-filter:blur(40px) saturate(1.4);
+  border:1px solid rgba(255,255,255,.6);
+  border-radius:24px;
+  padding:48px 40px;
+  box-shadow:
+    0 32px 80px rgba(0,0,0,.06),
+    0 8px 24px rgba(0,0,0,.04),
+    0 0 0 1px rgba(255,255,255,.8) inset;
+  animation:cardIn .8s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(30px) scale(.96)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+/* Brand */
+.login-brand{text-align:center;margin-bottom:40px}
+.login-logo{
+  width:64px;height:64px;
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);
+  border-radius:18px;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:22px;font-weight:900;color:#fff;
+  margin-bottom:20px;
+  box-shadow:0 8px 32px rgba(99,102,241,.3);
+  position:relative;
+  animation:logoPulse 3s ease-in-out infinite;
+}
+@keyframes logoPulse{
+  0%,100%{box-shadow:0 8px 32px rgba(99,102,241,.3)}
+  50%{box-shadow:0 8px 48px rgba(99,102,241,.4)}
+}
+.login-title{
+  font-size:26px;font-weight:800;color:#1e293b;
+  letter-spacing:-.02em;margin-bottom:8px;
+}
+.login-subtitle{
+  font-size:14px;color:#94a3b8;
+  letter-spacing:.02em;
+}
+
+/* ═══ FORM ═══ */
+.form-group{margin-bottom:20px;position:relative}
+.form-label{
+  display:block;font-size:13px;font-weight:600;
+  color:#475569;margin-bottom:8px;
+  letter-spacing:.02em;
+}
+.form-input-wrap{
+  position:relative;display:flex;align-items:center;
+}
+.form-icon{
+  position:absolute;left:14px;
+  font-size:15px;color:#94a3b8;
+  transition:color .3s;z-index:2;pointer-events:none;
+}
+.form-input{
+  width:100%;padding:14px 14px 14px 44px;
+  background:rgba(241,245,249,.8);
+  border:1.5px solid #e2e8f0;
+  border-radius:12px;
+  color:#1e293b;font-size:15px;font-family:inherit;
+  outline:none;
+  transition:all .3s cubic-bezier(.16,1,.3,1);
+}
+.form-input::placeholder{color:#cbd5e1}
+.form-input:focus{
+  background:#fff;
+  border-color:#6366f1;
+  box-shadow:0 0 0 4px rgba(99,102,241,.1);
+}
+.form-input:focus ~ .form-icon,
+.form-input-wrap:focus-within .form-icon{
+  color:#6366f1;
+}
+
+/* Password toggle */
+.pass-toggle{
+  position:absolute;right:14px;z-index:2;
+  background:none;border:none;
+  color:#94a3b8;font-size:15px;
+  cursor:pointer;padding:4px;
+  transition:color .2s;
+}
+.pass-toggle:hover{color:#64748b}
+
+/* ═══ FORM OPTIONS ROW ═══ */
+.form-options{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:28px;
+}
+
+/* Custom checkbox */
+.checkbox-wrap{display:flex;align-items:center;gap:8px;cursor:pointer}
+.checkbox-wrap input{display:none}
+.checkbox-box{
+  width:18px;height:18px;border-radius:5px;
+  border:1.5px solid #d1d5db;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;flex-shrink:0;
+}
+.checkbox-box i{font-size:10px;color:#fff;opacity:0;transition:opacity .15s}
+.checkbox-wrap input:checked + .checkbox-box{
+  background:#6366f1;border-color:#6366f1;
+}
+.checkbox-wrap input:checked + .checkbox-box i{opacity:1}
+.checkbox-label{font-size:13px;color:#94a3b8;transition:color .2s}
+.checkbox-wrap:hover .checkbox-label{color:#64748b}
+
+.forgot-link{
+  font-size:13px;color:#6366f1;
+  text-decoration:none;font-weight:500;
+  transition:color .2s;
+}
+.forgot-link:hover{color:#4f46e5}
+
+/* ═══ SUBMIT BUTTON ═══ */
+.btn-login{
+  width:100%;padding:15px;border:none;border-radius:14px;
+  background:linear-gradient(135deg,#6366f1 0%,#8b5cf6 100%);
+  color:#fff;font-size:15px;font-weight:700;
+  letter-spacing:.02em;cursor:pointer;
+  position:relative;overflow:hidden;
+  transition:all .3s cubic-bezier(.16,1,.3,1);
+}
+.btn-login::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.2) 0%,transparent 60%);
+  opacity:0;transition:opacity .3s;
+}
+.btn-login:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 32px rgba(99,102,241,.4);
+}
+.btn-login:hover::before{opacity:1}
+.btn-login:active{transform:translateY(0);box-shadow:0 4px 16px rgba(99,102,241,.3)}
+
+/* Loading state */
+.btn-login.loading{pointer-events:none;opacity:.85}
+.btn-login.loading .btn-text{opacity:0}
+.btn-login .btn-spinner{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:22px;height:22px;
+  border:2.5px solid rgba(255,255,255,.3);
+  border-top-color:#fff;
+  border-radius:50%;opacity:0;
+  animation:spin .6s linear infinite;
+}
+.btn-login.loading .btn-spinner{opacity:1}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+
+/* ═══ FOOTER ═══ */
+.login-footer{
+  text-align:center;margin-top:32px;
+  font-size:13px;color:#94a3b8;
+}
+.login-footer a{color:#6366f1;text-decoration:none;font-weight:600;transition:color .2s}
+.login-footer a:hover{color:#4f46e5}
+
+/* ═══ FLOATING BADGE ═══ */
+.powered-by{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10;
+  display:flex;align-items:center;gap:8px;
+  padding:8px 16px;
+  background:rgba(255,255,255,.7);backdrop-filter:blur(20px);
+  border:1px solid rgba(0,0,0,.06);border-radius:100px;
+  font-size:12px;color:#94a3b8;
+  box-shadow:0 4px 12px rgba(0,0,0,.04);
+  animation:cardIn 1s cubic-bezier(.16,1,.3,1) .5s both;
+}
+.powered-by a{color:#6366f1;text-decoration:none;font-weight:600;transition:color .2s}
+.powered-by a:hover{color:#4f46e5}
+
+/* ═══ TOAST ═══ */
+.toast{
+  position:fixed;top:24px;right:24px;z-index:100;
+  display:flex;align-items:center;gap:12px;
+  padding:14px 20px;
+  background:#fff;
+  border:1px solid #e2e8f0;border-radius:14px;
+  box-shadow:0 16px 48px rgba(0,0,0,.1);
+  font-size:14px;color:#1e293b;font-weight:500;
+  transform:translateX(calc(100% + 40px));
+  transition:transform .5s cubic-bezier(.16,1,.3,1);
+}
+.toast.show{transform:translateX(0)}
+.toast i{font-size:18px}
+.toast.success i{color:#22c55e}
+.toast.error i{color:#ef4444}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:520px){
+  .login-card{padding:36px 24px;border-radius:20px}
+  .login-title{font-size:22px}
+  .login-logo{width:56px;height:56px;font-size:18px;border-radius:14px}
+  .powered-by{bottom:12px;padding:6px 12px;font-size:11px}
+}
+</style>
+</head>
+<body>
+
+<!-- ANIMATED BACKGROUND -->
+<div class="bg">
+  <div class="bg-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
+<!-- TOAST NOTIFICATION -->
+<div class="toast" id="toast">
+  <i class="fas fa-check-circle"></i>
+  <span id="toastMsg">Thông báo</span>
+</div>
+
+<!-- LOGIN PAGE -->
+<div class="login-page">
+  <div class="login-card">
+
+    <!-- Brand -->
+    <div class="login-brand">
+      <div class="login-logo">360</div>
+      <h1 class="login-title">Chào mừng trở lại</h1>
+      <p class="login-subtitle">Đăng nhập để tiếp tục quản trị hệ thống</p>
+    </div>
+
+    <!-- Form -->
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <div class="form-input-wrap">
+          <i class="fas fa-envelope form-icon"></i>
+          <input type="email" class="form-input" id="inputEmail" placeholder="admin@link360.vn" required autocomplete="email">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Mật khẩu</label>
+        <div class="form-input-wrap">
+          <i class="fas fa-lock form-icon"></i>
+          <input type="password" class="form-input" id="inputPassword" placeholder="Nhập mật khẩu" required autocomplete="current-password">
+          <button type="button" class="pass-toggle" onclick="togglePassword()">
+            <i class="fas fa-eye" id="passIcon"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-options">
+        <label class="checkbox-wrap">
+          <input type="checkbox" id="rememberMe">
+          <div class="checkbox-box"><i class="fas fa-check"></i></div>
+          <span class="checkbox-label">Ghi nhớ đăng nhập</span>
+        </label>
+        <a href="#" class="forgot-link">Quên mật khẩu?</a>
+      </div>
+
+      <button type="submit" class="btn-login" id="btnLogin">
+        <span class="btn-text">Đăng nhập</span>
+        <div class="btn-spinner"></div>
+      </button>
+    </form>
+
+    <!-- Footer -->
+    <div class="login-footer">
+      Chưa có tài khoản? <a href="#">Đăng ký ngay</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Powered by -->
+<div class="powered-by">
+  <i class="fas fa-vr-cardboard" style="color:#6366f1"></i>
+  Powered by <a href="https://link360.vn/" target="_blank">Link360</a>
+</div>
+
+<script>
+// ═══ PASSWORD TOGGLE ═══
+function togglePassword(){
+  const inp = document.getElementById('inputPassword');
+  const icon = document.getElementById('passIcon');
+  if(inp.type === 'password'){
+    inp.type = 'text';
+    icon.classList.replace('fa-eye','fa-eye-slash');
+  } else {
+    inp.type = 'password';
+    icon.classList.replace('fa-eye-slash','fa-eye');
+  }
+}
+
+// ═══ TOAST ═══
+function showToast(msg, type='success'){
+  const t = document.getElementById('toast');
+  const i = t.querySelector('i');
+  document.getElementById('toastMsg').textContent = msg;
+  i.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+  t.className = 'toast ' + type + ' show';
+  setTimeout(()=>{ t.classList.remove('show'); }, 3500);
+}
+
+// ═══ LOGIN HANDLER ═══
+function handleLogin(e){
+  e.preventDefault();
+  const btn = document.getElementById('btnLogin');
+  const email = document.getElementById('inputEmail').value.trim();
+  const pass = document.getElementById('inputPassword').value;
+
+  // Basic validation
+  if(!email || !pass){
+    showToast('Vui lòng nhập đầy đủ thông tin','error');
+    return;
+  }
+
+  // Loading state
+  btn.classList.add('loading');
+
+  // Simulate login
+  setTimeout(()=>{
+    btn.classList.remove('loading');
+
+    // Demo: accept any credentials
+    if(email && pass){
+      showToast('Đăng nhập thành công!','success');
+      // Redirect after toast
+      setTimeout(()=>{
+        window.location.href = 'index.html';
+      }, 1200);
+    } else {
+      showToast('Email hoặc mật khẩu không đúng','error');
+    }
+  }, 1800);
+}
+
+// ═══ KEYBOARD SHORTCUT ═══
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Enter'){
+    const form = document.getElementById('loginForm');
+    if(document.activeElement.tagName !== 'BUTTON'){
+      form.dispatchEvent(new Event('submit',{cancelable:true}));
+    }
+  }
+});
+
+// ═══ REMEMBER ME — load saved email ═══
+window.addEventListener('DOMContentLoaded', function(){
+  const saved = localStorage.getItem('vr360_login_email');
+  if(saved){
+    document.getElementById('inputEmail').value = saved;
+    document.getElementById('rememberMe').checked = true;
+  }
+});
+
+// Save email on form submit if remember is checked
+document.addEventListener('submit', function(){
+  const rem = document.getElementById('rememberMe');
+  const email = document.getElementById('inputEmail').value.trim();
+  if(rem.checked){
+    localStorage.setItem('vr360_login_email', email);
+  } else {
+    localStorage.removeItem('vr360_login_email');
+  }
+});
+</script>
+
+</body>
+</html>
