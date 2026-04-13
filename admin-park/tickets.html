@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Loai Ve & Gia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon"><i class="fas fa-ticket-alt"></i></div><div class="logo-text">Adventure Park</div></div></div>
+        <div class="property-selector"><div class="property-label">Khu Vui Choi</div><div class="property-name">Adventure Park Admin</div></div>
+        <nav class="nav-menu">
+            <div class="nav-section-title">TONG QUAN</div>
+            <div class="nav-section">
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Trang Chu & Gioi Thieu</a>
+            </div>
+            <div class="nav-section-title">DIEM THAM QUAN</div>
+            <div class="nav-section">
+                <a href="map.html" class="nav-item"><i class="fas fa-map"></i> Ban Do & Tham Quan</a>
+                <a href="attractions.html" class="nav-item"><i class="fas fa-map-marked-alt"></i> Diem Tham Quan</a>
+                <a href="games.html" class="nav-item"><i class="fas fa-gamepad"></i> Tro Choi & Hoat Dong</a>
+            </div>
+            <div class="nav-section-title">DICH VU</div>
+            <div class="nav-section">
+                <a href="tickets.html" class="nav-item active"><i class="fas fa-ticket-alt"></i> Loai Ve & Gia</a>
+                <a href="schedule.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Lich Bieu & Su Kien</a>
+                <a href="food.html" class="nav-item"><i class="fas fa-utensils"></i> An Uong & Dich Vu</a>
+                <a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Dich Vu & Ho Tro</a>
+            </div>
+            <div class="nav-section-title">THONG TIN</div>
+            <div class="nav-section">
+                <a href="info.html" class="nav-item"><i class="fas fa-book"></i> Thong Tin Tham Quan</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> Lien He</a>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Tuyen Dung</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Thu Vien</a>
+            </div>
+            <div class="nav-section-title">HE THONG</div>
+            <div class="nav-section">
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a>
+                <a href="../park.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Trang</a>
+                <a href="../index.html" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> Thoat</a>
+            </div>
+        </nav>
+    </div>
+    <header class="header"><div class="header-left"><h1 class="page-title">Quan Ly Loai Ve</h1></div><div class="header-right"><button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Them Loai Ve</button></div></header>
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
+        <div class="drag-hint"><i class="fas fa-info-circle"></i> Keo tha cac muc de thay doi thu tu hien thi. Muc o tren se hien thi truoc.</div>
+        <div class="content-card"><div class="card-body"><div id="ticketList"></div></div></div>
+    </main>
+    <div class="modal" id="ticketModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="modalTitle">Them Loai Ve</h3><button class="close-btn" onclick="closeModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Ten loai ve *</label><input type="text" class="form-input" id="ticketName" placeholder="VD: Ve VIP"></div>
+                <div class="form-group"><label class="form-label">Mo ta ngan</label><input type="text" class="form-input" id="ticketShortDesc" placeholder="Mo ta ngan gon"></div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Gia ve *</label><input type="number" class="form-input" id="ticketPrice" placeholder="500000"></div>
+                    <div class="form-group"><label class="form-label">Don vi</label><input type="text" class="form-input" id="ticketUnit" placeholder="nguoi" value="nguoi"></div>
+                </div>
+                <div class="form-group"><label class="form-label">Badge</label><input type="text" class="form-input" id="ticketBadge" placeholder="VD: Hot, Moi, Tiet kiem"></div>
+                <div class="form-group"><label class="form-label">Quyen loi (moi dong 1 quyen loi)</label><textarea class="form-textarea" id="ticketBenefits" rows="4" placeholder="Vao tat ca tro choi&#10;Uu tien xep hang&#10;Mien phi do uong"></textarea></div>
+                <div class="form-group"><label class="form-label">Link hinh anh</label><input type="url" class="form-input" id="ticketImage" placeholder="https://..." oninput="previewImage(this.value,'ticketPreview')"></div>
+                <div class="image-preview" id="ticketPreview"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal()">Huy</button><button class="btn btn-primary" onclick="saveTicket()">Luu</button></div>
+        </div>
+    </div>
+    <style>
+        .drag-hint{background:#ecfdf5;border:1px solid #6ee7b7;border-radius:8px;padding:12px 16px;margin-bottom:20px;color:#065f46;font-size:14px;display:flex;align-items:center;gap:10px;}
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;}
+        .card-body{padding:20px 24px;}
+        .image-preview{margin:12px 0;border-radius:8px;overflow:hidden;max-height:150px;}
+        .image-preview img{width:100%;max-height:150px;object-fit:cover;}
+        .item-list{display:flex;flex-direction:column;gap:8px;}
+        .item-row{display:flex;align-items:center;gap:16px;padding:16px;background:#f8fafc;border-radius:12px;border:2px solid #e2e8f0;transition:all .2s;cursor:grab;}
+        .item-row:hover{border-color:#16A34A;box-shadow:0 4px 12px rgba(0,0,0,.08);}
+        .item-row.dragging{opacity:0.5;border-color:#16A34A;background:#ecfdf5;}
+        .drag-handle{color:#94a3b8;font-size:18px;cursor:grab;padding:0 8px;}
+        .item-order{background:linear-gradient(135deg,#16A34A,#22C55E);color:#fff;font-weight:700;font-size:14px;min-width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+        .item-image{width:100px;height:70px;border-radius:8px;overflow:hidden;flex-shrink:0;background:#f1f5f9;display:flex;align-items:center;justify-content:center;}
+        .item-image img{width:100%;height:100%;object-fit:cover;}
+        .item-image i{font-size:28px;color:#16A34A;}
+        .item-info{flex:1;min-width:0;}
+        .item-name{font-size:16px;font-weight:600;color:#1e293b;margin-bottom:4px;display:flex;align-items:center;gap:8px;}
+        .item-badge{background:#dcfce7;color:#166534;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;}
+        .item-desc{font-size:13px;color:#64748b;margin-bottom:6px;}
+        .item-price{font-size:18px;font-weight:700;color:#F97316;}
+        .item-benefits{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
+        .benefit-tag{background:#f1f5f9;color:#475569;padding:2px 8px;border-radius:4px;font-size:11px;}
+        .item-actions{display:flex;gap:8px;}
+        .btn-icon{width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+        .btn-edit{background:#dbeafe;color:#1d4ed8;}
+        .btn-delete{background:#fee2e2;color:#dc2626;}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:550px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;}
+        .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#64748b;}
+        .modal-body{padding:24px;}
+        .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid #e2e8f0;}
+        .form-group{margin-bottom:16px;}
+        .form-row{display:flex;gap:16px;}
+        .form-row .form-group{flex:1;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+        .form-input,.form-textarea{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;box-sizing:border-box;}
+        .form-input:focus,.form-textarea:focus{outline:none;border-color:#16A34A;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#16A34A;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
+    </style>
+    <script>
+        var ticketData=[
+            {id:1,name:'Ve Nguoi Lon',shortDesc:'Ve vao cua cho nguoi lon',price:350000,unit:'nguoi',badge:'',benefits:['Vao tat ca khu vuc','Tham gia tat ca tro choi'],image:'https://images.unsplash.com/photo-1567653418876-5bb0e566e1c2?w=400',order:0},
+            {id:2,name:'Ve Tre Em',shortDesc:'Ve vao cua cho tre em 1m-1m4',price:250000,unit:'nguoi',badge:'',benefits:['Vao khu tre em','Tham gia tro choi phu hop'],image:'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=400',order:1},
+            {id:3,name:'Ve VIP',shortDesc:'Trai nghiem dang cap nhat',price:800000,unit:'nguoi',badge:'Hot',benefits:['Uu tien xep hang','Mien phi do uong','Phong cho rieng'],image:'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400',order:2},
+            {id:4,name:'Ve Gia Dinh',shortDesc:'Tiet kiem cho ca nha (2 nguoi lon + 2 tre em)',price:1000000,unit:'goi',badge:'Tiet kiem',benefits:['4 ve vao cua','Giam 20%','Qua tang kem'],image:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',order:3}
+        ];
+        var editingId=null;var draggedItem=null;
+        function render(){
+            ticketData.sort(function(a,b){return a.order-b.order;});
+            var html='<div class="item-list" id="ticketListContainer">';
+            ticketData.forEach(function(t,idx){
+                var badgeHtml=t.badge?'<span class="item-badge">'+t.badge+'</span>':'';
+                var benefitsHtml=t.benefits.slice(0,3).map(function(b){return '<span class="benefit-tag">'+b+'</span>';}).join('');
+                var imageHtml=t.image?'<img src="'+t.image+'" onerror="this.parentElement.innerHTML=\'<i class=\\\'fas fa-ticket-alt\\\'></i>\'">':'<i class="fas fa-ticket-alt"></i>';
+                html+='<div class="item-row" draggable="true" data-id="'+t.id+'" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)">';
+                html+='<div class="drag-handle"><i class="fas fa-grip-vertical"></i></div>';
+                html+='<div class="item-order">#'+(idx+1)+'</div>';
+                html+='<div class="item-image">'+imageHtml+'</div>';
+                html+='<div class="item-info"><div class="item-name">'+t.name+' '+badgeHtml+'</div>';
+                html+='<div class="item-desc">'+t.shortDesc+'</div>';
+                html+='<div class="item-price">'+t.price.toLocaleString()+'d/'+t.unit+'</div>';
+                html+='<div class="item-benefits">'+benefitsHtml+'</div></div>';
+                html+='<div class="item-actions"><button class="btn-icon btn-edit" onclick="openModal('+t.id+')"><i class="fas fa-edit"></i></button><button class="btn-icon btn-delete" onclick="deleteTicket('+t.id+')"><i class="fas fa-trash"></i></button></div></div>';
+            });
+            html+='</div>';
+            document.getElementById('ticketList').innerHTML=html;
+        }
+        function handleDragStart(e){draggedItem=e.target.closest('.item-row');draggedItem.classList.add('dragging');}
+        function handleDragOver(e){e.preventDefault();var row=e.target.closest('.item-row');if(row&&row!==draggedItem){var list=document.getElementById('ticketListContainer');var rows=Array.from(list.querySelectorAll('.item-row'));var draggedIdx=rows.indexOf(draggedItem);var targetIdx=rows.indexOf(row);if(draggedIdx<targetIdx){row.parentNode.insertBefore(draggedItem,row.nextSibling);}else{row.parentNode.insertBefore(draggedItem,row);}}}
+        function handleDrop(e){e.preventDefault();updateOrderFromDOM();}
+        function handleDragEnd(e){if(draggedItem)draggedItem.classList.remove('dragging');draggedItem=null;updateOrderFromDOM();}
+        function updateOrderFromDOM(){var rows=document.querySelectorAll('.item-row');rows.forEach(function(row,idx){var id=parseInt(row.dataset.id);var item=ticketData.find(function(t){return t.id===id;});if(item)item.order=idx;});render();showSuccess('Da cap nhat thu tu!');}
+        function previewImage(url,targetId){var el=document.getElementById(targetId);if(url){el.innerHTML='<img src="'+url+'" onerror="this.parentElement.innerHTML=\'\'">';}else{el.innerHTML='';}}
+        function openModal(id){
+            editingId=id||null;
+            document.getElementById('modalTitle').textContent=id?'Sua Loai Ve':'Them Loai Ve';
+            if(id){var t=ticketData.find(function(x){return x.id===id;});if(t){document.getElementById('ticketName').value=t.name;document.getElementById('ticketShortDesc').value=t.shortDesc;document.getElementById('ticketPrice').value=t.price;document.getElementById('ticketUnit').value=t.unit;document.getElementById('ticketBadge').value=t.badge;document.getElementById('ticketBenefits').value=t.benefits.join('\n');document.getElementById('ticketImage').value=t.image||'';previewImage(t.image,'ticketPreview');}}
+            else{['ticketName','ticketShortDesc','ticketPrice','ticketBadge','ticketBenefits','ticketImage'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('ticketUnit').value='nguoi';document.getElementById('ticketPreview').innerHTML='';}
+            document.getElementById('ticketModal').classList.add('show');
+        }
+        function closeModal(){document.getElementById('ticketModal').classList.remove('show');}
+        function saveTicket(){
+            var name=document.getElementById('ticketName').value.trim();var price=parseInt(document.getElementById('ticketPrice').value);
+            if(!name||!price){alert('Vui long nhap ten va gia ve!');return;}
+            var benefitsStr=document.getElementById('ticketBenefits').value;var benefits=benefitsStr?benefitsStr.split('\n').map(function(b){return b.trim();}).filter(function(b){return b;}):[];
+            if(editingId){var t=ticketData.find(function(x){return x.id===editingId;});if(t){t.name=name;t.shortDesc=document.getElementById('ticketShortDesc').value.trim();t.price=price;t.unit=document.getElementById('ticketUnit').value.trim()||'nguoi';t.badge=document.getElementById('ticketBadge').value.trim();t.benefits=benefits;t.image=document.getElementById('ticketImage').value.trim();}}
+            else{var maxOrder=ticketData.reduce(function(max,t){return Math.max(max,t.order);},0);ticketData.push({id:Date.now(),name:name,shortDesc:document.getElementById('ticketShortDesc').value.trim(),price:price,unit:document.getElementById('ticketUnit').value.trim()||'nguoi',badge:document.getElementById('ticketBadge').value.trim(),benefits:benefits,image:document.getElementById('ticketImage').value.trim(),order:maxOrder+1});}
+            closeModal();render();showSuccess(editingId?'Da cap nhat!':'Da them loai ve!');
+        }
+        function deleteTicket(id){if(!confirm('Xoa loai ve nay?'))return;ticketData=ticketData.filter(function(t){return t.id!==id;});render();showSuccess('Da xoa!');}
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},2000);}
+        render();
+    </script>
+</body>
+</html>

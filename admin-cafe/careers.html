@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - Coffee House Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);"><i class="fas fa-coffee"></i></div><div class="logo-text">Coffee House</div></div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">CONTENT</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Home and About</a>
+                <a href="menu.html" class="nav-item"><i class="fas fa-mug-hot"></i> Menu</a>
+                <a href="space.html" class="nav-item"><i class="fas fa-store"></i> Space</a>
+                <a href="branches.html" class="nav-item"><i class="fas fa-map-marker-alt"></i> Branches</a>
+                <a href="events.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Events</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">MORE</div>
+                <a href="careers.html" class="nav-item active"><i class="fas fa-briefcase"></i> Careers</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-tags"></i> Promotion</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Gallery</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Contact</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">SETTINGS</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../cafe.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+            </div>
+        </nav>
+    </div>
+    <header class="header"><div class="header-left"><h1 class="page-title">Tuyen Dung</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar">AD</div></div></div></header>
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title">Trang thai hien thi - Section Tuyen Dung</div>
+                <div class="toggle-container"><span class="toggle-status active" id="sectionStatus">Dang hien thi</span><label class="toggle-switch"><input type="checkbox" id="sectionToggle" checked onchange="toggleSection()"><span class="toggle-slider"></span></label></div>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-image"></i> Anh/VR360 Tong cho Tuyen Dung</div></div>
+            <div class="card-body">
+                <div class="form-group"><label class="form-label">Link anh hoac VR360</label><input type="url" class="form-input" id="careerBannerUrl" placeholder="https://..." value="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1200" oninput="previewImage(this.value,'careerBannerPreview')"></div>
+                <div class="image-preview" id="careerBannerPreview"><img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1200"></div>
+                <button class="btn btn-primary" onclick="showSuccess('Da luu anh tong!')"><i class="fas fa-save"></i> Luu</button>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title">Danh sach Viec Lam</div><button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Them Viec Lam</button></div>
+            <div class="card-body"><div id="jobList"></div></div>
+        </div>
+    </main>
+    <div class="modal" id="jobModal">
+        <div class="modal-content" style="max-width:600px;">
+            <div class="modal-header"><h3 id="modalTitle">Them Viec Lam</h3><button class="close-btn" onclick="closeModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Vi tri tuyen dung</label><input type="text" class="form-input" id="jobTitle"></div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Loai cong viec</label>
+                        <select class="form-input" id="jobType"><option>Full-time</option><option>Part-time</option><option>Thuc tap</option></select>
+                    </div>
+                    <div class="form-group"><label class="form-label">Dia diem</label>
+                        <select class="form-input" id="jobLocation"><option>Quan 1</option><option>Quan 3</option><option>Quan 7</option><option>Thu Duc</option><option>Tat ca chi nhanh</option></select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Muc luong</label><input type="text" class="form-input" id="jobSalary" placeholder="VD: 5-8 trieu"></div>
+                    <div class="form-group"><label class="form-label">So luong</label><input type="number" class="form-input" id="jobSlots" value="2"></div>
+                </div>
+                <div class="form-group"><label class="form-label">Mo ta cong viec</label><textarea class="form-textarea" id="jobDesc" rows="3"></textarea></div>
+                <div class="form-group"><label class="form-label">Yeu cau</label><textarea class="form-textarea" id="jobRequirements" rows="3" placeholder="Moi yeu cau tren 1 dong"></textarea></div>
+                <div class="form-group"><label class="form-label">Quyen loi</label><textarea class="form-textarea" id="jobBenefits" rows="3" placeholder="Moi quyen loi tren 1 dong"></textarea></div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Han nop ho so</label><input type="date" class="form-input" id="jobDeadline"></div>
+                    <div class="form-group"><label class="form-label">Trang thai</label>
+                        <select class="form-input" id="jobStatus"><option value="active">Dang tuyen</option><option value="paused">Tam dung</option><option value="closed">Da dong</option></select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal()">Huy</button><button class="btn btn-primary" onclick="saveJob()">Luu</button></div>
+        </div>
+    </div>
+    <style>
+        .toggle-container{display:flex;align-items:center;gap:12px;}
+        .toggle-status{font-size:14px;color:#dc2626;}
+        .toggle-status.active{color:#059669;}
+        .toggle-switch{position:relative;display:inline-block;width:48px;height:26px;}
+        .toggle-switch input{opacity:0;width:0;height:0;}
+        .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#cbd5e1;border-radius:26px;transition:0.3s;}
+        .toggle-slider:before{position:absolute;content:"";height:20px;width:20px;left:3px;bottom:3px;background:white;border-radius:50%;transition:0.3s;}
+        .toggle-switch input:checked+.toggle-slider{background:#2563eb;}
+        .toggle-switch input:checked+.toggle-slider:before{transform:translateX(22px);}
+        .image-preview{margin:12px 0;border-radius:8px;overflow:hidden;max-height:200px;}
+        .image-preview img{width:100%;max-height:200px;object-fit:cover;}
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:20px;}
+        .card-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .card-title{font-size:16px;font-weight:600;}
+        .card-body{padding:20px 24px;}
+        .job-card{background:#f8fafc;border-radius:12px;padding:20px;margin-bottom:16px;border:1px solid #e2e8f0;}
+        .job-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
+        .job-title{font-size:18px;font-weight:600;color:#1e293b;}
+        .job-badge{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;}
+        .badge-active{background:#dcfce7;color:#16a34a;}
+        .badge-paused{background:#fef3c7;color:#b45309;}
+        .badge-closed{background:#f1f5f9;color:#64748b;}
+        .job-meta{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:12px;font-size:13px;color:#64748b;}
+        .job-meta span{display:flex;align-items:center;gap:6px;}
+        .job-meta i{color:#2563eb;}
+        .job-desc{font-size:14px;color:#475569;margin-bottom:12px;}
+        .job-section{margin-bottom:10px;}
+        .job-section-title{font-size:13px;font-weight:600;color:#1e293b;margin-bottom:6px;}
+        .job-section ul{margin:0;padding-left:20px;font-size:13px;color:#64748b;}
+        .job-actions{display:flex;gap:8px;}
+        .job-actions button{padding:8px 14px;border:none;border-radius:8px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:6px;}
+        .btn-edit{background:#dbeafe;color:#1d4ed8;}
+        .btn-delete{background:#fee2e2;color:#dc2626;}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:550px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;}
+        .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#64748b;}
+        .modal-body{padding:24px;}
+        .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid #e2e8f0;}
+        .form-group{margin-bottom:16px;}
+        .form-row{display:flex;gap:16px;}
+        .form-row .form-group{flex:1;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+        .form-input,.form-textarea{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;}
+        .form-input:focus,.form-textarea:focus{outline:none;border-color:#2563eb;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#2563eb;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
+    </style>
+    <script>
+        function toggleSection(){var t=document.getElementById('sectionToggle');var s=document.getElementById('sectionStatus');s.textContent=t.checked?'Dang hien thi':'Da an';s.classList.toggle('active',t.checked);}
+        var jobData=[
+            {id:1,title:"Barista",type:"Full-time",location:"Quan 1",salary:"6-8 trieu",slots:3,desc:"Pha che cac loai do uong theo tieu chuan",requirements:["Co kinh nghiem pha che","Giao tiep tot","Nhiet tinh, trung thuc"],benefits:["Luong thang 13","Bao hiem xa hoi","Dao tao mien phi"],deadline:"2026-03-15",status:"active"},
+            {id:2,title:"Thu Ngan",type:"Part-time",location:"Quan 3",salary:"4-5 trieu",slots:2,desc:"Thu ngan va ho tro khach hang",requirements:["Biet su dung may tinh","Co trach nhiem","Lam viec theo ca"],benefits:["Luong theo gio","Thuc an mien phi","Gio lam linh hoat"],deadline:"2026-02-28",status:"active"},
+            {id:3,title:"Quan Ly Ca",type:"Full-time",location:"Thu Duc",salary:"10-15 trieu",slots:1,desc:"Quan ly nhan vien va hoat dong cua quan",requirements:["Kinh nghiem 2 nam quan ly","Ky nang lanh dao","Giao tiep tieng Anh"],benefits:["Luong thang 13","Thuong theo doanh thu","Co hoi thang tien"],deadline:"2026-03-30",status:"paused"}
+        ];
+        var editingId=null;
+        function render(){
+            var html='';
+            jobData.forEach(function(j){
+                var badgeClass=j.status==='active'?'badge-active':(j.status==='paused'?'badge-paused':'badge-closed');
+                var badgeText=j.status==='active'?'Dang tuyen':(j.status==='paused'?'Tam dung':'Da dong');
+                html+='<div class="job-card">';
+                html+='<div class="job-header"><div class="job-title">'+j.title+'</div><span class="job-badge '+badgeClass+'">'+badgeText+'</span></div>';
+                html+='<div class="job-meta">';
+                html+='<span><i class="fas fa-briefcase"></i>'+j.type+'</span>';
+                html+='<span><i class="fas fa-map-marker-alt"></i>'+j.location+'</span>';
+                html+='<span><i class="fas fa-money-bill"></i>'+j.salary+'</span>';
+                html+='<span><i class="fas fa-users"></i>'+j.slots+' vi tri</span>';
+                html+='<span><i class="fas fa-calendar"></i>Han: '+j.deadline+'</span>';
+                html+='</div>';
+                html+='<div class="job-desc">'+j.desc+'</div>';
+                html+='<div class="job-section"><div class="job-section-title">Yeu cau:</div><ul>'+j.requirements.map(function(r){return '<li>'+r+'</li>';}).join('')+'</ul></div>';
+                html+='<div class="job-section"><div class="job-section-title">Quyen loi:</div><ul>'+j.benefits.map(function(b){return '<li>'+b+'</li>';}).join('')+'</ul></div>';
+                html+='<div class="job-actions">';
+                html+='<button class="btn-edit" onclick="openModal('+j.id+')"><i class="fas fa-edit"></i> Sua</button>';
+                html+='<button class="btn-delete" onclick="deleteJob('+j.id+')"><i class="fas fa-trash"></i> Xoa</button>';
+                html+='</div></div>';
+            });
+            document.getElementById('jobList').innerHTML=html;
+        }
+        function openModal(id){
+            editingId=id||null;
+            document.getElementById('modalTitle').textContent=id?'Sua Viec Lam':'Them Viec Lam';
+            if(id){
+                var j=jobData.find(function(x){return x.id===id;});
+                if(j){
+                    document.getElementById('jobTitle').value=j.title;
+                    document.getElementById('jobSalary').value=j.salary;
+                    document.getElementById('jobSlots').value=j.slots;
+                    document.getElementById('jobDesc').value=j.desc;
+                    document.getElementById('jobRequirements').value=j.requirements.join('\n');
+                    document.getElementById('jobBenefits').value=j.benefits.join('\n');
+                    document.getElementById('jobDeadline').value=j.deadline;
+                }
+            }else{
+                document.getElementById('jobTitle').value='';
+                document.getElementById('jobSalary').value='';
+                document.getElementById('jobSlots').value='2';
+                document.getElementById('jobDesc').value='';
+                document.getElementById('jobRequirements').value='';
+                document.getElementById('jobBenefits').value='';
+                document.getElementById('jobDeadline').value='';
+            }
+            document.getElementById('jobModal').classList.add('show');
+        }
+        function closeModal(){document.getElementById('jobModal').classList.remove('show');}
+        function saveJob(){showSuccess(editingId?'Da cap nhat!':'Da them viec lam!');closeModal();render();}
+        function deleteJob(id){if(confirm('Xoa viec lam nay?')){showSuccess('Da xoa!');render();}}
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},3000);}
+        render();
+    </script>
+</body>
+</html>

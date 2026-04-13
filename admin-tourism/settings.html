@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Tourism Admin</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon"><i class="fas fa-map-marked-alt"></i></div><div class="logo-text">Tourism Admin</div></div></div>
+        <div class="property-selector"><div class="property-label">Platform</div><div class="property-name">Du Lịch Bà Rịa — 360°</div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">MAIN</div><a href="index.html" class="nav-item"><i class="fas fa-chart-pie"></i> Dashboard</a></div>
+            <div class="nav-section"><div class="nav-section-title">NỘI DUNG</div>
+                <a href="provinces.html" class="nav-item"><i class="fas fa-map-signs"></i> Khu Vực</a>
+                <a href="categories.html" class="nav-item"><i class="fas fa-folder-open"></i> Danh Mục</a>
+                <a href="pois.html" class="nav-item"><i class="fas fa-map-pin"></i> Điểm Đến <span class="nav-badge">12</span></a>
+                <a href="tags.html" class="nav-item"><i class="fas fa-tags"></i> Tags</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">TRỰC QUAN</div>
+                <a href="map-config.html" class="nav-item"><i class="fas fa-map"></i> Cấu Hình Bản Đồ</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Gallery</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">HỆ THỐNG</div>
+                <a href="settings.html" class="nav-item active"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../tourism-map-360.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+                <a href="#" class="nav-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="header">
+        <div class="header-left"><h1 class="page-title">Cài Đặt Hệ Thống</h1></div>
+        <div class="header-right"><button class="btn btn-primary" onclick="saveSettings()"><i class="fas fa-save"></i> Lưu Cài Đặt</button></div>
+    </header>
+
+    <main class="main-content">
+        <!-- General Settings -->
+        <div class="content-card" style="margin-bottom:24px;">
+            <div class="card-header"><div class="card-title"><i class="fas fa-info-circle"></i> Thông Tin Chung</div></div>
+            <div class="card-body">
+                <div class="form-group"><label class="form-label">Tên Nền Tảng</label><input class="form-input" value="Du Lịch Bà Rịa — Vũng Tàu 360°"></div>
+                <div class="form-group"><label class="form-label">Mô tả ngắn</label><textarea class="form-input" rows="2">Khám phá vẻ đẹp Bà Rịa — Vũng Tàu qua công nghệ bản đồ tương tác và ảnh 360° sống động</textarea></div>
+                <div class="form-grid">
+                    <div class="form-group"><label class="form-label">Ngôn ngữ mặc định</label>
+                        <select class="form-input"><option selected>Tiếng Việt</option><option>English</option></select>
+                    </div>
+                    <div class="form-group"><label class="form-label">Múi giờ</label>
+                        <select class="form-input"><option selected>UTC+7 (Ho Chi Minh)</option></select>
+                    </div>
+                </div>
+                <div class="form-group"><label class="form-label">Email liên hệ</label><input class="form-input" value="info@dulich-brvt.vn"></div>
+                <div class="form-group"><label class="form-label">Website URL</label><input class="form-input" value="https://dulich-brvt.vn"></div>
+            </div>
+        </div>
+
+        <!-- Branding -->
+        <div class="content-card" style="margin-bottom:24px;">
+            <div class="card-header"><div class="card-title"><i class="fas fa-palette"></i> Branding</div></div>
+            <div class="card-body">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Logo</label>
+                        <div class="upload-area" style="padding:24px;"><i class="fas fa-image"></i><p>Upload logo (SVG, PNG)</p></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Favicon</label>
+                        <div class="upload-area" style="padding:24px;"><i class="fas fa-image"></i><p>Upload favicon (32×32)</p></div>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Màu chủ đạo</label>
+                        <div style="display:flex;align-items:center;gap:8px;">
+                            <input type="color" value="#0D9488" style="width:48px;height:40px;border:none;border-radius:8px;cursor:pointer;">
+                            <input class="form-input" value="#0D9488" style="max-width:120px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Màu phụ</label>
+                        <div style="display:flex;align-items:center;gap:8px;">
+                            <input type="color" value="#134E4A" style="width:48px;height:40px;border:none;border-radius:8px;cursor:pointer;">
+                            <input class="form-input" value="#134E4A" style="max-width:120px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO Settings -->
+        <div class="content-card" style="margin-bottom:24px;">
+            <div class="card-header"><div class="card-title"><i class="fas fa-search"></i> SEO & Meta Tags</div></div>
+            <div class="card-body">
+                <div class="form-group"><label class="form-label">Meta Title</label><input class="form-input" value="Du Lịch Bà Rịa — Vũng Tàu | Bản Đồ 360° Tương Tác"></div>
+                <div class="form-group"><label class="form-label">Meta Description</label><textarea class="form-input" rows="3">Khám phá du lịch Bà Rịa — Vũng Tàu với bản đồ tương tác và ảnh 360° tại các điểm đến nổi tiếng như Bãi Trước, Bãi Sau, Thích Ca Phật Đài.</textarea></div>
+                <div class="form-group"><label class="form-label">Keywords</label><input class="form-input" value="du lịch vũng tàu, bản đồ 360, VR tour, bà rịa vũng tàu, điểm đến"></div>
+                <div class="form-group"><label class="form-label">OG Image URL</label><input class="form-input" placeholder="URL ảnh Open Graph"></div>
+                <div class="form-group"><label class="form-label">Google Analytics ID</label><input class="form-input" placeholder="G-XXXXXXXXXX"></div>
+            </div>
+        </div>
+
+        <!-- Data & Export -->
+        <div class="content-card" style="margin-bottom:24px;">
+            <div class="card-header"><div class="card-title"><i class="fas fa-database"></i> Dữ Liệu & Export</div></div>
+            <div class="card-body">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Export JSON Data</label>
+                        <p style="font-size:13px;color:#64748b;margin-bottom:8px;">Xuất toàn bộ dữ liệu POI, categories, tags ra file JSON</p>
+                        <button class="btn btn-outline"><i class="fas fa-download"></i> Export JSON</button>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Import Data</label>
+                        <p style="font-size:13px;color:#64748b;margin-bottom:8px;">Import dữ liệu từ file JSON backup</p>
+                        <button class="btn btn-outline"><i class="fas fa-upload"></i> Import JSON</button>
+                    </div>
+                </div>
+                <div style="margin-top:16px;padding:16px;background:#fef2f2;border-radius:8px;border:1px solid #fecaca;">
+                    <h4 style="font-size:14px;color:#dc2626;margin:0 0 8px;"><i class="fas fa-exclamation-triangle"></i> Danger Zone</h4>
+                    <p style="font-size:13px;color:#7f1d1d;margin:0 0 12px;">Xóa toàn bộ dữ liệu. Thao tác này không thể hoàn tác.</p>
+                    <button class="btn btn-outline" style="color:#dc2626;border-color:#fca5a5;"><i class="fas fa-trash"></i> Reset All Data</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social & Integrations -->
+        <div class="content-card" style="margin-bottom:24px;">
+            <div class="card-header"><div class="card-title"><i class="fas fa-share-alt"></i> Social & Tích Hợp</div></div>
+            <div class="card-body">
+                <div class="form-group"><label class="form-label">Facebook Page</label><input class="form-input" placeholder="https://facebook.com/dulichbrvt"></div>
+                <div class="form-group"><label class="form-label">Instagram</label><input class="form-input" placeholder="https://instagram.com/dulichbrvt"></div>
+                <div class="form-group"><label class="form-label">YouTube Channel</label><input class="form-input" placeholder="https://youtube.com/@dulichbrvt"></div>
+                <div class="form-group">
+                    <div class="toggle-group"><span class="toggle-label">Hiển thị nút chia sẻ trên mỗi POI</span><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+                </div>
+                <div class="form-group">
+                    <div class="toggle-group"><span class="toggle-label">Cho phép nhúng (embed) bản đồ</span><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function saveSettings(){alert('Cài đặt đã được lưu! (Demo)')}
+        function logout(){if(confirm('Đăng xuất?'))window.location.href='../index.html'}
+    </script>
+</body>
+</html>

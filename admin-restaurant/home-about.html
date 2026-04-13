@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home & About - Fine Dining Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar" style="background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon" style="background: linear-gradient(135deg, #b8860b, #daa520);"><i class="fas fa-utensils"></i></div><div class="logo-text">Fine Dining</div></div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">CONTENT</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item active"><i class="fas fa-info-circle"></i> Home & About</a>
+                <a href="menu.html" class="nav-item"><i class="fas fa-book-open"></i> Thuc Don</a>
+                <a href="space.html" class="nav-item"><i class="fas fa-chair"></i> Khong Gian</a>
+                <a href="branches.html" class="nav-item"><i class="fas fa-map-marker-alt"></i> Chi Nhanh</a>
+                <a href="events.html" class="nav-item"><i class="fas fa-glass-cheers"></i> Su Kien & Tiec</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">MORE</div>
+                <a href="reviews.html" class="nav-item"><i class="fas fa-trophy"></i> Thanh Tuu</a>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Tuyen Dung</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Thu Vien</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Lien He</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">SETTINGS</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a>
+                <a href="../restaurant.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Website</a>
+            </div>
+        </nav>
+    </div>
+    <header class="header"><div class="header-left"><h1 class="page-title">Quan Ly Trang Chu & Gioi Thieu</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar" style="background:#b8860b;">AD</div></div></div></header>
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
+        
+        <!-- HOME SECTION -->
+        <div class="content-card">
+            <div class="card-header"><div class="card-title">Trang thai hien thi - Section Trang Chu</div>
+                <div class="toggle-container"><span class="toggle-status active" id="homeStatus">Dang hien thi</span><label class="toggle-switch"><input type="checkbox" id="homeToggle" checked onchange="toggleHome()"><span class="toggle-slider"></span></label></div>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-image"></i> Hero Banner</div></div>
+            <div class="card-body">
+                <div class="form-group"><label class="form-label">Link anh/video banner</label><input type="url" class="form-input" id="heroBanner" placeholder="https://..." value="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920" oninput="previewImage(this.value,'heroPreview')"></div>
+                <div class="image-preview" id="heroPreview"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920"></div>
+                <div class="form-group"><label class="form-label">Tieu de chinh</label><input type="text" class="form-input" id="heroTitle" value="Fine Dining Experience"></div>
+                <div class="form-group"><label class="form-label">Slogan</label><input type="text" class="form-input" id="heroSlogan" value="Noi tinh hoa am thuc hoi tu"></div>
+                <button class="btn btn-primary" onclick="showSuccess('Da luu Hero Banner!')"><i class="fas fa-save"></i> Luu</button>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-star"></i> Diem Noi Bat (USPs)</div><button class="btn btn-primary" onclick="openUspModal()"><i class="fas fa-plus"></i> Them</button></div>
+            <div class="card-body"><div class="usp-grid" id="uspList"></div></div>
+        </div>
+
+        <!-- ABOUT SECTION -->
+        <div class="content-card">
+            <div class="card-header"><div class="card-title">Trang thai hien thi - Section Gioi Thieu</div>
+                <div class="toggle-container"><span class="toggle-status active" id="aboutStatus">Dang hien thi</span><label class="toggle-switch"><input type="checkbox" id="aboutToggle" checked onchange="toggleAbout()"><span class="toggle-slider"></span></label></div>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-book"></i> Cau Chuyen Thuong Hieu</div></div>
+            <div class="card-body">
+                <div class="form-group"><label class="form-label">Tieu de</label><input type="text" class="form-input" id="storyTitle" value="Cau Chuyen Cua Chung Toi"></div>
+                <div class="form-group"><label class="form-label">Noi dung</label><textarea class="form-textarea" id="storyContent" rows="5">Fine Dining duoc thanh lap vao nam 2010 boi nhung nguoi dau bep tai nang, mang trong minh uoc mo dem den nhung trai nghiem am thuc dang cap nhat cho thuc khach Viet Nam. Voi su ket hop hoan hao giua tinh hoa am thuc Phap va nguyen lieu tuoi ngon Viet Nam, chung toi da tao nen mot phong cach rieng biet...</textarea></div>
+                <div class="form-group"><label class="form-label">Link anh</label><input type="url" class="form-input" id="storyImage" value="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800" oninput="previewImage(this.value,'storyPreview')"></div>
+                <div class="image-preview" id="storyPreview"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800"></div>
+                <button class="btn btn-primary" onclick="showSuccess('Da luu cau chuyen!')"><i class="fas fa-save"></i> Luu</button>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-trophy"></i> Thanh Tuu & Giai Thuong</div><button class="btn btn-primary" onclick="openAwardModal()"><i class="fas fa-plus"></i> Them</button></div>
+            <div class="card-body"><div class="awards-grid" id="awardsList"></div></div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-users"></i> Doi Ngu Bep Truong</div><button class="btn btn-primary" onclick="openChefModal()"><i class="fas fa-plus"></i> Them</button></div>
+            <div class="card-body"><div class="chef-grid" id="chefList"></div></div>
+        </div>
+    </main>
+    <div class="modal" id="uspModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3>Diem Noi Bat</h3><button class="close-btn" onclick="closeUspModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Icon (Font Awesome)</label><input type="text" class="form-input" id="uspIcon" placeholder="VD: fa-utensils"></div>
+                <div class="form-group"><label class="form-label">Tieu de</label><input type="text" class="form-input" id="uspTitle" placeholder="VD: Nguyen Lieu Tuoi"></div>
+                <div class="form-group"><label class="form-label">Mo ta</label><input type="text" class="form-input" id="uspDesc" placeholder="VD: Nguyen lieu tuoi moi ngay"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeUspModal()">Huy</button><button class="btn btn-primary" onclick="saveUsp()">Luu</button></div>
+        </div>
+    </div>
+    <div class="modal" id="awardModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3>Giai Thuong</h3><button class="close-btn" onclick="closeAwardModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Ten giai thuong</label><input type="text" class="form-input" id="awardName" placeholder="VD: Michelin Star"></div>
+                <div class="form-group"><label class="form-label">Nam</label><input type="text" class="form-input" id="awardYear" placeholder="VD: 2023"></div>
+                <div class="form-group"><label class="form-label">To chuc trao giai</label><input type="text" class="form-input" id="awardOrg" placeholder="VD: Michelin Guide"></div>
+                <div class="form-group"><label class="form-label">Link hinh anh</label><input type="url" class="form-input" id="awardImage" placeholder="https://..." oninput="previewImage(this.value,'awardPreview')"></div>
+                <div class="image-preview" id="awardPreview"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeAwardModal()">Huy</button><button class="btn btn-primary" onclick="saveAward()">Luu</button></div>
+        </div>
+    </div>
+    <div class="modal" id="chefModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3>Bep Truong</h3><button class="close-btn" onclick="closeChefModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Ho ten</label><input type="text" class="form-input" id="chefName" placeholder="VD: Chef Nguyen Van A"></div>
+                <div class="form-group"><label class="form-label">Chuc danh</label><input type="text" class="form-input" id="chefTitle" placeholder="VD: Executive Chef"></div>
+                <div class="form-group"><label class="form-label">Mo ta</label><textarea class="form-textarea" id="chefBio" rows="3"></textarea></div>
+                <div class="form-group"><label class="form-label">Chuyen mon</label><input type="text" class="form-input" id="chefSpecialty" placeholder="VD: French Cuisine, Fusion"></div>
+                <div class="form-group"><label class="form-label">Link anh</label><input type="url" class="form-input" id="chefImage" placeholder="https://..." oninput="previewImage(this.value,'chefPreview')"></div>
+                <div class="image-preview" id="chefPreview"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeChefModal()">Huy</button><button class="btn btn-primary" onclick="saveChef()">Luu</button></div>
+        </div>
+    </div>
+    <style>
+        .toggle-container{display:flex;align-items:center;gap:12px;}
+        .toggle-status{font-size:14px;color:#dc2626;}
+        .toggle-status.active{color:#059669;}
+        .toggle-switch{position:relative;display:inline-block;width:48px;height:26px;}
+        .toggle-switch input{opacity:0;width:0;height:0;}
+        .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#cbd5e1;border-radius:26px;transition:0.3s;}
+        .toggle-slider:before{position:absolute;content:"";height:20px;width:20px;left:3px;bottom:3px;background:white;border-radius:50%;transition:0.3s;}
+        .toggle-switch input:checked+.toggle-slider{background:#b8860b;}
+        .toggle-switch input:checked+.toggle-slider:before{transform:translateX(22px);}
+        .image-preview{margin:12px 0;border-radius:8px;overflow:hidden;max-height:200px;}
+        .image-preview img{width:100%;max-height:200px;object-fit:cover;}
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:20px;}
+        .card-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .card-title{font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px;}
+        .card-title i{color:#b8860b;}
+        .card-body{padding:20px 24px;}
+        .usp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
+        .usp-card{background:#f8fafc;border-radius:12px;padding:20px;text-align:center;border:1px solid #e2e8f0;}
+        .usp-icon{width:60px;height:60px;background:linear-gradient(135deg,#b8860b,#daa520);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;color:white;font-size:24px;}
+        .usp-title{font-weight:600;color:#1e293b;margin-bottom:6px;}
+        .usp-desc{font-size:13px;color:#64748b;}
+        .usp-actions{display:flex;gap:8px;justify-content:center;margin-top:12px;}
+        .awards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
+        .award-card{background:#f8fafc;border-radius:12px;padding:16px;text-align:center;border:1px solid #e2e8f0;}
+        .award-image{width:80px;height:80px;border-radius:50%;object-fit:cover;margin:0 auto 10px;}
+        .award-name{font-weight:600;color:#1e293b;margin-bottom:4px;}
+        .award-year{font-size:18px;font-weight:700;color:#b8860b;}
+        .award-org{font-size:12px;color:#64748b;}
+        .chef-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
+        .chef-card{background:#f8fafc;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;}
+        .chef-image{width:100%;height:200px;object-fit:cover;}
+        .chef-content{padding:16px;}
+        .chef-name{font-size:17px;font-weight:600;color:#1e293b;}
+        .chef-title{font-size:13px;color:#b8860b;margin-bottom:8px;}
+        .chef-specialty{font-size:12px;color:#64748b;}
+        .item-actions{display:flex;gap:8px;margin-top:12px;}
+        .item-actions button{flex:1;padding:8px;border:none;border-radius:6px;cursor:pointer;font-size:12px;}
+        .btn-edit{background:#dbeafe;color:#1d4ed8;}
+        .btn-delete{background:#fee2e2;color:#dc2626;}
+        .form-group{margin-bottom:16px;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+        .form-input,.form-textarea{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;}
+        .form-input:focus,.form-textarea:focus{outline:none;border-color:#b8860b;}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;}
+        .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#64748b;}
+        .modal-body{padding:24px;}
+        .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid #e2e8f0;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#b8860b;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
+    </style>
+    <script>
+        function toggleHome(){var t=document.getElementById('homeToggle');var s=document.getElementById('homeStatus');s.textContent=t.checked?'Dang hien thi':'Da an';s.classList.toggle('active',t.checked);}
+        function toggleAbout(){var t=document.getElementById('aboutToggle');var s=document.getElementById('aboutStatus');s.textContent=t.checked?'Dang hien thi':'Da an';s.classList.toggle('active',t.checked);}
+        function previewImage(url,targetId){var el=document.getElementById(targetId);if(url){el.innerHTML='<img src="'+url+'" onerror="this.parentElement.innerHTML=\'\'">';}else{el.innerHTML='';}}
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},3000);}
+        var uspData=[
+            {id:1,icon:'fa-leaf',title:'Nguyen Lieu Tuoi',desc:'Nhap moi ngay tu nguon uy tin'},
+            {id:2,icon:'fa-wine-glass-alt',title:'Wine Selection',desc:'Hon 200 loai ruou vang cao cap'},
+            {id:3,icon:'fa-utensils',title:'Dau Bep Hang Dau',desc:'Dau bep duoc dao tao tai Phap'},
+            {id:4,icon:'fa-concierge-bell',title:'Phuc Vu 5 Sao',desc:'Dich vu tan tam, chu dao'}
+        ];
+        var awardData=[
+            {id:1,name:'Michelin Star',year:'2023',org:'Michelin Guide',image:'https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=200'},
+            {id:2,name:'Best Fine Dining',year:'2022',org:'Vietnam Tourism Awards',image:'https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=200'}
+        ];
+        var chefData=[
+            {id:1,name:'Chef Nguyen Van A',title:'Executive Chef',specialty:'French Cuisine, Fusion',image:'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400'},
+            {id:2,name:'Chef Tran Minh B',title:'Pastry Chef',specialty:'French Pastry, Chocolate',image:'https://images.unsplash.com/photo-1581299894007-aaa50297cf16?w=400'}
+        ];
+        function renderUsps(){
+            var html='';
+            uspData.forEach(function(u){
+                html+='<div class="usp-card">';
+                html+='<div class="usp-icon"><i class="fas '+u.icon+'"></i></div>';
+                html+='<div class="usp-title">'+u.title+'</div>';
+                html+='<div class="usp-desc">'+u.desc+'</div>';
+                html+='<div class="usp-actions"><button class="btn-edit" onclick="editUsp('+u.id+')"><i class="fas fa-edit"></i></button><button class="btn-delete" onclick="deleteUsp('+u.id+')"><i class="fas fa-trash"></i></button></div>';
+                html+='</div>';
+            });
+            document.getElementById('uspList').innerHTML=html;
+        }
+        function renderAwards(){
+            var html='';
+            awardData.forEach(function(a){
+                html+='<div class="award-card">';
+                html+='<img class="award-image" src="'+a.image+'">';
+                html+='<div class="award-name">'+a.name+'</div>';
+                html+='<div class="award-year">'+a.year+'</div>';
+                html+='<div class="award-org">'+a.org+'</div>';
+                html+='<div class="item-actions"><button class="btn-edit" onclick="editAward('+a.id+')"><i class="fas fa-edit"></i></button><button class="btn-delete" onclick="deleteAward('+a.id+')"><i class="fas fa-trash"></i></button></div>';
+                html+='</div>';
+            });
+            document.getElementById('awardsList').innerHTML=html;
+        }
+        function renderChefs(){
+            var html='';
+            chefData.forEach(function(c){
+                html+='<div class="chef-card">';
+                html+='<img class="chef-image" src="'+c.image+'">';
+                html+='<div class="chef-content">';
+                html+='<div class="chef-name">'+c.name+'</div>';
+                html+='<div class="chef-title">'+c.title+'</div>';
+                html+='<div class="chef-specialty">'+c.specialty+'</div>';
+                html+='<div class="item-actions"><button class="btn-edit" onclick="editChef('+c.id+')"><i class="fas fa-edit"></i></button><button class="btn-delete" onclick="deleteChef('+c.id+')"><i class="fas fa-trash"></i></button></div>';
+                html+='</div></div>';
+            });
+            document.getElementById('chefList').innerHTML=html;
+        }
+        function openUspModal(){document.getElementById('uspModal').classList.add('show');}
+        function closeUspModal(){document.getElementById('uspModal').classList.remove('show');}
+        function saveUsp(){showSuccess('Da luu!');closeUspModal();renderUsps();}
+        function editUsp(id){openUspModal();}
+        function deleteUsp(id){if(confirm('Xoa?')){showSuccess('Da xoa!');renderUsps();}}
+        function openAwardModal(){document.getElementById('awardModal').classList.add('show');}
+        function closeAwardModal(){document.getElementById('awardModal').classList.remove('show');}
+        function saveAward(){showSuccess('Da luu!');closeAwardModal();renderAwards();}
+        function editAward(id){openAwardModal();}
+        function deleteAward(id){if(confirm('Xoa?')){showSuccess('Da xoa!');renderAwards();}}
+        function openChefModal(){document.getElementById('chefModal').classList.add('show');}
+        function closeChefModal(){document.getElementById('chefModal').classList.remove('show');}
+        function saveChef(){showSuccess('Da luu!');closeChefModal();renderChefs();}
+        function editChef(id){openChefModal();}
+        function deleteChef(id){if(confirm('Xoa?')){showSuccess('Da xoa!');renderChefs();}}
+        renderUsps();renderAwards();renderChefs();
+    </script>
+</body>
+</html>

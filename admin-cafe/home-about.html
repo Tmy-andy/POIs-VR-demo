@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home & About - Coffee House Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);"><i class="fas fa-coffee"></i></div><div class="logo-text">Coffee House</div></div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">CONTENT</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item active"><i class="fas fa-info-circle"></i> Home and About</a>
+                <a href="menu.html" class="nav-item"><i class="fas fa-mug-hot"></i> Menu</a>
+                <a href="space.html" class="nav-item"><i class="fas fa-store"></i> Space</a>
+                <a href="branches.html" class="nav-item"><i class="fas fa-map-marker-alt"></i> Branches</a>
+                <a href="events.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Events</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">MORE</div>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Careers</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-tags"></i> Promotion</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Gallery</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Contact</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">SETTINGS</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../cafe.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+            </div>
+        </nav>
+    </div>
+    <header class="header"><div class="header-left"><h1 class="page-title">Home & About</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar">AD</div></div></div></header>
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
+        
+        <!-- Section Status -->
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title">Trang thai hien thi - Section Home & About</div>
+                <div class="toggle-container"><span class="toggle-status active" id="sectionStatus">Dang hien thi</span><label class="toggle-switch"><input type="checkbox" id="sectionToggle" checked onchange="toggleSection()"><span class="toggle-slider"></span></label></div>
+            </div>
+        </div>
+        
+        <!-- Hero Section -->
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-image"></i> Hero Section</div></div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Tieu de (VI)</label><input type="text" class="form-input" value="Chao Mung Den Coffee House"></div>
+                    <div class="form-group"><label class="form-label">Tieu de (EN)</label><input type="text" class="form-input" value="Welcome to Coffee House"></div>
+                </div>
+                <div class="form-group"><label class="form-label">Mo ta</label><textarea class="form-textarea" rows="2">Noi giao thoa cua huong vi - Khong gian ca phe hien dai phuc vu do uong chat luong cao.</textarea></div>
+                <div class="form-group"><label class="form-label">Link anh nen</label><input type="url" class="form-input" id="heroImage" value="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800" oninput="previewImage(this.value,'heroPreview')"></div>
+                <div class="image-preview" id="heroPreview"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800"></div>
+                <button class="btn btn-primary" onclick="showSuccess('Da luu Hero Section!')"><i class="fas fa-save"></i> Luu</button>
+            </div>
+        </div>
+
+        <!-- Highlights -->
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-star"></i> Diem Noi Bat</div><button class="btn btn-primary btn-sm" onclick="openHighlightModal()"><i class="fas fa-plus"></i> Them</button></div>
+            <div class="card-body"><div class="highlights-grid" id="highlightsGrid"></div></div>
+        </div>
+
+        <!-- Core Values -->
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-heart"></i> Gia Tri Cot Loi</div><button class="btn btn-primary btn-sm" onclick="openValueModal()"><i class="fas fa-plus"></i> Them</button></div>
+            <div class="card-body"><div class="values-grid" id="valuesGrid"></div></div>
+        </div>
+    </main>
+
+    <!-- Highlight Modal -->
+    <div class="modal" id="highlightModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="highlightModalTitle">Them Diem Noi Bat</h3><button class="close-btn" onclick="closeHighlightModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Icon (FontAwesome)</label><input type="text" class="form-input" id="highlightIcon" placeholder="VD: fas fa-coffee"></div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Tieu de (VI)</label><input type="text" class="form-input" id="highlightTitleVi"></div>
+                    <div class="form-group"><label class="form-label">Tieu de (EN)</label><input type="text" class="form-input" id="highlightTitleEn"></div>
+                </div>
+                <div class="form-group"><label class="form-label">Mo ta</label><textarea class="form-textarea" id="highlightDesc" rows="2"></textarea></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeHighlightModal()">Huy</button><button class="btn btn-primary" onclick="saveHighlight()">Luu</button></div>
+        </div>
+    </div>
+
+    <!-- Value Modal -->
+    <div class="modal" id="valueModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="valueModalTitle">Them Gia Tri</h3><button class="close-btn" onclick="closeValueModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Icon (FontAwesome)</label><input type="text" class="form-input" id="valueIcon" placeholder="VD: fas fa-heart"></div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Tieu de (VI)</label><input type="text" class="form-input" id="valueTitleVi"></div>
+                    <div class="form-group"><label class="form-label">Tieu de (EN)</label><input type="text" class="form-input" id="valueTitleEn"></div>
+                </div>
+                <div class="form-group"><label class="form-label">Mo ta</label><textarea class="form-textarea" id="valueDesc" rows="2"></textarea></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeValueModal()">Huy</button><button class="btn btn-primary" onclick="saveValue()">Luu</button></div>
+        </div>
+    </div>
+
+    <style>
+        .toggle-container{display:flex;align-items:center;gap:12px;}
+        .toggle-status{font-size:14px;color:#dc2626;}
+        .toggle-status.active{color:#059669;}
+        .toggle-switch{position:relative;display:inline-block;width:48px;height:26px;}
+        .toggle-switch input{opacity:0;width:0;height:0;}
+        .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#cbd5e1;border-radius:26px;transition:0.3s;}
+        .toggle-slider:before{position:absolute;content:"";height:20px;width:20px;left:3px;bottom:3px;background:white;border-radius:50%;transition:0.3s;}
+        .toggle-switch input:checked+.toggle-slider{background:#2563eb;}
+        .toggle-switch input:checked+.toggle-slider:before{transform:translateX(22px);}
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:20px;}
+        .card-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .card-title{font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px;}
+        .card-title i{color:#2563eb;}
+        .card-body{padding:20px 24px;}
+        .form-row{display:flex;gap:16px;}
+        .form-row .form-group{flex:1;}
+        .form-group{margin-bottom:16px;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+        .form-input,.form-textarea{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;}
+        .form-input:focus,.form-textarea:focus{outline:none;border-color:#2563eb;}
+        .image-preview{margin:12px 0;border-radius:8px;overflow:hidden;max-height:200px;}
+        .image-preview img{width:100%;max-height:200px;object-fit:cover;}
+        .highlights-grid,.values-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;}
+        .highlight-card,.value-card{background:#f8fafc;border-radius:12px;padding:20px;text-align:center;}
+        .highlight-icon,.value-icon{width:50px;height:50px;background:#2563eb;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:20px;}
+        .highlight-title,.value-title{font-size:15px;font-weight:600;color:#1e293b;margin-bottom:6px;}
+        .highlight-desc,.value-desc{font-size:13px;color:#64748b;margin-bottom:12px;}
+        .card-actions{display:flex;gap:8px;justify-content:center;}
+        .card-actions button{width:32px;height:32px;border:none;border-radius:6px;cursor:pointer;}
+        .btn-edit{background:#dbeafe;color:#1d4ed8;}
+        .btn-delete{background:#fee2e2;color:#dc2626;}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;}
+        .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#64748b;}
+        .modal-body{padding:24px;}
+        .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid #e2e8f0;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#2563eb;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .btn-sm{padding:8px 14px;font-size:13px;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
+    </style>
+    <script>
+        function toggleSection(){var t=document.getElementById('sectionToggle');var s=document.getElementById('sectionStatus');s.textContent=t.checked?'Dang hien thi':'Da an';s.classList.toggle('active',t.checked);}
+        var highlights=[
+            {id:1,icon:'fas fa-coffee',titleVi:'Ca Phe Tuyet Voi',titleEn:'Great Coffee',desc:'Hat ca phe tuyen chon tu cac vung trong noi tieng.'},
+            {id:2,icon:'fas fa-couch',titleVi:'Khong Gian Dep',titleEn:'Beautiful Space',desc:'Thiet ke hien dai, thoai mai de lam viec va thu gian.'},
+            {id:3,icon:'fas fa-wifi',titleVi:'Wifi Toc Do Cao',titleEn:'Fast WiFi',desc:'Ket noi internet nhanh va on dinh.'}
+        ];
+        var values=[
+            {id:1,icon:'fas fa-heart',titleVi:'Dam Me',titleEn:'Passion',desc:'Chung toi dam me voi tung ly ca phe.'},
+            {id:2,icon:'fas fa-handshake',titleVi:'Tan Tam',titleEn:'Dedication',desc:'Phuc vu khach hang het long.'},
+            {id:3,icon:'fas fa-leaf',titleVi:'Chat Luong',titleEn:'Quality',desc:'Cam ket chat luong san pham tot nhat.'}
+        ];
+        var editingHighlightId=null,editingValueId=null;
+
+        function previewImage(url,targetId){
+            var el=document.getElementById(targetId);
+            if(url){el.innerHTML='<img src="'+url+'" onerror="this.innerHTML=\'\'">';}else{el.innerHTML='';}
+        }
+
+        function renderHighlights(){
+            var html='';
+            highlights.forEach(function(h){
+                html+='<div class="highlight-card">';
+                html+='<div class="highlight-icon"><i class="'+h.icon+'"></i></div>';
+                html+='<div class="highlight-title">'+h.titleVi+'</div>';
+                html+='<div class="highlight-desc">'+h.desc+'</div>';
+                html+='<div class="card-actions">';
+                html+='<button class="btn-edit" onclick="editHighlight('+h.id+')"><i class="fas fa-edit"></i></button>';
+                html+='<button class="btn-delete" onclick="deleteHighlight('+h.id+')"><i class="fas fa-trash"></i></button>';
+                html+='</div></div>';
+            });
+            document.getElementById('highlightsGrid').innerHTML=html;
+        }
+
+        function renderValues(){
+            var html='';
+            values.forEach(function(v){
+                html+='<div class="value-card">';
+                html+='<div class="value-icon"><i class="'+v.icon+'"></i></div>';
+                html+='<div class="value-title">'+v.titleVi+'</div>';
+                html+='<div class="value-desc">'+v.desc+'</div>';
+                html+='<div class="card-actions">';
+                html+='<button class="btn-edit" onclick="editValue('+v.id+')"><i class="fas fa-edit"></i></button>';
+                html+='<button class="btn-delete" onclick="deleteValue('+v.id+')"><i class="fas fa-trash"></i></button>';
+                html+='</div></div>';
+            });
+            document.getElementById('valuesGrid').innerHTML=html;
+        }
+
+        function openHighlightModal(){
+            editingHighlightId=null;
+            document.getElementById('highlightModalTitle').textContent='Them Diem Noi Bat';
+            document.getElementById('highlightIcon').value='';
+            document.getElementById('highlightTitleVi').value='';
+            document.getElementById('highlightTitleEn').value='';
+            document.getElementById('highlightDesc').value='';
+            document.getElementById('highlightModal').classList.add('show');
+        }
+        function closeHighlightModal(){document.getElementById('highlightModal').classList.remove('show');}
+        function editHighlight(id){
+            var h=highlights.find(function(x){return x.id===id;});
+            if(h){
+                editingHighlightId=id;
+                document.getElementById('highlightModalTitle').textContent='Sua Diem Noi Bat';
+                document.getElementById('highlightIcon').value=h.icon;
+                document.getElementById('highlightTitleVi').value=h.titleVi;
+                document.getElementById('highlightTitleEn').value=h.titleEn;
+                document.getElementById('highlightDesc').value=h.desc;
+                document.getElementById('highlightModal').classList.add('show');
+            }
+        }
+        function saveHighlight(){showSuccess(editingHighlightId?'Da cap nhat!':'Da them diem noi bat!');closeHighlightModal();renderHighlights();}
+        function deleteHighlight(id){if(confirm('Xoa diem noi bat nay?')){showSuccess('Da xoa!');renderHighlights();}}
+
+        function openValueModal(){
+            editingValueId=null;
+            document.getElementById('valueModalTitle').textContent='Them Gia Tri';
+            document.getElementById('valueIcon').value='';
+            document.getElementById('valueTitleVi').value='';
+            document.getElementById('valueTitleEn').value='';
+            document.getElementById('valueDesc').value='';
+            document.getElementById('valueModal').classList.add('show');
+        }
+        function closeValueModal(){document.getElementById('valueModal').classList.remove('show');}
+        function editValue(id){
+            var v=values.find(function(x){return x.id===id;});
+            if(v){
+                editingValueId=id;
+                document.getElementById('valueModalTitle').textContent='Sua Gia Tri';
+                document.getElementById('valueIcon').value=v.icon;
+                document.getElementById('valueTitleVi').value=v.titleVi;
+                document.getElementById('valueTitleEn').value=v.titleEn;
+                document.getElementById('valueDesc').value=v.desc;
+                document.getElementById('valueModal').classList.add('show');
+            }
+        }
+        function saveValue(){showSuccess(editingValueId?'Da cap nhat!':'Da them gia tri!');closeValueModal();renderValues();}
+        function deleteValue(id){if(confirm('Xoa gia tri nay?')){showSuccess('Da xoa!');renderValues();}}
+
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},3000);}
+
+        renderHighlights();
+        renderValues();
+    </script>
+</body>
+</html>

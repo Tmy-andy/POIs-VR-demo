@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Hotel 360 New Gen</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon"><i class="fas fa-gem"></i></div><div class="logo-text">Hotel 360 CMS</div></div></div>
+        <div class="property-selector"><div class="property-label">Current Hotel</div><div class="property-name">Boton Blue Hotel & Spa</div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">MAIN</div><a href="index.html" class="nav-item"><i class="fas fa-chart-pie"></i> Dashboard</a></div>
+            <div class="nav-section"><div class="nav-section-title">CONTENT</div>
+                <a href="rooms.html" class="nav-item"><i class="fas fa-bed"></i> Rooms</a>
+                <a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Services</a>
+                <a href="scenes.html" class="nav-item"><i class="fas fa-vr-cardboard"></i> Scenes & 360°</a>
+                <a href="promotions.html" class="nav-item"><i class="fas fa-tags"></i> Promotions</a>
+                <a href="gallery.html" class="nav-item active"><i class="fas fa-images"></i> Gallery</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">BOOKING</div>
+                <a href="booking.html" class="nav-item"><i class="fas fa-calendar-check"></i> Configuration</a>
+                <a href="requests.html" class="nav-item"><i class="fas fa-clipboard-list"></i> Requests <span class="nav-badge">3</span></a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">SYSTEM</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../hotel-newgen.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+                <a href="#" class="nav-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="header"><div class="header-left"><h1 class="page-title">Gallery Management</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar">AD</div></div></div></header>
+
+    <main class="main-content">
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title">Media Library</div>
+                <div style="display:flex;gap:8px;">
+                    <select class="form-select" style="width:auto;">
+                        <option>All Categories</option>
+                        <option>Rooms</option>
+                        <option>Dining</option>
+                        <option>Recreation</option>
+                        <option>Exterior</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="openModal('uploadModal')"><i class="fas fa-upload"></i> Upload Images</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;">
+                    <div style="aspect-ratio:4/3;background:linear-gradient(135deg,#1e293b,#334155);border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;border:2px solid transparent;transition:all .2s;" onmouseover="this.style.borderColor='#C9A861'" onmouseout="this.style.borderColor='transparent'" onclick="viewImage('Lobby View','Rooms')">
+                        <span style="color:#64748b;font-size:14px;">Lobby View</span>
+                        <div style="position:absolute;bottom:8px;right:8px;display:flex;gap:4px;">
+                            <button class="btn btn-sm" style="background:rgba(0,0,0,.5);color:white;padding:4px 6px;border-radius:4px;font-size:11px;" onclick="event.stopPropagation();editImage('Lobby View','Rooms','lobby-view.jpg')"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm" style="background:rgba(239,68,68,.8);color:white;padding:4px 6px;border-radius:4px;font-size:11px;" onclick="event.stopPropagation();deleteImage('Lobby View')"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div style="aspect-ratio:4/3;background:linear-gradient(135deg,#1e293b,#334155);border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;border:2px solid transparent;transition:all .2s;" onmouseover="this.style.borderColor='#C9A861'" onmouseout="this.style.borderColor='transparent'" onclick="viewImage('Pool Area','Recreation')">
+                        <span style="color:#64748b;font-size:14px;">Pool Area</span>
+                        <div style="position:absolute;bottom:8px;right:8px;display:flex;gap:4px;">
+                            <button class="btn btn-sm" style="background:rgba(0,0,0,.5);color:white;padding:4px 6px;border-radius:4px;font-size:11px;" onclick="event.stopPropagation();editImage('Pool Area','Recreation','pool-area.jpg')"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm" style="background:rgba(239,68,68,.8);color:white;padding:4px 6px;border-radius:4px;font-size:11px;" onclick="event.stopPropagation();deleteImage('Pool Area')"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div style="aspect-ratio:4/3;background:linear-gradient(135deg,#1e293b,#334155);border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;border:2px solid transparent;transition:all .2s;" onmouseover="this.style.borderColor='#C9A861'" onmouseout="this.style.borderColor='transparent'" onclick="viewImage('Deluxe Room','Rooms')">
+                        <span style="color:#64748b;font-size:14px;">Deluxe Room</span>
+                        <div style="position:absolute;bottom:8px;right:8px;display:flex;gap:4px;">
+                            <button class="btn btn-sm" style="background:rgba(0,0,0,.5);color:white;padding:4px 6px;border-radius:4px;font-size:11px;" onclick="event.stopPropagation();editImage('Deluxe Room','Rooms','deluxe-room.jpg')"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm" style="background:rgba(239,68,68,.8);color:white;padding:4px 6px;border-radius:4px;font-size:11px;" onclick="event.stopPropagation();deleteImage('Deluxe Room')"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div style="aspect-ratio:4/3;background:linear-gradient(135deg,#1e293b,#334155);border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;border:2px solid transparent;transition:all .2s;" onmouseover="this.style.borderColor='#C9A861'" onmouseout="this.style.borderColor='transparent'" onclick="viewImage('Suite Room','Rooms')">
+                        <span style="color:#64748b;font-size:14px;">Suite Room</span>
+                        <div style="position:absolute;bottom:8px;right:8px;display:flex;gap:4px;">
+                            <button class="btn btn-sm" style="background:rgba(0,0,0,.5);color:white;padding:4px 6px;border-radius:4px;font-size:11px;" onclick="event.stopPropagation();editImage('Suite Room','Rooms','suite-room.jpg')"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm" style="background:rgba(239,68,68,.8);color:white;padding:4px 6px;border-radius:4px;font-size:11px;" onclick="event.stopPropagation();deleteImage('Suite Room')"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div style="aspect-ratio:4/3;background:linear-gradient(135deg,#1e293b,#334155);border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;border:2px solid transparent;transition:all .2s;" onmouseover="this.style.borderColor='#C9A861'" onmouseout="this.style.borderColor='transparent'" onclick="viewImage('Restaurant','Dining')">
+                        <span style="color:#64748b;font-size:14px;">Restaurant</span>
+                        <div style="position:absolute;bottom:8px;right:8px;display:flex;gap:4px;">
+                            <button class="btn btn-sm" style="background:rgba(0,0,0,.5);color:white;padding:4px 6px;border-radius:4px;font-size:11px;" onclick="event.stopPropagation();editImage('Restaurant','Dining','restaurant.jpg')"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm" style="background:rgba(239,68,68,.8);color:white;padding:4px 6px;border-radius:4px;font-size:11px;" onclick="event.stopPropagation();deleteImage('Restaurant')"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div style="aspect-ratio:4/3;background:linear-gradient(135deg,#1e293b,#334155);border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;border:2px solid transparent;transition:all .2s;" onmouseover="this.style.borderColor='#C9A861'" onmouseout="this.style.borderColor='transparent'" onclick="viewImage('Spa Center','Recreation')">
+                        <span style="color:#64748b;font-size:14px;">Spa Center</span>
+                        <div style="position:absolute;bottom:8px;right:8px;display:flex;gap:4px;">
+                            <button class="btn btn-sm" style="background:rgba(0,0,0,.5);color:white;padding:4px 6px;border-radius:4px;font-size:11px;" onclick="event.stopPropagation();editImage('Spa Center','Recreation','spa-center.jpg')"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm" style="background:rgba(239,68,68,.8);color:white;padding:4px 6px;border-radius:4px;font-size:11px;" onclick="event.stopPropagation();deleteImage('Spa Center')"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div style="aspect-ratio:4/3;border:2px dashed #cbd5e1;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor='#C9A861'" onmouseout="this.style.borderColor='#cbd5e1'" onclick="openModal('uploadModal')">
+                        <i class="fas fa-plus" style="font-size:24px;color:#C9A861;margin-bottom:8px;"></i>
+                        <span style="color:#64748b;font-size:12px;">Upload More</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>function logout(){if(confirm('Logout?'))window.location.href='../index.html';}</script>
+
+    <!-- Upload Modal -->
+    <div class="modal-overlay" id="uploadModal">
+        <div class="modal" style="max-width:520px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-upload" style="color:#C9A861;margin-right:8px;"></i> Upload Images</h3>
+                <button class="modal-close" onclick="closeModal('uploadModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select class="form-input" id="uploadCategory">
+                        <option value="Rooms">Rooms</option>
+                        <option value="Dining">Dining</option>
+                        <option value="Recreation">Recreation</option>
+                        <option value="Exterior">Exterior</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Images</label>
+                    <div style="border:2px dashed #334155;border-radius:12px;padding:40px 20px;text-align:center;cursor:pointer;background:#0f172a;" onclick="document.getElementById('galleryFileInput').click()">
+                        <i class="fas fa-cloud-upload-alt" style="font-size:36px;color:#C9A861;margin-bottom:12px;display:block;"></i>
+                        <p style="margin:0;color:#cbd5e1;">Drop images here or <span style="color:#C9A861;text-decoration:underline;">browse</span></p>
+                        <small style="color:#64748b;">JPG, PNG, WebP — Max 10MB each</small>
+                    </div>
+                    <input type="file" id="galleryFileInput" multiple accept="image/*" style="display:none;">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Alt Text / Title</label>
+                    <input type="text" class="form-input" id="uploadAlt" placeholder="Image description">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('uploadModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="uploadImages()"><i class="fas fa-upload"></i> Upload</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image View Modal -->
+    <div class="modal-overlay" id="viewImageModal">
+        <div class="modal" style="max-width:600px;">
+            <div class="modal-header">
+                <h3 id="viewImageTitle"><i class="fas fa-image" style="color:#C9A861;margin-right:8px;"></i> Image</h3>
+                <button class="modal-close" onclick="closeModal('viewImageModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="background:linear-gradient(135deg,#1e293b,#334155);border-radius:10px;height:280px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+                    <span id="viewImagePlaceholder" style="color:#64748b;font-size:18px;"></span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <div>
+                        <div style="font-size:14px;color:#94a3b8;">Category: <span id="viewImageCat" style="color:#C9A861;"></span></div>
+                        <div style="font-size:12px;color:#64748b;margin-top:4px;">Uploaded: Demo data</div>
+                    </div>
+                    <div style="display:flex;gap:8px;">
+                        <button class="btn btn-outline btn-sm" onclick="closeModal('viewImageModal')"><i class="fas fa-times"></i> Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Image Modal -->
+    <div class="modal-overlay" id="editImageModal">
+        <div class="modal" style="max-width:480px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-edit" style="color:#C9A861;margin-right:8px;"></i> Edit Image</h3>
+                <button class="modal-close" onclick="closeModal('editImageModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Title / Alt Text</label>
+                    <input type="text" class="form-input" id="editImageTitle">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select class="form-input" id="editImageCat">
+                        <option value="Rooms">Rooms</option>
+                        <option value="Dining">Dining</option>
+                        <option value="Recreation">Recreation</option>
+                        <option value="Exterior">Exterior</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Replace Image</label>
+                    <input type="file" class="form-input" accept="image/*" style="padding:8px;">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('editImageModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveImageEdit()"><i class="fas fa-save"></i> Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Image Modal -->
+    <div class="modal-overlay" id="deleteImageModal">
+        <div class="modal" style="max-width:420px;text-align:center;">
+            <div class="modal-body" style="padding:32px;">
+                <div style="width:56px;height:56px;border-radius:50%;background:rgba(239,68,68,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+                    <i class="fas fa-trash-alt" style="color:#ef4444;font-size:24px;"></i>
+                </div>
+                <h3 style="margin-bottom:8px;">Delete Image?</h3>
+                <p style="color:#94a3b8;margin-bottom:24px;">Are you sure you want to delete "<strong id="deleteImageName" style="color:#C9A861;"></strong>"?</p>
+                <div style="display:flex;gap:12px;justify-content:center;">
+                    <button class="btn btn-outline" onclick="closeModal('deleteImageModal')">Cancel</button>
+                    <button class="btn btn-danger" onclick="confirmDeleteImage()"><i class="fas fa-trash"></i> Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Alert -->
+    <div class="alert alert-success" id="successAlert" style="position:fixed;top:20px;right:20px;z-index:10001;min-width:300px;display:none;">
+        <i class="fas fa-check-circle"></i>
+        <span id="successMsg">Success!</span>
+    </div>
+
+    <script>
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function showSuccess(msg) {
+            const el = document.getElementById('successAlert');
+            document.getElementById('successMsg').textContent = msg;
+            el.style.display = 'flex';
+            setTimeout(() => { el.style.display = 'none'; }, 3000);
+        }
+
+        function uploadImages() {
+            closeModal('uploadModal');
+            showSuccess('Images uploaded successfully!');
+        }
+
+        function viewImage(name, category) {
+            document.getElementById('viewImageTitle').innerHTML = '<i class="fas fa-image" style="color:#C9A861;margin-right:8px;"></i> ' + name;
+            document.getElementById('viewImagePlaceholder').textContent = name;
+            document.getElementById('viewImageCat').textContent = category;
+            openModal('viewImageModal');
+        }
+
+        function editImage(name, category, filename) {
+            document.getElementById('editImageTitle').value = name;
+            document.getElementById('editImageCat').value = category;
+            openModal('editImageModal');
+        }
+
+        function saveImageEdit() {
+            closeModal('editImageModal');
+            showSuccess('Image updated successfully!');
+        }
+
+        let deleteImgTarget = '';
+        function deleteImage(name) {
+            deleteImgTarget = name;
+            document.getElementById('deleteImageName').textContent = name;
+            openModal('deleteImageModal');
+        }
+        function confirmDeleteImage() {
+            closeModal('deleteImageModal');
+            showSuccess('Image "' + deleteImgTarget + '" deleted!');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Tuu & Bao Chi - Restaurant Admin</title>
+    <link rel="stylesheet" href="styles/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-utensils"></i>
+                <h2>Restaurant Admin</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <h3>CONTENT</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                        <li><a href="home-about.html"><i class="fas fa-home"></i> Home About</a></li>
+                        <li><a href="menu.html"><i class="fas fa-utensils"></i> Thuc Don</a></li>
+                        <li><a href="space.html"><i class="fas fa-couch"></i> Khong Gian</a></li>
+                        <li><a href="branches.html"><i class="fas fa-map-marker-alt"></i> Chi Nhanh</a></li>
+                        <li><a href="events.html"><i class="fas fa-calendar-alt"></i> Su Kien</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h3>KHAC</h3>
+                    <ul>
+                        <li><a href="reviews.html" class="active"><i class="fas fa-trophy"></i> Thanh Tuu</a></li>
+                        <li><a href="careers.html"><i class="fas fa-briefcase"></i> Tuyen Dung</a></li>
+                        <li><a href="promotion.html"><i class="fas fa-tags"></i> Uu Dai</a></li>
+                        <li><a href="gallery.html"><i class="fas fa-images"></i> Thu Vien</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Lien He</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h3>SETTINGS</h3>
+                    <ul>
+                        <li><a href="settings.html"><i class="fas fa-cog"></i> Cai Dat</a></li>
+                        <li><a href="../restaurant.html" target="_blank"><i class="fas fa-external-link-alt"></i> Xem Website</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="content-header">
+                <h1><i class="fas fa-trophy"></i> Thanh Tuu & Bao Chi</h1>
+                <p>Quan ly giai thuong, bao chi, KOL/KOC, dau bep noi tieng</p>
+            </header>
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>Danh Sach Thanh Tuu</h2>
+                    <button class="btn btn-primary" onclick="openAddModal()"><i class="fas fa-plus"></i> Them Moi</button>
+                </div>
+                <div class="items-grid" id="itemsGrid"></div>
+            </div>
+        </main>
+    </div>
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Them Thanh Tuu</h3>
+                <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editId">
+                <div class="form-group">
+                    <label>Tieu De</label>
+                    <input type="text" class="form-input" id="itemName" placeholder="VD: Giai Thuong Best Restaurant 2024">
+                </div>
+                <div class="form-group">
+                    <label>Loai</label>
+                    <select class="form-input" id="itemType">
+                        <option value="award">Giai Thuong</option>
+                        <option value="press">Bao Chi Dua Tin</option>
+                        <option value="kol">KOL/KOC Review</option>
+                        <option value="chef">Dau Bep Noi Tieng</option>
+                        <option value="certificate">Chung Nhan</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Mo Ta Ngan</label>
+                    <input type="text" class="form-input" id="itemShortDesc" placeholder="Mo ta ngan gon">
+                </div>
+                <div class="form-group">
+                    <label>Noi Dung Chi Tiet</label>
+                    <textarea class="form-input" id="itemFullDesc" rows="4" placeholder="Noi dung chi tiet..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Link Hinh Anh</label>
+                    <input type="text" class="form-input" id="itemImage" placeholder="https://...">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Huy</button>
+                <button class="btn btn-primary" onclick="saveItem()">Luu</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        var contentData = null;
+        var editingId = null;
+
+        document.addEventListener('DOMContentLoaded', function() { loadData(); });
+
+        function loadData() {
+            fetch('../assets/data/restaurant-content.json')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    contentData = data;
+                    renderItems();
+                }).catch(function(e) { console.error('Error:', e); });
+        }
+
+        function renderItems() {
+            var container = document.getElementById('itemsGrid');
+            if (!contentData || !contentData.reviews || !contentData.reviews.items) {
+                container.innerHTML = '<p class="empty-state">Chua co thanh tuu nao</p>';
+                return;
+            }
+            var html = '';
+            contentData.reviews.items.forEach(function(item, index) {
+                var typeLabel = getTypeLabel(item.id);
+                html += '<div class="item-card">';
+                html += '<div class="item-image" style="background-image:url(' + "'" + item.image + "'" + ')"></div>';
+                html += '<div class="item-content">';
+                html += '<span class="item-badge">' + typeLabel + '</span>';
+                html += '<h3 class="item-title">' + item.name + '</h3>';
+                html += '<p class="item-desc">' + item.shortDesc + '</p>';
+                html += '<div class="item-actions">';
+                html += '<button class="btn-icon" onclick="editItem(' + "'" + item.id + "'" + ')"><i class="fas fa-edit"></i></button>';
+                html += '<button class="btn-icon btn-danger" onclick="deleteItem(' + "'" + item.id + "'" + ')"><i class="fas fa-trash"></i></button>';
+                html += '</div></div></div>';
+            });
+            container.innerHTML = html;
+        }
+
+        function getTypeLabel(id) {
+            if (id.indexOf('award') >= 0) return 'Giai Thuong';
+            if (id.indexOf('press') >= 0) return 'Bao Chi';
+            if (id.indexOf('kol') >= 0) return 'KOL/KOC';
+            if (id.indexOf('chef') >= 0) return 'Dau Bep';
+            if (id.indexOf('customer') >= 0) return 'Khach Hang';
+            return 'Thanh Tuu';
+        }
+
+        function openAddModal() {
+            editingId = null;
+            document.getElementById('modalTitle').textContent = 'Them Thanh Tuu';
+            document.getElementById('itemName').value = '';
+            document.getElementById('itemType').value = 'award';
+            document.getElementById('itemShortDesc').value = '';
+            document.getElementById('itemFullDesc').value = '';
+            document.getElementById('itemImage').value = '';
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function editItem(id) {
+            var item = contentData.reviews.items.find(function(i) { return i.id === id; });
+            if (!item) return;
+            editingId = id;
+            document.getElementById('modalTitle').textContent = 'Sua Thanh Tuu';
+            document.getElementById('itemName').value = item.name;
+            document.getElementById('itemShortDesc').value = item.shortDesc || '';
+            document.getElementById('itemFullDesc').value = item.fullDesc || '';
+            document.getElementById('itemImage').value = item.image || '';
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+
+        function saveItem() {
+            var name = document.getElementById('itemName').value;
+            var type = document.getElementById('itemType').value;
+            var shortDesc = document.getElementById('itemShortDesc').value;
+            var fullDesc = document.getElementById('itemFullDesc').value;
+            var image = document.getElementById('itemImage').value;
+            if (!name) { alert('Vui long nhap tieu de'); return; }
+            if (editingId) {
+                var item = contentData.reviews.items.find(function(i) { return i.id === editingId; });
+                if (item) {
+                    item.name = name;
+                    item.shortDesc = shortDesc;
+                    item.fullDesc = fullDesc;
+                    item.image = image;
+                }
+            } else {
+                var newId = type + '-' + Date.now();
+                contentData.reviews.items.push({
+                    id: newId,
+                    name: name,
+                    shortDesc: shortDesc,
+                    fullDesc: fullDesc,
+                    image: image || 'https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=400'
+                });
+            }
+            renderItems();
+            closeModal();
+            alert('Da luu! (Demo - Du lieu se mat khi refresh)');
+        }
+
+        function deleteItem(id) {
+            if (!confirm('Ban co chac muon xoa?')) return;
+            contentData.reviews.items = contentData.reviews.items.filter(function(i) { return i.id !== id; });
+            renderItems();
+        }
+    </script>
+    <style>
+        .content-section { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .section-header h2 { margin: 0; font-size: 18px; color: #333; }
+        .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-primary { background: linear-gradient(135deg, #b8860b, #daa520); color: white; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { background: #e2e8f0; color: #333; }
+        .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .item-card { background: #f8fafc; border-radius: 10px; overflow: hidden; border: 1px solid #e2e8f0; }
+        .item-image { height: 150px; background-size: cover; background-position: center; background-color: #e2e8f0; }
+        .item-content { padding: 15px; }
+        .item-badge { display: inline-block; padding: 4px 10px; background: linear-gradient(135deg, #b8860b, #daa520); color: white; font-size: 11px; border-radius: 20px; margin-bottom: 10px; }
+        .item-title { margin: 0 0 8px 0; font-size: 16px; color: #333; }
+        .item-desc { margin: 0 0 15px 0; font-size: 13px; color: #666; line-height: 1.5; }
+        .item-actions { display: flex; gap: 8px; }
+        .btn-icon { width: 32px; height: 32px; border: none; border-radius: 6px; cursor: pointer; background: #e2e8f0; color: #666; }
+        .btn-icon:hover { background: #cbd5e1; }
+        .btn-danger { color: #dc2626; }
+        .btn-danger:hover { background: #fee2e2; }
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: white; border-radius: 12px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
+        .modal-header { padding: 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h3 { margin: 0; }
+        .modal-close { background: none; border: none; font-size: 20px; cursor: pointer; color: #666; }
+        .modal-body { padding: 20px; }
+        .modal-footer { padding: 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 10px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 500; color: #333; }
+        .form-input { width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 14px; }
+        .form-input:focus { outline: none; border-color: #b8860b; }
+        .empty-state { text-align: center; padding: 40px; color: #666; }
+    </style>
+</body>
+</html>

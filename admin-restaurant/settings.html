@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cai Dat - Fine Dining Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar" style="background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon" style="background: linear-gradient(135deg, #b8860b, #daa520);"><i class="fas fa-utensils"></i></div><div class="logo-text">Fine Dining</div></div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">CONTENT</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Home & About</a>
+                <a href="menu.html" class="nav-item"><i class="fas fa-book-open"></i> Thuc Don</a>
+                <a href="space.html" class="nav-item"><i class="fas fa-chair"></i> Khong Gian</a>
+                <a href="branches.html" class="nav-item"><i class="fas fa-map-marker-alt"></i> Chi Nhanh</a>
+                <a href="events.html" class="nav-item"><i class="fas fa-glass-cheers"></i> Su Kien & Tiec</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">MORE</div>
+                <a href="reviews.html" class="nav-item"><i class="fas fa-trophy"></i> Thanh Tuu</a>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Tuyen Dung</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Thu Vien</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Lien He</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">SETTINGS</div>
+                <a href="settings.html" class="nav-item active"><i class="fas fa-cog"></i> Cai Dat</a>
+                <a href="../restaurant.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Website</a>
+            </div>
+        </nav>
+    </div>
+    <header class="header"><div class="header-left"><h1 class="page-title">Cai Dat Chung</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar" style="background:#b8860b;">AD</div></div></div></header>
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
+        <div class="row-2col">
+            <div class="content-card">
+                <div class="card-header"><div class="card-title"><i class="fas fa-store"></i> Thong Tin Nha Hang</div></div>
+                <div class="card-body">
+                    <div class="form-group"><label class="form-label">Ten nha hang</label><input type="text" class="form-input" id="restaurantName" value="Fine Dining Restaurant"></div>
+                    <div class="form-group"><label class="form-label">Slogan</label><input type="text" class="form-input" id="restaurantSlogan" value="Noi tinh hoa am thuc hoi tu"></div>
+                    <div class="form-group"><label class="form-label">Mo ta ngan</label><textarea class="form-textarea" id="restaurantDesc" rows="3">Nha hang cao cap voi khong gian sang trong, phuc vu cac mon an Phap-Viet fusion dang cap.</textarea></div>
+                    <div class="form-group"><label class="form-label">Logo (URL)</label><input type="url" class="form-input" id="restaurantLogo" placeholder="https://..." oninput="previewImage(this.value,'logoPreview')"></div>
+                    <div class="image-preview" id="logoPreview"></div>
+                    <button class="btn btn-primary" onclick="showSuccess('Da luu thong tin!')"><i class="fas fa-save"></i> Luu</button>
+                </div>
+            </div>
+            <div class="content-card">
+                <div class="card-header"><div class="card-title"><i class="fas fa-palette"></i> Giao Dien</div></div>
+                <div class="card-body">
+                    <div class="form-group"><label class="form-label">Mau chinh</label>
+                        <div class="color-picker">
+                            <input type="color" id="primaryColor" value="#b8860b">
+                            <span class="color-value">#b8860b</span>
+                        </div>
+                    </div>
+                    <div class="form-group"><label class="form-label">Mau phu</label>
+                        <div class="color-picker">
+                            <input type="color" id="secondaryColor" value="#1a1a2e">
+                            <span class="color-value">#1a1a2e</span>
+                        </div>
+                    </div>
+                    <div class="form-group"><label class="form-label">Font chu</label>
+                        <select class="form-select" id="fontFamily">
+                            <option value="Playfair Display">Playfair Display</option>
+                            <option value="Cormorant Garamond">Cormorant Garamond</option>
+                            <option value="Libre Baskerville">Libre Baskerville</option>
+                            <option value="Lora">Lora</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label class="form-label">Favicon (URL)</label><input type="url" class="form-input" id="favicon" placeholder="https://..."></div>
+                    <button class="btn btn-primary" onclick="showSuccess('Da luu giao dien!')"><i class="fas fa-save"></i> Luu</button>
+                </div>
+            </div>
+        </div>
+        <div class="row-2col">
+            <div class="content-card">
+                <div class="card-header"><div class="card-title"><i class="fas fa-clock"></i> Gio Hoat Dong</div></div>
+                <div class="card-body">
+                    <div class="form-group"><label class="form-label">Thu 2 - Thu 6</label><input type="text" class="form-input" id="weekdayHours" value="11:00 - 22:00"></div>
+                    <div class="form-group"><label class="form-label">Thu 7 - Chu Nhat</label><input type="text" class="form-input" id="weekendHours" value="10:00 - 23:00"></div>
+                    <div class="form-group"><label class="form-label">Ngay le</label><input type="text" class="form-input" id="holidayHours" value="10:00 - 23:00"></div>
+                    <div class="form-group"><label class="form-label">Ghi chu</label><input type="text" class="form-input" id="hoursNote" value="Last order truoc 30 phut dong cua"></div>
+                    <button class="btn btn-primary" onclick="showSuccess('Da luu gio hoat dong!')"><i class="fas fa-save"></i> Luu</button>
+                </div>
+            </div>
+            <div class="content-card">
+                <div class="card-header"><div class="card-title"><i class="fas fa-calendar-check"></i> Cai Dat Dat Ban</div></div>
+                <div class="card-body">
+                    <div class="form-group"><label class="form-label">Thoi gian dat truoc toi thieu (gio)</label><input type="number" class="form-input" id="minAdvance" value="2"></div>
+                    <div class="form-group"><label class="form-label">Thoi gian dat truoc toi da (ngay)</label><input type="number" class="form-input" id="maxAdvance" value="30"></div>
+                    <div class="form-group"><label class="form-label">So khach toi da/dat ban</label><input type="number" class="form-input" id="maxGuests" value="20"></div>
+                    <div class="form-group">
+                        <label class="form-label">Tu dong xac nhan</label>
+                        <label class="toggle-switch"><input type="checkbox" id="autoConfirm" checked><span class="toggle-slider"></span></label>
+                    </div>
+                    <button class="btn btn-primary" onclick="showSuccess('Da luu cai dat dat ban!')"><i class="fas fa-save"></i> Luu</button>
+                </div>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-code"></i> SEO & Analytics</div></div>
+            <div class="card-body">
+                <div class="form-group"><label class="form-label">Meta Title</label><input type="text" class="form-input" id="metaTitle" value="Fine Dining Restaurant - Nha Hang Cao Cap Hang Dau Viet Nam"></div>
+                <div class="form-group"><label class="form-label">Meta Description</label><textarea class="form-textarea" id="metaDesc" rows="2">Trai nghiem am thuc dang cap tai Fine Dining - nha hang cao cap voi mon Phap-Viet fusion, khong gian sang trong va phuc vu 5 sao.</textarea></div>
+                <div class="form-group"><label class="form-label">Meta Keywords</label><input type="text" class="form-input" id="metaKeywords" value="nha hang cao cap, fine dining, am thuc Phap, dat ban online"></div>
+                <div class="form-group"><label class="form-label">Google Analytics ID</label><input type="text" class="form-input" id="gaId" placeholder="G-XXXXXXXXXX"></div>
+                <div class="form-group"><label class="form-label">Facebook Pixel ID</label><input type="text" class="form-input" id="fbPixel" placeholder="XXXXXXXXXXXXXXX"></div>
+                <button class="btn btn-primary" onclick="showSuccess('Da luu SEO!')"><i class="fas fa-save"></i> Luu</button>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-shield-alt"></i> Bao Mat & Tai Khoan</div></div>
+            <div class="card-body">
+                <div class="row-2col">
+                    <div>
+                        <div class="form-group"><label class="form-label">Email dang nhap</label><input type="email" class="form-input" id="adminEmail" value="admin@finedining.vn"></div>
+                        <div class="form-group"><label class="form-label">Mat khau hien tai</label><input type="password" class="form-input" id="currentPass" placeholder="••••••••"></div>
+                        <div class="form-group"><label class="form-label">Mat khau moi</label><input type="password" class="form-input" id="newPass" placeholder="••••••••"></div>
+                        <div class="form-group"><label class="form-label">Xac nhan mat khau moi</label><input type="password" class="form-input" id="confirmPass" placeholder="••••••••"></div>
+                        <button class="btn btn-primary" onclick="showSuccess('Da cap nhat mat khau!')"><i class="fas fa-key"></i> Doi Mat Khau</button>
+                    </div>
+                    <div>
+                        <div class="security-card">
+                            <h4><i class="fas fa-history"></i> Lich Su Dang Nhap</h4>
+                            <div class="login-history">
+                                <div class="login-item"><span>Hom nay, 10:30</span><span class="login-ip">IP: 103.xxx.xxx.xxx</span></div>
+                                <div class="login-item"><span>Hom qua, 14:15</span><span class="login-ip">IP: 103.xxx.xxx.xxx</span></div>
+                                <div class="login-item"><span>18/01/2024, 09:00</span><span class="login-ip">IP: 42.xxx.xxx.xxx</span></div>
+                            </div>
+                        </div>
+                        <div class="security-card">
+                            <h4><i class="fas fa-database"></i> Sao Luu Du Lieu</h4>
+                            <p>Lan sao luu cuoi: 19/01/2024, 03:00</p>
+                            <button class="btn btn-secondary" onclick="showSuccess('Dang sao luu...')"><i class="fas fa-download"></i> Sao Luu Ngay</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <style>
+        .toggle-switch{position:relative;display:inline-block;width:48px;height:26px;}
+        .toggle-switch input{opacity:0;width:0;height:0;}
+        .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#cbd5e1;border-radius:26px;transition:0.3s;}
+        .toggle-slider:before{position:absolute;content:"";height:20px;width:20px;left:3px;bottom:3px;background:white;border-radius:50%;transition:0.3s;}
+        .toggle-switch input:checked+.toggle-slider{background:#b8860b;}
+        .toggle-switch input:checked+.toggle-slider:before{transform:translateX(22px);}
+        .image-preview{margin:12px 0;border-radius:8px;overflow:hidden;max-height:100px;}
+        .image-preview img{max-height:100px;object-fit:contain;}
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:20px;}
+        .card-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .card-title{font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px;}
+        .card-title i{color:#b8860b;}
+        .card-body{padding:20px 24px;}
+        .row-2col{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:20px;}
+        .form-group{margin-bottom:16px;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+        .form-input,.form-textarea,.form-select{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;background:white;}
+        .form-input:focus,.form-textarea:focus,.form-select:focus{outline:none;border-color:#b8860b;}
+        .color-picker{display:flex;align-items:center;gap:12px;}
+        .color-picker input[type="color"]{width:50px;height:40px;border:none;cursor:pointer;border-radius:8px;}
+        .color-value{font-family:monospace;font-size:14px;color:#64748b;}
+        .security-card{background:#f8fafc;border-radius:12px;padding:16px;margin-bottom:16px;}
+        .security-card h4{font-size:14px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+        .security-card h4 i{color:#b8860b;}
+        .security-card p{font-size:13px;color:#64748b;margin-bottom:12px;}
+        .login-history{font-size:13px;}
+        .login-item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e2e8f0;}
+        .login-ip{color:#64748b;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#b8860b;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
+    </style>
+    <script>
+        function previewImage(url,targetId){var el=document.getElementById(targetId);if(url){el.innerHTML='<img src="'+url+'" onerror="this.parentElement.innerHTML=\'\'">';}else{el.innerHTML='';}}
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},3000);}
+        document.getElementById('primaryColor').addEventListener('input',function(){this.nextElementSibling.textContent=this.value;});
+        document.getElementById('secondaryColor').addEventListener('input',function(){this.nextElementSibling.textContent=this.value;});
+    </script>
+</body>
+</html>

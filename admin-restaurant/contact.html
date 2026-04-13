@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lien He - Fine Dining Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar" style="background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon" style="background: linear-gradient(135deg, #b8860b, #daa520);"><i class="fas fa-utensils"></i></div><div class="logo-text">Fine Dining</div></div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">CONTENT</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Home & About</a>
+                <a href="menu.html" class="nav-item"><i class="fas fa-book-open"></i> Thuc Don</a>
+                <a href="space.html" class="nav-item"><i class="fas fa-chair"></i> Khong Gian</a>
+                <a href="branches.html" class="nav-item"><i class="fas fa-map-marker-alt"></i> Chi Nhanh</a>
+                <a href="events.html" class="nav-item"><i class="fas fa-glass-cheers"></i> Su Kien & Tiec</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">MORE</div>
+                <a href="reviews.html" class="nav-item"><i class="fas fa-trophy"></i> Thanh Tuu</a>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Tuyen Dung</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Thu Vien</a>
+                <a href="contact.html" class="nav-item active"><i class="fas fa-phone"></i> Lien He</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">SETTINGS</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a>
+                <a href="../restaurant.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Website</a>
+            </div>
+        </nav>
+    </div>
+    <header class="header"><div class="header-left"><h1 class="page-title">Quan Ly Lien He</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar" style="background:#b8860b;">AD</div></div></div></header>
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title">Trang thai hien thi - Section Lien He</div>
+                <div class="toggle-container"><span class="toggle-status active" id="sectionStatus">Dang hien thi</span><label class="toggle-switch"><input type="checkbox" id="sectionToggle" checked onchange="toggleSection()"><span class="toggle-slider"></span></label></div>
+            </div>
+        </div>
+        <div class="row-2col">
+            <div class="content-card">
+                <div class="card-header"><div class="card-title"><i class="fas fa-address-card"></i> Thong Tin Lien He</div></div>
+                <div class="card-body">
+                    <div class="form-group"><label class="form-label">Hotline</label><input type="text" class="form-input" id="hotline" value="1900 1234"></div>
+                    <div class="form-group"><label class="form-label">Email Dat Ban</label><input type="email" class="form-input" id="emailBooking" value="booking@finedining.vn"></div>
+                    <div class="form-group"><label class="form-label">Email Ho Tro</label><input type="email" class="form-input" id="emailSupport" value="support@finedining.vn"></div>
+                    <div class="form-group"><label class="form-label">Gio Lam Viec</label><input type="text" class="form-input" id="workHours" value="10:00 - 23:00 (Thu 2 - CN)"></div>
+                    <button class="btn btn-primary" onclick="showSuccess('Da luu thong tin!')"><i class="fas fa-save"></i> Luu Thay Doi</button>
+                </div>
+            </div>
+            <div class="content-card">
+                <div class="card-header"><div class="card-title"><i class="fab fa-facebook"></i> Mang Xa Hoi</div></div>
+                <div class="card-body">
+                    <div class="form-group"><label class="form-label">Facebook</label><input type="url" class="form-input" id="facebook" value="https://facebook.com/finediningvn"></div>
+                    <div class="form-group"><label class="form-label">Instagram</label><input type="url" class="form-input" id="instagram" value="https://instagram.com/finediningvn"></div>
+                    <div class="form-group"><label class="form-label">TikTok</label><input type="url" class="form-input" id="tiktok" value="https://tiktok.com/@finediningvn"></div>
+                    <div class="form-group"><label class="form-label">Zalo</label><input type="text" class="form-input" id="zalo" value="0901234567"></div>
+                    <button class="btn btn-primary" onclick="showSuccess('Da luu thong tin!')"><i class="fas fa-save"></i> Luu Thay Doi</button>
+                </div>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title"><i class="fas fa-inbox"></i> Tin Nhan Tu Khach (<span id="unreadCount">5</span> chua doc)</div>
+                <div class="filter-group">
+                    <select class="form-select" id="msgFilter" onchange="filterMessages()">
+                        <option value="all">Tat ca</option>
+                        <option value="unread">Chua doc</option>
+                        <option value="read">Da doc</option>
+                        <option value="replied">Da tra loi</option>
+                    </select>
+                </div>
+            </div>
+            <div class="card-body"><div id="messageList"></div></div>
+        </div>
+    </main>
+    <div class="modal" id="replyModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3>Tra Loi Tin Nhan</h3><button class="close-btn" onclick="closeReplyModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="message-quote" id="messageQuote"></div>
+                <div class="form-group"><label class="form-label">Noi dung tra loi</label><textarea class="form-textarea" id="replyContent" rows="4" placeholder="Noi dung tra loi..."></textarea></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeReplyModal()">Huy</button><button class="btn btn-primary" onclick="sendReply()"><i class="fas fa-paper-plane"></i> Gui</button></div>
+        </div>
+    </div>
+    <style>
+        .toggle-container{display:flex;align-items:center;gap:12px;}
+        .toggle-status{font-size:14px;color:#dc2626;}
+        .toggle-status.active{color:#059669;}
+        .toggle-switch{position:relative;display:inline-block;width:48px;height:26px;}
+        .toggle-switch input{opacity:0;width:0;height:0;}
+        .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#cbd5e1;border-radius:26px;transition:0.3s;}
+        .toggle-slider:before{position:absolute;content:"";height:20px;width:20px;left:3px;bottom:3px;background:white;border-radius:50%;transition:0.3s;}
+        .toggle-switch input:checked+.toggle-slider{background:#b8860b;}
+        .toggle-switch input:checked+.toggle-slider:before{transform:translateX(22px);}
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:20px;}
+        .card-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;flex-wrap:wrap;gap:12px;}
+        .card-title{font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px;}
+        .card-title i{color:#b8860b;}
+        .card-body{padding:20px 24px;}
+        .row-2col{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:20px;}
+        .form-group{margin-bottom:16px;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+        .form-input,.form-textarea,.form-select{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;background:white;}
+        .form-input:focus,.form-textarea:focus,.form-select:focus{outline:none;border-color:#b8860b;}
+        .filter-group{display:flex;gap:12px;}
+        .message-list{display:flex;flex-direction:column;gap:12px;}
+        .message-card{background:#f8fafc;border-radius:12px;padding:16px;border:1px solid #e2e8f0;transition:0.2s;}
+        .message-card.unread{background:#fffbeb;border-color:#fcd34d;}
+        .message-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+        .sender-info{display:flex;align-items:center;gap:10px;}
+        .sender-avatar{width:40px;height:40px;border-radius:50%;background:#b8860b;display:flex;align-items:center;justify-content:center;color:white;font-weight:600;font-size:14px;}
+        .sender-name{font-weight:600;color:#1e293b;}
+        .sender-email{font-size:12px;color:#64748b;}
+        .message-date{font-size:12px;color:#64748b;}
+        .message-subject{font-weight:500;color:#1e293b;margin-bottom:6px;}
+        .message-preview{font-size:14px;color:#64748b;line-height:1.5;}
+        .message-status{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:500;margin-top:10px;}
+        .status-unread{background:#fef3c7;color:#b45309;}
+        .status-read{background:#f1f5f9;color:#64748b;}
+        .status-replied{background:#dcfce7;color:#166534;}
+        .message-actions{display:flex;gap:8px;margin-top:12px;}
+        .message-actions button{padding:8px 14px;border:none;border-radius:6px;cursor:pointer;font-size:12px;display:inline-flex;align-items:center;gap:6px;}
+        .btn-read{background:#f1f5f9;color:#64748b;}
+        .btn-reply{background:#dbeafe;color:#1d4ed8;}
+        .btn-delete{background:#fee2e2;color:#dc2626;}
+        .message-quote{background:#f1f5f9;border-radius:8px;padding:14px;margin-bottom:16px;font-style:italic;color:#64748b;border-left:3px solid #b8860b;}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;}
+        .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#64748b;}
+        .modal-body{padding:24px;}
+        .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid #e2e8f0;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#b8860b;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
+    </style>
+    <script>
+        function toggleSection(){var t=document.getElementById('sectionToggle');var s=document.getElementById('sectionStatus');s.textContent=t.checked?'Dang hien thi':'Da an';s.classList.toggle('active',t.checked);}
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},3000);}
+        var messageData=[
+            {id:1,name:'Nguyen Van A',email:'nva@gmail.com',phone:'0901234567',subject:'Dat ban cho 10 nguoi',content:'Chao nha hang, toi muon dat ban cho 10 nguoi vao toi thu 7 tuan nay. Xin cho biet con trong khong a?',date:'2024-01-15 14:30',status:'unread'},
+            {id:2,name:'Tran Thi B',email:'ttb@gmail.com',phone:'0912345678',subject:'Hoi ve menu set',content:'Cho toi hoi menu set dinner cho 2 nguoi co nhung mon gi va gia bao nhieu a?',date:'2024-01-15 10:15',status:'unread'},
+            {id:3,name:'Le Hoang C',email:'lhc@gmail.com',phone:'0923456789',subject:'Phan hoi dich vu',content:'Hom qua toi co an o chi nhanh Q1, mon an ngon nhung phuc vu hoi cham. Mong nha hang cai thien.',date:'2024-01-14 20:45',status:'read'},
+            {id:4,name:'Pham Minh D',email:'pmd@gmail.com',phone:'0934567890',subject:'Hop tac doanh nghiep',content:'Toi la dai dien cong ty ABC, muon hop tac to chuc tiec cuoi nam cho nhan vien. Xin lien he lai.',date:'2024-01-14 09:00',status:'replied'},
+            {id:5,name:'Vo Thi E',email:'vte@gmail.com',phone:'0945678901',subject:'Dat tiec sinh nhat',content:'Toi muon dat tiec sinh nhat cho con gai 10 tuoi, khoang 15 be. Cho toi biet goi tiec phu hop.',date:'2024-01-13 16:20',status:'unread'}
+        ];
+        function getInitials(name){var parts=name.split(' ');if(parts.length>=2){return parts[0][0]+parts[parts.length-1][0];}return name.substring(0,2).toUpperCase();}
+        function getStatusClass(status){if(status==='unread')return 'status-unread';if(status==='replied')return 'status-replied';return 'status-read';}
+        function getStatusText(status){if(status==='unread')return 'Chua doc';if(status==='replied')return 'Da tra loi';return 'Da doc';}
+        function render(){
+            var html='<div class="message-list">';
+            messageData.forEach(function(m){
+                html+='<div class="message-card'+(m.status==='unread'?' unread':'')+'">';
+                html+='<div class="message-header">';
+                html+='<div class="sender-info"><div class="sender-avatar">'+getInitials(m.name)+'</div><div><div class="sender-name">'+m.name+'</div><div class="sender-email">'+m.email+' | '+m.phone+'</div></div></div>';
+                html+='<div class="message-date">'+m.date+'</div>';
+                html+='</div>';
+                html+='<div class="message-subject">'+m.subject+'</div>';
+                html+='<div class="message-preview">'+m.content+'</div>';
+                html+='<span class="message-status '+getStatusClass(m.status)+'">'+getStatusText(m.status)+'</span>';
+                html+='<div class="message-actions">';
+                if(m.status==='unread'){html+='<button class="btn-read" onclick="markRead('+m.id+')"><i class="fas fa-check"></i> Danh dau da doc</button>';}
+                if(m.status!=='replied'){html+='<button class="btn-reply" onclick="openReplyModal('+m.id+')"><i class="fas fa-reply"></i> Tra loi</button>';}
+                html+='<button class="btn-delete" onclick="deleteMessage('+m.id+')"><i class="fas fa-trash"></i></button>';
+                html+='</div></div>';
+            });
+            html+='</div>';
+            document.getElementById('messageList').innerHTML=html;
+            var unread=messageData.filter(function(m){return m.status==='unread';}).length;
+            document.getElementById('unreadCount').textContent=unread;
+        }
+        function markRead(id){showSuccess('Da danh dau da doc!');render();}
+        function deleteMessage(id){if(confirm('Xoa tin nhan nay?')){showSuccess('Da xoa!');render();}}
+        function openReplyModal(id){
+            var m=messageData.find(function(x){return x.id===id;});
+            document.getElementById('messageQuote').innerHTML='<strong>'+m.name+':</strong> '+m.content;
+            document.getElementById('replyModal').classList.add('show');
+        }
+        function closeReplyModal(){document.getElementById('replyModal').classList.remove('show');}
+        function sendReply(){showSuccess('Da gui tra loi!');closeReplyModal();render();}
+        function filterMessages(){render();}
+        render();
+    </script>
+</body>
+</html>

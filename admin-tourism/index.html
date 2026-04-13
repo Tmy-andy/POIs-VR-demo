@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Tourism Map 360° Admin</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-map-marked-alt"></i></div>
+                <div class="logo-text">Tourism Admin</div>
+            </div>
+        </div>
+        <div class="property-selector">
+            <div class="property-label">Platform</div>
+            <div class="property-name">Du Lịch Bà Rịa — 360°</div>
+        </div>
+
+        <nav class="nav-menu">
+            <div class="nav-section">
+                <div class="nav-section-title">MAIN</div>
+                <a href="index.html" class="nav-item active"><i class="fas fa-chart-pie"></i> Dashboard</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">NỘI DUNG</div>
+                <a href="provinces.html" class="nav-item"><i class="fas fa-map-signs"></i> Khu Vực</a>
+                <a href="categories.html" class="nav-item"><i class="fas fa-folder-open"></i> Danh Mục</a>
+                <a href="pois.html" class="nav-item"><i class="fas fa-map-pin"></i> Điểm Đến <span class="nav-badge">12</span></a>
+                <a href="tags.html" class="nav-item"><i class="fas fa-tags"></i> Tags</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">TRỰC QUAN</div>
+                <a href="map-config.html" class="nav-item"><i class="fas fa-map"></i> Cấu Hình Bản Đồ</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Gallery</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">HỆ THỐNG</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../tourism-map-360.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+                <a href="#" class="nav-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left"><h1 class="page-title">Dashboard</h1></div>
+        <div class="header-right">
+            <div class="user-menu">
+                <div class="user-avatar">AD</div>
+                <div style="display:flex;flex-direction:column;">
+                    <span style="font-size:14px;font-weight:500;color:#0f172a;">Admin</span>
+                    <span style="font-size:12px;color:#64748b;">Super Admin</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Welcome -->
+        <div class="welcome-section">
+            <div>
+                <h2 class="welcome-title">Welcome back! <i class="fas fa-map-marked-alt" style="color:#0D9488;"></i></h2>
+                <p class="welcome-subtitle">Manage your Tourism Map 360° platform — Du Lịch Bà Rịa</p>
+                <div class="quick-actions">
+                    <a href="pois.html" class="quick-action-btn"><i class="fas fa-plus"></i> Thêm Điểm Đến</a>
+                    <a href="categories.html" class="quick-action-btn"><i class="fas fa-folder-plus"></i> Thêm Danh Mục</a>
+                    <a href="map-config.html" class="quick-action-btn"><i class="fas fa-map"></i> Cấu Hình Bản Đồ</a>
+                    <a href="../tourism-map-360.html" class="quick-action-btn" target="_blank"><i class="fas fa-eye"></i> Xem Website</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Cards -->
+        <div class="dashboard-cards">
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-title" style="font-size:14px;font-weight:500;color:#64748b;">Khu Vực</div>
+                    <div class="card-icon" style="background:linear-gradient(135deg,#0D9488,#0F766E);"><i class="fas fa-map-signs"></i></div>
+                </div>
+                <div class="card-value">5</div>
+                <div class="card-change positive"><i class="fas fa-check"></i> Bà Rịa, Vũng Tàu, Xuyên Mộc...</div>
+            </div>
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-title" style="font-size:14px;font-weight:500;color:#64748b;">Danh Mục</div>
+                    <div class="card-icon" style="background:linear-gradient(135deg,#F59E0B,#D97706);"><i class="fas fa-folder-open"></i></div>
+                </div>
+                <div class="card-value">6</div>
+                <div class="card-change positive"><i class="fas fa-palette"></i> All categories</div>
+            </div>
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-title" style="font-size:14px;font-weight:500;color:#64748b;">Điểm Đến</div>
+                    <div class="card-icon" style="background:linear-gradient(135deg,#3B82F6,#2563EB);"><i class="fas fa-map-pin"></i></div>
+                </div>
+                <div class="card-value">12</div>
+                <div class="card-change positive"><i class="fas fa-vr-cardboard"></i> 12 VR 360°</div>
+            </div>
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-title" style="font-size:14px;font-weight:500;color:#64748b;">Lượt Xem (30d)</div>
+                    <div class="card-icon" style="background:linear-gradient(135deg,#EC4899,#DB2777);"><i class="fas fa-eye"></i></div>
+                </div>
+                <div class="card-value">8,542</div>
+                <div class="card-change positive"><i class="fas fa-arrow-up"></i> +24% vs last month</div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">360° Interactions</div>
+                <div class="stat-value">3,156</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Map Clicks</div>
+                <div class="stat-value">2,891</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Avg. Session</div>
+                <div class="stat-value">3m 45s</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Top Category</div>
+                <div class="stat-value" style="font-size:18px;"><i class="fas fa-umbrella-beach" style="color:#0891B2;"></i> Biển & Tắm</div>
+            </div>
+        </div>
+
+        <!-- Top POIs -->
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title">Top Điểm Đến (30 ngày)</div>
+            </div>
+            <div class="card-body">
+                <table class="data-table">
+                    <thead><tr><th>#</th><th>Điểm đến</th><th>Danh mục</th><th>Lượt xem</th><th>360° Views</th></tr></thead>
+                    <tbody>
+                        <tr><td>1</td><td><strong><i class="fas fa-umbrella-beach" style="color:#0891B2;"></i> Bãi Trước</strong></td><td><span class="cat-badge" style="background:#E6FAF5;color:#0D9488;">Biển & Tắm</span></td><td>1,234</td><td>856</td></tr>
+                        <tr><td>2</td><td><strong><i class="fas fa-place-of-worship" style="color:#D97706;"></i> Thích Ca Phật Đài</strong></td><td><span class="cat-badge" style="background:#FEF3C7;color:#D97706;">Di tích & Đền</span></td><td>987</td><td>623</td></tr>
+                        <tr><td>3</td><td><strong><i class="fas fa-utensils" style="color:#DB2777;"></i> Bánh Khọt Vũng Tàu</strong></td><td><span class="cat-badge" style="background:#FCE7F3;color:#DB2777;">Ẩm thực</span></td><td>876</td><td>412</td></tr>
+                        <tr><td>4</td><td><strong><i class="fas fa-water" style="color:#0D9488;"></i> Bãi Sau</strong></td><td><span class="cat-badge" style="background:#E6FAF5;color:#0D9488;">Biển & Tắm</span></td><td>765</td><td>534</td></tr>
+                        <tr><td>5</td><td><strong><i class="fas fa-leaf" style="color:#059669;"></i> Núi Nhỏ</strong></td><td><span class="cat-badge" style="background:#DBEAFE;color:#2563EB;">Thiên nhiên</span></td><td>654</td><td>398</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="recent-activity">
+            <div class="activity-header"><h3 class="section-title">Hoạt Động Gần Đây</h3></div>
+            <div class="activity-list">
+                <div class="activity-item">
+                    <div class="activity-icon" style="background:#CCFBF1;color:#0D9488;"><i class="fas fa-map-pin"></i></div>
+                    <div class="activity-content">
+                        <div class="activity-text">Thêm điểm đến mới: <strong>Hải Đăng Vũng Tàu</strong></div>
+                        <div class="activity-time">30 phút trước</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon" style="background:#DBEAFE;color:#2563EB;"><i class="fas fa-vr-cardboard"></i></div>
+                    <div class="activity-content">
+                        <div class="activity-text">Cập nhật link VR 360° cho <strong>Bãi Trước</strong></div>
+                        <div class="activity-time">2 giờ trước</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon" style="background:#FEF3C7;color:#D97706;"><i class="fas fa-folder-open"></i></div>
+                    <div class="activity-content">
+                        <div class="activity-text">Cập nhật danh mục <strong>Ẩm thực</strong> — đổi màu + icon</div>
+                        <div class="activity-time">5 giờ trước</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon" style="background:#FCE7F3;color:#DB2777;"><i class="fas fa-crosshairs"></i></div>
+                    <div class="activity-content">
+                        <div class="activity-text">Đặt hotspot cho <strong>Thích Ca Phật Đài</strong> trên overview</div>
+                        <div class="activity-time">1 ngày trước</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function logout() { if(confirm('Đăng xuất?')) window.location.href='../index.html'; }
+    </script>
+</body>
+</html>

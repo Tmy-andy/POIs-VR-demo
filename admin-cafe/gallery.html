@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Coffee House Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);"><i class="fas fa-coffee"></i></div><div class="logo-text">Coffee House</div></div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">CONTENT</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Home and About</a>
+                <a href="menu.html" class="nav-item"><i class="fas fa-mug-hot"></i> Menu</a>
+                <a href="space.html" class="nav-item"><i class="fas fa-store"></i> Space</a>
+                <a href="branches.html" class="nav-item"><i class="fas fa-map-marker-alt"></i> Branches</a>
+                <a href="events.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Events</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">MORE</div>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Careers</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-tags"></i> Promotion</a>
+                <a href="gallery.html" class="nav-item active"><i class="fas fa-images"></i> Gallery</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-phone"></i> Contact</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">SETTINGS</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../cafe.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+            </div>
+        </nav>
+    </div>
+    <header class="header"><div class="header-left"><h1 class="page-title">Thu Vien Anh</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar">AD</div></div></div></header>
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title">Trang thai hien thi - Section Gallery</div>
+                <div class="toggle-container"><span class="toggle-status active" id="sectionStatus">Dang hien thi</span><label class="toggle-switch"><input type="checkbox" id="sectionToggle" checked onchange="toggleSection()"><span class="toggle-slider"></span></label></div>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-image"></i> Anh/VR360 Tong cho Gallery</div></div>
+            <div class="card-body">
+                <div class="form-group"><label class="form-label">Link anh hoac VR360</label><input type="url" class="form-input" id="galleryBannerUrl" placeholder="https://..." value="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200" oninput="previewImage(this.value,'galleryBannerPreview')"></div>
+                <div class="image-preview" id="galleryBannerPreview"><img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200"></div>
+                <button class="btn btn-primary" onclick="showSuccess('Da luu anh tong!')"><i class="fas fa-save"></i> Luu</button>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="card-header"><div class="card-title">Albums</div><button class="btn btn-primary" onclick="openAlbumModal()"><i class="fas fa-plus"></i> Them Album</button></div>
+            <div class="card-body"><div class="album-grid" id="albumList"></div></div>
+        </div>
+    </main>
+    <div class="modal" id="albumModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="albumModalTitle">Them Album</h3><button class="close-btn" onclick="closeAlbumModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Ten album</label><input type="text" class="form-input" id="albumName"></div>
+                <div class="form-group"><label class="form-label">Mo ta</label><textarea class="form-textarea" id="albumDesc" rows="2"></textarea></div>
+                <div class="form-group"><label class="form-label">Anh bia (Link)</label><input type="url" class="form-input" id="albumCover" placeholder="https://..." oninput="previewImage(this.value,'albumCoverPreview')"></div>
+                <div class="image-preview" id="albumCoverPreview"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeAlbumModal()">Huy</button><button class="btn btn-primary" onclick="saveAlbum()">Luu</button></div>
+        </div>
+    </div>
+    <div class="modal" id="photoModal">
+        <div class="modal-content" style="max-width:600px;">
+            <div class="modal-header"><h3 id="photoModalTitle">Them Anh</h3><button class="close-btn" onclick="closePhotoModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Them nhieu link anh (moi link 1 dong)</label><textarea class="form-textarea" id="photoLinks" rows="6" placeholder="https://link-anh-1.jpg&#10;https://link-anh-2.jpg&#10;https://link-anh-3.jpg"></textarea></div>
+                <div class="photo-previews" id="photoPreviewGrid"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closePhotoModal()">Huy</button><button class="btn btn-primary" onclick="savePhotos()">Luu</button></div>
+        </div>
+    </div>
+    <div class="modal" id="viewAlbumModal">
+        <div class="modal-content" style="max-width:800px;">
+            <div class="modal-header"><h3 id="viewAlbumTitle">Album</h3><button class="close-btn" onclick="closeViewAlbumModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="photo-grid" id="albumPhotoGrid"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-primary" onclick="addPhotosToAlbum()"><i class="fas fa-plus"></i> Them Anh</button><button class="btn btn-secondary" onclick="closeViewAlbumModal()">Dong</button></div>
+        </div>
+    </div>
+    <style>
+        .toggle-container{display:flex;align-items:center;gap:12px;}
+        .toggle-status{font-size:14px;color:#dc2626;}
+        .toggle-status.active{color:#059669;}
+        .toggle-switch{position:relative;display:inline-block;width:48px;height:26px;}
+        .toggle-switch input{opacity:0;width:0;height:0;}
+        .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#cbd5e1;border-radius:26px;transition:0.3s;}
+        .toggle-slider:before{position:absolute;content:"";height:20px;width:20px;left:3px;bottom:3px;background:white;border-radius:50%;transition:0.3s;}
+        .toggle-switch input:checked+.toggle-slider{background:#2563eb;}
+        .toggle-switch input:checked+.toggle-slider:before{transform:translateX(22px);}
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:20px;}
+        .card-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .card-title{font-size:16px;font-weight:600;}
+        .card-body{padding:20px 24px;}
+        .album-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px;}
+        .album-card{border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;cursor:pointer;transition:transform 0.2s;}
+        .album-card:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(0,0,0,0.1);}
+        .album-cover{height:180px;background-size:cover;background-position:center;position:relative;}
+        .album-count{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.7);color:white;padding:4px 10px;border-radius:6px;font-size:12px;}
+        .album-info{padding:16px;}
+        .album-name{font-size:16px;font-weight:600;color:#1e293b;margin-bottom:4px;}
+        .album-desc{font-size:13px;color:#64748b;}
+        .album-actions{display:flex;gap:8px;margin-top:12px;}
+        .album-actions button{flex:1;padding:8px;border:none;border-radius:6px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;gap:4px;}
+        .btn-view{background:#dbeafe;color:#1d4ed8;}
+        .btn-edit{background:#fef3c7;color:#b45309;}
+        .btn-delete{background:#fee2e2;color:#dc2626;}
+        .photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
+        .photo-item{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1;}
+        .photo-item img{width:100%;height:100%;object-fit:cover;}
+        .photo-delete{position:absolute;top:6px;right:6px;width:24px;height:24px;background:rgba(220,38,38,0.9);color:white;border:none;border-radius:50%;cursor:pointer;font-size:10px;}
+        .photo-previews{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-top:12px;}
+        .photo-previews img{width:100%;height:80px;object-fit:cover;border-radius:6px;}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;}
+        .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#64748b;}
+        .modal-body{padding:24px;}
+        .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid #e2e8f0;}
+        .form-group{margin-bottom:16px;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+        .form-input,.form-textarea{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;}
+        .form-input:focus,.form-textarea:focus{outline:none;border-color:#2563eb;}
+        .image-preview{margin-top:8px;border-radius:8px;overflow:hidden;max-height:150px;}
+        .image-preview img{width:100%;height:150px;object-fit:cover;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#2563eb;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
+    </style>
+    <script>
+        function toggleSection(){var t=document.getElementById('sectionToggle');var s=document.getElementById('sectionStatus');s.textContent=t.checked?'Dang hien thi':'Da an';s.classList.toggle('active',t.checked);}
+        var albumData=[
+            {id:1,name:"Khong Gian Quan",desc:"Hinh anh khong gian cac chi nhanh",cover:"https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&q=80",photos:["https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=300&q=80","https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=300&q=80","https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=300&q=80","https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=300&q=80"]},
+            {id:2,name:"Do Uong",desc:"Cac mon do uong dac trung",cover:"https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80",photos:["https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=300&q=80","https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=300&q=80","https://images.unsplash.com/photo-1485808191679-5f86510681a2?w=300&q=80"]},
+            {id:3,name:"Su Kien",desc:"Hinh anh cac su kien da to chuc",cover:"https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&q=80",photos:["https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=300&q=80","https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=300&q=80"]}
+        ];
+        var editingAlbumId=null,currentAlbumId=null;
+        function renderAlbums(){
+            var html='';
+            albumData.forEach(function(a){
+                html+='<div class="album-card">';
+                html+='<div class="album-cover" style="background-image:url('+a.cover+')">';
+                html+='<span class="album-count"><i class="fas fa-image"></i> '+a.photos.length+'</span>';
+                html+='</div>';
+                html+='<div class="album-info">';
+                html+='<div class="album-name">'+a.name+'</div>';
+                html+='<div class="album-desc">'+a.desc+'</div>';
+                html+='<div class="album-actions">';
+                html+='<button class="btn-view" onclick="viewAlbum('+a.id+')"><i class="fas fa-eye"></i> Xem</button>';
+                html+='<button class="btn-edit" onclick="openAlbumModal('+a.id+')"><i class="fas fa-edit"></i></button>';
+                html+='<button class="btn-delete" onclick="deleteAlbum('+a.id+')"><i class="fas fa-trash"></i></button>';
+                html+='</div></div></div>';
+            });
+            document.getElementById('albumList').innerHTML=html;
+        }
+        function previewImage(url,targetId){
+            var el=document.getElementById(targetId);
+            if(url){el.innerHTML='<img src="'+url+'" onerror="this.style.display=\'none\'">';}else{el.innerHTML='';}
+        }
+        function openAlbumModal(id){
+            editingAlbumId=id||null;
+            document.getElementById('albumModalTitle').textContent=id?'Sua Album':'Them Album';
+            if(id){
+                var a=albumData.find(function(x){return x.id===id;});
+                if(a){
+                    document.getElementById('albumName').value=a.name;
+                    document.getElementById('albumDesc').value=a.desc;
+                    document.getElementById('albumCover').value=a.cover;
+                    previewImage(a.cover,'albumCoverPreview');
+                }
+            }else{
+                document.getElementById('albumName').value='';
+                document.getElementById('albumDesc').value='';
+                document.getElementById('albumCover').value='';
+                document.getElementById('albumCoverPreview').innerHTML='';
+            }
+            document.getElementById('albumModal').classList.add('show');
+        }
+        function closeAlbumModal(){document.getElementById('albumModal').classList.remove('show');}
+        function saveAlbum(){showSuccess(editingAlbumId?'Da cap nhat!':'Da them album!');closeAlbumModal();renderAlbums();}
+        function deleteAlbum(id){if(confirm('Xoa album nay va tat ca anh trong do?')){showSuccess('Da xoa!');renderAlbums();}}
+        function viewAlbum(id){
+            currentAlbumId=id;
+            var a=albumData.find(function(x){return x.id===id;});
+            if(a){
+                document.getElementById('viewAlbumTitle').textContent=a.name;
+                var html='';
+                a.photos.forEach(function(p,i){
+                    html+='<div class="photo-item">';
+                    html+='<img src="'+p+'">';
+                    html+='<button class="photo-delete" onclick="deletePhoto('+id+','+i+')"><i class="fas fa-times"></i></button>';
+                    html+='</div>';
+                });
+                document.getElementById('albumPhotoGrid').innerHTML=html;
+            }
+            document.getElementById('viewAlbumModal').classList.add('show');
+        }
+        function closeViewAlbumModal(){document.getElementById('viewAlbumModal').classList.remove('show');}
+        function addPhotosToAlbum(){
+            closeViewAlbumModal();
+            document.getElementById('photoModalTitle').textContent='Them Anh vao Album';
+            document.getElementById('photoLinks').value='';
+            document.getElementById('photoPreviewGrid').innerHTML='';
+            document.getElementById('photoModal').classList.add('show');
+        }
+        function closePhotoModal(){document.getElementById('photoModal').classList.remove('show');}
+        function savePhotos(){showSuccess('Da them anh!');closePhotoModal();viewAlbum(currentAlbumId);}
+        function deletePhoto(albumId,photoIndex){if(confirm('Xoa anh nay?')){showSuccess('Da xoa!');viewAlbum(albumId);}}
+        document.getElementById('photoLinks').addEventListener('input',function(){
+            var links=this.value.split('\n').filter(function(l){return l.trim();});
+            var html='';
+            links.forEach(function(l){html+='<img src="'+l.trim()+'" onerror="this.style.display=\'none\'">';});
+            document.getElementById('photoPreviewGrid').innerHTML=html;
+        });
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},3000);}
+        renderAlbums();
+    </script>
+</body>
+</html>

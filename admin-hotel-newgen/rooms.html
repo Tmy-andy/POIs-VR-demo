@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms - Hotel 360 New Gen</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-gem"></i></div>
+                <div class="logo-text">Hotel 360 CMS</div>
+            </div>
+        </div>
+        <div class="property-selector">
+            <div class="property-label">Current Hotel</div>
+            <div class="property-name">Boton Blue Hotel & Spa</div>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-section">
+                <div class="nav-section-title">MAIN</div>
+                <a href="index.html" class="nav-item"><i class="fas fa-chart-pie"></i> Dashboard</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">CONTENT</div>
+                <a href="rooms.html" class="nav-item active"><i class="fas fa-bed"></i> Rooms</a>
+                <a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Services</a>
+                <a href="scenes.html" class="nav-item"><i class="fas fa-vr-cardboard"></i> Scenes & 360°</a>
+                <a href="promotions.html" class="nav-item"><i class="fas fa-tags"></i> Promotions</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Gallery</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">BOOKING</div>
+                <a href="booking.html" class="nav-item"><i class="fas fa-calendar-check"></i> Configuration</a>
+                <a href="requests.html" class="nav-item"><i class="fas fa-clipboard-list"></i> Requests <span class="nav-badge">3</span></a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">SYSTEM</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../hotel-newgen.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+                <a href="#" class="nav-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <h1 class="page-title">Rooms Management</h1>
+        </div>
+        <div class="header-right">
+            <div class="user-menu"><div class="user-avatar">AD</div></div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert">
+            <i class="fas fa-check-circle"></i>
+            <span id="successMessage">Saved successfully!</span>
+        </div>
+
+        <!-- Room List -->
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title">Room List</div>
+                <button class="btn btn-primary" onclick="addRoom()"><i class="fas fa-plus"></i> Add New Room</button>
+            </div>
+            <div class="card-body">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Room Type</th>
+                            <th>View</th>
+                            <th>Area</th>
+                            <th>Price (VND)</th>
+                            <th>Scenes</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Deluxe Twin Room</strong></td>
+                            <td>Ocean View</td>
+                            <td>35 m²</td>
+                            <td>2,500,000</td>
+                            <td>2 scenes</td>
+                            <td><span class="status-badge published"><i class="fas fa-circle" style="font-size:6px;"></i> Published</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline" onclick="editRoom('deluxe')"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-outline" onclick="editHotspots('deluxe')"><i class="fas fa-vr-cardboard"></i></button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteRoom('deluxe')"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Superior Twin Room</strong></td>
+                            <td>Mountain View</td>
+                            <td>28 m²</td>
+                            <td>1,800,000</td>
+                            <td>1 scene</td>
+                            <td><span class="status-badge published"><i class="fas fa-circle" style="font-size:6px;"></i> Published</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline" onclick="editRoom('superior')"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-outline" onclick="editHotspots('superior')"><i class="fas fa-vr-cardboard"></i></button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteRoom('superior')"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pacific Double Room</strong></td>
+                            <td>Ocean View</td>
+                            <td>42 m²</td>
+                            <td>3,800,000</td>
+                            <td>1 scene</td>
+                            <td><span class="status-badge published"><i class="fas fa-circle" style="font-size:6px;"></i> Published</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline" onclick="editRoom('pacific')"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-outline" onclick="editHotspots('pacific')"><i class="fas fa-vr-cardboard"></i></button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteRoom('pacific')"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Suite Room</strong></td>
+                            <td>Exclusive Ocean</td>
+                            <td>80 m²</td>
+                            <td>5,500,000</td>
+                            <td>1 scene</td>
+                            <td><span class="status-badge published"><i class="fas fa-circle" style="font-size:6px;"></i> Published</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline" onclick="editRoom('suite')"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-outline" onclick="editHotspots('suite')"><i class="fas fa-vr-cardboard"></i></button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteRoom('suite')"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Room Edit Form -->
+        <div class="content-card" id="roomEditForm" style="display:none;">
+            <div class="card-header">
+                <div class="card-title" id="roomFormTitle">Edit Room</div>
+                <button class="btn btn-secondary" onclick="closeForm()"><i class="fas fa-times"></i> Cancel</button>
+            </div>
+            <div class="card-body">
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab(event,'tabGeneral')">General</button>
+                    <button class="tab-btn" onclick="switchTab(event,'tabDetails')">Details</button>
+                    <button class="tab-btn" onclick="switchTab(event,'tabScenes')">Scenes</button>
+                    <button class="tab-btn" onclick="switchTab(event,'tabBooking')">Booking</button>
+                    <button class="tab-btn" onclick="switchTab(event,'tabSEO')">SEO</button>
+                </div>
+
+                <!-- Tab General -->
+                <div class="tab-content active" id="tabGeneral">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Room Name <span class="required">*</span></label>
+                            <input type="text" class="form-input" value="Deluxe Twin Room" placeholder="Room name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Slug</label>
+                            <input type="text" class="form-input" value="deluxe-twin-room" placeholder="Auto-generated">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Short Description</label>
+                        <textarea class="form-textarea" rows="2" placeholder="Brief description for cards...">Ocean View · Elegant comfort with panoramic sea views</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Full Description</label>
+                        <textarea class="form-textarea" rows="5" placeholder="Detailed description...">Từ ban công rộng rãi, quý khách trải nghiệm vẻ đẹp huyền ảo của biển, lắng nghe tiếng sóng nhẹ nhàng và đón làn gió biển mát lành của vịnh Nha Trang.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Thumbnail</label>
+                        <div class="image-upload-area">
+                            <i class="fas fa-cloud-upload-alt" style="font-size:32px;color:#C9A861;margin-bottom:8px;"></i>
+                            <p style="color:#64748b;font-size:14px;">Drag & drop image or click to upload</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Details -->
+                <div class="tab-content" id="tabDetails">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Area (m²)</label>
+                            <input type="number" class="form-input" value="35">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Max Adults</label>
+                            <input type="number" class="form-input" value="2">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Bed Type</label>
+                            <select class="form-select">
+                                <option>2 Twin Beds</option>
+                                <option>1 King Bed</option>
+                                <option>1 Queen Bed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">View</label>
+                            <select class="form-select">
+                                <option selected>Ocean</option>
+                                <option>Mountain</option>
+                                <option>Garden</option>
+                                <option>City</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Floor</label>
+                            <input type="text" class="form-input" value="8–15" placeholder="e.g. 8–15">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Price (VND/night)</label>
+                            <input type="text" class="form-input" value="2,500,000">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Amenities</label>
+                        <div class="amenities-grid">
+                            <label><input type="checkbox" checked> Panorama Ocean View</label>
+                            <label><input type="checkbox" checked> Spacious Balcony</label>
+                            <label><input type="checkbox" checked> Free WiFi</label>
+                            <label><input type="checkbox" checked> Air Conditioning</label>
+                            <label><input type="checkbox" checked> Bathtub</label>
+                            <label><input type="checkbox" checked> Mini Bar</label>
+                            <label><input type="checkbox" checked> Safe Box</label>
+                            <label><input type="checkbox" checked> Nespresso</label>
+                            <label><input type="checkbox"> Smart TV</label>
+                            <label><input type="checkbox"> Iron</label>
+                            <label><input type="checkbox"> Hair Dryer</label>
+                            <label><input type="checkbox"> USB Charging</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Scenes -->
+                <div class="tab-content" id="tabScenes">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Nhập link trang VR 360° cho phòng này. Link sẽ hiển thị trên website khi khách nhấn xem 360°.</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-vr-cardboard" style="color:#C9A861;margin-right:6px;"></i> Link VR 360°</label>
+                        <div style="display:flex;gap:8px;">
+                            <input type="url" class="form-input" id="roomVrLink" value="https://botonbluehotel.com/vr360/room-deluxe" placeholder="https://... dán link trang VR 360° tại đây" style="flex:1;font-family:'Courier New',monospace;font-size:13px;">
+                            <button class="btn btn-outline" onclick="previewVrLink()" title="Xem trước"><i class="fas fa-external-link-alt"></i> Xem</button>
+                        </div>
+                    </div>
+                    <div style="background:#f8fafc;border-radius:10px;padding:16px;border:1px solid #e2e8f0;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                            <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;"></div>
+                            <span style="font-size:13px;color:#22c55e;font-weight:500;">Link VR 360° đã được gán</span>
+                        </div>
+                        <p style="font-size:12px;color:#94a3b8;margin:0;">Link cũng có thể quản lý tập trung tại trang <a href="scenes.html" style="color:#C9A861;">Scenes & 360°</a>.</p>
+                    </div>
+                </div>
+
+                <!-- Tab Booking -->
+                <div class="tab-content" id="tabBooking">
+                    <div class="form-group">
+                        <label class="form-label">Booking Mode Override</label>
+                        <div style="display:flex;gap:12px;margin-top:8px;">
+                            <div class="mode-card selected" style="flex:1;" onclick="selectMode(this)">
+                                <h4><i class="fas fa-globe"></i> Use Global Setting</h4>
+                                <p>Follow the global booking configuration</p>
+                            </div>
+                            <div class="mode-card" style="flex:1;" onclick="selectMode(this)">
+                                <h4><i class="fas fa-external-link-alt"></i> External Link</h4>
+                                <p>Redirect to external booking URL</p>
+                            </div>
+                            <div class="mode-card" style="flex:1;" onclick="selectMode(this)">
+                                <h4><i class="fas fa-window-maximize"></i> In-Page Modal</h4>
+                                <p>Show booking form modal</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">CTA Button Label</label>
+                        <input type="text" class="form-input" value="Đặt Phòng Ngay" placeholder="Book Now">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">External Booking URL</label>
+                        <input type="text" class="form-input" value="https://book-directonline.com/properties/botbluhotspadirect" placeholder="https://...">
+                    </div>
+                </div>
+
+                <!-- Tab SEO -->
+                <div class="tab-content" id="tabSEO">
+                    <div class="form-group">
+                        <label class="form-label">Meta Title</label>
+                        <input type="text" class="form-input" value="Deluxe Twin Room — Boton Blue Hotel & Spa" placeholder="SEO title">
+                        <div class="form-help">60 characters max recommended</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Meta Description</label>
+                        <textarea class="form-textarea" rows="3" placeholder="SEO description...">Phòng Deluxe Twin với tầm nhìn panorama biển Nha Trang. 35m², ban công rộng, tiện nghi cao cấp.</textarea>
+                        <div class="form-help">155 characters max recommended</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">OG Image</label>
+                        <div class="image-upload-area" style="padding:20px;">
+                            <p style="color:#64748b;font-size:13px;"><i class="fas fa-image"></i> Upload OG Image (1200x630)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:flex;gap:12px;margin-top:24px;justify-content:flex-end;">
+                    <button class="btn btn-secondary" onclick="closeForm()">Cancel</button>
+                    <button class="btn btn-outline"><i class="fas fa-save"></i> Save Draft</button>
+                    <button class="btn btn-primary" onclick="saveRoom()"><i class="fas fa-check"></i> Publish</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function logout() { if(confirm('Logout?')) window.location.href='../index.html'; }
+        function addRoom() { document.getElementById('roomFormTitle').textContent='Add New Room'; document.getElementById('roomEditForm').style.display='block'; window.scrollTo({top:document.getElementById('roomEditForm').offsetTop-80,behavior:'smooth'}); }
+        function editRoom(id) { document.getElementById('roomFormTitle').textContent='Edit Room'; document.getElementById('roomEditForm').style.display='block'; window.scrollTo({top:document.getElementById('roomEditForm').offsetTop-80,behavior:'smooth'}); }
+        function closeForm() { document.getElementById('roomEditForm').style.display='none'; }
+        function deleteRoom(id) { if(confirm('Delete this room? This cannot be undone.')) showSuccess('Room deleted successfully'); }
+        function editHotspots(id) { alert('Open 360° Hotspot Editor for: '+id); }
+        function saveRoom() { showSuccess('Room saved and published!'); closeForm(); }
+        function switchTab(e, tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+            e.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+        function selectMode(el) {
+            document.querySelectorAll('.mode-card').forEach(c=>c.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+        function showSuccess(msg) {
+            const a=document.getElementById('successAlert'); a.classList.remove('hidden'); document.getElementById('successMessage').textContent=msg;
+            setTimeout(()=>a.classList.add('hidden'),3000);
+        }
+        function previewVrLink() {
+            const url=document.getElementById('roomVrLink').value.trim();
+            if(url) window.open(url,'_blank'); else alert('Chưa nhập link VR 360°!');
+        }
+    </script>
+</body>
+</html>

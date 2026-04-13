@@ -1,0 +1,433 @@
+{
+    "settings": {
+        "showPrice": true,
+        "currency": "VNĐ",
+        "bookingLabel": "Đặt Bàn",
+        "name": "Fine Dining Restaurant",
+        "openHours": "11:00 - 22:00"
+    },
+    "home": {
+        "type": "text",
+        "title": "Chào Mừng Đến Với Nhà Hàng",
+        "content": "Nơi hội tụ tinh hoa ẩm thực Á - Âu, mang đến trải nghiệm fine dining đẳng cấp giữa lòng thành phố.\n\nVới không gian sang trọng và đội ngũ đầu bếp tài năng, chúng tôi tự hào phục vụ những món ăn được chế biến từ nguyên liệu tươi ngon nhất, kết hợp kỹ thuật nấu nướng hiện đại.\n\nĐặt bàn ngay để trải nghiệm ẩm thực đỉnh cao!"
+    },
+    "about": {
+        "type": "text",
+        "title": "Giới Thiệu",
+        "content": "Được thành lập từ năm 2015, nhà hàng chúng tôi đã trở thành điểm đến yêu thích của những thực khách sành ăn.\n\nTriết lý của chúng tôi: 'Từ trang trại đến bàn ăn' - nguyên liệu tươi ngon được chọn lọc kỹ càng từ các nhà cung cấp uy tín, kết hợp với sự sáng tạo không ngừng của đội ngũ bếp.\n\nChúng tôi cam kết mang đến không chỉ bữa ăn ngon mà còn là trải nghiệm ẩm thực đáng nhớ."
+    },
+    "menu": {
+        "type": "list",
+        "title": "Thực Đơn",
+        "items": [
+            {
+                "id": "appetizers",
+                "name": "Khai Vị",
+                "shortDesc": "Các món khai vị tinh tế",
+                "image": "https://images.unsplash.com/photo-1541014741259-de529411b96a?w=400",
+                "subItems": [
+                    {"name": "Salad Cá Hồi Xông Khói", "price": "185,000", "desc": "Cá hồi Na Uy, rau rocket, sốt chanh dây"},
+                    {"name": "Súp Nấm Truffle", "price": "165,000", "desc": "Nấm rừng, kem tươi, dầu truffle"},
+                    {"name": "Bruschetta Cà Chua", "price": "125,000", "desc": "Bánh mì nướng, cà chua bi, húng quế"}
+                ]
+            },
+            {
+                "id": "main-course",
+                "name": "Món Chính",
+                "shortDesc": "Món ăn chính đặc sắc",
+                "image": "https://images.unsplash.com/photo-1544025162-d76694265947?w=400",
+                "subItems": [
+                    {"name": "Bò Wagyu A5", "price": "1,850,000", "desc": "Bò Nhật Bản, khoai tây nghiền, rau củ nướng"},
+                    {"name": "Cá Chẽm Nướng Lá Sen", "price": "485,000", "desc": "Cá chẽm tươi, sốt bơ chanh"},
+                    {"name": "Sườn Cừu Nướng Rosemary", "price": "685,000", "desc": "Sườn cừu Úc, khoai tây baby"}
+                ]
+            },
+            {
+                "id": "dessert",
+                "name": "Tráng Miệng",
+                "shortDesc": "Món ngọt tinh tế",
+                "image": "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400",
+                "subItems": [
+                    {"name": "Chocolate Lava Cake", "price": "145,000", "desc": "Bánh chocolate lõi tan chảy, kem vani"},
+                    {"name": "Tiramisu", "price": "125,000", "desc": "Tiramisu truyền thống Ý"},
+                    {"name": "Crème Brûlée", "price": "135,000", "desc": "Kem trứng Pháp, đường caramel"}
+                ]
+            },
+            {
+                "id": "set-menu",
+                "name": "Set Menu",
+                "shortDesc": "Combo thực đơn theo set",
+                "image": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400",
+                "badge": "Tiết kiệm",
+                "subItems": [
+                    {"name": "Set Lunch Business", "price": "450,000", "desc": "Khai vị + Món chính + Tráng miệng + Đồ uống"},
+                    {"name": "Set Couple Romantic", "price": "1,200,000", "desc": "Set 2 người, 5 món + rượu vang"},
+                    {"name": "Set Family Feast", "price": "2,500,000", "desc": "Set 4-6 người, 8 món đặc sắc"}
+                ]
+            },
+            {
+                "id": "seasonal",
+                "name": "Menu Theo Mùa",
+                "shortDesc": "Món ăn theo mùa",
+                "image": "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=400",
+                "badge": "Mới",
+                "subItems": [
+                    {"name": "Cua Hoàng Đế Alaska", "price": "2,200,000", "desc": "Cua tươi nhập khẩu, 3 cách chế biến"},
+                    {"name": "Nấm Matsutake", "price": "950,000", "desc": "Nấm Nhật Bản theo mùa"}
+                ]
+            },
+            {
+                "id": "vegetarian",
+                "name": "Menu Chay / Ăn Kiêng",
+                "shortDesc": "Healthy & Vegetarian",
+                "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400",
+                "subItems": [
+                    {"name": "Buddha Bowl", "price": "195,000", "desc": "Quinoa, đậu hũ, rau củ organic"},
+                    {"name": "Pasta Rau Củ", "price": "175,000", "desc": "Mì Ý, rau củ tươi, sốt pesto"},
+                    {"name": "Salad Detox", "price": "145,000", "desc": "Rau xanh organic, hạt chia, bơ"}
+                ]
+            },
+            {
+                "id": "kids",
+                "name": "Menu Trẻ Em",
+                "shortDesc": "Dành cho các bé",
+                "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400",
+                "subItems": [
+                    {"name": "Chicken Nuggets", "price": "125,000", "desc": "Gà viên chiên giòn, khoai tây"},
+                    {"name": "Mini Burger", "price": "145,000", "desc": "Burger size nhỏ, phô mai"},
+                    {"name": "Pasta Bolognese", "price": "135,000", "desc": "Mì Ý sốt thịt bằm"}
+                ]
+            },
+            {
+                "id": "wine",
+                "name": "Rượu Vang",
+                "shortDesc": "Wine list đa dạng",
+                "image": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400",
+                "subItems": [
+                    {"name": "Château Margaux 2015", "price": "8,500,000", "desc": "Vang đỏ Pháp, Bordeaux"},
+                    {"name": "Opus One 2018", "price": "12,000,000", "desc": "Vang đỏ Mỹ, Napa Valley"},
+                    {"name": "Cloudy Bay 2021", "price": "1,200,000", "desc": "Vang trắng New Zealand"}
+                ]
+            },
+            {
+                "id": "cocktails",
+                "name": "Cocktail / Mocktail",
+                "shortDesc": "Đồ uống pha chế",
+                "image": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400",
+                "subItems": [
+                    {"name": "Classic Mojito", "price": "165,000", "desc": "Rum, lime, bạc hà, soda"},
+                    {"name": "Espresso Martini", "price": "185,000", "desc": "Vodka, espresso, Kahlua"},
+                    {"name": "Passion Mocktail", "price": "95,000", "desc": "Chanh dây, soda, syrup"}
+                ]
+            },
+            {
+                "id": "tasting",
+                "name": "Tasting Menu",
+                "shortDesc": "Menu nếm thử đặc biệt",
+                "image": "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400",
+                "badge": "Chef's Choice",
+                "subItems": [
+                    {"name": "5-Course Tasting", "price": "1,500,000", "desc": "5 món do Chef lựa chọn"},
+                    {"name": "7-Course Premium", "price": "2,500,000", "desc": "7 món kèm wine pairing"},
+                    {"name": "Chef's Table Experience", "price": "4,500,000", "desc": "Trải nghiệm VIP tại bếp mở"}
+                ]
+            },
+            {
+                "id": "party",
+                "name": "Menu Tiệc",
+                "shortDesc": "Phục vụ tiệc lớn",
+                "image": "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400",
+                "subItems": [
+                    {"name": "Tiệc Sinh Nhật", "price": "Từ 500,000/người", "desc": "Set menu + bánh kem + trang trí"},
+                    {"name": "Tiệc Công Ty", "price": "Từ 650,000/người", "desc": "Buffet hoặc set menu, phòng riêng"},
+                    {"name": "Tiệc Cưới", "price": "Liên hệ", "desc": "Tư vấn menu theo yêu cầu"}
+                ]
+            },
+            {
+                "id": "takeaway",
+                "name": "Menu Mang Đi",
+                "shortDesc": "Đặt hàng mang về",
+                "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400",
+                "subItems": [
+                    {"name": "Combo 1 Người", "price": "250,000", "desc": "Món chính + Salad + Nước"},
+                    {"name": "Combo Gia Đình", "price": "850,000", "desc": "4 món chính + 2 khai vị"},
+                    {"name": "Party Box", "price": "1,500,000", "desc": "Set tiệc tại nhà 6-8 người"}
+                ]
+            }
+        ]
+    },
+    "space": {
+        "type": "list",
+        "title": "Không Gian",
+        "items": [
+            {
+                "id": "overview",
+                "name": "Tổng Quan Không Gian",
+                "shortDesc": "Thiết kế sang trọng, tinh tế",
+                "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400",
+                "fullDesc": "Không gian nhà hàng được thiết kế theo phong cách hiện đại pha lẫn nét cổ điển, với diện tích 500m² có sức chứa lên đến 150 khách."
+            },
+            {
+                "id": "indoor",
+                "name": "Khu Ăn Trong Nhà",
+                "shortDesc": "Không gian chính sang trọng",
+                "image": "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400",
+                "fullDesc": "Khu vực ăn trong nhà với ánh sáng ấm áp, bàn ghế cao cấp nhập khẩu từ Ý, phù hợp cho các buổi hẹn hò và dinner sang trọng.",
+                "capacity": "80 khách",
+                "area": "200m²"
+            },
+            {
+                "id": "outdoor",
+                "name": "Khu Ngoài Trời / Sân Vườn",
+                "shortDesc": "Không gian xanh mát",
+                "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400",
+                "fullDesc": "Sân vườn với cây xanh và đài phun nước, lý tưởng cho các buổi tiệc ngoài trời, BBQ party hoặc cocktail reception.",
+                "capacity": "50 khách",
+                "area": "150m²"
+            },
+            {
+                "id": "vip",
+                "name": "Phòng VIP",
+                "shortDesc": "Không gian riêng tư đẳng cấp",
+                "image": "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=400",
+                "fullDesc": "3 phòng VIP được trang bị đầy đủ tiện nghi: TV màn hình lớn, hệ thống âm thanh, minibar riêng.",
+                "capacity": "8-15 khách/phòng",
+                "area": "30-50m²/phòng"
+            },
+            {
+                "id": "private",
+                "name": "Private Dining",
+                "shortDesc": "Phòng ăn riêng biệt",
+                "image": "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=400",
+                "fullDesc": "Phòng ăn riêng biệt dành cho các buổi họp mặt gia đình, đối tác kinh doanh với không gian kín đáo và phục vụ chuyên nghiệp.",
+                "capacity": "10-20 khách"
+            },
+            {
+                "id": "bar",
+                "name": "Quầy Bar / Open Kitchen",
+                "shortDesc": "Xem đầu bếp chế biến",
+                "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400",
+                "fullDesc": "Quầy bar với hơn 100 loại rượu và open kitchen cho phép khách thưởng thức nghệ thuật nấu nướng trực tiếp.",
+                "capacity": "15 chỗ quầy bar"
+            },
+            {
+                "id": "evening",
+                "name": "Không Gian Buổi Tối",
+                "shortDesc": "Romantic dinner ambiance",
+                "image": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400",
+                "fullDesc": "Buổi tối, nhà hàng thay đổi hoàn toàn với ánh nến lung linh, nhạc jazz nhẹ nhàng, tạo nên không gian lãng mạn tuyệt vời."
+            },
+            {
+                "id": "family",
+                "name": "Không Gian Gia Đình",
+                "shortDesc": "Thân thiện với trẻ em",
+                "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400",
+                "fullDesc": "Khu vực dành cho gia đình với ghế em bé, menu trẻ em, và góc vui chơi nhỏ cho các bé.",
+                "amenities": ["Ghế em bé", "Menu trẻ em", "Góc vui chơi", "Thay tã"]
+            }
+        ]
+    },
+    "branches": {
+        "type": "list",
+        "title": "Chi Nhánh",
+        "items": [
+            {
+                "id": "district1",
+                "name": "Chi Nhánh Quận 1",
+                "shortDesc": "Flagship store - Trung tâm TP",
+                "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400",
+                "fullDesc": "Chi nhánh chính tại trung tâm Quận 1, với không gian rộng rãi nhất và đầy đủ tiện ích.",
+                "address": "123 Đồng Khởi, Quận 1, TP.HCM",
+                "phone": "028 1234 5678",
+                "hours": "11:00 - 23:00",
+                "mapUrl": "https://maps.google.com"
+            },
+            {
+                "id": "district2",
+                "name": "Chi Nhánh Thảo Điền",
+                "shortDesc": "Khu vực Thảo Điền",
+                "image": "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400",
+                "fullDesc": "Chi nhánh tại Thảo Điền với không gian sân vườn rộng rãi, phù hợp cho gia đình.",
+                "address": "45 Xuân Thủy, Thảo Điền, TP. Thủ Đức",
+                "phone": "028 2345 6789",
+                "hours": "10:00 - 22:00",
+                "mapUrl": "https://maps.google.com"
+            },
+            {
+                "id": "district7",
+                "name": "Chi Nhánh Phú Mỹ Hưng",
+                "shortDesc": "Khu đô thị Phú Mỹ Hưng",
+                "image": "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=400",
+                "fullDesc": "Chi nhánh hiện đại tại Phú Mỹ Hưng với phòng VIP cao cấp và bãi đỗ xe rộng.",
+                "address": "789 Nguyễn Đức Cảnh, Quận 7, TP.HCM",
+                "phone": "028 3456 7890",
+                "hours": "11:00 - 22:30",
+                "mapUrl": "https://maps.google.com"
+            }
+        ]
+    },
+    "events": {
+        "type": "list",
+        "title": "Sự Kiện",
+        "items": [
+            {
+                "id": "birthday",
+                "name": "Tiệc Sinh Nhật",
+                "shortDesc": "Tổ chức sinh nhật đáng nhớ",
+                "image": "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400",
+                "fullDesc": "Gói tiệc sinh nhật bao gồm: trang trí theo chủ đề, bánh kem, set menu đặc biệt, MC và nhạc sống theo yêu cầu.",
+                "price": "Từ 5,000,000"
+            },
+            {
+                "id": "family",
+                "name": "Tiệc Gia Đình",
+                "shortDesc": "Sum họp gia đình ấm cúng",
+                "image": "https://images.unsplash.com/photo-1529543544277-ad44975c98b6?w=400",
+                "fullDesc": "Không gian ấm cúng cho các dịp sum họp gia đình: giỗ chạp, họp mặt cuối năm, mừng thọ...",
+                "price": "Từ 3,000,000"
+            },
+            {
+                "id": "corporate",
+                "name": "Tiệc Công Ty",
+                "shortDesc": "Year-end party, team building",
+                "image": "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400",
+                "fullDesc": "Phục vụ tiệc công ty với quy mô từ 20-150 khách. Bao gồm: buffet/set menu, âm thanh ánh sáng, MC.",
+                "price": "Từ 650,000/người"
+            },
+            {
+                "id": "wedding",
+                "name": "Tiệc Cưới / Kỷ Niệm",
+                "shortDesc": "Ngày trọng đại đáng nhớ",
+                "image": "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400",
+                "fullDesc": "Tổ chức tiệc cưới, hỏi, kỷ niệm ngày cưới với không gian lãng mạn và thực đơn cao cấp.",
+                "price": "Liên hệ tư vấn"
+            },
+            {
+                "id": "gallery",
+                "name": "Gallery Sự Kiện",
+                "shortDesc": "Hình ảnh các sự kiện đã tổ chức",
+                "image": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400",
+                "fullDesc": "Xem lại những khoảnh khắc đáng nhớ từ các sự kiện chúng tôi đã tổ chức thành công."
+            }
+        ]
+    },
+    "contact": {
+        "type": "text",
+        "title": "Liên Hệ",
+        "content": "📍 Địa chỉ: 123 Đồng Khởi, Quận 1, TP.HCM\n\n📞 Hotline: 1900 1234 (8:00 - 22:00)\n\n📧 Email: info@restaurant.vn\n\n🌐 Website: www.restaurant.vn\n\n📱 Theo dõi chúng tôi:\n• Facebook: /restaurantvn\n• Instagram: @restaurant.vn\n• TikTok: @restaurantvn"
+    },
+    "reviews": {
+        "type": "list",
+        "title": "Thành Tựu & Báo Chí",
+        "items": [
+            {
+                "id": "customer",
+                "name": "Review Khách Hàng",
+                "shortDesc": "Đánh giá từ thực khách",
+                "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400",
+                "fullDesc": "⭐⭐⭐⭐⭐ 4.8/5 từ 2,500+ đánh giá\n\n'Đồ ăn ngon tuyệt vời, phục vụ chuyên nghiệp!' - Anh Minh\n\n'Không gian lãng mạn, giá cả hợp lý.' - Chị Hương\n\n'Best fine dining in Saigon!' - Mr. John"
+            },
+            {
+                "id": "press",
+                "name": "Báo Chí & KOL",
+                "shortDesc": "Được giới thiệu bởi",
+                "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400",
+                "fullDesc": "Được giới thiệu bởi:\n• VnExpress - 'Top 10 nhà hàng fine dining Sài Gòn'\n• Vogue Vietnam - 'Không gian ẩm thực đẳng cấp'\n• Food Blogger Ninh Eating - 'Must-try restaurant'"
+            },
+            {
+                "id": "awards",
+                "name": "Giải Thưởng",
+                "shortDesc": "Chứng nhận & giải thưởng",
+                "image": "https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=400",
+                "fullDesc": "🏆 Best Fine Dining 2024 - Vietnam F&B Awards\n🏆 TripAdvisor Travelers' Choice 2023-2024\n🏆 Top 50 Best Restaurants Vietnam 2024\n🏆 Wine Spectator Award of Excellence"
+            }
+        ]
+    },
+    "careers": {
+        "type": "list",
+        "title": "Tuyển Dụng",
+        "items": [
+            {
+                "id": "positions",
+                "name": "Vị Trí Đang Tuyển",
+                "shortDesc": "Cơ hội việc làm",
+                "image": "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400",
+                "fullDesc": "🔥 ĐANG TUYỂN:\n\n• Chef de Partie - Lương: 15-25 triệu\n• Phục vụ bàn - Lương: 8-12 triệu + tips\n• Bartender - Lương: 10-18 triệu\n• Hostess - Lương: 8-12 triệu\n• Nhân viên bếp - Lương: 7-10 triệu"
+            },
+            {
+                "id": "culture",
+                "name": "Văn Hóa & Môi Trường",
+                "shortDesc": "Làm việc tại nhà hàng",
+                "image": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400",
+                "fullDesc": "✨ Môi trường làm việc chuyên nghiệp, năng động\n✨ Đào tạo bài bản theo tiêu chuẩn quốc tế\n✨ Cơ hội thăng tiến rõ ràng\n✨ Phúc lợi hấp dẫn: BHXH, ăn ca, thưởng tháng 13\n✨ Team building, du lịch hàng năm"
+            }
+        ]
+    },
+    "promotion": {
+        "type": "list",
+        "title": "Ưu Đãi & Thành Viên",
+        "items": [
+            {
+                "id": "current",
+                "name": "Khuyến Mãi Hiện Tại",
+                "shortDesc": "Ưu đãi đang áp dụng",
+                "image": "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=400",
+                "badge": "Hot",
+                "fullDesc": "🎉 THÁNG 2/2026:\n\n• Giảm 20% Set Lunch (11:00-14:00)\n• Tặng 1 ly cocktail khi đặt bàn online\n• Giảm 15% hóa đơn cho nhóm 6+ người\n• Free dessert cho couple ngày Valentine"
+            },
+            {
+                "id": "membership",
+                "name": "Thẻ Thành Viên",
+                "shortDesc": "Chương trình loyalty",
+                "image": "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=400",
+                "fullDesc": "💳 CÁC HẠNG THẺ:\n\n🥉 Bronze: Tích điểm 3%\n🥈 Silver: Tích điểm 5% + Ưu tiên đặt bàn\n🥇 Gold: Tích điểm 8% + Phòng VIP miễn phí\n💎 Platinum: Tích điểm 12% + Đặc quyền riêng"
+            },
+            {
+                "id": "birthday",
+                "name": "Ưu Đãi Sinh Nhật",
+                "shortDesc": "Đặc quyền ngày sinh nhật",
+                "image": "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=400",
+                "fullDesc": "🎂 ƯU ĐÃI SINH NHẬT:\n\n• Giảm 25% hóa đơn trong tháng sinh nhật\n• Tặng bánh kem (đặt bàn từ 4 người)\n• Trang trí bàn miễn phí\n• Quà tặng đặc biệt cho thành viên Gold+"
+            }
+        ]
+    },
+    "gallery": {
+        "type": "list",
+        "title": "Thư Viện",
+        "items": [
+            {
+                "id": "photos",
+                "name": "Album Ảnh",
+                "shortDesc": "Hình ảnh nhà hàng & món ăn",
+                "image": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400",
+                "fullDesc": "Bộ sưu tập hình ảnh không gian nhà hàng, các món ăn đặc sắc và hoạt động hàng ngày."
+            },
+            {
+                "id": "videos",
+                "name": "Video",
+                "shortDesc": "Video giới thiệu",
+                "image": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400",
+                "fullDesc": "Video tour nhà hàng, behind the scenes tại bếp, phỏng vấn Chef và các sự kiện đặc biệt."
+            },
+            {
+                "id": "checkin",
+                "name": "Check-in Của Khách",
+                "shortDesc": "Khoảnh khắc thực khách",
+                "image": "https://images.unsplash.com/photo-1529543544277-ad44975c98b6?w=400",
+                "fullDesc": "Những khoảnh khắc đáng nhớ được chia sẻ bởi khách hàng. Tag #RestaurantVN để được feature!"
+            },
+            {
+                "id": "media",
+                "name": "Báo Chí & Truyền Thông",
+                "shortDesc": "Xuất hiện trên media",
+                "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400",
+                "fullDesc": "Tổng hợp các bài viết báo chí, review từ food blogger và xuất hiện trên truyền hình."
+            }
+        ]
+    },
+    "booking": {
+        "type": "text",
+        "title": "Đặt Bàn",
+        "content": "📞 Hotline đặt bàn: 1900 1234\n\n🌐 Đặt bàn online: www.restaurant.vn/booking\n\n⏰ Giờ phục vụ:\n• Thứ 2 - Thứ 6: 11:00 - 22:00\n• Thứ 7 - CN: 10:00 - 23:00\n\n📝 Lưu ý:\n• Đặt bàn trước ít nhất 2 tiếng\n• Phòng VIP cần đặt trước 24 tiếng\n• Hủy bàn vui lòng báo trước 2 tiếng"
+    }
+}

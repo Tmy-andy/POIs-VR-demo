@@ -1,0 +1,677 @@
+﻿{
+    "settings": {
+        "siteName": "Adventure Park",
+        "tagline": "Khu Vui Choi Giai Tri",
+        "currency": "d",
+        "showPrice": true,
+        "openHours": "8:00 - 21:00",
+        "phone": "1900 1234",
+        "email": "info@adventurepark.vn",
+        "address": "123 Duong Vui Choi, Quan 7, TP.HCM"
+    },
+    "home": {
+        "type": "text",
+        "title": "Chao mung den Adventure Park",
+        "content": "Adventure Park la khu vui choi giai tri hang dau Viet Nam, mang den trai nghiem tuyet voi cho moi lua tuoi.\n\nVoi hon 50 tro choi va diem tham quan, chung toi tu hao phuc vu hang trieu luot khach moi nam.\n\nKham pha the gioi ky dieu tai Adventure Park - Noi moi giac mo thanh su that!"
+    },
+    "about": {
+        "type": "text", 
+        "title": "Gioi Thieu Adventure Park",
+        "content": "Thanh lap nam 2010, Adventure Park la mot trong nhung khu vui choi giai tri lon nhat Viet Nam voi dien tich 50 hecta.\n\nChung toi so huu hon 50 tro choi hien dai, 10 khu vuc chu de doc dao, va hang chuc diem check-in dep nhu mo.\n\nVoi tam nhin tro thanh diem den hang dau Dong Nam A, chung toi khong ngung dau tu vao cong nghe va dich vu de mang lai trai nghiem tot nhat cho du khach.\n\nHai niem gia tri cot loi:\n- An toan la tren het\n- Niem vui cho moi lua tuoi\n- Dich vu chuyen nghiep\n- Bao ve moi truong"
+    },
+    "attractions-thrill": {
+        "type": "list",
+        "title": "Khu Tro Choi Cam Giac Manh",
+        "items": [
+            {
+                "id": "thunder-coaster",
+                "name": "Thunder Coaster",
+                "shortDesc": "Tau luon siet toc do 120km/h",
+                "image": "https://images.unsplash.com/photo-1536086845103-8a18a6eb807b?w=400&q=80",
+                "fullDesc": "Thunder Coaster la tau luon cao nhat va nhanh nhat Viet Nam. Voi do cao 60m va toc do toi da 120km/h, ban se trai nghiem cam giac roi tu do va nhung cu xoay 360 do.",
+                "badge": "HOT",
+                "info": {"age": "Tu 14 tuoi", "duration": "3 phut", "height": ">140cm", "capacity": "24 nguoi/luot"},
+                "safety": {"level": "high", "supervision": "Nhan vien giam sat"},
+                "features": ["Tau luon thep", "3 vong xoay", "Do cao 60m", "Toc do 120km/h"]
+            },
+            {
+                "id": "sky-drop",
+                "name": "Sky Drop Tower",
+                "shortDesc": "Thap roi tu do cao 80m",
+                "image": "https://images.unsplash.com/photo-1567446537708-ac4aa75c9c28?w=400&q=80",
+                "fullDesc": "Sky Drop Tower mang den cam giac roi tu do tu do cao 80m. Tim ban se dung lai trong giay lat truoc khi roi xuong voi toc do chong mat.",
+                "badge": "EXTREME",
+                "badgeClass": "red",
+                "info": {"age": "Tu 16 tuoi", "duration": "1 phut", "height": ">150cm", "capacity": "12 nguoi/luot"},
+                "safety": {"level": "high", "supervision": "Nhan vien giam sat"}
+            },
+            {
+                "id": "wild-rapids",
+                "name": "Wild Rapids",
+                "shortDesc": "Thac nuoc mao hiem 500m",
+                "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",
+                "fullDesc": "Cheo thuyen vuot thac voi hanh trinh 500m qua nhung gheng thac hung vi. Chuan bi bi uot nhep va day cam xuc!",
+                "info": {"age": "Tu 10 tuoi", "duration": "8 phut", "height": ">120cm", "capacity": "6 nguoi/thuyen"},
+                "safety": {"level": "medium"}
+            }
+        ]
+    },
+    "attractions-family": {
+        "type": "list",
+        "title": "Khu Tro Choi Gia Dinh",
+        "items": [
+            {
+                "id": "ferris-wheel",
+                "name": "Giant Ferris Wheel",
+                "shortDesc": "Vong quay khong lo 100m",
+                "image": "https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?w=400&q=80",
+                "fullDesc": "Vong quay cao 100m, mot trong nhung vong quay lon nhat Dong Nam A. Tu tren cao, ban co the ngam toan canh thanh pho tuyet dep.",
+                "badge": "POPULAR",
+                "badgeClass": "green",
+                "info": {"age": "Moi lua tuoi", "duration": "15 phut", "capacity": "8 nguoi/cabin"},
+                "safety": {"level": "low", "supervision": "Phu hop moi nguoi"}
+            },
+            {
+                "id": "carousel",
+                "name": "Royal Carousel",
+                "shortDesc": "Vong xoay ngua co dien",
+                "image": "https://images.unsplash.com/photo-1558618047-f4b511b80c4e?w=400&q=80",
+                "fullDesc": "Vong xoay ngua theo phong cach co dien Chau Au voi 48 chu ngua duoc cham khac tinh xao. Am nhac ky ao hoa quyen vao anh sang lung linh.",
+                "info": {"age": "Moi lua tuoi", "duration": "5 phut", "capacity": "48 nguoi"},
+                "safety": {"level": "low"}
+            },
+            {
+                "id": "bumper-cars",
+                "name": "Bumper Cars Arena",
+                "shortDesc": "San dau xe dien",
+                "image": "https://images.unsplash.com/photo-1513889961551-628c1e5e2ee9?w=400&q=80",
+                "fullDesc": "San xe dien dam va voi 30 chiec xe day mau sac. Thi dau vui ve cung gia dinh va ban be!",
+                "info": {"age": "Tu 6 tuoi", "duration": "5 phut", "height": ">110cm", "capacity": "30 xe"},
+                "safety": {"level": "low"}
+            }
+        ]
+    },
+    "attractions-kids": {
+        "type": "list",
+        "title": "Khu Tre Em",
+        "items": [
+            {
+                "id": "mini-world",
+                "name": "Mini World",
+                "shortDesc": "The gioi thu nho cho be",
+                "image": "https://images.unsplash.com/photo-1566454544259-f4b94c3d758c?w=400&q=80",
+                "fullDesc": "The gioi thu nho voi cac mo hinh thanh pho, nong trai, va bien ca. Tre em co the choi tro choi nha nha, lam bac si, dau bep...",
+                "badge": "KIDS",
+                "badgeClass": "blue",
+                "info": {"age": "2-10 tuoi", "duration": "Khong gioi han"},
+                "safety": {"level": "low", "supervision": "Khu vuc an toan"}
+            },
+            {
+                "id": "splash-pad",
+                "name": "Splash Pad",
+                "shortDesc": "Khu vui choi nuoc tre em",
+                "image": "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=400&q=80",
+                "fullDesc": "Khu vui choi nuoc voi voi phun, thac nuoc mini va nhieu tro choi nuoc an toan cho tre nho. Nuoc duoc loc va khu trung hang ngay.",
+                "info": {"age": "2-12 tuoi", "duration": "Khong gioi han"},
+                "safety": {"level": "low", "supervision": "Nhan vien cuu ho"}
+            }
+        ]
+    },
+    "attractions-interactive": {
+        "type": "list",
+        "title": "Khu Trai Nghiem Tuong Tac",
+        "items": [
+            {
+                "id": "vr-zone",
+                "name": "VR Adventure Zone",
+                "shortDesc": "Trai nghiem thuc te ao 360",
+                "image": "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=400&q=80",
+                "fullDesc": "Khu vuc thuc te ao voi 20 tro choi VR hien dai nhat. Tu nhay du, leo nui den chien dau voi quai vat - tat ca trong the gioi ao sieu thuc.",
+                "badge": "NEW",
+                "info": {"age": "Tu 10 tuoi", "duration": "10-15 phut/tro"},
+                "features": ["VR 360 do", "Motion simulator", "Haptic feedback", "Multiplayer"]
+            },
+            {
+                "id": "ar-quest",
+                "name": "AR Treasure Quest",
+                "shortDesc": "San tim kho bau cong nghe AR",
+                "image": "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=400&q=80",
+                "fullDesc": "Su dung dien thoai hoac kinh AR de tim kho bau an giau khap cong vien. Thu thap diem va doi qua hap dan!",
+                "info": {"age": "Tu 6 tuoi", "duration": "30-60 phut"}
+            }
+        ]
+    },
+    "attractions-nature": {
+        "type": "list",
+        "title": "Khu Thien Nhien Sinh Thai",
+        "items": [
+            {
+                "id": "botanical-garden",
+                "name": "Botanical Garden",
+                "shortDesc": "Vuon thuc vat nhiet doi",
+                "image": "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=400&q=80",
+                "fullDesc": "Vuon thuc vat voi hon 500 loai cay nhiet doi tu khap the gioi. Con duong dao bo quanh co uon khuc trong khong gian xanh mat.",
+                "info": {"duration": "30-45 phut"},
+                "features": ["500+ loai cay", "Huong dan vien", "Anh sang tu nhien"]
+            },
+            {
+                "id": "butterfly-garden",
+                "name": "Butterfly Paradise",
+                "shortDesc": "Vuon buom nhiet doi",
+                "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",
+                "fullDesc": "Vuon buom trong nha voi hon 100 loai buom dep mat tu Viet Nam va cac nuoc. Khong gian lung linh ky ao.",
+                "badge": "BEAUTIFUL",
+                "info": {"duration": "20-30 phut"}
+            }
+        ]
+    },
+    "attractions-culture": {
+        "type": "list",
+        "title": "Khu Van Hoa Lich Su",
+        "items": [
+            {
+                "id": "heritage-village",
+                "name": "Heritage Village",
+                "shortDesc": "Lang nghe truyen thong Viet Nam",
+                "image": "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=400&q=80",
+                "fullDesc": "Tai hien cuoc song lang que Viet Nam xua voi nha co, dinh lang va cac nghe truyen thong. Trai nghiem lam gom, det vai, va thuong thuc am thuc dan gian.",
+                "features": ["Nha co", "Lang nghe truyen thong", "Am thuc dan gian", "Bieu dien nghe thuat"]
+            }
+        ]
+    },
+    "attractions-show": {
+        "type": "list",
+        "title": "Khu Bieu Dien",
+        "items": [
+            {
+                "id": "main-stage",
+                "name": "Main Show Stage",
+                "shortDesc": "San khau bieu dien chinh",
+                "image": "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=400&q=80",
+                "fullDesc": "San khau chinh voi suc chua 2000 nguoi. Hang ngay co cac chuong trinh ca nhac, mua, va ao thuat dac sac.",
+                "info": {"capacity": "2000 nguoi"},
+                "note": "Lich bieu dien: 10:00, 14:00, 18:00"
+            },
+            {
+                "id": "water-show",
+                "name": "Water & Light Show",
+                "shortDesc": "Show nhac nuoc hoanh trang",
+                "image": "https://images.unsplash.com/photo-1504387103978-e4ee71416c38?w=400&q=80",
+                "fullDesc": "Show nhac nuoc voi he thong phun nuoc cao 50m, anh sang laser va nhac song. Diem nhan hap dan moi toi tai Adventure Park.",
+                "badge": "MUST SEE",
+                "info": {"duration": "20 phut"},
+                "note": "Bieu dien luc 20:00 hang ngay"
+            }
+        ]
+    },
+    "attractions-checkin": {
+        "type": "list",
+        "title": "Diem Check-in Dac Biet",
+        "items": [
+            {
+                "id": "infinity-mirror",
+                "name": "Infinity Mirror Room",
+                "shortDesc": "Phong guong vo cuc",
+                "image": "https://images.unsplash.com/photo-1534312527009-56c7016453e6?w=400&q=80",
+                "fullDesc": "Khong gian guong vo cuc ky ao voi hang ngan anh sang LED. Dia diem check-in hot nhat mang xa hoi!",
+                "badge": "TRENDING"
+            },
+            {
+                "id": "sky-bridge",
+                "name": "Sky Glass Bridge",
+                "shortDesc": "Cau kinh luon giua troi",
+                "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+                "fullDesc": "Cau kinh trong suot cao 50m uon luon giua nhung ngon cay. View ngoan muc va cam giac mao hiem nhe.",
+                "info": {"height": ">100cm"}
+            }
+        ]
+    },
+    "attractions-education": {
+        "type": "list",
+        "title": "Khu Giao Duc & Kham Pha",
+        "items": [
+            {
+                "id": "science-center",
+                "name": "Science Discovery Center",
+                "shortDesc": "Trung tam khoa hoc tuong tac",
+                "image": "https://images.unsplash.com/photo-1567427018141-0584cfcbf1b8?w=400&q=80",
+                "fullDesc": "Hon 50 thi nghiem khoa hoc tuong tac cho tre em va nguoi lon. Tu vat ly, hoa hoc den thien van hoc - hoc ma choi!",
+                "info": {"age": "Tu 5 tuoi", "duration": "60-90 phut"},
+                "features": ["Thi nghiem thuc te", "Huong dan vien", "Workshop hang ngay"]
+            }
+        ]
+    },
+    "map": {
+        "type": "list",
+        "title": "Ban Do & Tham Quan",
+        "items": [
+            {
+                "id": "full-map",
+                "name": "Ban Do Toan Khu",
+                "shortDesc": "Xem toan bo Adventure Park",
+                "image": "https://images.unsplash.com/photo-1524661135-423995f22d0b?w=400&q=80",
+                "fullDesc": "Ban do tuong tac toan bo khu vui choi voi tat ca cac diem tham quan, nha hang, va tien ich."
+            },
+            {
+                "id": "zone-map",
+                "name": "Ban Do Theo Khu Vuc",
+                "shortDesc": "Tim theo tung khu vuc",
+                "image": "https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=400&q=80",
+                "fullDesc": "Chia theo 10 khu vuc chu de: Cam giac manh, Gia dinh, Tre em, Thien nhien..."
+            },
+            {
+                "id": "age-map",
+                "name": "Ban Do Theo Do Tuoi",
+                "shortDesc": "Tro choi phu hop tung do tuoi",
+                "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&q=80",
+                "fullDesc": "Tim tro choi phu hop cho: Be 2-5 tuoi, Tre 6-12 tuoi, Thieu nien 13-17, Nguoi lon."
+            },
+            {
+                "id": "facility-finder",
+                "name": "Tim Diem Gan Nhat",
+                "shortDesc": "WC, An uong, Y te...",
+                "image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=400&q=80",
+                "fullDesc": "Tim nhanh cac tien ich gan vi tri cua ban: Nha ve sinh, Quan an, Tram y te, ATM, Cho do..."
+            }
+        ]
+    },
+    "tickets": {
+        "type": "list",
+        "title": "Ve & Gia Ve",
+        "items": [
+            {
+                "id": "adult-ticket",
+                "name": "Ve Nguoi Lon",
+                "shortDesc": "Tu 14 tuoi tro len",
+                "image": "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&q=80",
+                "fullDesc": "Ve vao cong danh cho nguoi lon tu 14 tuoi tro len. Trai nghiem tron ven tat ca cac tro choi va khu vuc.",
+                "price": "450.000",
+                "unit": "nguoi",
+                "includes": ["Vao cua tat ca khu vuc", "Tro choi khong gioi han", "Show bieu dien"]
+            },
+            {
+                "id": "child-ticket",
+                "name": "Ve Tre Em",
+                "shortDesc": "Tu 4-13 tuoi",
+                "image": "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?w=400&q=80",
+                "fullDesc": "Ve uu dai danh cho tre em tu 4-13 tuoi. Tre duoi 4 tuoi mien phi.",
+                "price": "350.000",
+                "unit": "be",
+                "includes": ["Vao cua tat ca khu vuc", "Khu tre em khong gioi han", "Qua tang nho"]
+            },
+            {
+                "id": "family-ticket",
+                "name": "Ve Gia Dinh",
+                "shortDesc": "2 nguoi lon + 2 tre em",
+                "image": "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&q=80",
+                "fullDesc": "Goi ve tiet kiem cho gia dinh 4 nguoi (2 nguoi lon + 2 tre em). Tiet kiem 20% so voi mua le.",
+                "badge": "SAVE 20%",
+                "badgeClass": "green",
+                "price": "1.280.000",
+                "unit": "goi",
+                "includes": ["4 ve vao cua", "Uu tien xep hang", "Anh gia dinh mien phi"]
+            },
+            {
+                "id": "combo-ticket",
+                "name": "Ve Combo VIP",
+                "shortDesc": "All-inclusive + Bua trua",
+                "image": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=400&q=80",
+                "fullDesc": "Goi VIP tron ven voi ve vao cua, bua trua buffet, va nhieu uu dai dac biet.",
+                "badge": "VIP",
+                "price": "650.000",
+                "unit": "nguoi",
+                "includes": ["Ve vao cua", "Bua trua buffet", "Fast pass 3 tro choi", "Qua luu niem"]
+            }
+        ]
+    },
+    "games": {
+        "type": "list",
+        "title": "Tro Choi & Hoat Dong",
+        "items": [
+            {
+                "id": "game-list",
+                "name": "Danh Sach Tro Choi",
+                "shortDesc": "Xem tat ca 50+ tro choi",
+                "image": "https://images.unsplash.com/photo-1513889961551-628c1e5e2ee9?w=400&q=80",
+                "fullDesc": "Danh sach day du cac tro choi tai Adventure Park voi thong tin chi tiet ve do tuoi, thoi gian va muc do.",
+                "subItems": [
+                    {"name": "Thunder Coaster", "desc": "Tau luon toc do cao | Tu 14 tuoi"},
+                    {"name": "Sky Drop Tower", "desc": "Thap roi tu do | Tu 16 tuoi"},
+                    {"name": "Wild Rapids", "desc": "Thac nuoc mao hiem | Tu 10 tuoi"},
+                    {"name": "Giant Ferris Wheel", "desc": "Vong quay khong lo | Moi lua tuoi"},
+                    {"name": "Royal Carousel", "desc": "Vong xoay ngua co dien | Moi lua tuoi"},
+                    {"name": "VR Adventure Zone", "desc": "Thuc te ao 360 | Tu 10 tuoi"},
+                    {"name": "Bumper Cars Arena", "desc": "Xe dien dam va | Tu 6 tuoi"}
+                ]
+            }
+        ]
+    },
+    "schedule": {
+        "type": "list",
+        "title": "Lich Bieu & Su Kien",
+        "items": [
+            {
+                "id": "daily-shows",
+                "name": "Show Bieu Dien Hang Ngay",
+                "shortDesc": "Cac chuong trinh moi ngay",
+                "image": "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=400&q=80",
+                "fullDesc": "Lich trinh cac show bieu dien hang ngay tai Adventure Park.",
+                "subItems": [
+                    {"name": "10:00 - Welcome Parade", "desc": "Doan parade chao don"},
+                    {"name": "11:30 - Magic Show", "desc": "Bieu dien ao thuat"},
+                    {"name": "14:00 - Dance Performance", "desc": "Nhay mua duong pho"},
+                    {"name": "16:00 - Character Meet", "desc": "Gap go nhan vat hoat hinh"},
+                    {"name": "18:00 - Live Music", "desc": "Nhac song acoustic"},
+                    {"name": "20:00 - Water & Light Show", "desc": "Show nhac nuoc"}
+                ]
+            },
+            {
+                "id": "seasonal-events",
+                "name": "Su Kien Theo Mua",
+                "shortDesc": "Festival va le hoi dac biet",
+                "image": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&q=80",
+                "fullDesc": "Cac su kien lon theo mua tai Adventure Park.",
+                "badge": "UPCOMING",
+                "subItems": [
+                    {"name": "Halloween Festival", "desc": "Thang 10 - Le hoi ma quai"},
+                    {"name": "Christmas Wonderland", "desc": "Thang 12 - Giang sinh than tien"},
+                    {"name": "Lunar New Year", "desc": "Thang 1-2 - Tet Nguyen Dan"},
+                    {"name": "Summer Splash", "desc": "Thang 6-8 - Le hoi nuoc mua he"}
+                ]
+            },
+            {
+                "id": "workshops",
+                "name": "Workshop & Hoat Dong",
+                "shortDesc": "Lop hoc va hoat dong nhom",
+                "image": "https://images.unsplash.com/photo-1544427920-c49ccfb85579?w=400&q=80",
+                "fullDesc": "Cac workshop thu cong va hoat dong nhom moi ngay.",
+                "subItems": [
+                    {"name": "Lam gom", "desc": "10:00 & 14:00 - Khu Van Hoa"},
+                    {"name": "Ve tranh", "desc": "11:00 & 15:00 - Khu Tre Em"},
+                    {"name": "Nau an", "desc": "13:00 - Food Court"}
+                ]
+            }
+        ]
+    },
+    "food": {
+        "type": "list",
+        "title": "An Uong & Dich Vu",
+        "items": [
+            {
+                "id": "restaurants",
+                "name": "Nha Hang",
+                "shortDesc": "Am thuc cao cap",
+                "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&q=80",
+                "fullDesc": "Cac nha hang phuc vu mon an da dang tu Viet Nam den quoc te.",
+                "subItems": [
+                    {"name": "Park View Restaurant", "desc": "Buffet quoc te | 250.000d/nguoi"},
+                    {"name": "Dragon Palace", "desc": "Am thuc Trung Hoa | A la carte"},
+                    {"name": "Saigon Kitchen", "desc": "Mon Viet truyen thong | Set menu"}
+                ]
+            },
+            {
+                "id": "fast-food",
+                "name": "Quan An Nhanh",
+                "shortDesc": "Do an nhanh tien loi",
+                "image": "https://images.unsplash.com/photo-1561758033-d89a9ad46330?w=400&q=80",
+                "fullDesc": "Cac quay thuc an nhanh phan bo khap cong vien.",
+                "subItems": [
+                    {"name": "Burger Station", "desc": "Hamburger & Khoai chien"},
+                    {"name": "Pizza Corner", "desc": "Pizza & Pasta"},
+                    {"name": "Noodle House", "desc": "Pho & Bun"},
+                    {"name": "Ice Cream Paradise", "desc": "Kem & Trang mieng"}
+                ]
+            },
+            {
+                "id": "cafe-lounge",
+                "name": "Ca Phe & Giai Khat",
+                "shortDesc": "Do uong va nghi chan",
+                "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80",
+                "fullDesc": "Quan ca phe va khu nghi chan thoang mat.",
+                "subItems": [
+                    {"name": "Adventure Cafe", "desc": "Ca phe & Tra"},
+                    {"name": "Tropical Bar", "desc": "Nuoc trai cay & Smoothie"},
+                    {"name": "Chill Zone", "desc": "Khu nghi chan may lanh"}
+                ]
+            },
+            {
+                "id": "souvenir",
+                "name": "Cua Hang Luu Niem",
+                "shortDesc": "Qua tang & Do luu niem",
+                "image": "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=400&q=80",
+                "fullDesc": "Cac cua hang ban do luu niem va qua tang doc dao.",
+                "subItems": [
+                    {"name": "Main Gift Shop", "desc": "Cong chinh - Do luu niem chinh hang"},
+                    {"name": "Photo Studio", "desc": "Anh ky niem & In hinh"},
+                    {"name": "Toy World", "desc": "Do choi & Thu bong"}
+                ]
+            }
+        ]
+    },
+    "services": {
+        "type": "list",
+        "title": "Dich Vu Ho Tro",
+        "items": [
+            {
+                "id": "rental",
+                "name": "Thue Xe & Phuong Tien",
+                "shortDesc": "Xe dien, xe day tre em",
+                "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",
+                "fullDesc": "Dich vu cho thue phuong tien di chuyen trong cong vien.",
+                "subItems": [
+                    {"name": "Xe dien tham quan", "desc": "100.000d/gio", "price": "100.000"},
+                    {"name": "Xe day tre em", "desc": "50.000d/ngay", "price": "50.000"},
+                    {"name": "Xe lan", "desc": "Mien phi", "price": "Mien phi"}
+                ]
+            },
+            {
+                "id": "lockers",
+                "name": "Tu Giu Do",
+                "shortDesc": "Tu khoa an toan",
+                "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",
+                "fullDesc": "He thong tu giu do hien dai tai nhieu vi tri trong cong vien.",
+                "subItems": [
+                    {"name": "Tu nho (S)", "desc": "30.000d/ngay"},
+                    {"name": "Tu trung (M)", "desc": "50.000d/ngay"},
+                    {"name": "Tu lon (L)", "desc": "80.000d/ngay"}
+                ]
+            },
+            {
+                "id": "medical",
+                "name": "Dich Vu Y Te",
+                "shortDesc": "Tram y te 24/7",
+                "image": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&q=80",
+                "fullDesc": "Tram y te voi bac si va y ta truc san sang ho tro 24/7. Mien phi so cuu va thuoc co ban.",
+                "features": ["Bac si truc", "So cuu mien phi", "Xe cap cuu"]
+            },
+            {
+                "id": "accessibility",
+                "name": "Ho Tro Nguoi Khuyet Tat",
+                "shortDesc": "Tien ich cho nguoi khuyet tat",
+                "image": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&q=80",
+                "fullDesc": "Adventure Park cam ket ho tro toi da cho nguoi khuyet tat voi nhieu tien ich dac biet.",
+                "features": ["Xe lan mien phi", "Duong di rieng", "WC tien nghi", "Uu tien xep hang"]
+            },
+            {
+                "id": "lost-found",
+                "name": "Lost & Found",
+                "shortDesc": "Tim do that lac",
+                "image": "https://images.unsplash.com/photo-1586769852044-692d6e3703f0?w=400&q=80",
+                "fullDesc": "Quay tiep nhan va tra lai do that lac. Lien he ngay neu ban bi mat do.",
+                "note": "Hotline: 1900 1234 - Nhanh 3"
+            }
+        ]
+    },
+    "info": {
+        "type": "list",
+        "title": "Thong Tin Tham Quan",
+        "items": [
+            {
+                "id": "opening-hours",
+                "name": "Gio Mo Cua",
+                "shortDesc": "Thoi gian hoat dong",
+                "image": "https://images.unsplash.com/photo-1501139083538-0139583c060f?w=400&q=80",
+                "fullDesc": "Thong tin gio hoat dong cua Adventure Park.",
+                "subItems": [
+                    {"name": "Thu 2 - Thu 6", "desc": "8:00 - 21:00"},
+                    {"name": "Thu 7 - Chu Nhat", "desc": "8:00 - 22:00"},
+                    {"name": "Ngay Le", "desc": "8:00 - 23:00"},
+                    {"name": "Khu nuoc", "desc": "9:00 - 18:00"},
+                    {"name": "Show dem", "desc": "19:00 - 21:00"}
+                ]
+            },
+            {
+                "id": "rules",
+                "name": "Noi Quy",
+                "shortDesc": "Quy dinh tham quan",
+                "image": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&q=80",
+                "fullDesc": "Vui long doc ky noi quy truoc khi tham quan de dam bao an toan va trai nghiem tot nhat.",
+                "subItems": [
+                    {"name": "An toan", "desc": "Tuan thu chi dan nhan vien"},
+                    {"name": "Do tuoi", "desc": "Tre em duoi 14 phai co nguoi lon di kem"},
+                    {"name": "Thuc pham", "desc": "Khong mang do an tu ben ngoai"},
+                    {"name": "Thu cung", "desc": "Khong mang thu cung vao khu vui choi"},
+                    {"name": "Hut thuoc", "desc": "Chi hut thuoc tai khu vuc quy dinh"}
+                ]
+            },
+            {
+                "id": "guide",
+                "name": "Huong Dan Tham Quan",
+                "shortDesc": "Meo va goi y",
+                "image": "https://images.unsplash.com/photo-1524661135-423995f22d0b?w=400&q=80",
+                "fullDesc": "Nhung meo huu ich de co chuyen tham quan tron ven.",
+                "subItems": [
+                    {"name": "Den som", "desc": "Nen den truoc 9:00 de tranh dong"},
+                    {"name": "Ung dung", "desc": "Tai app de xem ban do va xep hang"},
+                    {"name": "Trang phuc", "desc": "Mac do thoai mai, mang giay the thao"},
+                    {"name": "Nuoc uong", "desc": "Co tram nuoc uong mien phi"}
+                ]
+            }
+        ]
+    },
+    "contact": {
+        "type": "text",
+        "title": "Lien He",
+        "content": "ADVENTURE PARK\n\nDia chi: 123 Duong Vui Choi, Quan 7, TP.HCM\n\nHotline: 1900 1234\nEmail: info@adventurepark.vn\nWebsite: www.adventurepark.vn\n\nGio lam viec:\nThu 2 - Chu Nhat: 8:00 - 21:00\n\nKet noi voi chung toi:\nFacebook: /adventureparkVN\nInstagram: @adventurepark_vn\nYoutube: Adventure Park Vietnam"
+    },
+    "careers": {
+        "type": "list",
+        "title": "Tuyen Dung",
+        "items": [
+            {
+                "id": "operator",
+                "name": "Nhan Vien Van Hanh",
+                "shortDesc": "Full-time | Nhieu vi tri",
+                "image": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=400&q=80",
+                "fullDesc": "Tuyen nhan vien van hanh tro choi, dam bao an toan va huong dan khach tham quan.",
+                "badge": "HOT",
+                "requirements": ["Tu 18 tuoi", "Suc khoe tot", "Nhiet tinh, trach nhiem", "San sang lam ca"],
+                "benefits": ["Luong co ban + thuong", "Bao hiem day du", "Dao tao mien phi", "Ve mien phi cho gia dinh"]
+            },
+            {
+                "id": "performer",
+                "name": "Dien Vien & MC",
+                "shortDesc": "Part-time & Full-time",
+                "image": "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=400&q=80",
+                "fullDesc": "Tim kiem cac tai nang bieu dien cho cac show hang ngay va su kien dac biet.",
+                "requirements": ["Co kha nang bieu dien", "Nang dong, hai huoc", "Kinh nghiem MC la loi the"],
+                "benefits": ["Luong theo show", "Moi truong sang tao", "Co hoi phat trien"]
+            },
+            {
+                "id": "f&b",
+                "name": "Nhan Vien F&B",
+                "shortDesc": "Nha hang & Cafe",
+                "image": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80",
+                "fullDesc": "Tuyen nhan vien phuc vu, pha che va bep cho cac nha hang trong cong vien.",
+                "requirements": ["Kinh nghiem F&B uu tien", "Than thien, nhanh nhen", "San sang lam ca"],
+                "benefits": ["Tip cao", "An ca mien phi", "Thuong le"]
+            }
+        ]
+    },
+    "promotion": {
+        "type": "list",
+        "title": "Uu Dai & Khuyen Mai",
+        "items": [
+            {
+                "id": "member-card",
+                "name": "The Thanh Vien",
+                "shortDesc": "Giam 20% moi lan vao",
+                "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80",
+                "fullDesc": "Dang ky the thanh vien de huong uu dai 20% gia ve va nhieu quyen loi dac biet.",
+                "badge": "SAVE 20%",
+                "badgeClass": "green",
+                "features": ["Giam 20% gia ve", "Tich diem doi qua", "Uu tien xep hang", "Uu dai sinh nhat"],
+                "price": "200.000",
+                "unit": "nam"
+            },
+            {
+                "id": "birthday-promo",
+                "name": "Uu Dai Sinh Nhat",
+                "shortDesc": "Mien phi ve trong thang sinh nhat",
+                "image": "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400&q=80",
+                "fullDesc": "Thanh vien duoc mien phi ve vao cua trong thang sinh nhat va giam 50% cho nguoi di cung.",
+                "badge": "FREE",
+                "includes": ["Ve mien phi cho thanh vien", "Giam 50% cho nguoi di cung (toi da 3)", "Banh sinh nhat nho", "Anh ky niem"]
+            },
+            {
+                "id": "group-promo",
+                "name": "Uu Dai Nhom",
+                "shortDesc": "Giam gia cho doan tu 10 nguoi",
+                "image": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&q=80",
+                "fullDesc": "Chuong trinh uu dai dac biet cho cac doan, truong hoc va cong ty.",
+                "subItems": [
+                    {"name": "Nhom 10-29 nguoi", "desc": "Giam 10%"},
+                    {"name": "Nhom 30-49 nguoi", "desc": "Giam 15%"},
+                    {"name": "Nhom 50+ nguoi", "desc": "Giam 20% + Huong dan vien"}
+                ]
+            },
+            {
+                "id": "loyalty",
+                "name": "Chuong Trinh Khach Quen",
+                "shortDesc": "Tich diem nhan qua",
+                "image": "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=400&q=80",
+                "fullDesc": "Moi lan tham quan tich diem de doi ve mien phi va qua tang hap dan.",
+                "subItems": [
+                    {"name": "100 diem", "desc": "Doi ve tre em"},
+                    {"name": "200 diem", "desc": "Doi ve nguoi lon"},
+                    {"name": "500 diem", "desc": "Doi ve VIP Combo"}
+                ]
+            }
+        ]
+    },
+    "gallery": {
+        "type": "list",
+        "title": "Thu Vien Hinh Anh",
+        "items": [
+            {
+                "id": "photo-album",
+                "name": "Album Anh",
+                "shortDesc": "Hinh anh dep nhat Adventure Park",
+                "image": "https://images.unsplash.com/photo-1513889961551-628c1e5e2ee9?w=400&q=80",
+                "fullDesc": "Bo suu tap hinh anh cac khu vuc va hoat dong tai Adventure Park.",
+                "features": ["Khu cam giac manh", "Khu gia dinh", "Khu tre em", "Show bieu dien", "Su kien dac biet"]
+            },
+            {
+                "id": "videos",
+                "name": "Video",
+                "shortDesc": "Video gioi thieu va highlight",
+                "image": "https://images.unsplash.com/photo-1536240478700-b869070f9279?w=400&q=80",
+                "fullDesc": "Xem cac video gioi thieu, highlight su kien va behind the scenes tai Adventure Park."
+            },
+            {
+                "id": "guest-photos",
+                "name": "Anh Khach Tham Quan",
+                "shortDesc": "Khoanh khac cua ban",
+                "image": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&q=80",
+                "fullDesc": "Nhung khoanh khac dep cua khach tham quan. Chia se anh voi hashtag #AdventureParkVN"
+            },
+            {
+                "id": "press",
+                "name": "Bao Chi & Truyen Thong",
+                "shortDesc": "Tin tuc va bao chi",
+                "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400&q=80",
+                "fullDesc": "Cac bai viet, phong su va hinh anh tu bao chi ve Adventure Park."
+            }
+        ]
+    }
+}

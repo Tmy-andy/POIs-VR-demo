@@ -1,0 +1,181 @@
+{
+  "intro": {
+    "title": "Khách Sạn Maris Nha Trang",
+    "content": "Tọa lạc tại vị trí đắc địa thuộc một trong những con đường vàng của trung tâm thành phố biển Nha Trang, khách sạn Maris với lối kiến trúc hiện đại hứa hẹn sẽ là một điểm đến thu hút du khách trong và ngoài nước. Với quy mô 21 tầng bao gồm 124 phòng nghỉ đạt tiêu chuẩn quốc tế với trang thiết bị hiện đại để tối ưu hóa nhu cầu của khách hàng."
+  },
+  "rooms": {
+    "title": "Phòng Nghỉ",
+    "type": "list",
+    "items": [
+      {
+        "id": "standard",
+        "name": "Phòng Standard",
+        "image": "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=80",
+        "shortDesc": "Phòng Standard tại Maris Hotel Nha Trang được thiết kế theo phong cách đơn...",
+        "fullDesc": "Phòng Standard tại Maris Hotel Nha Trang được thiết kế theo phong cách đơn giản, hiện đại, mang lại cảm giác ấm cúng và thoải mái cho du khách trong suốt kỳ nghỉ. Không gian phòng được bố trí gọn gàng, đầy đủ tiện nghi cơ bản, phù hợp cho cả khách du lịch và khách công tác.",
+        "price": "800.000",
+        "currency": "đ",
+        "unit": "đêm",
+        "capacity": "2 người",
+        "area": "30m²",
+        "amenities": ["Điện thoại quốc tế", "Miễn phí Wi-Fi", "Tivi LCD màn hình rộng", "Truyền hình cáp", "Két an toàn", "Tủ lạnh và minibar", "Máy sấy tóc", "Máy điều hòa", "Vòi hoa sen và buồng tắm"]
+      },
+      {
+        "id": "superior",
+        "name": "Phòng Superior",
+        "image": "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&q=80",
+        "shortDesc": "Phòng Superior tại Maris Hotel Nha Trang mang đến không gian lưu trú rộng rã...",
+        "fullDesc": "Phòng Superior tại Maris Hotel Nha Trang mang đến không gian lưu trú rộng rãi và thoáng đãng. Với thiết kế hiện đại cùng các tiện nghi cao cấp, phòng Superior là lựa chọn hoàn hảo cho những ai tìm kiếm sự thoải mái và tiện nghi trong kỳ nghỉ.",
+        "price": "1.200.000",
+        "currency": "đ",
+        "unit": "đêm",
+        "capacity": "2 người",
+        "area": "35m²",
+        "amenities": ["Điện thoại quốc tế", "Miễn phí Wi-Fi", "Tivi LCD 43 inch", "Truyền hình cáp", "Két an toàn", "Tủ lạnh và minibar", "Máy sấy tóc", "Máy điều hòa", "Bồn tắm và vòi sen", "Áo choàng tắm", "Dép đi trong phòng"]
+      },
+      {
+        "id": "deluxe",
+        "name": "Phòng Deluxe",
+        "image": "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400&q=80",
+        "shortDesc": "Phòng Deluxe với view biển tuyệt đẹp, không gian sang trọng và đẳng cấp...",
+        "fullDesc": "Phòng Deluxe với tầm nhìn hướng biển tuyệt đẹp, được trang bị nội thất cao cấp và tiện nghi hiện đại. Phòng có ban công riêng để quý khách có thể tận hưởng không khí trong lành và ngắm cảnh biển Nha Trang thơ mộng.",
+        "price": "1.800.000",
+        "currency": "đ",
+        "unit": "đêm",
+        "capacity": "2-3 người",
+        "area": "42m²",
+        "amenities": ["Điện thoại quốc tế", "Miễn phí Wi-Fi tốc độ cao", "Tivi LCD 50 inch", "Truyền hình cáp HD", "Két an toàn", "Tủ lạnh và minibar cao cấp", "Máy sấy tóc", "Máy điều hòa 2 chiều", "Bồn tắm và vòi sen riêng", "Áo choàng tắm", "Dép đi trong phòng", "Ban công riêng view biển", "Máy pha cà phê"]
+      },
+      {
+        "id": "suite",
+        "name": "Phòng Suite",
+        "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400&q=80",
+        "shortDesc": "Phòng Suite là lựa chọn đẳng cấp nhất với không gian riêng biệt...",
+        "fullDesc": "Phòng Suite là lựa chọn đẳng cấp nhất tại Maris Hotel với không gian phòng khách và phòng ngủ riêng biệt. Được trang bị đầy đủ tiện nghi 5 sao, bồn tắm jacuzzi, và dịch vụ butler riêng để mang đến trải nghiệm nghỉ dưỡng hoàn hảo.",
+        "price": "3.500.000",
+        "currency": "đ",
+        "unit": "đêm",
+        "capacity": "2-4 người",
+        "area": "65m²",
+        "amenities": ["Điện thoại quốc tế", "Miễn phí Wi-Fi tốc độ cao", "Tivi LCD 55 inch", "Truyền hình cáp HD", "Két an toàn lớn", "Tủ lạnh và minibar cao cấp", "Máy sấy tóc", "Máy điều hòa 2 chiều", "Bồn tắm Jacuzzi", "Vòi sen riêng biệt", "Áo choàng tắm cao cấp", "Dép đi trong phòng", "Ban công rộng view biển", "Máy pha cà phê Nespresso", "Phòng khách riêng", "Bàn làm việc", "Dịch vụ Butler"]
+      }
+    ]
+  },
+  "dining": {
+    "title": "Ẩm Thực",
+    "type": "list",
+    "items": [
+      {
+        "id": "sky-restaurant",
+        "name": "Sky Restaurant",
+        "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&q=80",
+        "shortDesc": "Nhà hàng trên tầng thượng với view toàn cảnh thành phố và biển...",
+        "fullDesc": "Sky Restaurant tọa lạc trên tầng thượng khách sạn, mang đến trải nghiệm ẩm thực tuyệt vời với tầm nhìn 360 độ ra thành phố Nha Trang và biển xanh. Thực đơn đa dạng từ ẩm thực Việt Nam đến các món Âu - Á đặc sắc."
+      },
+      {
+        "id": "lobby-lounge",
+        "name": "Lobby Lounge",
+        "image": "https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=400&q=80",
+        "shortDesc": "Không gian thư giãn lý tưởng với các loại cocktail và đồ uống...",
+        "fullDesc": "Lobby Lounge là không gian thư giãn lý tưởng với các loại cocktail signature, rượu vang chọn lọc và đồ uống cao cấp. Phục vụ 24/7 với không gian ấm cúng và nhạc nhẹ."
+      },
+      {
+        "id": "pool-bar",
+        "name": "Pool Bar",
+        "image": "https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=400&q=80",
+        "shortDesc": "Bar bên hồ bơi phục vụ đồ uống giải khát và snack nhẹ...",
+        "fullDesc": "Pool Bar nằm ngay bên cạnh hồ bơi infinity, phục vụ các loại đồ uống giải khát, cocktail nhiệt đới và các món snack nhẹ. Mở cửa từ 8:00 - 22:00 hàng ngày."
+      }
+    ]
+  },
+  "amenities": {
+    "title": "Tiện Ích",
+    "type": "list",
+    "items": [
+      {
+        "id": "pool",
+        "name": "Hồ Bơi Infinity",
+        "image": "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=400&q=80",
+        "shortDesc": "Hồ bơi vô cực trên tầng thượng với tầm nhìn ra biển...",
+        "fullDesc": "Hồ bơi infinity nằm trên tầng thượng với tầm nhìn panorama ra biển Nha Trang. Diện tích 200m², độ sâu 1.2m - 1.6m, có khu vực dành riêng cho trẻ em. Mở cửa từ 6:00 - 21:00."
+      },
+      {
+        "id": "gym",
+        "name": "Phòng Gym",
+        "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",
+        "shortDesc": "Phòng tập gym hiện đại với đầy đủ trang thiết bị cao cấp...",
+        "fullDesc": "Phòng gym được trang bị máy móc hiện đại từ các thương hiệu hàng đầu như Technogym, Life Fitness. Có huấn luyện viên cá nhân theo yêu cầu. Mở cửa 24/7 cho khách lưu trú."
+      },
+      {
+        "id": "kids-club",
+        "name": "Khu Vui Chơi Trẻ Em",
+        "image": "https://images.unsplash.com/photo-1566454825481-9c31bd88c36f?w=400&q=80",
+        "shortDesc": "Không gian vui chơi an toàn và sáng tạo dành cho trẻ em...",
+        "fullDesc": "Kids Club là không gian vui chơi an toàn và sáng tạo dành cho trẻ em từ 3-12 tuổi. Có các hoạt động như vẽ tranh, thủ công, games và chiếu phim hoạt hình. Nhân viên trông trẻ chuyên nghiệp."
+      }
+    ]
+  },
+  "services": {
+    "title": "Dịch Vụ",
+    "type": "list",
+    "items": [
+      {
+        "id": "spa",
+        "name": "Spa & Wellness",
+        "image": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&q=80",
+        "shortDesc": "Trung tâm Spa cao cấp với các liệu pháp thư giãn đặc biệt...",
+        "fullDesc": "Maris Spa mang đến các liệu pháp massage truyền thống Việt Nam và quốc tế, chăm sóc da mặt, body wrap và các gói wellness đặc biệt. Sử dụng 100% nguyên liệu tự nhiên.",
+        "price": "500.000",
+        "currency": "đ",
+        "unit": "60 phút"
+      },
+      {
+        "id": "transfer",
+        "name": "Đưa Đón Sân Bay",
+        "image": "https://images.unsplash.com/photo-1449965408869-ebd3fee56fd6?w=400&q=80",
+        "shortDesc": "Dịch vụ đưa đón sân bay với xe sang trọng và tài xế chuyên nghiệp...",
+        "fullDesc": "Dịch vụ đưa đón sân bay Cam Ranh với xe sedan hoặc SUV hạng sang. Tài xế chuyên nghiệp, lịch sự. Đặt trước 24 giờ để đảm bảo xe sẵn sàng.",
+        "price": "350.000",
+        "currency": "đ",
+        "unit": "lượt"
+      },
+      {
+        "id": "tour",
+        "name": "Tour Du Lịch",
+        "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+        "shortDesc": "Các tour tham quan Nha Trang và vùng lân cận...",
+        "fullDesc": "Đa dạng các tour du lịch: Tour 4 đảo, lặn biển ngắm san hô, tham quan Vinpearl Land, khám phá Yang Bay, trekking Hòn Bà. Hướng dẫn viên song ngữ Việt - Anh.",
+        "price": "400.000",
+        "currency": "đ",
+        "unit": "người"
+      },
+      {
+        "id": "laundry",
+        "name": "Giặt Ủi",
+        "image": "https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=400&q=80",
+        "shortDesc": "Dịch vụ giặt ủi nhanh chóng trong ngày...",
+        "fullDesc": "Dịch vụ giặt ủi chuyên nghiệp với thời gian hoàn thành trong 4-6 giờ. Có dịch vụ giặt khô cho các loại vải cao cấp. Giao nhận tận phòng."
+      }
+    ]
+  },
+  "promotion": {
+    "title": "Ưu Đãi",
+    "content": "🎉 KHUYẾN MÃI ĐẶC BIỆT MÙA HÈ 2026\n\nGiảm 30% giá phòng khi đặt trước 14 ngày\nMiễn phí nâng hạng phòng (tùy tình trạng)\nBữa sáng buffet miễn phí cho 2 người\nLate checkout đến 14:00\n\n📞 Hotline: 1900 1234\n📧 Email: booking@marishotel.vn"
+  },
+  "contact": {
+    "title": "Liên Hệ",
+    "content": "📍 Địa chỉ: 123 Trần Phú, Lộc Thọ, Nha Trang, Khánh Hòa\n\n📞 Điện thoại: (0258) 123 4567\n📱 Hotline: 1900 1234\n📧 Email: info@marishotel.vn\n🌐 Website: www.marishotel.vn\n\n⏰ Giờ làm việc:\nLễ tân: 24/7\nĐặt phòng: 08:00 - 22:00"
+  },
+  "gallery": {
+    "title": "Thư Viện Ảnh",
+    "content": "Khám phá vẻ đẹp của Maris Hotel qua bộ sưu tập hình ảnh:\n\n🏨 Tổng quan khách sạn\n🛏️ Các hạng phòng\n🍽️ Nhà hàng & Bar\n🏊 Hồ bơi & Spa\n🌅 View biển Nha Trang"
+  },
+  "rules": {
+    "title": "Nội Quy Khách Sạn",
+    "content": "⏰ CHECK-IN / CHECK-OUT\n• Check-in: 14:00 | Check-out: 12:00\n• Early check-in/Late check-out theo yêu cầu (phụ thu)\n\n🚭 QUY ĐỊNH CHUNG\n• Không hút thuốc trong phòng\n• Giữ trật tự sau 22:00\n• Không mang vật nuôi\n• Khai báo khách đến thăm\n\n💰 THANH TOÁN\n• Đặt cọc khi check-in\n• Chấp nhận: Tiền mặt, Visa, MasterCard, JCB"
+  },
+  "news": {
+    "title": "Tin Tức & Sự Kiện",
+    "content": "📰 TIN MỚI NHẤT\n\n🎊 Festival Biển Nha Trang 2026\nTừ ngày 15-20/06/2026 với nhiều hoạt động hấp dẫn\n\n🎵 Live Music cuối tuần\nMỗi thứ 7 tại Sky Bar từ 20:00\n\n🍽️ Buffet Hải Sản Thứ 6\nChỉ 499.000đ/người - Đặt bàn ngay!"
+  }
+}

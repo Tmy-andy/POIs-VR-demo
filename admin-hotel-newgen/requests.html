@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Requests - Hotel 360 New Gen</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon"><i class="fas fa-gem"></i></div><div class="logo-text">Hotel 360 CMS</div></div></div>
+        <div class="property-selector"><div class="property-label">Current Hotel</div><div class="property-name">Boton Blue Hotel & Spa</div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">MAIN</div><a href="index.html" class="nav-item"><i class="fas fa-chart-pie"></i> Dashboard</a></div>
+            <div class="nav-section"><div class="nav-section-title">CONTENT</div>
+                <a href="rooms.html" class="nav-item"><i class="fas fa-bed"></i> Rooms</a>
+                <a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Services</a>
+                <a href="scenes.html" class="nav-item"><i class="fas fa-vr-cardboard"></i> Scenes & 360°</a>
+                <a href="promotions.html" class="nav-item"><i class="fas fa-tags"></i> Promotions</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Gallery</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">BOOKING</div>
+                <a href="booking.html" class="nav-item"><i class="fas fa-calendar-check"></i> Configuration</a>
+                <a href="requests.html" class="nav-item active"><i class="fas fa-clipboard-list"></i> Requests <span class="nav-badge">3</span></a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">SYSTEM</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../hotel-newgen.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+                <a href="#" class="nav-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="header"><div class="header-left"><h1 class="page-title">Booking Requests</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar">AD</div></div></div></header>
+
+    <main class="main-content">
+        <!-- Status Tabs -->
+        <div class="tabs" style="margin-bottom:0;">
+            <button class="tab-btn active" onclick="filterStatus(event,'all')">All (8)</button>
+            <button class="tab-btn" onclick="filterStatus(event,'new')">New (3)</button>
+            <button class="tab-btn" onclick="filterStatus(event,'contacted')">Contacted (2)</button>
+            <button class="tab-btn" onclick="filterStatus(event,'confirmed')">Confirmed (2)</button>
+            <button class="tab-btn" onclick="filterStatus(event,'cancelled')">Cancelled (1)</button>
+        </div>
+
+        <div class="content-card" style="border-top-left-radius:0;border-top-right-radius:0;">
+            <div class="card-body">
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Guest</th><th>Room/Service</th><th>Check-in</th><th>Check-out</th><th>Status</th><th>Source</th><th>Date</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr data-status="new">
+                            <td><strong>Nguyễn Văn A</strong><br><span style="font-size:12px;color:#64748b;">nguyenvana@email.com</span></td>
+                            <td>Deluxe Twin</td>
+                            <td>15/03/2026</td>
+                            <td>18/03/2026</td>
+                            <td><span class="status-badge" style="background:#fef3c7;color:#d97706;"><i class="fas fa-bell"></i> New</span></td>
+                            <td style="font-size:12px;color:#64748b;">360° Room Page</td>
+                            <td style="font-size:12px;color:#64748b;">2h ago</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline" onclick="viewRequest('Nguyễn Văn A','nguyenvana@email.com','Deluxe Twin','15/03/2026','18/03/2026','new','360° Room Page','2h ago','')"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-sm btn-primary" style="padding:4px 8px;font-size:12px;" onclick="contactGuest('Nguyễn Văn A','nguyenvana@email.com','0901234567')">Contact</button>
+                            </td>
+                        </tr>
+                        <tr data-status="new">
+                            <td><strong>Trần Thị B</strong><br><span style="font-size:12px;color:#64748b;">tranthib@email.com</span></td>
+                            <td>Suite Room</td>
+                            <td>20/03/2026</td>
+                            <td>25/03/2026</td>
+                            <td><span class="status-badge" style="background:#fef3c7;color:#d97706;"><i class="fas fa-bell"></i> New</span></td>
+                            <td style="font-size:12px;color:#64748b;">360° Lobby</td>
+                            <td style="font-size:12px;color:#64748b;">5h ago</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline" onclick="viewRequest('Trần Thị B','tranthib@email.com','Suite Room','20/03/2026','25/03/2026','new','360° Lobby','5h ago','Need ocean view room')"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-sm btn-primary" style="padding:4px 8px;font-size:12px;" onclick="contactGuest('Trần Thị B','tranthib@email.com','0912345678')">Contact</button>
+                            </td>
+                        </tr>
+                        <tr data-status="new">
+                            <td><strong>Lê Văn C</strong><br><span style="font-size:12px;color:#64748b;">levanc@email.com</span></td>
+                            <td>Pacific Double</td>
+                            <td>01/04/2026</td>
+                            <td>05/04/2026</td>
+                            <td><span class="status-badge" style="background:#fef3c7;color:#d97706;"><i class="fas fa-bell"></i> New</span></td>
+                            <td style="font-size:12px;color:#64748b;">360° Room Page</td>
+                            <td style="font-size:12px;color:#64748b;">1d ago</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline" onclick="viewRequest('Lê Văn C','levanc@email.com','Pacific Double','01/04/2026','05/04/2026','new','360° Room Page','1d ago','Early check-in requested')"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-sm btn-primary" style="padding:4px 8px;font-size:12px;" onclick="contactGuest('Lê Văn C','levanc@email.com','0923456789')">Contact</button>
+                            </td>
+                        </tr>
+                        <tr data-status="contacted">
+                            <td><strong>Phạm Thị D</strong><br><span style="font-size:12px;color:#64748b;">phamthid@email.com</span></td>
+                            <td>Deluxe Twin</td>
+                            <td>10/03/2026</td>
+                            <td>12/03/2026</td>
+                            <td><span class="status-badge" style="background:#dbeafe;color:#2563eb;"><i class="fas fa-phone"></i> Contacted</span></td>
+                            <td style="font-size:12px;color:#64748b;">360° Lobby</td>
+                            <td style="font-size:12px;color:#64748b;">2d ago</td>
+                            <td><button class="btn btn-sm btn-outline" onclick="viewRequest('Phạm Thị D','phamthid@email.com','Deluxe Twin','10/03/2026','12/03/2026','contacted','360° Lobby','2d ago','')"><i class="fas fa-eye"></i></button></td>
+                        </tr>
+                        <tr data-status="confirmed">
+                            <td><strong>Hoàng Văn E</strong><br><span style="font-size:12px;color:#64748b;">hoangvane@email.com</span></td>
+                            <td>Suite Room</td>
+                            <td>08/03/2026</td>
+                            <td>11/03/2026</td>
+                            <td><span class="status-badge published"><i class="fas fa-check-circle"></i> Confirmed</span></td>
+                            <td style="font-size:12px;color:#64748b;">360° Room Page</td>
+                            <td style="font-size:12px;color:#64748b;">5d ago</td>
+                            <td><button class="btn btn-sm btn-outline" onclick="viewRequest('Hoàng Văn E','hoangvane@email.com','Suite Room','08/03/2026','11/03/2026','confirmed','360° Room Page','5d ago','')"><i class="fas fa-eye"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function logout(){if(confirm('Logout?'))window.location.href='../index.html';}
+        function filterStatus(e,s){
+            document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+            e.target.classList.add('active');
+            document.querySelectorAll('tbody tr').forEach(r=>{
+                if(s==='all') r.style.display='';
+                else r.style.display=r.dataset.status===s?'':'none';
+            });
+        }
+    </script>
+
+    <!-- Request Detail Modal -->
+    <div class="modal-overlay" id="requestModal">
+        <div class="modal" style="max-width:580px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-clipboard-list" style="color:#C9A861;margin-right:8px;"></i> Request Detail</h3>
+                <button class="modal-close" onclick="closeModal('requestModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+                    <div>
+                        <label class="form-label" style="font-size:12px;color:#64748b;">Guest Name</label>
+                        <div id="reqName" style="font-size:15px;font-weight:600;"></div>
+                    </div>
+                    <div>
+                        <label class="form-label" style="font-size:12px;color:#64748b;">Email</label>
+                        <div id="reqEmail" style="font-size:14px;color:#C9A861;"></div>
+                    </div>
+                    <div>
+                        <label class="form-label" style="font-size:12px;color:#64748b;">Room / Service</label>
+                        <div id="reqRoom" style="font-size:14px;"></div>
+                    </div>
+                    <div>
+                        <label class="form-label" style="font-size:12px;color:#64748b;">Source</label>
+                        <div id="reqSource" style="font-size:14px;"></div>
+                    </div>
+                    <div>
+                        <label class="form-label" style="font-size:12px;color:#64748b;">Check-in</label>
+                        <div id="reqCheckin" style="font-size:14px;"></div>
+                    </div>
+                    <div>
+                        <label class="form-label" style="font-size:12px;color:#64748b;">Check-out</label>
+                        <div id="reqCheckout" style="font-size:14px;"></div>
+                    </div>
+                    <div>
+                        <label class="form-label" style="font-size:12px;color:#64748b;">Submitted</label>
+                        <div id="reqDate" style="font-size:14px;"></div>
+                    </div>
+                    <div>
+                        <label class="form-label" style="font-size:12px;color:#64748b;">Current Status</label>
+                        <div id="reqStatusDisplay" style="font-size:14px;"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Special Requests</label>
+                    <div id="reqNotes" style="background:#0f172a;padding:12px;border-radius:8px;font-size:14px;color:#94a3b8;min-height:40px;"></div>
+                </div>
+                <div style="border-top:1px solid #1e293b;padding-top:16px;margin-top:8px;">
+                    <div class="form-group">
+                        <label class="form-label">Update Status</label>
+                        <select class="form-input" id="reqStatusUpdate">
+                            <option value="new">New</option>
+                            <option value="contacted">Contacted</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Internal Notes</label>
+                        <textarea class="form-input" id="reqInternalNotes" rows="2" placeholder="Add internal notes..."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('requestModal')">Close</button>
+                <button class="btn btn-primary" onclick="updateRequest()"><i class="fas fa-save"></i> Update</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Guest Modal -->
+    <div class="modal-overlay" id="contactModal">
+        <div class="modal" style="max-width:480px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-phone" style="color:#C9A861;margin-right:8px;"></i> Contact Guest</h3>
+                <button class="modal-close" onclick="closeModal('contactModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="text-align:center;padding:16px 0;margin-bottom:16px;">
+                    <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#C9A861,#b8954e);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:24px;color:#0f172a;font-weight:700;" id="contactAvatar"></div>
+                    <div style="font-size:16px;font-weight:600;" id="contactName"></div>
+                    <div style="font-size:14px;color:#C9A861;margin-top:4px;" id="contactEmail"></div>
+                    <div style="font-size:14px;color:#94a3b8;margin-top:2px;" id="contactPhone"></div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+                    <a id="contactEmailLink" class="btn btn-outline" style="text-align:center;text-decoration:none;"><i class="fas fa-envelope"></i> Email</a>
+                    <a id="contactPhoneLink" class="btn btn-outline" style="text-align:center;text-decoration:none;"><i class="fas fa-phone"></i> Call</a>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Quick Message</label>
+                    <textarea class="form-input" id="contactMessage" rows="3" placeholder="Type a quick message to send..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('contactModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="sendContact()"><i class="fas fa-paper-plane"></i> Send & Mark Contacted</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Alert -->
+    <div class="alert alert-success" id="successAlert" style="position:fixed;top:20px;right:20px;z-index:10001;min-width:300px;display:none;">
+        <i class="fas fa-check-circle"></i>
+        <span id="successMsg">Success!</span>
+    </div>
+
+    <script>
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function showSuccess(msg) {
+            const el = document.getElementById('successAlert');
+            document.getElementById('successMsg').textContent = msg;
+            el.style.display = 'flex';
+            setTimeout(() => { el.style.display = 'none'; }, 3000);
+        }
+
+        function viewRequest(name, email, room, checkin, checkout, status, source, date, notes) {
+            document.getElementById('reqName').textContent = name;
+            document.getElementById('reqEmail').textContent = email;
+            document.getElementById('reqRoom').textContent = room;
+            document.getElementById('reqCheckin').textContent = checkin;
+            document.getElementById('reqCheckout').textContent = checkout;
+            document.getElementById('reqSource').textContent = source;
+            document.getElementById('reqDate').textContent = date;
+            document.getElementById('reqNotes').textContent = notes || 'No special requests';
+            document.getElementById('reqStatusUpdate').value = status;
+            const statusLabels = { 'new': 'New', 'contacted': 'Contacted', 'confirmed': 'Confirmed', 'cancelled': 'Cancelled' };
+            document.getElementById('reqStatusDisplay').textContent = statusLabels[status] || status;
+            document.getElementById('reqInternalNotes').value = '';
+            openModal('requestModal');
+        }
+
+        function updateRequest() {
+            closeModal('requestModal');
+            showSuccess('Request updated successfully!');
+        }
+
+        function contactGuest(name, email, phone) {
+            document.getElementById('contactName').textContent = name;
+            document.getElementById('contactEmail').textContent = email;
+            document.getElementById('contactPhone').textContent = phone;
+            document.getElementById('contactAvatar').textContent = name.charAt(0);
+            document.getElementById('contactEmailLink').href = 'mailto:' + email;
+            document.getElementById('contactPhoneLink').href = 'tel:' + phone;
+            document.getElementById('contactMessage').value = '';
+            openModal('contactModal');
+        }
+
+        function sendContact() {
+            closeModal('contactModal');
+            showSuccess('Guest contacted & status updated!');
+        }
+    </script>
+</body>
+</html>

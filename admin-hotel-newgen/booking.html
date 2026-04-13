@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Configuration - Hotel 360 New Gen</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon"><i class="fas fa-gem"></i></div><div class="logo-text">Hotel 360 CMS</div></div></div>
+        <div class="property-selector"><div class="property-label">Current Hotel</div><div class="property-name">Boton Blue Hotel & Spa</div></div>
+        <nav class="nav-menu">
+            <div class="nav-section"><div class="nav-section-title">MAIN</div><a href="index.html" class="nav-item"><i class="fas fa-chart-pie"></i> Dashboard</a></div>
+            <div class="nav-section"><div class="nav-section-title">CONTENT</div>
+                <a href="rooms.html" class="nav-item"><i class="fas fa-bed"></i> Rooms</a>
+                <a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Services</a>
+                <a href="scenes.html" class="nav-item"><i class="fas fa-vr-cardboard"></i> Scenes & 360°</a>
+                <a href="promotions.html" class="nav-item"><i class="fas fa-tags"></i> Promotions</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Gallery</a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">BOOKING</div>
+                <a href="booking.html" class="nav-item active"><i class="fas fa-calendar-check"></i> Configuration</a>
+                <a href="requests.html" class="nav-item"><i class="fas fa-clipboard-list"></i> Requests <span class="nav-badge">3</span></a>
+            </div>
+            <div class="nav-section"><div class="nav-section-title">SYSTEM</div>
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="../hotel-newgen.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> View Website</a>
+                <a href="#" class="nav-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="header"><div class="header-left"><h1 class="page-title">Booking Configuration</h1></div><div class="header-right"><div class="user-menu"><div class="user-avatar">AD</div></div></div></header>
+
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Saved!</span></div>
+
+        <!-- Global Booking Mode -->
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title">Global Booking Mode</div>
+            </div>
+            <div class="card-body">
+                <p style="font-size:14px;color:#64748b;margin-bottom:20px;">Choose how the "Book Now" button works across your website. Individual rooms/services can override this setting.</p>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+                    <div class="mode-card selected" onclick="selectMode(this)">
+                        <h4><i class="fas fa-external-link-alt" style="color:#C9A861;"></i> External Link</h4>
+                        <p>Redirect guests to your existing booking platform (e.g., Book Direct Online)</p>
+                    </div>
+                    <div class="mode-card" onclick="selectMode(this)">
+                        <h4><i class="fas fa-window-maximize" style="color:#C9A861;"></i> In-Page Modal</h4>
+                        <p>Show a booking enquiry form right on the 360° page</p>
+                    </div>
+                    <div class="mode-card" onclick="selectMode(this)">
+                        <h4><i class="fas fa-code-branch" style="color:#C9A861;"></i> Both (Per-Item)</h4>
+                        <p>Choose external or modal for each room/service individually</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- External Link Config -->
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title">External Link Settings</div>
+            </div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Default Booking URL <span class="required">*</span></label>
+                        <input type="text" class="form-input" value="https://book-directonline.com/properties/botbluhotspadirect">
+                        <div class="form-help">This URL is used when guests click "Book Now"</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Open In</label>
+                        <select class="form-select">
+                            <option selected>New Tab (_blank)</option>
+                            <option>Same Tab (_self)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Config -->
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title">Modal Form Settings</div>
+            </div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Modal Title</label>
+                        <input type="text" class="form-input" value="Book Your Stay">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Button Label</label>
+                        <input type="text" class="form-input" value="Send Booking Request">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Success Message</label>
+                    <textarea class="form-textarea" rows="2">Thank you! We will contact you shortly to confirm your booking.</textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Form Fields</label>
+                    <div class="alert alert-info" style="margin-bottom:12px;">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Drag to reorder. Toggle required/optional for each field.</span>
+                    </div>
+                    <div class="service-item"><div class="service-info"><h4>Full Name</h4><div class="service-desc">Text field · Required</div></div><div style="display:flex;gap:8px;"><span class="status-badge published">Required</span><button class="btn btn-sm btn-outline" onclick="configField('Full Name','text','required')"><i class="fas fa-cog"></i></button></div></div>
+                    <div class="service-item"><div class="service-info"><h4>Email</h4><div class="service-desc">Email field · Required</div></div><div style="display:flex;gap:8px;"><span class="status-badge published">Required</span><button class="btn btn-sm btn-outline" onclick="configField('Email','email','required')"><i class="fas fa-cog"></i></button></div></div>
+                    <div class="service-item"><div class="service-info"><h4>Phone</h4><div class="service-desc">Phone field · Required</div></div><div style="display:flex;gap:8px;"><span class="status-badge published">Required</span><button class="btn btn-sm btn-outline" onclick="configField('Phone','phone','required')"><i class="fas fa-cog"></i></button></div></div>
+                    <div class="service-item"><div class="service-info"><h4>Check-in / Check-out</h4><div class="service-desc">Date range · Required</div></div><div style="display:flex;gap:8px;"><span class="status-badge published">Required</span><button class="btn btn-sm btn-outline" onclick="configField('Check-in / Check-out','daterange','required')"><i class="fas fa-cog"></i></button></div></div>
+                    <div class="service-item"><div class="service-info"><h4>Special Requests</h4><div class="service-desc">Textarea · Optional</div></div><div style="display:flex;gap:8px;"><span class="status-badge draft">Optional</span><button class="btn btn-sm btn-outline" onclick="configField('Special Requests','textarea','optional')"><i class="fas fa-cog"></i></button></div></div>
+                    <button class="btn btn-outline" style="margin-top:12px;" onclick="addField()"><i class="fas fa-plus"></i> Add Field</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Config -->
+        <div class="content-card">
+            <div class="card-header">
+                <div class="card-title">Notification Settings</div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="form-label">Notification Emails</label>
+                    <input type="text" class="form-input" value="booking@botonblue.com, manager@botonblue.com" placeholder="Comma-separated emails">
+                    <div class="form-help">Receive email when a new booking request is submitted</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Webhook URL (Optional)</label>
+                    <input type="text" class="form-input" placeholder="https://hooks.slack.com/... or Zalo webhook">
+                    <div class="form-help">Send notification to Slack, Zalo or custom webhook</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Auto-Reply</label>
+                    <div class="toggle-container">
+                        <label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+                        <span style="font-size:14px;color:#374151;">Send automatic confirmation email to guests</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:12px;">
+            <button class="btn btn-secondary">Reset</button>
+            <button class="btn btn-primary" onclick="saveConfig()"><i class="fas fa-save"></i> Save Configuration</button>
+        </div>
+    </main>
+
+    <script>
+        function logout(){if(confirm('Logout?'))window.location.href='../index.html';}
+        function selectMode(el){document.querySelectorAll('.mode-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');}
+        function saveConfig(){const a=document.getElementById('successAlert');a.classList.remove('hidden');document.getElementById('successMessage').textContent='Configuration saved!';setTimeout(()=>a.classList.add('hidden'),3000);}
+    </script>
+
+    <!-- Field Config Modal -->
+    <div class="modal-overlay" id="fieldConfigModal">
+        <div class="modal" style="max-width:480px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-cog" style="color:#C9A861;margin-right:8px;"></i> Field Configuration</h3>
+                <button class="modal-close" onclick="closeModal('fieldConfigModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Field Label</label>
+                    <input type="text" class="form-input" id="fieldLabel">
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                    <div class="form-group">
+                        <label class="form-label">Field Type</label>
+                        <select class="form-input" id="fieldType">
+                            <option value="text">Text</option>
+                            <option value="email">Email</option>
+                            <option value="phone">Phone</option>
+                            <option value="number">Number</option>
+                            <option value="daterange">Date Range</option>
+                            <option value="date">Single Date</option>
+                            <option value="select">Dropdown</option>
+                            <option value="textarea">Textarea</option>
+                            <option value="checkbox">Checkbox</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Required</label>
+                        <select class="form-input" id="fieldRequired">
+                            <option value="required">Required</option>
+                            <option value="optional">Optional</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Placeholder Text</label>
+                    <input type="text" class="form-input" id="fieldPlaceholder" placeholder="e.g. Enter your name...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Validation Pattern (optional)</label>
+                    <input type="text" class="form-input" id="fieldValidation" placeholder="Regex pattern">
+                    <small style="color:#64748b;">Leave empty for default validation</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('fieldConfigModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveFieldConfig()"><i class="fas fa-save"></i> Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Field Modal -->
+    <div class="modal-overlay" id="addFieldModal">
+        <div class="modal" style="max-width:480px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-plus" style="color:#C9A861;margin-right:8px;"></i> Add New Field</h3>
+                <button class="modal-close" onclick="closeModal('addFieldModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Field Label <span style="color:#ef4444;">*</span></label>
+                    <input type="text" class="form-input" id="newFieldLabel" placeholder="e.g. Number of Guests">
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                    <div class="form-group">
+                        <label class="form-label">Field Type</label>
+                        <select class="form-input" id="newFieldType">
+                            <option value="text">Text</option>
+                            <option value="email">Email</option>
+                            <option value="phone">Phone</option>
+                            <option value="number">Number</option>
+                            <option value="daterange">Date Range</option>
+                            <option value="date">Single Date</option>
+                            <option value="select">Dropdown</option>
+                            <option value="textarea">Textarea</option>
+                            <option value="checkbox">Checkbox</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Required</label>
+                        <select class="form-input" id="newFieldRequired">
+                            <option value="optional">Optional</option>
+                            <option value="required">Required</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Placeholder</label>
+                    <input type="text" class="form-input" id="newFieldPlaceholder" placeholder="e.g. Enter number of guests">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addFieldModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveNewField()"><i class="fas fa-plus"></i> Add Field</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+        function configField(label, type, required) {
+            document.getElementById('fieldLabel').value = label;
+            document.getElementById('fieldType').value = type;
+            document.getElementById('fieldRequired').value = required;
+            document.getElementById('fieldPlaceholder').value = '';
+            document.getElementById('fieldValidation').value = '';
+            openModal('fieldConfigModal');
+        }
+
+        function saveFieldConfig() {
+            closeModal('fieldConfigModal');
+            const a = document.getElementById('successAlert');
+            a.classList.remove('hidden');
+            document.getElementById('successMessage').textContent = 'Field configuration saved!';
+            setTimeout(() => a.classList.add('hidden'), 3000);
+        }
+
+        function addField() {
+            document.getElementById('newFieldLabel').value = '';
+            document.getElementById('newFieldType').value = 'text';
+            document.getElementById('newFieldRequired').value = 'optional';
+            document.getElementById('newFieldPlaceholder').value = '';
+            openModal('addFieldModal');
+        }
+
+        function saveNewField() {
+            const label = document.getElementById('newFieldLabel').value.trim();
+            if (!label) { alert('Please enter a field label'); return; }
+            closeModal('addFieldModal');
+            const a = document.getElementById('successAlert');
+            a.classList.remove('hidden');
+            document.getElementById('successMessage').textContent = 'Field "' + label + '" added!';
+            setTimeout(() => a.classList.add('hidden'), 3000);
+        }
+    </script>
+</body>
+</html>

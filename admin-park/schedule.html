@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Lich Bieu & Su Kien</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header"><div class="logo"><div class="logo-icon"><i class="fas fa-ticket-alt"></i></div><div class="logo-text">Adventure Park</div></div></div>
+        <div class="property-selector"><div class="property-label">Khu Vui Choi</div><div class="property-name">Adventure Park Admin</div></div>
+        <nav class="nav-menu">
+            <div class="nav-section-title">TONG QUAN</div>
+            <div class="nav-section">
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="home-about.html" class="nav-item"><i class="fas fa-info-circle"></i> Trang Chu & Gioi Thieu</a>
+            </div>
+            <div class="nav-section-title">DIEM THAM QUAN</div>
+            <div class="nav-section">
+                <a href="map.html" class="nav-item"><i class="fas fa-map"></i> Ban Do & Tham Quan</a>
+                <a href="attractions.html" class="nav-item"><i class="fas fa-map-marked-alt"></i> Diem Tham Quan</a>
+                <a href="games.html" class="nav-item"><i class="fas fa-gamepad"></i> Tro Choi & Hoat Dong</a>
+            </div>
+            <div class="nav-section-title">DICH VU</div>
+            <div class="nav-section">
+                <a href="tickets.html" class="nav-item"><i class="fas fa-ticket-alt"></i> Loai Ve & Gia</a>
+                <a href="schedule.html" class="nav-item active"><i class="fas fa-calendar-alt"></i> Lich Bieu & Su Kien</a>
+                <a href="food.html" class="nav-item"><i class="fas fa-utensils"></i> An Uong & Dich Vu</a>
+                <a href="services.html" class="nav-item"><i class="fas fa-concierge-bell"></i> Dich Vu & Ho Tro</a>
+            </div>
+            <div class="nav-section-title">THONG TIN</div>
+            <div class="nav-section">
+                <a href="info.html" class="nav-item"><i class="fas fa-book"></i> Thong Tin Tham Quan</a>
+                <a href="contact.html" class="nav-item"><i class="fas fa-envelope"></i> Lien He</a>
+                <a href="careers.html" class="nav-item"><i class="fas fa-briefcase"></i> Tuyen Dung</a>
+                <a href="promotion.html" class="nav-item"><i class="fas fa-gift"></i> Uu Dai</a>
+                <a href="gallery.html" class="nav-item"><i class="fas fa-images"></i> Thu Vien</a>
+            </div>
+            <div class="nav-section-title">HE THONG</div>
+            <div class="nav-section">
+                <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i> Cai Dat</a>
+                <a href="../park.html" class="nav-item" target="_blank"><i class="fas fa-eye"></i> Xem Trang</a>
+                <a href="../index.html" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> Thoat</a>
+            </div>
+        </nav>
+    </div>
+    <header class="header"><div class="header-left"><h1 class="page-title">Quan Ly Su Kien</h1></div><div class="header-right"><button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Them Su Kien</button></div></header>
+    <main class="main-content">
+        <div class="alert alert-success hidden" id="successAlert"><i class="fas fa-check-circle"></i><span id="successMessage">Thanh cong!</span></div>
+        <div class="auto-sort-hint"><i class="fas fa-sort-amount-down"></i> Tu dong sap xep theo thoi gian: Dang dien ra → Sap dien ra → Da ket thuc</div>
+        <div class="filter-bar">
+            <select class="form-select" id="typeFilter" onchange="render()">
+                <option value="">Tat ca loai</option>
+                <option value="show">Bieu dien</option>
+                <option value="event">Su kien</option>
+                <option value="workshop">Workshop</option>
+            </select>
+            <select class="form-select" id="statusFilter" onchange="render()">
+                <option value="">Tat ca trang thai</option>
+                <option value="ongoing">Dang dien ra</option>
+                <option value="upcoming">Sap dien ra</option>
+                <option value="ended">Da ket thuc</option>
+            </select>
+        </div>
+        <div class="content-card"><div class="card-body"><div id="scheduleList"></div></div></div>
+    </main>
+    <div class="modal" id="scheduleModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3 id="modalTitle">Them Su Kien</h3><button class="close-btn" onclick="closeModal()">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Ten su kien *</label><input type="text" class="form-input" id="eventName" placeholder="VD: Halloween Festival"></div>
+                <div class="form-group"><label class="form-label">Loai</label><select class="form-input" id="eventType"><option value="show">Bieu dien</option><option value="event">Su kien</option><option value="workshop">Workshop</option></select></div>
+                <div class="form-group"><label class="form-label">Mo ta</label><textarea class="form-textarea" id="eventDesc" rows="2"></textarea></div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Ngay bat dau</label><input type="date" class="form-input" id="eventStartDate"></div>
+                    <div class="form-group"><label class="form-label">Ngay ket thuc</label><input type="date" class="form-input" id="eventEndDate"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Gio bat dau</label><input type="time" class="form-input" id="eventStartTime"></div>
+                    <div class="form-group"><label class="form-label">Gio ket thuc</label><input type="time" class="form-input" id="eventEndTime"></div>
+                </div>
+                <div class="form-group"><label class="form-label">Dia diem</label><input type="text" class="form-input" id="eventLocation" placeholder="VD: San khau chinh"></div>
+                <div class="form-group"><label class="form-label">Badge</label><input type="text" class="form-input" id="eventBadge" placeholder="VD: Sap dien ra, Hot"></div>
+                <div class="form-group"><label class="form-label">Link hinh anh</label><input type="url" class="form-input" id="eventImage" placeholder="https://..." oninput="previewImage(this.value,'eventPreview')"></div>
+                <div class="image-preview" id="eventPreview"></div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal()">Huy</button><button class="btn btn-primary" onclick="saveEvent()">Luu</button></div>
+        </div>
+    </div>
+    <style>
+        .auto-sort-hint{background:#e0f2fe;border:1px solid #7dd3fc;border-radius:8px;padding:12px 16px;margin-bottom:20px;color:#0369a1;font-size:14px;display:flex;align-items:center;gap:10px;}
+        .filter-bar{margin-bottom:16px;display:flex;gap:12px;flex-wrap:wrap;}
+        .form-select{padding:10px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;min-width:180px;}
+        .content-card{background:white;border-radius:12px;border:1px solid #e2e8f0;}
+        .card-body{padding:20px 24px;}
+        .image-preview{margin:12px 0;border-radius:8px;overflow:hidden;max-height:150px;}
+        .image-preview img{width:100%;max-height:150px;object-fit:cover;}
+        .item-list{display:flex;flex-direction:column;gap:8px;}
+        .item-row{display:flex;align-items:center;gap:16px;padding:16px;background:#f8fafc;border-radius:12px;border:2px solid #e2e8f0;transition:all .2s;}
+        .item-row:hover{border-color:#16A34A;box-shadow:0 4px 12px rgba(0,0,0,.08);}
+        .item-row.ended{background:#f1f5f9;opacity:0.7;border-color:#cbd5e1;}
+        .item-row.ended:hover{border-color:#94a3b8;}
+        .item-row.ongoing{background:#ecfdf5;border-color:#86efac;}
+        .item-status-badge{min-width:100px;text-align:center;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;}
+        .status-ongoing{background:#dcfce7;color:#16a34a;}
+        .status-upcoming{background:#dbeafe;color:#1d4ed8;}
+        .status-ended{background:#e2e8f0;color:#64748b;}
+        .item-order{background:linear-gradient(135deg,#16A34A,#22C55E);color:#fff;font-weight:700;font-size:14px;min-width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+        .item-row.ended .item-order{background:linear-gradient(135deg,#94a3b8,#cbd5e1);}
+        .item-image{width:100px;height:70px;border-radius:8px;overflow:hidden;flex-shrink:0;background:#f1f5f9;display:flex;align-items:center;justify-content:center;}
+        .item-image img{width:100%;height:100%;object-fit:cover;}
+        .item-image i{font-size:28px;color:#16A34A;}
+        .item-info{flex:1;min-width:0;}
+        .item-name{font-size:16px;font-weight:600;color:#1e293b;margin-bottom:4px;display:flex;align-items:center;gap:8px;}
+        .item-badge{background:#fef3c7;color:#b45309;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;}
+        .item-desc{font-size:13px;color:#64748b;margin-bottom:6px;}
+        .item-meta{display:flex;gap:16px;font-size:12px;color:#94a3b8;flex-wrap:wrap;}
+        .item-meta span{display:flex;align-items:center;gap:4px;}
+        .item-meta i{color:#16A34A;}
+        .item-row.ended .item-meta i{color:#94a3b8;}
+        .item-type{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+        .type-show{background:#dbeafe;color:#1d4ed8;}
+        .type-event{background:#fce7f3;color:#be185d;}
+        .type-workshop{background:#fef3c7;color:#b45309;}
+        .item-actions{display:flex;gap:8px;}
+        .btn-icon{width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+        .btn-edit{background:#dbeafe;color:#1d4ed8;}
+        .btn-delete{background:#fee2e2;color:#dc2626;}
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;}
+        .modal.show{display:flex;}
+        .modal-content{background:white;border-radius:16px;width:100%;max-width:550px;max-height:90vh;overflow-y:auto;margin:20px;}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid #e2e8f0;}
+        .modal-header h3{font-size:18px;font-weight:600;}
+        .close-btn{background:none;border:none;font-size:24px;cursor:pointer;color:#64748b;}
+        .modal-body{padding:24px;}
+        .modal-footer{display:flex;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid #e2e8f0;}
+        .form-group{margin-bottom:16px;}
+        .form-row{display:flex;gap:16px;}
+        .form-row .form-group{flex:1;}
+        .form-label{display:block;font-size:14px;font-weight:500;color:#374151;margin-bottom:6px;}
+        .form-input,.form-textarea{width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;box-sizing:border-box;}
+        .form-input:focus,.form-textarea:focus{outline:none;border-color:#16A34A;}
+        .btn{padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;}
+        .btn-primary{background:#16A34A;color:white;}
+        .btn-secondary{background:#f1f5f9;color:#475569;}
+        .alert{padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+        .alert-success{background:#f0fdf4;color:#166534;}
+        .alert.hidden{display:none;}
+    </style>
+    <script>
+        var scheduleData=[
+            {id:1,name:'Halloween Festival',type:'event',desc:'Le hoi Halloween lon nhat mien Nam',startDate:'2026-10-25',endDate:'2026-10-31',startTime:'18:00',endTime:'22:00',location:'Toan bo cong vien',badge:'Hot',image:'https://images.unsplash.com/photo-1509557965875-b88c97052f0e?w=400'},
+            {id:2,name:'Water Splash Show',type:'show',desc:'Bieu dien nhac nuoc hoanh trang',startDate:'2026-02-07',endDate:'2026-12-31',startTime:'19:00',endTime:'19:30',location:'San khau nuoc',badge:'',image:'https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?w=400'},
+            {id:3,name:'Magic Workshop',type:'workshop',desc:'Hoc ao thuat cung nghe si chuyen nghiep',startDate:'2026-02-01',endDate:'2026-02-05',startTime:'14:00',endTime:'15:00',location:'Khu hoat dong',badge:'',image:'https://images.unsplash.com/photo-1503095396549-807759245b35?w=400'},
+            {id:4,name:'Parade',type:'show',desc:'Dieu hanh nhac vu voi nhan vat hoat hinh',startDate:'2026-02-07',endDate:'2026-12-31',startTime:'16:00',endTime:'16:45',location:'Duong chinh',badge:'',image:'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=400'},
+            {id:5,name:'Tet Festival 2026',type:'event',desc:'Hoi xuan chao nam moi',startDate:'2026-02-10',endDate:'2026-02-15',startTime:'09:00',endTime:'21:00',location:'Quang truong chinh',badge:'Sap dien ra',image:'https://images.unsplash.com/photo-1548192746-dd526f154ed9?w=400'}
+        ];
+        var typeNames={'show':'Bieu dien','event':'Su kien','workshop':'Workshop'};
+        var statusNames={'ongoing':'Dang dien ra','upcoming':'Sap dien ra','ended':'Da ket thuc'};
+        var editingId=null;
+
+        function getToday(){
+            return new Date().toISOString().split('T')[0];
+        }
+
+        function getEventStatus(event){
+            var today=getToday();
+            var start=event.startDate||today;
+            var end=event.endDate||event.startDate||today;
+            if(today>end)return 'ended';
+            if(today>=start&&today<=end)return 'ongoing';
+            return 'upcoming';
+        }
+
+        function sortEvents(events){
+            return events.sort(function(a,b){
+                var statusA=getEventStatus(a);
+                var statusB=getEventStatus(b);
+                var statusOrder={'ongoing':0,'upcoming':1,'ended':2};
+                if(statusOrder[statusA]!==statusOrder[statusB]){
+                    return statusOrder[statusA]-statusOrder[statusB];
+                }
+                var endA=a.endDate||a.startDate||'9999-12-31';
+                var endB=b.endDate||b.startDate||'9999-12-31';
+                if(statusA==='ended'){
+                    return endB.localeCompare(endA);
+                }
+                return endA.localeCompare(endB);
+            });
+        }
+
+        function render(){
+            var typeFilter=document.getElementById('typeFilter').value;
+            var statusFilter=document.getElementById('statusFilter').value;
+            var filtered=scheduleData.filter(function(s){
+                if(typeFilter&&s.type!==typeFilter)return false;
+                if(statusFilter&&getEventStatus(s)!==statusFilter)return false;
+                return true;
+            });
+            filtered=sortEvents(filtered);
+            var html='<div class="item-list">';
+            if(filtered.length===0){
+                html+='<div style="text-align:center;padding:40px;color:#64748b;"><i class="fas fa-calendar-times" style="font-size:48px;margin-bottom:16px;display:block;"></i>Khong co su kien nao</div>';
+            }
+            filtered.forEach(function(s,idx){
+                var status=getEventStatus(s);
+                var badgeHtml=s.badge?'<span class="item-badge">'+s.badge+'</span>':'';
+                var imageHtml=s.image?'<img src="'+s.image+'" onerror="this.parentElement.innerHTML=\'<i class=\\\'fas fa-calendar-alt\\\'></i>\'">':'<i class="fas fa-calendar-alt"></i>';
+                var dateText=s.startDate?(s.startDate+(s.endDate&&s.endDate!==s.startDate?' - '+s.endDate:'')):'Hang ngay';
+                var timeText=(s.startTime||'--:--')+' - '+(s.endTime||'--:--');
+                html+='<div class="item-row '+status+'" data-id="'+s.id+'">';
+                html+='<div class="item-order">#'+(idx+1)+'</div>';
+                html+='<div class="item-image">'+imageHtml+'</div>';
+                html+='<div class="item-info"><div class="item-name">'+s.name+' '+badgeHtml+'</div>';
+                html+='<div class="item-desc">'+s.desc+'</div>';
+                html+='<div class="item-meta"><span><i class="fas fa-calendar"></i> '+dateText+'</span><span><i class="fas fa-clock"></i> '+timeText+'</span><span><i class="fas fa-map-marker-alt"></i> '+s.location+'</span></div></div>';
+                html+='<span class="item-status-badge status-'+status+'">'+statusNames[status]+'</span>';
+                html+='<span class="item-type type-'+s.type+'">'+typeNames[s.type]+'</span>';
+                html+='<div class="item-actions"><button class="btn-icon btn-edit" onclick="openModal('+s.id+')"><i class="fas fa-edit"></i></button><button class="btn-icon btn-delete" onclick="deleteEvent('+s.id+')"><i class="fas fa-trash"></i></button></div></div>';
+            });
+            html+='</div>';
+            document.getElementById('scheduleList').innerHTML=html;
+        }
+
+        function previewImage(url,targetId){var el=document.getElementById(targetId);if(url){el.innerHTML='<img src="'+url+'" onerror="this.parentElement.innerHTML=\'\'">';}else{el.innerHTML='';}}
+        function openModal(id){
+            editingId=id||null;
+            document.getElementById('modalTitle').textContent=id?'Sua Su Kien':'Them Su Kien';
+            if(id){var s=scheduleData.find(function(x){return x.id===id;});if(s){document.getElementById('eventName').value=s.name;document.getElementById('eventType').value=s.type;document.getElementById('eventDesc').value=s.desc;document.getElementById('eventStartDate').value=s.startDate;document.getElementById('eventEndDate').value=s.endDate;document.getElementById('eventStartTime').value=s.startTime;document.getElementById('eventEndTime').value=s.endTime;document.getElementById('eventLocation').value=s.location;document.getElementById('eventBadge').value=s.badge;document.getElementById('eventImage').value=s.image||'';previewImage(s.image,'eventPreview');}}
+            else{['eventName','eventDesc','eventStartDate','eventEndDate','eventStartTime','eventEndTime','eventLocation','eventBadge','eventImage'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('eventType').value='show';document.getElementById('eventPreview').innerHTML='';}
+            document.getElementById('scheduleModal').classList.add('show');
+        }
+        function closeModal(){document.getElementById('scheduleModal').classList.remove('show');}
+        function saveEvent(){
+            var name=document.getElementById('eventName').value.trim();
+            if(!name){alert('Vui long nhap ten su kien!');return;}
+            if(editingId){var s=scheduleData.find(function(x){return x.id===editingId;});if(s){s.name=name;s.type=document.getElementById('eventType').value;s.desc=document.getElementById('eventDesc').value.trim();s.startDate=document.getElementById('eventStartDate').value;s.endDate=document.getElementById('eventEndDate').value;s.startTime=document.getElementById('eventStartTime').value;s.endTime=document.getElementById('eventEndTime').value;s.location=document.getElementById('eventLocation').value.trim();s.badge=document.getElementById('eventBadge').value.trim();s.image=document.getElementById('eventImage').value.trim();}}
+            else{scheduleData.push({id:Date.now(),name:name,type:document.getElementById('eventType').value,desc:document.getElementById('eventDesc').value.trim(),startDate:document.getElementById('eventStartDate').value,endDate:document.getElementById('eventEndDate').value,startTime:document.getElementById('eventStartTime').value,endTime:document.getElementById('eventEndTime').value,location:document.getElementById('eventLocation').value.trim(),badge:document.getElementById('eventBadge').value.trim(),image:document.getElementById('eventImage').value.trim()});}
+            closeModal();render();showSuccess(editingId?'Da cap nhat!':'Da them su kien!');
+        }
+        function deleteEvent(id){if(!confirm('Xoa su kien nay?'))return;scheduleData=scheduleData.filter(function(s){return s.id!==id;});render();showSuccess('Da xoa!');}
+        function showSuccess(msg){var a=document.getElementById('successAlert');document.getElementById('successMessage').textContent=msg;a.classList.remove('hidden');setTimeout(function(){a.classList.add('hidden');},2000);}
+        render();
+    </script>
+</body>
+</html>
